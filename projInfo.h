@@ -8,12 +8,12 @@
  uint8_t __attribute__ ((progmem)) \
    header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/59-reallyCommon2 ";
  uint8_t __attribute__ ((progmem)) \
-   header1[] = " Wed Dec 11 20:43:10 PST 2013 ";
+   header1[] = " Wed Dec 11 22:01:40 PST 2013 ";
  uint8_t __attribute__ ((progmem)) \
    headerOpt[] = " WDT_DIS=TRUE ";
 #else //projInfo Shortened
  uint8_t __attribute__ ((progmem)) \
-   header[] = "LCDdirectLVDS59 2013-12-11 20:43:10";
+   header[] = "LCDdirectLVDS59 2013-12-11 22:01:40";
 #endif
 
 //For internal use...
