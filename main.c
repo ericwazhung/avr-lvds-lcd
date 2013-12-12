@@ -17,11 +17,11 @@
 
 
 //#define SEG_HFM		TRUE
-//#define SEG_QUESTION	TRUE
+#define SEG_QUESTION	TRUE
 
 // When this isn't true, remove ADC stuff from the makefile
 // to save codespace
-#define SEG_RACER 	TRUE
+//#define SEG_RACER 	TRUE
 
 
 
@@ -1989,6 +1989,9 @@ SIGNAL(TIMER0_COMPA_vect)
 	while(TCNT0L != 7){};
 	//This won't work... who knows how many cycles interrupt-entry will be
 	//Above should fix that...
+	//I believe this was only so I'd have something for the 'scope to
+	// trigger on... 
+#error "These shouldn't be used anymore, since PB2 is GREEN"
 	setpinPORT(PB2, PORTB);
 	clrpinPORT(PB2, PORTB);
 #endif
@@ -4113,6 +4116,7 @@ int main(void)
 	segTerminate();
 */
 
+/* I Think these were LONG AGO when Green and Red weren't implemented
 	//For Green...
 	// Possibly later to be reimplemented on PWM, but deadTime might inhibit
 	setoutPORT(PA0, PORTA);
@@ -4120,6 +4124,7 @@ int main(void)
 	//Red:
 	setoutPORT(PA2, PORTA);
 	setoutPORT(PA3, PORTA);
+*/
 
 
 	// MUCH Of this is outside the screen...

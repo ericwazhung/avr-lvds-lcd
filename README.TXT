@@ -15,11 +15,10 @@ use my work.
 I'm EricWazHung [at] gmail dotcom
 
 
-----------
-
 (I hate this legal bullshit, people should just have basic human decency
  then none of this would be necessary.)
 
+The End Of the Legalities
 ----------
 
 
@@ -93,3 +92,71 @@ happen on others' systems, though I did my best to make it distributable).
 I look forward to hearing others' experiences!
 
 (See also the README file in _commonCode.../lcdStuff/...)
+
+	------
+Give it a few seconds (several in fact) to "boot". I don't know why,
+because code-wise I think it starts sending signals immediately...
+The screen usually appears black with a single row of white at the top
+until the first frame syncs up.
+
+------
+
+Another Note: I have two of these Samsung displays... I've had *both* of
+them working at one time or another. But doing some testing for this
+distribution, one is quite flakey. It seems it's not syncing correctly with
+the LVDS data-bits. The effect-of-which is what I'd call "snow" appearing
+pretty regularly across the image. The image displays and syncs, but the
+colors are coming through flakily. Not sure what's wrong, but switching to
+the other display and it works perfectly.
+Thing is, these data-rates are *horrendously* slow compared to the display
+specifications... It's quite plausible (in fact *likely*) that I'm right on
+the threshold of the rates the LVDS chipsets in these displays can sync 
+with (certainly *way* below their ratings). We're not talking about syncing
+in terms of the display's syncing with the image-data, we're talking about
+each packet of (pixel) data syncing up with the receiver.
+
+So here's a bit of the technicalities in case you're wondering, as far as
+what I think might be happening (I've documented similar elsewhere).
+There's a PLL (clock regenerator) in the LVDS-receiver.... it takes the
+actual "Clock" signal, which is 1/7th of the bit-rate, and bumps that
+signal up by 7 in order to know when to sample each bit. These circuits
+usually have lower frequency limits... (How do they multiply a frequency?
+Do they use capacitors?) Anyways, the result is it seems it's sampling the
+bits at the wrong times. The effect is like a baud-rate that's not quite
+right... the first few bits would come through properly, but the later bits
+might get sampled at the wrong time.
+So, why would the display have worked previously, and show snow now?
+Well, it's winter-time... maybe it's a thermal thing. Or maybe I'm just
+crazy and the thing was never tested.
+
+Anyways, it's just a theory.
+
+Actually, another theory might be the new circuit-board. I might not have
+tested this board with both displays, and the main display I'd been working
+with broke off the connector, so I had to try the less-tested display first
+upon revisiting this project... The new circuit-board totally disregards
+some of my notes elsewhere: To use gates within the *same* XOR chip for
+both the negative and positive inputs of each channel, in order to avoid
+potential speed-differences between chips.
+(In fact, I built this board with a 74LS00 and 74LS32, NAND and OR, wired 
+to act as an inverter and a buffer... because I have them in much greater
+supply. I tried swapping them with my trusty XORs and the effect was the 
+same... Maybe this other display is less sensitive to misalignment between
+the positive and negative inputs... or the resistance in the display is
+different, or a million other things. I haven't scoped it.)
+
+As it is, the code is pretty limited to the current state-of-the-art...
+I haven't messed with lower resolutions (which equate to faster-bit-rates
+and faster refresh-rates) for quite some time. The code's in there, I
+think, but it's burried so deep it'll take me some time to dig it up.
+
+That said... Don't give up if your display doesn't work right off the bat.
+Likewise, starting with the current state of the code is a bit of a crap-
+shoot if you're not working with the exact same display. When starting
+with a new display, I usually start with "DE_BLUE" which is one of the
+simplest LVDS signals for the display to receive (displays a full blue
+screen, if it's syncing correctly). Then "BLUE_VERT_BAR" and go on from
+there. Again, it's been a while.
+
+If you have identical equipment, you might be lucky with the code 
+as-configured. Or you might get some ugliness as I just experienced.

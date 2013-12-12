@@ -123,6 +123,14 @@ HEART_DMS = FALSE
 #override heartBeat's preferred 4s choice...
 #CFLAGS += -D'_WDTO_USER_=WDTO_1S'
 CFLAGS += -D'HEARTPIN_HARDCODED=TRUE'
+
+#This pinout is... questionable.
+# The typical heart-pin is MISO, since the slave device is capable of 
+# driving up to 40mA (could easily drive an LED AND the programmer's input)
+# But, MISO is an OC1x pin, used by the LCD, in this case...
+# Since HEART_REMOVED is true, above, this doesn't matter either way
+# BUT, it means we can't use the typical heart-pin as a momentary-low-input
+# In other words, this pin is basically unused. See pinout.h
 CFLAGS += -D'HEART_PINNUM=PA3'
 CFLAGS += -D'HEART_PINPORT=PORTA'
 CFLAGS += -D'HEART_LEDCONNECTION=LED_TIED_HIGH'
