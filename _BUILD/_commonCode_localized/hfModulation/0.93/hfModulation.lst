@@ -1,0 +1,394 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 1
+
+
+   1               		.file	"hfModulation.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+   9               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/59-reallyCommon2/",100,0,2,.Ltext0
+  10               		.stabs	"_commonCode_localized/hfModulation/0.93/hfModulation.c",100,0,2,.Ltext0
+  11               		.text
+  12               	.Ltext0:
+  13               		.stabs	"gcc2_compiled.",60,0,0,0
+  14               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,1,0
+  15               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,1,0
+  16               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,1,0
+  17               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,1,0
+  18               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,1,0
+  19               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,1,
+  20               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,1,0
+  21               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,1,0
+  22               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,1,0
+  23               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,1,0
+  24               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,1,0
+  25               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,1,0
+  26               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,1,0
+  27               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,1,0
+  28               		.stabs	"void:t(0,15)=(0,15)",128,0,1,0
+  29               		.stabs	"_commonCode_localized/hfModulation/0.93/hfModulation.h",130,0,0,0
+  30               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/io.h",130,0,0,0
+  31               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/sfr_defs.h",130,0,0,0
+  32               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/inttypes.h",130,0,0,0
+  33               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/stdint.h",130,0,0,0
+  34               		.stabs	"int8_t:t(5,1)=(0,10)",128,0,121,0
+  35               		.stabs	"uint8_t:t(5,2)=(0,11)",128,0,122,0
+  36               		.stabs	"int16_t:t(5,3)=(0,1)",128,0,123,0
+  37               		.stabs	"uint16_t:t(5,4)=(0,4)",128,0,124,0
+  38               		.stabs	"int32_t:t(5,5)=(0,3)",128,0,125,0
+  39               		.stabs	"uint32_t:t(5,6)=(0,5)",128,0,126,0
+  40               		.stabs	"int64_t:t(5,7)=(0,6)",128,0,128,0
+  41               		.stabs	"uint64_t:t(5,8)=(0,7)",128,0,129,0
+  42               		.stabs	"intptr_t:t(5,9)=(5,3)",128,0,142,0
+  43               		.stabs	"uintptr_t:t(5,10)=(5,4)",128,0,147,0
+  44               		.stabs	"int_least8_t:t(5,11)=(5,1)",128,0,159,0
+  45               		.stabs	"uint_least8_t:t(5,12)=(5,2)",128,0,164,0
+  46               		.stabs	"int_least16_t:t(5,13)=(5,3)",128,0,169,0
+  47               		.stabs	"uint_least16_t:t(5,14)=(5,4)",128,0,174,0
+  48               		.stabs	"int_least32_t:t(5,15)=(5,5)",128,0,179,0
+  49               		.stabs	"uint_least32_t:t(5,16)=(5,6)",128,0,184,0
+  50               		.stabs	"int_least64_t:t(5,17)=(5,7)",128,0,192,0
+  51               		.stabs	"uint_least64_t:t(5,18)=(5,8)",128,0,199,0
+  52               		.stabs	"int_fast8_t:t(5,19)=(5,1)",128,0,213,0
+  53               		.stabs	"uint_fast8_t:t(5,20)=(5,2)",128,0,218,0
+  54               		.stabs	"int_fast16_t:t(5,21)=(5,3)",128,0,223,0
+  55               		.stabs	"uint_fast16_t:t(5,22)=(5,4)",128,0,228,0
+  56               		.stabs	"int_fast32_t:t(5,23)=(5,5)",128,0,233,0
+  57               		.stabs	"uint_fast32_t:t(5,24)=(5,6)",128,0,238,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 2
+
+
+  58               		.stabs	"int_fast64_t:t(5,25)=(5,7)",128,0,246,0
+  59               		.stabs	"uint_fast64_t:t(5,26)=(5,8)",128,0,253,0
+  60               		.stabs	"intmax_t:t(5,27)=(5,7)",128,0,273,0
+  61               		.stabs	"uintmax_t:t(5,28)=(5,8)",128,0,278,0
+  62               		.stabn	162,0,0,0
+  63               		.stabs	"int_farptr_t:t(4,1)=(5,5)",128,0,77,0
+  64               		.stabs	"uint_farptr_t:t(4,2)=(5,6)",128,0,81,0
+  65               		.stabn	162,0,0,0
+  66               		.stabn	162,0,0,0
+  67               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/fuse.h",130,0,0,0
+  68               		.stabs	"__fuse_t:t(6,1)=(6,2)=s3low:(0,11),0,8;high:(0,11),8,8;extended:(0,11),16,8;;",128,0,244,0
+  69               		.stabn	162,0,0,0
+  70               		.stabn	162,0,0,0
+  71               		.stabs	"hfm_t:t(1,1)=(1,2)=B(1,3)=s6runningSum:(5,4),0,16;desiredSum:(5,4),16,16;maxPower:(5,2),32
+  72               		.stabn	162,0,0,0
+  73               		.stabs	"hfm_setup:F(0,15)",36,0,37,hfm_setup
+  74               		.stabs	"modulator:P(0,16)=*(1,2)",64,0,37,30
+  75               		.stabs	"power:P(5,2)",64,0,37,22
+  76               		.stabs	"maxPower:P(5,2)",64,0,37,20
+  77               	.global	hfm_setup
+  78               		.type	hfm_setup, @function
+  79               	hfm_setup:
+  80               		.stabd	46,0,0
+   1:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //high frequency modulation .92
+   2:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+   3:_commonCode_localized/hfModulation/0.93/hfModulation.c **** #include "hfModulation.h"
+   4:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+   5:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //OLD:100% = 255, 0% = 0...
+   6:_commonCode_localized/hfModulation/0.93/hfModulation.c **** ///volatile uint8_t  newDesired = 0;
+   7:_commonCode_localized/hfModulation/0.93/hfModulation.c **** // 100% = maxPower, 0% = 0... 
+   8:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+   9:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  10:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  11:_commonCode_localized/hfModulation/0.93/hfModulation.c **** /* Basic algorithm concept:
+  12:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *	///increment numSteps (no longer necessary)
+  13:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  * 
+  14:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *	- if the desired value is equal to the current average
+  15:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- restart (repeat the same pattern again, the overall average will then be the same...)
+  16:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- numSteps = 0
+  17:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- runningSum = 0
+  18:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  * 
+  19:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  * 	- if the desired (desiredSum) value is greater than the current "average" (runningSum) value  /
+  20:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		///- Increment numSteps
+  21:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- turn on the output
+  22:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- add the maximum value to the sum to be averaged (runningSum)...
+  23:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *  - if the desired value is less than the current average
+  24:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		///- Increment numSteps
+  25:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- turn off the output
+  26:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *		- add nothing to the runningSum
+  27:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *
+  28:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *
+  29:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *	--CAN BE OPTIMIZED for no divisions and no multiplications (?!)
+  30:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *	
+  31:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  *	--NOT PERFECTLY ACCURATE unless called by timer interrupts...
+  32:_commonCode_localized/hfModulation/0.93/hfModulation.c ****  */
+  33:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  34:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //Mainly just for setting up the maxPower (divisor)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 3
+
+
+  35:_commonCode_localized/hfModulation/0.93/hfModulation.c **** // [can] use hfm_setPower otherwise...
+  36:_commonCode_localized/hfModulation/0.93/hfModulation.c **** // can't tell how to get away without using hfm_setup once
+  37:_commonCode_localized/hfModulation/0.93/hfModulation.c **** void hfm_setup(hfm_t *modulator, uint8_t power, uint8_t maxPower)
+  38:_commonCode_localized/hfModulation/0.93/hfModulation.c **** {
+  81               		.stabn	68,0,38,.LM0-.LFBB1
+  82               	.LM0:
+  83               	.LFBB1:
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86 0000 FC01      		movw r30,r24
+  39:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	modulator->maxPower = maxPower;
+  87               		.stabn	68,0,39,.LM1-.LFBB1
+  88               	.LM1:
+  89 0002 4483      		std Z+4,r20
+  90               	.LBB4:
+  91               	.LBB5:
+  40:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	hfm_setPower(modulator, power);
+  41:_commonCode_localized/hfModulation/0.93/hfModulation.c **** }
+  42:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  43:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //For the most part, an hfm will have the same divisor all the time... (255)
+  44:_commonCode_localized/hfModulation/0.93/hfModulation.c **** // This needs to be set, initially! 
+  45:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //   either init it in the hfm variable declaration
+  46:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //   or use hfm_setup (ideal)
+  47:_commonCode_localized/hfModulation/0.93/hfModulation.c **** // however, sometimes it needs to be variable, thus hfm_setup (above)
+  48:_commonCode_localized/hfModulation/0.93/hfModulation.c **** void hfm_setPower(hfm_t	*modulator, uint8_t power)
+  49:_commonCode_localized/hfModulation/0.93/hfModulation.c **** {
+  50:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//Don't allow power values > 1, otherwise who knows what'll happen...
+  51:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//(This is probably unnecessary, but whatev)
+  52:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//It's not, actually, if power's greater than maxPower, the values never reset
+  53:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	// This is trouble, e.g. in heartbeat, where modulator.power is read
+  54:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	if(power <= (modulator->maxPower))
+  92               		.stabn	68,0,54,.LM2-.LFBB1
+  93               	.LM2:
+  94 0004 8481      		ldd r24,Z+4
+  95 0006 8617      		cp r24,r22
+  96 0008 00F0      		brlo .L2
+  55:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->power = power;
+  97               		.stabn	68,0,55,.LM3-.LFBB1
+  98               	.LM3:
+  99 000a 6583      		std Z+5,r22
+ 100 000c 00C0      		rjmp .L3
+ 101               	.L2:
+  56:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	else
+  57:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->power = modulator->maxPower;
+ 102               		.stabn	68,0,57,.LM4-.LFBB1
+ 103               	.LM4:
+ 104 000e 8481      		ldd r24,Z+4
+ 105 0010 8583      		std Z+5,r24
+ 106               	.L3:
+  58:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		
+  59:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //	modulator->stepNumber = 0;
+  60:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	modulator->runningSum = 0;
+ 107               		.stabn	68,0,60,.LM5-.LFBB1
+ 108               	.LM5:
+ 109 0012 1182      		std Z+1,__zero_reg__
+ 110 0014 1082      		st Z,__zero_reg__
+  61:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	modulator->desiredSum = 0;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 4
+
+
+ 111               		.stabn	68,0,61,.LM6-.LFBB1
+ 112               	.LM6:
+ 113 0016 1382      		std Z+3,__zero_reg__
+ 114 0018 1282      		std Z+2,__zero_reg__
+ 115               	/* epilogue start */
+ 116               	.LBE5:
+ 117               	.LBE4:
+  41:_commonCode_localized/hfModulation/0.93/hfModulation.c **** }
+ 118               		.stabn	68,0,41,.LM7-.LFBB1
+ 119               	.LM7:
+ 120 001a 0895      		ret
+ 121               		.size	hfm_setup, .-hfm_setup
+ 122               	.Lscope1:
+ 123               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 124               		.stabd	78,0,0
+ 125               		.stabs	"hfm_setPower:F(0,15)",36,0,48,hfm_setPower
+ 126               		.stabs	"modulator:P(0,16)",64,0,48,30
+ 127               		.stabs	"power:P(5,2)",64,0,48,22
+ 128               	.global	hfm_setPower
+ 129               		.type	hfm_setPower, @function
+ 130               	hfm_setPower:
+ 131               		.stabd	46,0,0
+  49:_commonCode_localized/hfModulation/0.93/hfModulation.c **** {
+ 132               		.stabn	68,0,49,.LM8-.LFBB2
+ 133               	.LM8:
+ 134               	.LFBB2:
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137 001c FC01      		movw r30,r24
+  54:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	if(power <= (modulator->maxPower))
+ 138               		.stabn	68,0,54,.LM9-.LFBB2
+ 139               	.LM9:
+ 140 001e 8481      		ldd r24,Z+4
+ 141 0020 8617      		cp r24,r22
+ 142 0022 00F0      		brlo .L7
+  55:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->power = power;
+ 143               		.stabn	68,0,55,.LM10-.LFBB2
+ 144               	.LM10:
+ 145 0024 6583      		std Z+5,r22
+ 146 0026 00C0      		rjmp .L8
+ 147               	.L7:
+  57:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->power = modulator->maxPower;
+ 148               		.stabn	68,0,57,.LM11-.LFBB2
+ 149               	.LM11:
+ 150 0028 8481      		ldd r24,Z+4
+ 151 002a 8583      		std Z+5,r24
+ 152               	.L8:
+  60:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	modulator->runningSum = 0;
+ 153               		.stabn	68,0,60,.LM12-.LFBB2
+ 154               	.LM12:
+ 155 002c 1182      		std Z+1,__zero_reg__
+ 156 002e 1082      		st Z,__zero_reg__
+ 157               		.stabn	68,0,61,.LM13-.LFBB2
+ 158               	.LM13:
+ 159 0030 1382      		std Z+3,__zero_reg__
+ 160 0032 1282      		std Z+2,__zero_reg__
+ 161               	/* epilogue start */
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 5
+
+
+  62:_commonCode_localized/hfModulation/0.93/hfModulation.c **** }
+ 162               		.stabn	68,0,62,.LM14-.LFBB2
+ 163               	.LM14:
+ 164 0034 0895      		ret
+ 165               		.size	hfm_setPower, .-hfm_setPower
+ 166               	.Lscope2:
+ 167               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 168               		.stabd	78,0,0
+ 169               		.stabs	"hfm_nextOutput:F(5,2)",36,0,66,hfm_nextOutput
+ 170               		.stabs	"modulator:P(0,16)",64,0,66,30
+ 171               	.global	hfm_nextOutput
+ 172               		.type	hfm_nextOutput, @function
+ 173               	hfm_nextOutput:
+ 174               		.stabd	46,0,0
+  63:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  64:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //Returns 0 if the "output" should be "off" in this cycle
+  65:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //		  1 if the "output" should be "on"  in this cycle
+  66:_commonCode_localized/hfModulation/0.93/hfModulation.c **** uint8_t hfm_nextOutput(hfm_t *modulator)
+  67:_commonCode_localized/hfModulation/0.93/hfModulation.c **** {
+ 175               		.stabn	68,0,67,.LM15-.LFBB3
+ 176               	.LM15:
+ 177               	.LFBB3:
+ 178               	/* prologue: function */
+ 179               	/* frame size = 0 */
+ 180 0036 FC01      		movw r30,r24
+  68:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	uint8_t toReturn;
+  69:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  70:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//Instead of dividing the average by the stepNumber (slow!),
+  71:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//just add the current to the avg and add desired to itself and compare the two
+  72:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  73:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  74:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//The first time, this will be == desired*1... (and runningSum will be zero)
+  75:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	(modulator->desiredSum) += (modulator->power);
+ 181               		.stabn	68,0,75,.LM16-.LFBB3
+ 182               	.LM16:
+ 183 0038 8281      		ldd r24,Z+2
+ 184 003a 9381      		ldd r25,Z+3
+ 185 003c 2581      		ldd r18,Z+5
+ 186 003e 820F      		add r24,r18
+ 187 0040 911D      		adc r25,__zero_reg__
+ 188 0042 9383      		std Z+3,r25
+ 189 0044 8283      		std Z+2,r24
+  76:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  77:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 
+  78:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//The first time, since runningsum == 0, if desiredSum == 0 we else... 	clr == good
+  79:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//The first time, 						 if desiredSum > 0 we if...		set == good
+  80:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  81:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	// IF desired == 255, we want it never to clr...
+  82:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//		but running will be 0 the first time
+  83:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//		and we'll therefore if... set == good
+  84:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//		and later we'll runningSum == desiredSum (above) and reset and if again
+  85:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	if(modulator->desiredSum > modulator->runningSum)
+ 190               		.stabn	68,0,85,.LM17-.LFBB3
+ 191               	.LM17:
+ 192 0046 2281      		ldd r18,Z+2
+ 193 0048 3381      		ldd r19,Z+3
+ 194 004a 8081      		ld r24,Z
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 6
+
+
+ 195 004c 9181      		ldd r25,Z+1
+ 196 004e 8217      		cp r24,r18
+ 197 0050 9307      		cpc r25,r19
+ 198 0052 00F0      		brlo .L11
+ 199 0054 80E0      		ldi r24,lo8(0)
+ 200 0056 00C0      		rjmp .L12
+ 201               	.L11:
+  86:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	{
+  87:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		(modulator->runningSum) += (modulator->maxPower); //0xff;
+ 202               		.stabn	68,0,87,.LM18-.LFBB3
+ 203               	.LM18:
+ 204 0058 8081      		ld r24,Z
+ 205 005a 9181      		ldd r25,Z+1
+ 206 005c 2481      		ldd r18,Z+4
+ 207 005e 820F      		add r24,r18
+ 208 0060 911D      		adc r25,__zero_reg__
+ 209 0062 9183      		std Z+1,r25
+ 210 0064 8083      		st Z,r24
+ 211 0066 81E0      		ldi r24,lo8(1)
+ 212               	.L12:
+  88:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		toReturn = TRUE;
+  89:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	}
+  90:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	else	//avg == desired is handled at the start... (except 0-case which works here too)
+  91:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	{
+  92:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		//Don't modify runningSum, wait until desiredSum catches up...
+  93:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		toReturn = FALSE;
+  94:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	}
+  95:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  96:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //	(modulator->stepNumber)++;
+  97:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+  98:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	//Restart the cycle if the output average = the desired
+  99:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	if(modulator->runningSum == modulator->desiredSum)
+ 213               		.stabn	68,0,99,.LM19-.LFBB3
+ 214               	.LM19:
+ 215 0068 4081      		ld r20,Z
+ 216 006a 5181      		ldd r21,Z+1
+ 217 006c 2281      		ldd r18,Z+2
+ 218 006e 3381      		ldd r19,Z+3
+ 219 0070 4217      		cp r20,r18
+ 220 0072 5307      		cpc r21,r19
+ 221 0074 01F4      		brne .L13
+ 100:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	{
+ 101:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		//Handled below...
+ 102:_commonCode_localized/hfModulation/0.93/hfModulation.c **** //		modulator->stepNumber = 0;
+ 103:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->runningSum = 0;
+ 222               		.stabn	68,0,103,.LM20-.LFBB3
+ 223               	.LM20:
+ 224 0076 1182      		std Z+1,__zero_reg__
+ 225 0078 1082      		st Z,__zero_reg__
+ 104:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 		modulator->desiredSum = 0;
+ 226               		.stabn	68,0,104,.LM21-.LFBB3
+ 227               	.LM21:
+ 228 007a 1382      		std Z+3,__zero_reg__
+ 229 007c 1282      		std Z+2,__zero_reg__
+ 230               	.L13:
+ 105:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	}
+ 106:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 7
+
+
+ 107:_commonCode_localized/hfModulation/0.93/hfModulation.c **** 	return toReturn;
+ 108:_commonCode_localized/hfModulation/0.93/hfModulation.c **** }
+ 231               		.stabn	68,0,108,.LM22-.LFBB3
+ 232               	.LM22:
+ 233 007e 0895      		ret
+ 234               		.size	hfm_nextOutput, .-hfm_nextOutput
+ 235               		.stabs	"toReturn:r(5,2)",64,0,68,24
+ 236               		.stabn	192,0,0,.LFBB3-.LFBB3
+ 237               		.stabn	224,0,0,.Lscope3-.LFBB3
+ 238               	.Lscope3:
+ 239               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 240               		.stabd	78,0,0
+ 241               		.stabs	"",100,0,0,.Letext0
+ 242               	.Letext0:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hfModulation.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:2      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:3      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:4      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:79     .text:00000000 hfm_setup
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:130    .text:0000001c hfm_setPower
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cclPiBoA.s:173    .text:00000036 hfm_nextOutput
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

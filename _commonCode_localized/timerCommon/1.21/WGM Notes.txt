@@ -1,0 +1,294 @@
+168 T0:
+WGM01:00 = TCCR0A.1:0
+WGM02 = TCCR0B.3
+Mode#	WGM02:00	Operation
+0 A	0 0 0 		Normal 0xFF Immediate MAX 
+1 B	0 0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	0 1 0 		CTC OCRA Immediate MAX 
+3 D	0 1 1 		Fast PWM 0xFF BOTTOM MAX 
+4 -	1 0 0 		Reserved Ð Ð Ð 
+5 E	1 0 1 		PWM, Phase Correct OCRA TOP BOTTOM 
+6 -	1 1 0 		Reserved Ð Ð Ð 
+7 F	1 1 1 		Fast PWM OCRA BOTTOM TOP
+
+
+168 T2:
+WGM21:20 = TCCR2A.1:0
+WGM22 = TCCR2B.3
+Mode#	WGM22:20	Operation
+0 A	0 0 0 		Normal 0xFF Immediate MAX 
+1 B	0 0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	0 1 0 		CTC OCRA Immediate MAX 
+3 D	0 1 1 		Fast PWM 0xFF BOTTOM MAX 
+4 -	1 0 0 		Reserved Ð Ð Ð 
+5 E	1 0 1 		PWM, Phase Correct OCRA TOP BOTTOM 
+6 -	1 1 0 		Reserved Ð Ð Ð 
+7 F	1 1 1 		Fast PWM OCRA BOTTOM TOP
+
+xx4p T0:
+WGM01:00 = TCCR0A.1:0
+WGM02 = TCCR0B.3
+Mode#	WGM02:00	Operation
+0 A	0 0 0 		Normal 0xFF Immediate MAX 
+1 B	0 0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	0 1 0 		CTC OCRA Immediate MAX 
+3 D	0 1 1 		Fast PWM 0xFF BOTTOM MAX 
+4 -	1 0 0 		Reserved Ð Ð Ð 
+5 E	1 0 1 		PWM, Phase Correct OCRA TOP BOTTOM 
+6 -	1 1 0 		Reserved Ð Ð Ð 
+7 F	1 1 1 		Fast PWM OCRA BOTTOM TOP
+
+
+
+
+xx4p T2:
+WGM21:20 = TCCR2A.1:0
+WGM22 = TCCR2B.3
+Mode#	WGM22:20	Operation
+0 A	0 0 0 		Normal 0xFF Immediate MAX 
+1 B	0 0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	0 1 0 		CTC OCRA Immediate MAX 
+3 D	0 1 1 		Fast PWM 0xFF BOTTOM MAX 
+4 -	1 0 0 		Reserved Ð Ð Ð 
+5 E	1 0 1 		PWM, Phase Correct OCRA TOP BOTTOM 
+6 -	1 1 0 		Reserved Ð Ð Ð 
+7 F	1 1 1 		Fast PWM OCRA BOTTOM TOP 
+
+
+------------
+
+
+168 T1:
+WGM11:10 = TCCR1A.1:0
+WGM13:12 = TCCR1B.4:3
+Mode#	WGM13:10	Operation 
+0 A	0 0 0 0		Normal 0xFFFF Immediate MAX 
+1 B	0 0 0 1 	PWM, Phase Correct, 8-bit 0x00FF TOP BOTTOM 
+2 	0 0 1 0 	PWM, Phase Correct, 9-bit 0x01FF TOP BOTTOM 
+3 	0 0 1 1 	PWM, Phase Correct, 10-bit 0x03FF TOP BOTTOM 
+4 C	0 1 0 0 	CTC OCR1A Immediate MAX 
+5 D	0 1 0 1 	Fast PWM, 8-bit 0x00FF BOTTOM TOP 
+6 	0 1 1 0 	Fast PWM, 9-bit 0x01FF BOTTOM TOP 
+7 	0 1 1 1 	Fast PWM, 10-bit 0x03FF BOTTOM TOP 
+8 	1 0 0 0 	PWM, Phase and Frequency Correct ICR1 BOTTOM BOTTOM 
+9 	1 0 0 1 	PWM, Phase and Frequency Correct OCR1A BOTTOM BOTTOM 
+10 	1 0 1 0 	PWM, Phase Correct ICR1 TOP BOTTOM 
+11 E	1 0 1 1 	PWM, Phase Correct OCR1A TOP BOTTOM 
+12 	1 1 0 0 	CTC ICR1 Immediate MAX 
+13 -	1 1 0 1 	(Reserved) Ð Ð Ð 
+14 	1 1 1 0 	Fast PWM ICR1 BOTTOM TOP 
+15 F	1 1 1 1 	Fast PWM OCR1A BOTTOM TOP 
+
+xx4p T1:
+WGM11:10 = TCCR1A.1:0
+WGM13:12 = TCCR1B.4:3
+Mode#	WGM13:10	Operation
+0 A	0 0 0 0 	Normal 0xFFFF Immediate MAX 
+1 B	0 0 0 1 	PWM, Phase Correct, 8-bit 0x00FF TOP BOTTOM 
+2 	0 0 1 0 	PWM, Phase Correct, 9-bit 0x01FF TOP BOTTOM 
+3 	0 0 1 1 	PWM, Phase Correct, 10-bit 0x03FF TOP BOTTOM 
+4 C	0 1 0 0 	CTC OCRnA Immediate MAX 
+5 D	0 1 0 1 	Fast PWM, 8-bit 0x00FF BOTTOM TOP 
+6 	0 1 1 0 	Fast PWM, 9-bit 0x01FF BOTTOM TOP 
+7 	0 1 1 1 	Fast PWM, 10-bit 0x03FF BOTTOM TOP 
+8 	1 0 0 0 	PWM, Phase and Frequency Correct ICRn BOTTOM BOTTOM 
+9 	1 0 0 1 	PWM, Phase and Frequency Correct OCRnA BOTTOM BOTTOM 
+10 	1 0 1 0 	PWM, Phase Correct ICRn TOP BOTTOM 
+11 E	1 0 1 1 	PWM, Phase Correct OCRnA TOP BOTTOM 
+12 	1 1 0 0 	CTC ICRn Immediate MAX 
+13 -	1 1 0 1 	(Reserved) Ð Ð Ð 
+14 	1 1 1 0 	Fast PWM ICRn BOTTOM TOP 
+15 F	1 1 1 1 	Fast PWM OCRnA BOTTOM TOP 
+
+162 T1,3:
+WGM11:10 = TCCR1A.1:0
+WGM13:12 = TCCR1B.4:3
+WGM31:30 = TCCR3A.1:0
+WGM13:12 = TCCR1B.4:3
+Mode#	WGMn3:n0	Operation
+0 A	0 0 0 0 	Normal 0xFFFF Immediate MAX 
+1 B	0 0 0 1 	PWM, Phase Correct, 8-bit 0x00FF TOP BOTTOM 
+2 	0 0 1 0 	PWM, Phase Correct, 9-bit 0x01FF TOP BOTTOM 
+3 	0 0 1 1 	PWM, Phase Correct, 10-bit 0x03FF TOP BOTTOM 
+4 C	0 1 0 0 	CTC OCRnA Immediate MAX 
+5 D	0 1 0 1 	Fast PWM, 8-bit 0x00FF TOP TOP 
+6 	0 1 1 0 	Fast PWM, 9-bit 0x01FF TOP TOP 
+7 	0 1 1 1 	Fast PWM, 10-bit 0x03FF TOP TOP 
+8 	1 0 0 0 	PWM, Phase and Frequency Correct ICRn BOTTOM BOTTOM 
+9 	1 0 0 1 	PWM, Phase and Frequency Correct OCRnA BOTTOM BOTTOM 
+10 	1 0 1 0 	PWM, Phase Correct ICRn TOP BOTTOM 
+11 E	1 0 1 1 	PWM, Phase Correct OCRnA TOP BOTTOM 
+12 	1 1 0 0 	CTC ICRn Immediate MAX 
+13 	1 1 0 1 	Reserved Ð Ð Ð 
+14 	1 1 1 0 	Fast PWM ICRn TOP TOP 
+15 F	1 1 1 1 	Fast PWM OCRnA TOP TOP		(slightly different than above...?)
+
+8515 T1:
+WGM11:10 = TCCR1A.1:0
+WGM13:12 = TCCR1B.4:3
+Mode#	WGM13:10	Operation
+0 A	0 0 0 0 	Normal 0xFFFF Immediate MAX 
+1 B	0 0 0 1 	PWM, Phase Correct, 8-bit 0x00FF TOP BOTTOM 
+2 	0 0 1 0 	PWM, Phase Correct, 9-bit 0x01FF TOP BOTTOM 
+3 	0 0 1 1 	PWM, Phase Correct, 10-bit 0x03FF TOP BOTTOM 
+4 C	0 1 0 0 	CTC OCR1A Immediate MAX 
+5 D	0 1 0 1 	Fast PWM, 8-bit 0x00FF TOP TOP 
+6 	0 1 1 0 	Fast PWM, 9-bit 0x01FF TOP TOP 
+7 	0 1 1 1 	Fast PWM, 10-bit 0x03FF TOP TOP 
+8 	1 0 0 0 	PWM, Phase and Frequency Correct ICR1 BOTTOM BOTTOM 
+9 	1 0 0 1 	PWM, Phase and Frequency Correct OCR1A BOTTOM BOTTOM 
+10 	1 0 1 0 	PWM, Phase Correct ICR1 TOP BOTTOM 
+11 E	1 0 1 1 	PWM, Phase Correct OCR1A TOP BOTTOM 
+12 	1 1 0 0 	CTC ICR1 Immediate MAX 
+13 	1 1 0 1 	Reserved Ð Ð Ð 
+14 	1 1 1 0 	Fast PWM ICR1 TOP TOP 
+15 F	1 1 1 1 	Fast PWM OCR1A TOP TOP (same as 162)
+
+
+--------
+
+
+
+162 T0:
+WGM01:00 = TCCR0.3, TCCR0.6
+Mode#	WGM01:00	Operation
+0 A	0 0 		Normal 0xFF Immediate MAX 
+1 B	0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	1 0 		CTC OCR0 Immediate MAX 
+3 D	1 1 		Fast PWM 0xFF TOP MAX
+
+162 T2:
+WGM21:20 = TCCR2.3, TCCR2.6
+0 A	0 0 		Normal 0xFF Immediate MAX 
+1 B	0 1 		PWM, Phase Correct 0xFF TOP BOTTOM 
+2 C	1 0 		CTC OCR2 Immediate MAX 
+3 D	1 1 		Fast PWM 0xFF TOP MAX
+
+8515 T0:
+WGM01:00 = TCCR0.3, TCCR0.6
+Mode#	WGM01:00	Operation
+0 A	0 0 		Normal 0xFF Immediate MAX 
+1 B	0 1 		PWM, Phase Correct 0xFF TOP BOTTOM (Count Up/Down/Up/Down)
+2 C	1 0 		CTC OCR0 Immediate MAX 
+3 D	1 1 		Fast PWM 0xFF TOP MAX
+
+
+
+/////////////////
+
+OUTPUT MODES
+
+8515 T0:
+COM01:00 = TCCR0.5:4	Modes 1-3 Override pin... DDR must be set
+Mode#	COM01:00	Normal/CTC OC0 Operation			FastPWM	OC0		PhasePWM OC0
+-----	--------	------------------------			-----------		------------
+0	0 0 		Normal port operation, OC0 disconnected. 	<--			<--
+1	0 1 		Toggle OC0 on Compare Match. 			Reserved		Reserved
+2	1 0 		Clear OC0 on Compare Match. 			<-- + Sets at TOP	CompMatch: Up=Clr, Down=Set
+3	1 1 		Set OC0 on Compare Match. 			<-- + Clears at TOP	CompMatch: Up=Set, Down=Clr
+FastPWM:
+Note: 1. A special case occurs when OCR1A/OCR1B equals TOP and COM1A1/COM1B1 is 
+set. See ÒPhase Correct PWM ModeÓ on page 112. for more details.
+PhasePWM:
+Note: 1. A special case occurs when OCR0 equals TOP and COM01 is set. In this case, the 
+Compare Match is ignored, but the set or clear is done at TOP. See ÒPhase Correct 
+PWM ModeÓ on page 87 for more details.
+
+8515 T1:
+COM1A1:1A0 = TCCR1A.7:6	Channel A
+COM1B1:1B0 = TCCR1A.5:4 Channel B
+Same as T0, + Reserved does something else...
+FastPWM:
+Note: 1. A special case occurs when OCR1A/OCR1B equals TOP and COM1A1/COM1B1 is 
+set. In this case the Compare Match is ignored, but the set or clear is done at TOP. 
+See ÒFast PWM ModeÓ on page 110. for more details. 
+PhasePWM/PhaseFreqPWM:
+Note: 1. A special case occurs when OCR1A/OCR1B equals TOP and COM1A1/COM1B1 is 
+set. See ÒPhase Correct PWM ModeÓ on page 112. for more details.
+
+162 T0:
+COM01:00 = TCCR0.5:4
+Same as 8515 T0
+162 T1/3:
+COMnA1:1A0 = TCCRnA.7:6	Channel A
+COMnB1:1B0 = TCCRnA.5:4 Channel B
+Same as 8515 T1
+162 T2:
+COM21:20 = TCCR2.5:4
+Same as 8515 T0
+
+xx4P T0:
+COM0A1:0A0 = TCCR0A.7:6	Channel A			*** FastPWM ***
+1							som'n...				som'n
+2	1 0 		Clear OC0 on Compare Match. 	<-- + Sets at BOTTOM (non-inv mode)	CompMatch: Up=Clr, Down=Set
+3	1 1 		Set OC0 on Compare Match. 	<-- + Clears at BOTTOM (inv mode)	CompMatch: Up=Set, Down=Clr
+FastPWM:
+Note: 1. A special case occurs when OCR0A equals TOP and COM0A1 is set. In this case, the Com- 
+pare Match is ignored, but the set or clear is done at BOTTOM. See ÓFast PWM ModeÓ on 
+page 98 for more details. 
+PhasePWM:
+Note: 1. A special case occurs when OCR0A equals TOP and COM0A1 is set. In this case, the Com- 
+pare Match is ignored, but the set or clear is done at TOP. See ÓPhase Correct PWM ModeÓ on 
+page 100 for more details. 
+
+COM0B1:0B0 = TCCR0A.5:4	Channel B
+same as channel 0A, but mode 1 is reserved
+
+xx4P T1:
+COM1A1:0 = TCCR1A.7:6
+COM1B1:0 = TCCR1A.5:4
+same as channel 0A, som'n may even be...
+
+xx4P T2:
+COM2A1:0 = TCCR2A.7:6 Channel A
+same as channel 0A, som'n may even be...
+COM2B1:0 = TCCR2A.5:4	Channel B
+same as channel 0A, but mode 1 is reserved
+
+168 T0:
+COM0A1:0 = TCCR0A.7:6	Channel A
+same as XX4P 0A, som'n too?
+COM0B1:0 = TCCR0A.5:4	Channel B
+same as xx4P 0A, but mode 1 is reserved
+
+168 T1:
+COM1A1:0 = TCCR1A.7:6
+COM1B1:0 = TCCR1A.5:4
+same as xx4P 0A, som'n too?
+
+168 T2:
+COM2A1:0 = TCCR2A.7:6
+same as XX4P 0A, som'n too?
+COM2B1:0 = TCCR2A.5:4
+same as xx4P 0A, but mode 1 is reserved
+
+
+//////////
+TIMER 0 ONLY SO FAR!!!
+Overflow Interrupt...
+Need: 
+TOIE0 overflow interrupt enable, TIMSK0 interrupt mask register
+TOV0 overflow interrupt flag, TIFR0 interrupt flag register
+
+8515:
+TIMSK.TOIE0 	(bit1)
+TIFR.TOV0	(bit1)
+TIMSK.TOIE1	(bit7)
+TIFR.TOV1	(bit7)	
+162:
+TIMSK.TOIE0	(bit1)
+TIFR.TOV0   	(bit1)
+TIFR.TOV2	(bit2)
+TIFR.TOV1	(bit7)
+TIMSK.TOIE1 	(bit7)
+TIMSK.TOIE2	(bit2)
+ETIMSK.TOIE3	(bit2)
+ETIFR.TOV3	(bit2)
+
+644/P,168:
+TIMSK0.TOIE0 	(bit0)
+TIFR0.TOV0   	(bit0)
+TIMSK1.TOIE1 	(bit0)
+TIFR1.TOV1	(bit0)
+TIMSK2.TOIE2	(bit0)
+TIFR2.TOV2	(bit0)
