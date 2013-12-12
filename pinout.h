@@ -111,3 +111,6 @@
 //                                                         |  control
 //                                                        GND
 
+
+// Button is used in "Mario"/"QUESTION" mode. Shorting the pin to ground
+// momentarily causes the image to change.

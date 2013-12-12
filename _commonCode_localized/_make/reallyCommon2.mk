@@ -541,6 +541,7 @@ ifeq ($(LOCAL), 1)
 	@echo ""
 	@echo " You're Compiling Locally! Changes in _commonCode/ will not be reflected Here!"
 	@echo " (use 'make ... LOCAL=0' or 'make delocalize')"
+	@echo " (This message is irrelevent for distributed copies. Keep it localized!)"
 	@echo ""
 else
 	@echo ""

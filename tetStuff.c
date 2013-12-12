@@ -1,3 +1,18 @@
+//YEP. In a previous version (long before the row-seg-buffer)
+// Tetris was dang-near completion...
+// each block was a single drawable pixel
+// so it was pretty durn ugly.
+// But the refresh-rate was fast-enough at the time and the pixels were
+//  large-enough to make it playable
+// It was, in fact, my lifelong-goal to write Tetris... Ever since I
+// started "coding" in HyperCard.
+// Maybe something groovy could be done with low-refresh-rates...
+// "PredictaTris"... where hand-eye-coordination is handy, it doesn't
+// require much in the way of memory... Could be the same game, the same
+// speeds... just that the screen updates once a second, so you have to 
+// remember your moves and plan 'em out... crazy.
+
+
 #if (TRUE)
 
 //in main...

@@ -14,14 +14,90 @@
 
 
 
+//The current state is such that basically ONLY the row-segment-buffer
+// display-method has been tested for quite some time. The other code
+// remains, but I can't promise it still works.
+
+//Only one of the following SEG_whatevers should be TRUE
+// (Assuming we're using the Row-Segment-Buffer, as explained above).
+// IF NONE ARE TRUE:
+//  The default is to convert whatever's in the row-buffer into 
+//  the row-segment-buffer...
+//  This is where my old-code starts getting iffy, as the row-buffer hasn't
+//  been used for quite some time.
+// Best to stick with assigning one of these SEG_xxx things true.
 
 
+//Draws a diagonal white line on a red background...
+// I think it's supposed to repeat three times and not fill the entire
+// screen... though it's been a long time since I've used this.
+//#define SEG_LINE TRUE
+
+//A very nice test-pattern... shows a sine-wave, the under-side of which
+// is horizontal color-bars, above it is vertical color-bars. 
+// Above that is two lines of text, showing all available characters
+// And above that is color-patterns using up the remaining Row-Segments
+// This is meant to be rotated 90-degrees
+// Like SEG_HFM, it might be handy to adjust NUM_SEGMENTS for experimenting
+// Note that color-segments which are too long to be stored in a single
+// row-segment are automatically put into the next.
+// And that existing segments are automatically stretched if the next-added
+// segment is the same color.
+// This displays all available colors and shows the resolution capabilities
+#define SEG_SINE TRUE
+
+//Uses "High-Frequency Modulation" to display an interesting pattern...
+// HFM is kinda like PWM. The idea is to have an output ON for
+//  a certain percentage of the time...
+//  In PWM, that's done by turning it on for a fraction of a cycle 
+//  (the "width" of the pulse), then off for the remainder.
+//  In HFM, it's accomplished by knowing the fraction of time it should be
+//  on... (the "power"). The fractions are automatically reduced 5/10->1/2.
+//  e.g. if the on-time should be 1/100th of the time, it will be on
+//  during one update-period, and off for 99, then repeat.
+//  If the on-time should be 1/2 of the time, it will be on during one
+//  update, off during the next, on again, and so-on.
+//  If the on-time is some strange fraction, like 3/5, it will distribute
+//  the pulses accordingly (e.g. on, off, on, off, on, repeat)
+//  Thus, the output toggles as quickly as possible to achieve the desired
+//  power... thus "High-Frequency"
+//  (See _commonCode.../hfModulation/...)
+//  I've been using HFM in ways never originally intended: e.g. it can be
+//  used for smoothing lines between two distant points...
+//  It's used this way in "SEG_RACER" in order to use a low-resolution
+//  course in memory, and increase the resolution by knowing that there are
+//  a certain number of rows in which it has to get from point1 to point2
+//  so the "power" of the HFM is set to (p2-p1)/numRows.
+//  The nice thing about it, is it doesn't use any actual division (which
+//  is quite slow) because it knows that every point inbetween will be 
+//  traversed.
+// THIS visualizes that, and actually looks pretty cool. Like moire
+//  patterns, or magnetic-field-lines.
+// Each row increases in power, essentially: rowNum/NUM_SEGMENTS
+// (Experimenting with NUM_SEGMENTS is fun, in this case, just don't exceed
+//  the available memory, and keep in mind that there's a stack and stuff)
 //#define SEG_HFM		TRUE
-#define SEG_QUESTION	TRUE
+// You can override NUM_SEGMENTS here, for that purpose...
+// OTHERWISE, it should probably be handled in rowSegBuffer.c
+#if(defined(SEG_HFM) && SEG_HFM)
+ #define NUM_SEGMENTS   127 //128 //95//96//128 //68 //128//68
+#endif
 
-// When this isn't true, remove ADC stuff from the makefile
-// to save codespace
+//Displays a Question-Mark box, ala Mario-Brothers. Press the button and
+// receive an award (and occasional goomba)
+// Demonstrates usage of program-memory-based images... (16x16 pixels WOO!)
+//#define SEG_QUESTION	TRUE
+
+//A Game! Ala "Racer" from the ol' TI-82 days...
+// Use a potentiometer to try to keep the "car" on the race-track
+// It gets harder the longer you stay on course!
+// (Ideally: when this isn't true, remove ADC stuff from the makefile
+//  to save codespace. I don't think I've ever actually paid attention to
+//  this...)
 //#define SEG_RACER 	TRUE
+
+
+
 
 
 
@@ -2202,8 +2278,6 @@ void loadRow(uint16_t rowNum)
 #endif //0
 
 	
-//#define SEG_LINE TRUE
-//#define SEG_SINE TRUE
 
 //#define SEG_QUESTION TRUE
 	//Isn't BLAH = 1 necessary so we don't get a row with no data?
@@ -2943,6 +3017,7 @@ addSegfb(raceWidth, _W);
 
 	//newSeg(3,0x06,(4<<4) | 0);
 
+	uint8_t i;
 	for(i=0; i<64; i++)
 		addSegfb(1, (i+rowNum/4)&0x3f);
 
@@ -2950,7 +3025,7 @@ addSegfb(raceWidth, _W);
 
 	segTerminate();
 
- #else //NOT SEG_LINE NOR SEG_SINE
+ #else //NOT SEG_LINE NOR SEG_SINE NOR ANY OTHERS...
   #if(!defined(SEG_STRETCH))
 	#define SEG_STRETCH 1
   #endif
@@ -2960,6 +3035,7 @@ addSegfb(raceWidth, _W);
 	//Good for syncing to have white on both borders...
 	newSeg(1, 0x06, (6<<4) | 3);
 	
+	uint16_t i;
 	//i+1 because we don't want to overwrite the white border...
 	for(i=0; i<RB_WIDTH; i++)
 		rbpix_to_seg(rowBuffer[i], i+1, SEG_STRETCH);

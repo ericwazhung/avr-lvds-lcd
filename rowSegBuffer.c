@@ -1,6 +1,8 @@
 
 
-#define NUM_SEGMENTS	68//128 //68 //128//68
+#ifndef NUM_SEGMENTS
+ #define NUM_SEGMENTS	68//128 //68 //128//68
+#endif
 
 //Green and blue are in the same byte...
 // I don't think the code will compile anymore without this.

@@ -84,6 +84,19 @@ This means text is hard to display in a row... (But you can rotate the
 screen and text 90-degrees, as the 768 rows are each drawn individually)
 
 
+There are two modes that have been tested recently:
+In main.c, near the top (only one should be TRUE):
+SEG_QUESTION displays 16x16 pixel images, which are changed by pressing
+	the button (It uses sprites from Mario Brothers... Thanks Nintendo!)
+	Some day I'll build a box and attach the button to a bump-sensor and
+	hang 'em around the city... but you might beat me to it. If you do, I
+	want to see pictures!
+SEG_RACER is a game similar to "Racer" from the ol' TI-82 days...
+	It's an attempt at a few things:
+		Is it possible to make a fast-pace game with a slow-refresh-rate?
+		Let's make use of that high resolution!
+	Keep the "car" in the green track by moving a potentiometer.
+	The further you go, the harder it gets.
 
 
 Again, this is my first distribution of any sort, so I have no idea what'll

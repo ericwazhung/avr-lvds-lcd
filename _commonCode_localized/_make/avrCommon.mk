@@ -172,12 +172,30 @@ terminal:
 # The .eeprom section... 	
 # Ideally this would only write it if it's non-empty, but I can deal with
 # a few extra seconds flashing time, for now...
+# This should be fixed now, or soon...
+# This ugly parsing checks whether the size is zero...
+# It was pretty thoroughly tested with if/else statements and echos...
+# My only project with programmed-eeprom isn't at-hand, so I haven't tested
+# Yet...
 .PHONY: flash
 flash:
 	$(AVRDUDE) -U flash:w:$(TARGET).hex:i
-	@if [ -f $(TARGET).eep ] ; \
-	  	then $(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
-	 fi
+	@shopt -s extglob ; \
+		sizes="`avr-size $(TARGET).eep`" ; \
+			 s1="$${sizes%+([[:blank:]])"$(TARGET).eep"}" ; \
+			 s2="$${s1#*$$'\n'}" ; \
+			 s3="$${s2##+([[:blank:]])}" ; \
+			 s4="$${s3##+([[:digit:]])+([[:blank:]])}" ; \
+			 s5="$${s4%%+([[:blank:]])*}" ; \
+			 if [ "$$s5" != "0" ] ; \
+	  			then $(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
+	 		 fi
+	@echo "****************************************************************"
+	@echo "* EEPROM WRITING HASN'T BEEN TESTED SINCE EMPTY-TESTING        *"
+	@echo "* (I don't have such a project at-hand... this warning just to *"
+	@echo "*  remind me to check next time I have one.)                   *"
+	@echo "****************************************************************"
+	@echo ""
 
 # Could this be IFed for different MCUs?
 .PHONY: fuse
