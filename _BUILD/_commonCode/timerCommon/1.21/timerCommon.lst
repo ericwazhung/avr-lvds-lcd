@@ -1,0 +1,1116 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 1
+
+
+   1               		.file	"timerCommon.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+   9               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/59-reallyCommon2/",100,0,2,.Ltext0
+  10               		.stabs	"../../../_commonCode/timerCommon/1.21/timerCommon.c",100,0,2,.Ltext0
+  11               		.text
+  12               	.Ltext0:
+  13               		.stabs	"gcc2_compiled.",60,0,0,0
+  14               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,1,0
+  15               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,1,0
+  16               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,1,0
+  17               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,1,0
+  18               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,1,0
+  19               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,1,
+  20               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,1,0
+  21               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,1,0
+  22               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,1,0
+  23               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,1,0
+  24               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,1,0
+  25               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,1,0
+  26               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,1,0
+  27               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,1,0
+  28               		.stabs	"void:t(0,15)=(0,15)",128,0,1,0
+  29               		.stabs	"../../../_commonCode/timerCommon/1.21/timerCommon.h",130,0,0,0
+  30               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/interrupt.h",130,0,0,0
+  31               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/io.h",130,0,0,0
+  32               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/sfr_defs.h",130,0,0,0
+  33               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/inttypes.h",130,0,0,0
+  34               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/stdint.h",130,0,0,0
+  35               		.stabs	"int8_t:t(6,1)=(0,10)",128,0,121,0
+  36               		.stabs	"uint8_t:t(6,2)=(0,11)",128,0,122,0
+  37               		.stabs	"int16_t:t(6,3)=(0,1)",128,0,123,0
+  38               		.stabs	"uint16_t:t(6,4)=(0,4)",128,0,124,0
+  39               		.stabs	"int32_t:t(6,5)=(0,3)",128,0,125,0
+  40               		.stabs	"uint32_t:t(6,6)=(0,5)",128,0,126,0
+  41               		.stabs	"int64_t:t(6,7)=(0,6)",128,0,128,0
+  42               		.stabs	"uint64_t:t(6,8)=(0,7)",128,0,129,0
+  43               		.stabs	"intptr_t:t(6,9)=(6,3)",128,0,142,0
+  44               		.stabs	"uintptr_t:t(6,10)=(6,4)",128,0,147,0
+  45               		.stabs	"int_least8_t:t(6,11)=(6,1)",128,0,159,0
+  46               		.stabs	"uint_least8_t:t(6,12)=(6,2)",128,0,164,0
+  47               		.stabs	"int_least16_t:t(6,13)=(6,3)",128,0,169,0
+  48               		.stabs	"uint_least16_t:t(6,14)=(6,4)",128,0,174,0
+  49               		.stabs	"int_least32_t:t(6,15)=(6,5)",128,0,179,0
+  50               		.stabs	"uint_least32_t:t(6,16)=(6,6)",128,0,184,0
+  51               		.stabs	"int_least64_t:t(6,17)=(6,7)",128,0,192,0
+  52               		.stabs	"uint_least64_t:t(6,18)=(6,8)",128,0,199,0
+  53               		.stabs	"int_fast8_t:t(6,19)=(6,1)",128,0,213,0
+  54               		.stabs	"uint_fast8_t:t(6,20)=(6,2)",128,0,218,0
+  55               		.stabs	"int_fast16_t:t(6,21)=(6,3)",128,0,223,0
+  56               		.stabs	"uint_fast16_t:t(6,22)=(6,4)",128,0,228,0
+  57               		.stabs	"int_fast32_t:t(6,23)=(6,5)",128,0,233,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 2
+
+
+  58               		.stabs	"uint_fast32_t:t(6,24)=(6,6)",128,0,238,0
+  59               		.stabs	"int_fast64_t:t(6,25)=(6,7)",128,0,246,0
+  60               		.stabs	"uint_fast64_t:t(6,26)=(6,8)",128,0,253,0
+  61               		.stabs	"intmax_t:t(6,27)=(6,7)",128,0,273,0
+  62               		.stabs	"uintmax_t:t(6,28)=(6,8)",128,0,278,0
+  63               		.stabn	162,0,0,0
+  64               		.stabs	"int_farptr_t:t(5,1)=(6,5)",128,0,77,0
+  65               		.stabs	"uint_farptr_t:t(5,2)=(6,6)",128,0,81,0
+  66               		.stabn	162,0,0,0
+  67               		.stabn	162,0,0,0
+  68               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/fuse.h",130,0,0,0
+  69               		.stabs	"__fuse_t:t(7,1)=(7,2)=s3low:(0,11),0,8;high:(0,11),8,8;extended:(0,11),16,8;;",128,0,244,0
+  70               		.stabn	162,0,0,0
+  71               		.stabn	162,0,0,0
+  72               		.stabn	162,0,0,0
+  73               		.stabn	162,0,0,0
+  74               		.stabs	"timer_selectDivisor:F(6,2)",36,0,210,timer_selectDivisor
+  75               		.stabs	"timerNum:P(6,2)",64,0,210,24
+  76               		.stabs	"clockDiv:P(6,2)",64,0,210,22
+  77               	.global	timer_selectDivisor
+  78               		.type	timer_selectDivisor, @function
+  79               	timer_selectDivisor:
+  80               		.stabd	46,0,0
+   1:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //timerCommon 1.20-1
+   2:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #include "timerCommon.h"
+   3:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+   4:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+   5:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR0)
+   6:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T0_CSReg	TCCR0
+   7:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+   8:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Seems like there'd be no case where TCCR0 AND TCCR0A would both exist, but just in case...
+   9:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Allow multiple-definition (don't use elif) so a warning will be shown...
+  10:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR0B)
+  11:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T0_CSReg	TCCR0B
+  12:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  13:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  14:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR1)
+  15:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  //Doesn't seem likely, but who knows with other procs...
+  16:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T1_CSReg	TCCR1
+  17:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  18:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR1B)
+  19:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T1_CSReg	TCCR1B
+  20:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  21:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  22:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR2)
+  23:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T2_CSReg	TCCR2
+  24:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  25:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR2B)
+  26:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T2_CSReg	TCCR2B
+  27:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  28:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  29:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR3)
+  30:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  //Also doesn't seem likely, but who knows...
+  31:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T3_CSReg	TCCR3
+  32:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  33:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(TCCR3B)
+  34:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define T3_CSReg	TCCR3B
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 3
+
+
+  35:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  36:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  37:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(T3_CSReg) && !defined(CSOBS)
+  38:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #warning "Timer3 on this device is not necessarily properly implemented!"
+  39:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  40:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  41:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //!!! THESE DO NOTTTT Correspond to the values in TinyX61...
+  42:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //    (well, DIV1 does...)
+  43:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Internal use only... Actual value to be written to the _CSReg
+  44:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSTYP_DIV1		0x01
+  45:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSTYP_DIV8		0x02
+  46:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSTYP_DIV64		0x03
+  47:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSTYP_DIV256	0x04
+  48:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSTYP_DIV1024	0x05
+  49:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Internal use only... Actual value to be written to the _CSReg
+  50:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(CSALT)
+  51:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV1		0x01
+  52:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV8		0x02
+  53:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV32	0x03
+  54:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV64	0x04
+  55:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV128	0x05
+  56:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV256	0x06
+  57:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSALT_DIV1024	0x07
+  58:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  59:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Internal use only... Actual value to be written to the _CSReg
+  60:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //These values are extensions of CSTYP...
+  61:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if defined(CSOBS)
+  62:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSOBS_DIV16	0x06
+  63:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #define CSOBS_DIV32	0x07
+  64:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  65:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  66:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //All Clock Select bits appear to be located in the first three bits
+  67:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #define CSMASK			0x07
+  68:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  69:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Roughly equivalent to the ol' Init_timerX(clkDiv, wgm)
+  70:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Return 0 if no error...
+  71:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if (!defined(TIMER_INIT_UNUSED) || !TIMER_INIT_UNUSED)
+  72:../../../_commonCode/timerCommon/1.21/timerCommon.c **** uint8_t timer_init(uint8_t timerNum, uint8_t clockDiv, uint8_t wgm)
+  73:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+  74:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//set the waveform mode
+  75:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	ERR_HANDLE_NUM(1,				\
+  76:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		timer_setWGM(timerNum, wgm)	);
+  77:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  78:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//select the clock
+  79:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	ERR_HANDLE_NUM(2,							\
+  80:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		timer_selectDivisor(timerNum, clockDiv)	);
+  81:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		
+  82:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	return 0;
+  83:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+  84:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+  85:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  86:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if (!defined(TIMER_SETOUTPUTMODES_UNUSED) || !TIMER_SETOUTPUTMODES_UNUSED)
+  87:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //timer_setOutputMode() no longer exists, the output channel is now a mask
+  88:../../../_commonCode/timerCommon/1.21/timerCommon.c **** uint8_t timer_setOutputModes(uint8_t timerNum, uint8_t outputChannels, \
+  89:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 										uint8_t outputMode)
+  90:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+  91:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t channelNums;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 4
+
+
+  92:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  93:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//This is not be-all-end-all testing, but helps...
+  94:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(timerNum >= MAXTIMERS)
+  95:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 1;
+  96:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(outputChannels >= 0x0f) //MAXCHANNELSPERTIMER)
+  97:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 2;
+  98:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+  99:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//For the sake of our brute-force switch statement...
+ 100:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Combine the timer number and channel into a single variable...
+ 101:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//The high nibble contains the timer number, 
+ 102:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// the low contains the channel numbers as a mask (A=0x1,B=0x2,C=0x3...)
+ 103:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	channelNums = (timerNum<<4) | outputChannels;
+ 104:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 105:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t i;
+ 106:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 107:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Handle each output in the mask...
+ 108:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	for(i=1; i<=8; i<<=1)
+ 109:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 110:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		uint8_t channelNum = channelNums & (0xf0 | i);
+ 111:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 112:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//Don't bother with the switch statement if the for loop is testing
+ 113:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		// a channel that's not being enabled (in the mask)
+ 114:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		if((channelNum & 0x0f) == 0)
+ 115:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			continue;
+ 116:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 117:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 118:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		switch(channelNum)
+ 119:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		{	
+ 120:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Timer 0
+ 121:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #if defined(T0_COMReg)
+ 122:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC0)
+ 123:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC0:
+ 124:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COM_SHIFT), COM_MASK, T0_COMReg);
+ 125:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 126:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 127:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC0A)
+ 128:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC0A:
+ 129:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMA_SHIFT), COMA_MASK, T0_COMReg);
+ 130:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 131:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 132:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC0B)
+ 133:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC0B:
+ 134:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMB_SHIFT), COMB_MASK, T0_COMReg);
+ 135:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 136:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 137:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #endif
+ 138:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Timer 1
+ 139:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #if defined(T1_COMReg)
+ 140:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC1)
+ 141:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC1:
+ 142:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COM_SHIFT), COM_MASK, T1_COMReg);
+ 143:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 144:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 145:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC1A)
+ 146:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC1A:
+ 147:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMA_SHIFT), COMA_MASK, T1_COMReg);
+ 148:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 5
+
+
+ 149:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 150:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC1B)
+ 151:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC1B:
+ 152:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMB_SHIFT), COMB_MASK, T1_COMReg);
+ 153:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 154:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 155:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			#if defined(OUT_OC1D) //so far only on the Tiny861...
+ 156:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC1D:
+ 157:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMD_SHIFT), COMD_MASK, T1_COMDReg);
+ 158:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 159:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			#endif
+ 160:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #endif
+ 161:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Timer 2
+ 162:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #if defined(T2_COMReg)
+ 163:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC2)
+ 164:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC2:
+ 165:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COM_SHIFT), COM_MASK, T2_COMReg);
+ 166:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 167:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 168:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC2A)
+ 169:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC2A:
+ 170:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMA_SHIFT), COMA_MASK, T2_COMReg);
+ 171:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 172:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 173:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC2B)
+ 174:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC2B:
+ 175:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMB_SHIFT), COMB_MASK, T2_COMReg);
+ 176:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 177:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 178:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #endif
+ 179:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Timer 3
+ 180:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #if defined(T3_COMReg)
+ 181:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC3)
+ 182:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC3:
+ 183:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COM_SHIFT), COM_MASK, T3_COMReg);
+ 184:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 185:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 186:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC3A)
+ 187:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC3A:
+ 188:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMA_SHIFT), COMA_MASK, T3_COMReg);
+ 189:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 190:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 191:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #if defined(OUT_OC3B)
+ 192:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case OUT_OC3B:
+ 193:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				writeMasked((outputMode<<COMB_SHIFT), COMB_MASK, T3_COMReg);
+ 194:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 195:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		   #endif
+ 196:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		  #endif
+ 197:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//The selected timer and channel combination doesn't exist...
+ 198:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			default:
+ 199:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				return 3;
+ 200:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 201:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		}
+ 202:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 203:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	return 0;
+ 204:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+ 205:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 6
+
+
+ 206:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 207:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Selecting a clock source is independent of the number of channels... 
+ 208:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Returns 0 unless an error occurs...
+ 209:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if (!defined(TIMER_SELECTDIVISOR_UNUSED) || !TIMER_SELECTDIVISOR_UNUSED)
+ 210:../../../_commonCode/timerCommon/1.21/timerCommon.c **** uint8_t timer_selectDivisor(uint8_t timerNum, uint8_t clockDiv)
+ 211:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+  81               		.stabn	68,0,211,.LM0-.LFBB1
+  82               	.LM0:
+  83               	.LFBB1:
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+ 212:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t csbits;
+ 213:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 214:../../../_commonCode/timerCommon/1.21/timerCommon.c ****   #if defined(CSOBS)
+ 215:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(timerNum == 0 || timerNum == 1 || timerNum == 3)//IS_CSTYP(timerNum) || IS_CSOBS(timerNum))
+ 216:../../../_commonCode/timerCommon/1.21/timerCommon.c ****   #else
+ 217:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(IS_CSTYP(timerNum))
+  86               		.stabn	68,0,217,.LM1-.LFBB1
+  87               	.LM1:
+  88 0000 8230      		cpi r24,lo8(2)
+  89 0002 00F4      		brsh .L2
+ 218:../../../_commonCode/timerCommon/1.21/timerCommon.c ****   #endif
+ 219:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 220:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		switch(clockDiv)
+  90               		.stabn	68,0,220,.LM2-.LFBB1
+  91               	.LM2:
+  92 0004 6630      		cpi r22,lo8(6)
+  93 0006 01F0      		breq .L5
+  94 0008 6730      		cpi r22,lo8(7)
+  95 000a 00F4      		brsh .L8
+  96 000c 6623      		tst r22
+  97 000e 01F0      		breq .L3
+  98 0010 6330      		cpi r22,lo8(3)
+  99 0012 01F4      		brne .L2
+ 100 0014 00C0      		rjmp .L18
+ 101               	.L8:
+ 102 0016 6830      		cpi r22,lo8(8)
+ 103 0018 01F0      		breq .L6
+ 104 001a 6A30      		cpi r22,lo8(10)
+ 105 001c 01F4      		brne .L2
+ 106 001e 00C0      		rjmp .L19
+ 107               	.L18:
+ 108 0020 92E0      		ldi r25,lo8(2)
+ 109 0022 00C0      		rjmp .L9
+ 110               	.L3:
+ 111 0024 91E0      		ldi r25,lo8(1)
+ 112 0026 00C0      		rjmp .L9
+ 113               	.L5:
+ 114 0028 93E0      		ldi r25,lo8(3)
+ 221:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		{
+ 222:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV1:
+ 223:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSTYP_DIV1;	
+ 224:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 225:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV8:
+ 226:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSTYP_DIV8;
+ 227:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 228:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV64:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 7
+
+
+ 229:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSTYP_DIV64;	
+ 230:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 115               		.stabn	68,0,230,.LM3-.LFBB1
+ 116               	.LM3:
+ 117 002a 00C0      		rjmp .L9
+ 118               	.L6:
+ 119 002c 94E0      		ldi r25,lo8(4)
+ 231:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV256:
+ 232:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSTYP_DIV256;	
+ 233:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 120               		.stabn	68,0,233,.LM4-.LFBB1
+ 121               	.LM4:
+ 122 002e 00C0      		rjmp .L9
+ 123               	.L19:
+ 124 0030 95E0      		ldi r25,lo8(5)
+ 125               	.L9:
+ 126 0032 9770      		andi r25,lo8(7)
+ 234:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV1024:
+ 235:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSTYP_DIV1024; 
+ 236:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 237:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			default:
+ 238:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			  #if defined(CSOBS)
+ 239:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				if(IS_CSOBS(timerNum))	
+ 240:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				{
+ 241:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					if(clockDiv == CLKDIV16)	
+ 242:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 						csbits = CSOBS_DIV16;
+ 243:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					else if(clockDiv == CLKDIV32)
+ 244:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 						csbits = CSOBS_DIV32;
+ 245:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					else
+ 246:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 						return 1;	
+ 247:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				}
+ 248:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				else
+ 249:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					return 1;
+ 250:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			  #else
+ 251:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				return 1;
+ 252:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			  #endif
+ 253:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 254:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		}
+ 255:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 256:../../../_commonCode/timerCommon/1.21/timerCommon.c ****   #if defined(CSALT)
+ 257:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	else if(IS_CSALT(timerNum)) 
+ 258:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 259:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		switch(clockDiv)	
+ 260:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		{
+ 261:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV1:
+ 262:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV1;
+ 263:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 264:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV8:
+ 265:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV8;
+ 266:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 267:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV32:
+ 268:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV32;
+ 269:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 270:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV64:
+ 271:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV64;
+ 272:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 273:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV128:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 8
+
+
+ 274:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV128;
+ 275:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 276:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV256:
+ 277:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV256;
+ 278:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 279:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			case CLKDIV1024:
+ 280:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				csbits = CSALT_DIV1024;
+ 281:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 282:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			default:
+ 283:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				return 1;	
+ 284:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				break;
+ 285:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		}
+ 286:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 287:../../../_commonCode/timerCommon/1.21/timerCommon.c ****   #endif
+ 288:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	else 
+ 289:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 1;	
+ 290:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 291:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	switch(timerNum)
+ 127               		.stabn	68,0,291,.LM5-.LFBB1
+ 128               	.LM5:
+ 129 0034 8130      		cpi r24,lo8(1)
+ 130 0036 01F0      		breq .L11
+ 292:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 293:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//Assume Timer0 and Timer1 exist (see setWGM)
+ 294:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0:
+ 295:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writeMasked(csbits, CSMASK, T0_CSReg);
+ 131               		.stabn	68,0,295,.LM6-.LFBB1
+ 132               	.LM6:
+ 133 0038 83B7      		in r24,83-0x20
+ 134 003a 887F      		andi r24,lo8(-8)
+ 135 003c 892B      		or r24,r25
+ 136 003e 83BF      		out 83-0x20,r24
+ 137 0040 00C0      		rjmp .L14
+ 138               	.L11:
+ 296:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 297:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 1:
+ 298:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writeMasked(csbits, CSMASK, T1_CSReg);
+ 139               		.stabn	68,0,298,.LM7-.LFBB1
+ 140               	.LM7:
+ 141 0042 8FB5      		in r24,79-0x20
+ 142 0044 887F      		andi r24,lo8(-8)
+ 143 0046 892B      		or r24,r25
+ 144 0048 8FBD      		out 79-0x20,r24
+ 145               	.L14:
+ 146 004a 80E0      		ldi r24,lo8(0)
+ 299:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 147               		.stabn	68,0,299,.LM8-.LFBB1
+ 148               	.LM8:
+ 149 004c 0895      		ret
+ 150               	.L2:
+ 151 004e 81E0      		ldi r24,lo8(1)
+ 300:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//From here, only compile for timers that exist as expected...
+ 301:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		#if defined(T2_CSReg)
+ 302:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 2:
+ 303:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writeMasked(csbits, CSMASK, T2_CSReg);
+ 304:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 305:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		#endif
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 9
+
+
+ 306:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		#if defined(T3_CSReg)
+ 307:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 3:
+ 308:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writeMasked(csbits, CSMASK, T3_CSReg);
+ 309:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 310:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		#endif
+ 311:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		default:
+ 312:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			return 1;
+ 313:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 314:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 315:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 316:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	return 0;
+ 317:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+ 152               		.stabn	68,0,317,.LM9-.LFBB1
+ 153               	.LM9:
+ 154 0050 0895      		ret
+ 155               		.size	timer_selectDivisor, .-timer_selectDivisor
+ 156               		.stabs	"csbits:r(6,2)",64,0,212,25
+ 157               		.stabn	192,0,0,.LFBB1-.LFBB1
+ 158               		.stabn	224,0,0,.Lscope1-.LFBB1
+ 159               	.Lscope1:
+ 160               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 161               		.stabd	78,0,0
+ 162               		.stabs	"timer_setWGM:F(6,2)",36,0,325,timer_setWGM
+ 163               		.stabs	"timerNum:P(6,2)",64,0,325,24
+ 164               		.stabs	"wgm:P(6,2)",64,0,325,22
+ 165               	.global	timer_setWGM
+ 166               		.type	timer_setWGM, @function
+ 167               	timer_setWGM:
+ 168               		.stabd	46,0,0
+ 318:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+ 319:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 320:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //Set the Waveform Generation Mode...
+ 321:../../../_commonCode/timerCommon/1.21/timerCommon.c **** // Four are universal, 6 are almost... 16bit counters are all the same
+ 322:../../../_commonCode/timerCommon/1.21/timerCommon.c **** // For now, just implement the universal ones...
+ 323:../../../_commonCode/timerCommon/1.21/timerCommon.c **** // Returns 0 if no error
+ 324:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if(!defined(TIMER_SETWGM_UNUSED) || !TIMER_SETWGM_UNUSED)
+ 325:../../../_commonCode/timerCommon/1.21/timerCommon.c **** uint8_t timer_setWGM(uint8_t timerNum, uint8_t wgm)
+ 326:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+ 169               		.stabn	68,0,326,.LM10-.LFBB2
+ 170               	.LM10:
+ 171               	.LFBB2:
+ 172               	/* prologue: function */
+ 173               	/* frame size = 0 */
+ 327:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t wgmLb = getbit(0, wgm);
+ 328:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t wgmHb = getbit(1, wgm);
+ 329:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 330:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//make the whole byte reflect the bit, so it can be used in writeMasked... 
+ 331:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//This could probably be more efficient if using writeBit instead...
+ 332:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// Oddly only minor effect to .stab but not to .text or .data after 
+ 333:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// other previous changes (below)...
+ 334:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //	wgmLb *= 0xff;
+ 335:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //	wgmHb *= 0xff;
+ 336:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 337:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Make sure the chosen WGM will be written to the WGM bits properly, as implemented below...
+ 338:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// Only modes 0-3 are implemented...
+ 339:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(wgm > 0x03)
+ 174               		.stabn	68,0,339,.LM11-.LFBB2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 10
+
+
+ 175               	.LM11:
+ 176 0052 6430      		cpi r22,lo8(4)
+ 177 0054 00F4      		brsh .L21
+ 340:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 1;
+ 341:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 342:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	switch(timerNum)
+ 178               		.stabn	68,0,342,.LM12-.LFBB2
+ 179               	.LM12:
+ 180 0056 8823      		tst r24
+ 181 0058 01F0      		breq .L22
+ 182 005a 8130      		cpi r24,lo8(1)
+ 183 005c 01F4      		brne .L21
+ 184 005e 00C0      		rjmp .L33
+ 185               	.L22:
+ 343:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 344:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//Assuming every AVR has a Timer0... 
+ 345:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//(an error will occur otherwise, and this can be updated accordingly)
+ 346:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0:
+ 347:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #ifdef _AVR_IOTNx61_H_
+ 348:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//TinyX61s' Timer0 is an exception...
+ 349:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// It only has WGM00, which serves the same functionality as
+ 350:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// most others' WGM01 (when their WGM00 == 0)
+ 351:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// (No PWM)
+ 352:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			if(wgmLb)
+ 186               		.stabn	68,0,352,.LM13-.LFBB2
+ 187               	.LM13:
+ 188 0060 862F      		mov r24,r22
+ 189 0062 8170      		andi r24,lo8(1)
+ 190 0064 01F4      		brne .L21
+ 353:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				return 1;
+ 354:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 355:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Whatever .stab is, this single change reduces it by 36Bytes
+ 356:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM00, T0_WGMReg, wgmHb);
+ 191               		.stabn	68,0,356,.LM14-.LFBB2
+ 192               	.LM14:
+ 193 0066 6270      		andi r22,lo8(2)
+ 194 0068 01F0      		breq .L24
+ 195 006a A89A      		sbi 53-0x20,0
+ 196 006c 00C0      		rjmp .L31
+ 197               	.L24:
+ 198 006e A898      		cbi 53-0x20,0
+ 199               	.L31:
+ 200 0070 85B3      		in r24,53-0x20
+ 201 0072 00C0      		rjmp .L30
+ 202               	.L33:
+ 203 0074 6130      		cpi r22,lo8(1)
+ 204 0076 01F4      		brne .L26
+ 357:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM00), T0_WGMReg);
+ 358:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #else
+ 359:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//This seems to be the "universal" WGM Timer0 settings
+ 360:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM00, T0_WGMReg, wgmLb);
+ 361:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM01, T0_WGMReg, wgmHb);
+ 362:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmLb, (1<<WGM00), T0_WGMReg);
+ 363:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM01), T0_WGMReg);
+ 364:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+ 365:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 366:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//Also Timer1, since all devices I've explored have both T0 and T1...
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 11
+
+
+ 367:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 1:
+ 368:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #ifdef _AVR_IOTNx61_H_
+ 369:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//TinyX61s' Timer1 is also an exception...
+ 370:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// WGM_NORMAL and WGM_CLR_ON_COMPARE are identical...
+ 371:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//  comparing to OCR1C
+ 372:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//  AND only possible when PWM1x is zero...
+ 373:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// AGAIN: ONLY THE "UNIVERSAL" MODES are currently implemented
+ 374:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// This has several fancy features.
+ 375:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 376:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //   Replacing the switch statement below with this didn't save any space
+ 377:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //     and, frankly, the switch statement is more intuitive
+ 378:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			wgmLb=0;
+ 379:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			wgmHb=0;
+ 380:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			if(wgm == WGM_PHASE_PWM)
+ 381:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //				wgmLb = 0xff;
+ 382:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 383:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			switch(wgm)
+ 384:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			{
+ 385:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //   Moving this case with default saved 10 text and 4 data bytes!
+ 386:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //				case WGM_FAST_PWM:
+ 387:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //					wgmLb = 0;
+ 388:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //					wgmHb = 0;
+ 389:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //					break;
+ 390:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				case WGM_PHASE_PWM:
+ 391:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					wgmLb = 1; //0xff;
+ 392:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					wgmHb = 0;
+ 393:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					break;
+ 394:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				case WGM_FAST_PWM:
+ 395:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					// This one really has bits = 0 0
+ 396:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				case WGM_NORMAL:
+ 397:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				case WGM_CLR_ON_COMPARE:
+ 398:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					//For these modes, the WGM bits are Don't Cares
+ 399:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					// ("Normal" counting is determined by PWM1x = 0)
+ 400:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 				default:
+ 401:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					//default shouldn't happen...
+ 402:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					wgmLb = 0;
+ 403:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					wgmHb = 0;
+ 404:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 					break;
+ 405:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			}
+ 406:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 407:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//NOTE: TinyX61s' WGM bits are both in TCCR1D (very unusual)
+ 408:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM10, TCCR1D, wgmLb);
+ 205               		.stabn	68,0,408,.LM15-.LFBB2
+ 206               	.LM15:
+ 207 0078 86B5      		in r24,70-0x20
+ 208 007a 8160      		ori r24,lo8(1)
+ 209 007c 00C0      		rjmp .L29
+ 210               	.L26:
+ 211 007e 86B5      		in r24,70-0x20
+ 212 0080 8E7F      		andi r24,lo8(-2)
+ 213               	.L29:
+ 214 0082 86BD      		out 70-0x20,r24
+ 215 0084 86B5      		in r24,70-0x20
+ 409:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM11, TCCR1D, wgmHb);
+ 216               		.stabn	68,0,409,.LM16-.LFBB2
+ 217               	.LM16:
+ 218 0086 86B5      		in r24,70-0x20
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 12
+
+
+ 219 0088 8D7F      		andi r24,lo8(-3)
+ 220 008a 86BD      		out 70-0x20,r24
+ 221 008c 86B5      		in r24,70-0x20
+ 222               	.L30:
+ 223 008e 80E0      		ldi r24,lo8(0)
+ 224 0090 0895      		ret
+ 225               	.L21:
+ 226 0092 81E0      		ldi r24,lo8(1)
+ 410:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmLb, (1<<WGM10), TCCR1D);
+ 411:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM11), TCCR1D);
+ 412:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #elif (!defined(WGM10) || !defined(WGM12) || !defined(TCCR1A) \
+ 413:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		|| !defined(TCCR1B))   //defined(_AVR_IOTNx5_H_)
+ 414:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #warning "This device's Timer1 doesn't appear to have (normal) WGM modes."
+ 415:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #warning " Or, at least, I haven't figured out how to implement them yet"
+ 416:../../../_commonCode/timerCommon/1.21/timerCommon.c ****  #warning " calls to timer_setWGM(1,...) will error"
+ 417:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			return 1;
+ 418:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #else
+ 419:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//The "Universal" WGM settings for Timer1 are set here...
+ 420:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM10, TCCR1A, wgmLb);
+ 421:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM12, TCCR1B, wgmHb);
+ 422:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmLb, (1<<WGM10), TCCR1A);
+ 423:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM12), TCCR1B);
+ 424:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+ 425:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 426:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  //From here, only compile for timers that exist...
+ 427:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  //at least "exist" as expected...
+ 428:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(T2_WGMReg)
+ 429:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 2:
+ 430:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM20, T2_WGMReg, wgmLb);
+ 431:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM21, T2_WGMReg, wgmHb);
+ 432:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmLb, (1<<WGM20), T2_WGMReg);
+ 433:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM21), T2_WGMReg);
+ 434:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 435:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 436:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(TCCR3A)
+ 437:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 3:
+ 438:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM30, TCCR3A, wgmLb);
+ 439:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(WGM32, TCCR3B, wgmHb);
+ 440:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmLb, (1<<WGM30), TCCR3A);
+ 441:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			writeMasked(wgmHb, (1<<WGM32), TCCR3B);
+ 442:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 443:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 444:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		default:
+ 445:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			return 1;
+ 446:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 447:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 448:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 449:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	return 0;
+ 450:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+ 227               		.stabn	68,0,450,.LM17-.LFBB2
+ 228               	.LM17:
+ 229 0094 0895      		ret
+ 230               		.size	timer_setWGM, .-timer_setWGM
+ 231               	.Lscope2:
+ 232               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 233               		.stabd	78,0,0
+ 234               		.stabs	"timer_init:F(6,2)",36,0,72,timer_init
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 13
+
+
+ 235               		.stabs	"timerNum:P(6,2)",64,0,72,17
+ 236               		.stabs	"clockDiv:P(6,2)",64,0,72,16
+ 237               		.stabs	"wgm:P(6,2)",64,0,72,20
+ 238               	.global	timer_init
+ 239               		.type	timer_init, @function
+ 240               	timer_init:
+ 241               		.stabd	46,0,0
+  73:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+ 242               		.stabn	68,0,73,.LM18-.LFBB3
+ 243               	.LM18:
+ 244               	.LFBB3:
+ 245 0096 0F93      		push r16
+ 246 0098 1F93      		push r17
+ 247               	/* prologue: function */
+ 248               	/* frame size = 0 */
+ 249 009a 182F      		mov r17,r24
+ 250 009c 062F      		mov r16,r22
+ 251               	.LBB2:
+  75:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	ERR_HANDLE_NUM(1,				\
+ 252               		.stabn	68,0,75,.LM19-.LFBB3
+ 253               	.LM19:
+ 254 009e 642F      		mov r22,r20
+ 255 00a0 00D0      		rcall timer_setWGM
+ 256 00a2 8823      		tst r24
+ 257 00a4 01F0      		breq .L35
+ 258 00a6 8061      		ori r24,lo8(16)
+ 259 00a8 00C0      		rjmp .L36
+ 260               	.L35:
+ 261               	.LBE2:
+ 262               	.LBB3:
+  79:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	ERR_HANDLE_NUM(2,							\
+ 263               		.stabn	68,0,79,.LM20-.LFBB3
+ 264               	.LM20:
+ 265 00aa 812F      		mov r24,r17
+ 266 00ac 602F      		mov r22,r16
+ 267 00ae 00D0      		rcall timer_selectDivisor
+ 268 00b0 8111      		cpse r24,__zero_reg__
+ 269 00b2 8062      		ori r24,lo8(32)
+ 270               	.L36:
+ 271               	/* epilogue start */
+ 272               	.LBE3:
+  83:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+ 273               		.stabn	68,0,83,.LM21-.LFBB3
+ 274               	.LM21:
+ 275 00b4 1F91      		pop r17
+ 276 00b6 0F91      		pop r16
+ 277 00b8 0895      		ret
+ 278               		.size	timer_init, .-timer_init
+ 279               		.stabs	"err_val:r(6,2)",64,0,75,24
+ 280               		.stabn	192,0,0,.LBB2-.LFBB3
+ 281               		.stabn	224,0,0,.LBE2-.LFBB3
+ 282               		.stabs	"err_val:r(6,2)",64,0,79,24
+ 283               		.stabn	192,0,0,.LBB3-.LFBB3
+ 284               		.stabn	224,0,0,.LBE3-.LFBB3
+ 285               	.Lscope3:
+ 286               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 287               		.stabd	78,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 14
+
+
+ 288               		.stabs	"timer_compareMatchIntSetup:F(6,2)",36,0,460,timer_compareMatchIntSetup
+ 289               		.stabs	"timerNum:P(6,2)",64,0,460,24
+ 290               		.stabs	"outputChannel:P(6,2)",64,0,460,22
+ 291               		.stabs	"enable:P(6,2)",64,0,461,20
+ 292               	.global	timer_compareMatchIntSetup
+ 293               		.type	timer_compareMatchIntSetup, @function
+ 294               	timer_compareMatchIntSetup:
+ 295               		.stabd	46,0,0
+ 451:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #endif
+ 452:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 453:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //timer_intEnable(type) could be created, assuming similarities between OCIEn/OCFn and TOIEn/TOVn a
+ 454:../../../_commonCode/timerCommon/1.21/timerCommon.c **** // Looks complicated since OCIEA/B for certain timers, and offsets don't seem particularly consiste
+ 455:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //uint8_t timer_compareMatchIntEnable(uint8_t timerNum, uint8_t outputChannel)
+ 456:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //!!! This ONLY works with OUT_CHANNEL_A/B
+ 457:../../../_commonCode/timerCommon/1.21/timerCommon.c **** // Maybe it should be modified for OUT_A | OUT_B as above...?
+ 458:../../../_commonCode/timerCommon/1.21/timerCommon.c **** #if (!defined(TIMER_COMPAREMATCHINTSETUP_UNUSED) \
+ 459:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		      || !TIMER_COMPAREMATCHINTSETUP_UNUSED)
+ 460:../../../_commonCode/timerCommon/1.21/timerCommon.c **** uint8_t timer_compareMatchIntSetup(uint8_t timerNum, uint8_t outputChannel,\
+ 461:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  												uint8_t enable)
+ 462:../../../_commonCode/timerCommon/1.21/timerCommon.c **** {
+ 296               		.stabn	68,0,462,.LM22-.LFBB4
+ 297               	.LM22:
+ 298               	.LFBB4:
+ 299               	/* prologue: function */
+ 300               	/* frame size = 0 */
+ 463:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	uint8_t channelNum;
+ 464:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 465:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(timerNum >= MAXTIMERS)
+ 301               		.stabn	68,0,465,.LM23-.LFBB4
+ 302               	.LM23:
+ 303 00ba 8430      		cpi r24,lo8(4)
+ 304 00bc 00F0      		brlo .L40
+ 305 00be 81E0      		ldi r24,lo8(1)
+ 306 00c0 0895      		ret
+ 307               	.L40:
+ 466:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 1;
+ 467:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 468:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(outputChannel >= 2) //MAXCHANNELSPERTIMER)
+ 308               		.stabn	68,0,468,.LM24-.LFBB4
+ 309               	.LM24:
+ 310 00c2 6230      		cpi r22,lo8(2)
+ 311 00c4 00F0      		brlo .L42
+ 312 00c6 82E0      		ldi r24,lo8(2)
+ 313 00c8 0895      		ret
+ 314               	.L42:
+ 315 00ca 4423      		tst r20
+ 316 00cc 01F0      		breq .L44
+ 317 00ce 41E0      		ldi r20,lo8(1)
+ 469:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		return 2;
+ 470:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 471:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//writebit (used later) does not currently handle TRUE and FALSE properly, just 0 and 1...
+ 472:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// this should be fixed now...
+ 473:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(enable)
+ 474:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		enable = 1;
+ 475:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 476:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//For the sake of our brute-force switch statement...
+ 477:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Combine the timer number and channel into a single variable...
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 15
+
+
+ 478:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//The high nibble contains the timer number, and the low contains the channel number (A=0,B=1)
+ 479:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	channelNum = (timerNum<<4) + outputChannel;
+ 480:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 
+ 481:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Don't clear interrupts before disabling this one, or that defeats the purpose!
+ 482:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// But do clear so we don't get unexpected overflows on init
+ 483:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(enable)
+ 484:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		cli();
+ 318               		.stabn	68,0,484,.LM25-.LFBB4
+ 319               	.LM25:
+ 320               	/* #APP */
+ 321               	 ;  484 "../../../_commonCode/timerCommon/1.21/timerCommon.c" 1
+ 322 00d0 F894      		cli
+ 323               	 ;  0 "" 2
+ 324               	/* #NOAPP */
+ 325               	.L44:
+ 485:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 486:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	switch(channelNum)
+ 326               		.stabn	68,0,486,.LM26-.LFBB4
+ 327               	.LM26:
+ 328 00d2 8295      		swap r24
+ 329 00d4 807F      		andi r24,lo8(-16)
+ 330 00d6 860F      		add r24,r22
+ 331 00d8 8130      		cpi r24,lo8(1)
+ 332 00da 01F0      		breq .L47
+ 333 00dc 8130      		cpi r24,lo8(1)
+ 334 00de 00F0      		brlo .L46
+ 335 00e0 8031      		cpi r24,lo8(16)
+ 336 00e2 01F0      		breq .L48
+ 337 00e4 8131      		cpi r24,lo8(17)
+ 338 00e6 01F0      		breq .L49
+ 339 00e8 83E0      		ldi r24,lo8(3)
+ 340 00ea 0895      		ret
+ 341               	.L46:
+ 487:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	{
+ 488:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(T0_TIMSK)
+ 489:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		//Case 0x00 is either OC0 or OC0A...
+ 490:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE0)
+ 491:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x00:
+ 492:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Enable the overflow interrupt (don't forget to create a handler!)
+ 493:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE0, T0_TIMSK);
+ 494:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE0, T0_TIMSK, enable);
+ 495:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			//Clear the overflow flag (OCD)...
+ 496:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF0, T0_TIFR);
+ 497:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 498:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 499:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE0A)
+ 500:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x00:
+ 501:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE0A, T0_TIMSK);
+ 502:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE0A, T0_TIMSK, enable);
+ 342               		.stabn	68,0,502,.LM27-.LFBB4
+ 343               	.LM27:
+ 344 00ec 4423      		tst r20
+ 345 00ee 01F0      		breq .L50
+ 346 00f0 89B7      		in r24,89-0x20
+ 347 00f2 8061      		ori r24,lo8(16)
+ 348 00f4 00C0      		rjmp .L61
+ 349               	.L50:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 16
+
+
+ 350 00f6 89B7      		in r24,89-0x20
+ 351 00f8 8F7E      		andi r24,lo8(-17)
+ 352               	.L61:
+ 353 00fa 89BF      		out 89-0x20,r24
+ 354 00fc 89B7      		in r24,89-0x20
+ 503:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// My OCD bit me in the ass, this was set to TIMSK by mistake(?)
+ 504:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF0A, T0_TIFR);
+ 355               		.stabn	68,0,504,.LM28-.LFBB4
+ 356               	.LM28:
+ 357 00fe 88B7      		in r24,88-0x20
+ 358 0100 8061      		ori r24,lo8(16)
+ 359 0102 00C0      		rjmp .L65
+ 360               	.L47:
+ 505:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 506:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 507:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE0B)
+ 508:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x01:
+ 509:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE0B, T0_TIMSK);
+ 510:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE0B, T0_TIMSK, enable);
+ 361               		.stabn	68,0,510,.LM29-.LFBB4
+ 362               	.LM29:
+ 363 0104 4423      		tst r20
+ 364 0106 01F0      		breq .L53
+ 365 0108 89B7      		in r24,89-0x20
+ 366 010a 8860      		ori r24,lo8(8)
+ 367 010c 00C0      		rjmp .L62
+ 368               	.L53:
+ 369 010e 89B7      		in r24,89-0x20
+ 370 0110 877F      		andi r24,lo8(-9)
+ 371               	.L62:
+ 372 0112 89BF      		out 89-0x20,r24
+ 373 0114 89B7      		in r24,89-0x20
+ 511:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			// As was this...
+ 512:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF0B, T0_TIFR);
+ 374               		.stabn	68,0,512,.LM30-.LFBB4
+ 375               	.LM30:
+ 376 0116 88B7      		in r24,88-0x20
+ 377 0118 8860      		ori r24,lo8(8)
+ 378 011a 00C0      		rjmp .L65
+ 379               	.L48:
+ 513:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 514:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 515:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 516:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(T1_TIMSK)
+ 517:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE1)
+ 518:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x10:
+ 519:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE1, T1_TIMSK);
+ 520:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE1, T1_TIMSK, enable);
+ 521:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF1, T1_TIFR);
+ 522:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 523:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 524:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE1A)
+ 525:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x10:
+ 526:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE1A, T1_TIMSK);
+ 527:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE1A, T1_TIMSK, enable);
+ 380               		.stabn	68,0,527,.LM31-.LFBB4
+ 381               	.LM31:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 17
+
+
+ 382 011c 4423      		tst r20
+ 383 011e 01F0      		breq .L55
+ 384 0120 89B7      		in r24,89-0x20
+ 385 0122 8064      		ori r24,lo8(64)
+ 386 0124 00C0      		rjmp .L63
+ 387               	.L55:
+ 388 0126 89B7      		in r24,89-0x20
+ 389 0128 8F7B      		andi r24,lo8(-65)
+ 390               	.L63:
+ 391 012a 89BF      		out 89-0x20,r24
+ 392 012c 89B7      		in r24,89-0x20
+ 528:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF1A, T1_TIFR);
+ 393               		.stabn	68,0,528,.LM32-.LFBB4
+ 394               	.LM32:
+ 395 012e 88B7      		in r24,88-0x20
+ 396 0130 8064      		ori r24,lo8(64)
+ 397 0132 00C0      		rjmp .L65
+ 398               	.L49:
+ 529:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 530:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 531:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE1B)
+ 532:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x11:
+ 533:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE1B, T1_TIMSK);
+ 534:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE1B, T1_TIMSK, enable);
+ 399               		.stabn	68,0,534,.LM33-.LFBB4
+ 400               	.LM33:
+ 401 0134 4423      		tst r20
+ 402 0136 01F0      		breq .L57
+ 403 0138 89B7      		in r24,89-0x20
+ 404 013a 8062      		ori r24,lo8(32)
+ 405 013c 00C0      		rjmp .L64
+ 406               	.L57:
+ 407 013e 89B7      		in r24,89-0x20
+ 408 0140 8F7D      		andi r24,lo8(-33)
+ 409               	.L64:
+ 410 0142 89BF      		out 89-0x20,r24
+ 411 0144 89B7      		in r24,89-0x20
+ 535:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF1B, T1_TIFR);
+ 412               		.stabn	68,0,535,.LM34-.LFBB4
+ 413               	.LM34:
+ 414 0146 88B7      		in r24,88-0x20
+ 415 0148 8062      		ori r24,lo8(32)
+ 416               	.L65:
+ 417 014a 88BF      		out 88-0x20,r24
+ 536:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 537:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 538:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 539:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(T2_TIMSK)
+ 540:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE2)
+ 541:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x20:
+ 542:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE2, T2_TIMSK);
+ 543:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE2, T2_TIMSK, enable);
+ 544:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF2, T2_TIFR);
+ 545:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 546:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 547:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE2A)
+ 548:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x20:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 18
+
+
+ 549:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE2A, T2_TIMSK);
+ 550:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE2A, T2_TIMSK, enable);
+ 551:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF2A, T2_TIFR);
+ 552:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 553:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 554:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE2B)
+ 555:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x21:
+ 556:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE2B, T2_TIMSK);
+ 557:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE2B, T2_TIMSK, enable);
+ 558:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF2B, T2_TIFR);
+ 559:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 560:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 561:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 562:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #if defined(T3_TIMSK)
+ 563:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE3)
+ 564:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x30:
+ 565:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE3, T3_TIMSK);
+ 566:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE3, T3_TIMSK, enable);
+ 567:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF3, T3_TIFR);
+ 568:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 569:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 570:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE3A)
+ 571:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	    case 0x30:
+ 572:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE3A, T3_TIMSK);
+ 573:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE3A, T3_TIMSK, enable);
+ 574:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF3A, T3_TIFR);
+ 575:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 576:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 577:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #if defined(OCIE3B)
+ 578:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		case 0x31:
+ 579:../../../_commonCode/timerCommon/1.21/timerCommon.c **** //			setbit(OCIE3B, T3_TIMSK);
+ 580:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			writebit(OCIE3B, T3_TIMSK, enable);
+ 581:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			setbit(OCF3B, T3_TIFR);
+ 582:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 583:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	   #endif
+ 584:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	  #endif
+ 585:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		default:
+ 586:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			return 3;
+ 587:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 			break;
+ 588:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	}
+ 589:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 590:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	//Don't reenable interrupts here if disabling... just leave them as they were....
+ 591:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	// but do enable for init...
+ 592:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	if(enable)
+ 418               		.stabn	68,0,592,.LM35-.LFBB4
+ 419               	.LM35:
+ 420 014c 4423      		tst r20
+ 421 014e 01F4      		brne .L59
+ 422 0150 80E0      		ldi r24,lo8(0)
+ 423 0152 0895      		ret
+ 424               	.L59:
+ 593:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 		sei();
+ 425               		.stabn	68,0,593,.LM36-.LFBB4
+ 426               	.LM36:
+ 427               	/* #APP */
+ 428               	 ;  593 "../../../_commonCode/timerCommon/1.21/timerCommon.c" 1
+ 429 0154 7894      		sei
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 19
+
+
+ 430               	 ;  0 "" 2
+ 431               	/* #NOAPP */
+ 432 0156 80E0      		ldi r24,lo8(0)
+ 594:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	
+ 595:../../../_commonCode/timerCommon/1.21/timerCommon.c **** 	return 0;
+ 596:../../../_commonCode/timerCommon/1.21/timerCommon.c **** }
+ 433               		.stabn	68,0,596,.LM37-.LFBB4
+ 434               	.LM37:
+ 435 0158 0895      		ret
+ 436               		.size	timer_compareMatchIntSetup, .-timer_compareMatchIntSetup
+ 437               	.Lscope4:
+ 438               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 439               		.stabd	78,0,0
+ 440               		.stabs	"",100,0,0,.Letext0
+ 441               	.Letext0:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 timerCommon.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:2      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:3      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:4      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:79     .text:00000000 timer_selectDivisor
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:167    .text:00000052 timer_setWGM
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:240    .text:00000096 timer_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccp2F5nc.s:294    .text:000000ba timer_compareMatchIntSetup
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

@@ -214,5 +214,14 @@ CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 #MYRMEXISTS = $(shell if [ -e /Users/meh/myexecs/myrm.sh ] ; then echo 1 ; else echo 0 ; fi )
 # Moved to reallyCommon2.mk
 
+
+# Yet another TOTAL HACK...
+# Have no idea whether this will work, nor how.
+#COM_HEADERS += ../screenshots/
+# NOT such a great idea, copies the entire path to screenshots under 
+# _commonCode_localized
+# Probably need to create a new variable... LOCALIZE_IN_MAINDIR or som'n
+# Too much for now...
+
 include $(COMDIR)/_make/reallyCommon2.mk
 

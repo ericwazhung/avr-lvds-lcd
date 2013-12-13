@@ -27,7 +27,7 @@
 // This array starts with ASCII ' ' (0x20)
 // -->> !"#$%&'()*+,-./0123456789:;<=>?@ABCDE...Z[\]^_`abcde...z{|}~<<<---
 // There's no reason to waste memory on ' ', but it's there...
-uint8_t __attribute__ ((progmem)) characters[][CHAR_COUNT] = //'~'-' '+1]=
+uint8_t __attribute__ ((progmem)) characters[][CHAR_COUNT+1] = //'~'-' '+1]=
 {
      [0][' '-' ']=reverseBin(0,0,0,0,0,0,0,0),
      [1][' '-' ']=reverseBin(0,0,0,0,0,0,0,0),
@@ -882,7 +882,25 @@ uint8_t __attribute__ ((progmem)) characters[][CHAR_COUNT] = //'~'-' '+1]=
      [4]['~'-' ']=reverseBin(0,0,0,0,0,0,0,0),
      [5]['~'-' ']=reverseBin(0,0,0,0,0,0,0,0),
      [6]['~'-' ']=reverseBin(0,0,0,0,0,0,0,0),
-     [7]['~'-' ']=reverseBin(0,0,0,0,0,0,0,0)
+     [7]['~'-' ']=reverseBin(0,0,0,0,0,0,0,0),
+     
+/*	  [0]['~'-' '+1]=reverseBin(1,1,1,0,1,1,1,0),
+     [1]['~'-' '+1]=reverseBin(1,0,0,1,0,0,1,0),
+     [2]['~'-' '+1]=reverseBin(1,1,1,0,1,0,1,0),
+     [3]['~'-' '+1]=reverseBin(1,0,0,0,1,0,1,0),
+     [4]['~'-' '+1]=reverseBin(1,1,0,0,1,1,1,0),
+     [5]['~'-' '+1]=reverseBin(1,0,0,0,1,0,1,0),
+     [6]['~'-' '+1]=reverseBin(1,0,0,0,1,0,1,0),
+     [7]['~'-' '+1]=reverseBin(1,1,1,0,1,0,1,0)
+*/
+	  [0]['~'-' '+1]=reverseBin(0,1,1,1,0,0,0,0),
+     [1]['~'-' '+1]=reverseBin(1,1,0,0,1,0,0,0),
+     [2]['~'-' '+1]=reverseBin(1,0,0,1,1,1,0,0),
+     [3]['~'-' '+1]=reverseBin(1,0,0,1,0,1,1,0),
+     [4]['~'-' '+1]=reverseBin(0,1,1,1,0,0,0,0),
+     [5]['~'-' '+1]=reverseBin(1,1,0,0,1,1,1,1),
+     [6]['~'-' '+1]=reverseBin(0,1,1,0,0,0,1,0),
+     [7]['~'-' '+1]=reverseBin(0,0,1,0,1,1,1,1)
 };
 
 /* OLD:

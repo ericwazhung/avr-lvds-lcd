@@ -13,6 +13,12 @@
 
 
 
+// Latest Version is v59-10 or so.. in which I'm adding a lot of notes re:
+// defines, etc... labelled a/o v59
+// These notes, when conflicting with older notes, should be considered
+// the most recent.
+
+
 
 //The current state is such that basically ONLY the row-segment-buffer
 // display-method has been tested for quite some time. The other code
@@ -126,7 +132,18 @@
 // One place to look is the delay_cyc in drawPix
 //  Currently 1, 2, and 8 seem to work.
 //  8 no longer works, noticed a/o v46
-#define LVDS_PRESCALER 8//2//1//8//2//4//8//2//8//2
+// a/o v59, this has been 8 for quite some time... it works well with
+// RowSegBuffer, to increase resolution at the expense of frame-rate
+// I have since tried it with 2... interesting effect
+//   Surprisingly, it works, despite the fact that in this mode, I think it
+//   should be still keeping Data-Enable active for the full image
+//   which extends way beyond the edge of the screen.
+//   Oddly, it seems to be scaling BOTH horizontally *and* vertically
+//   I can't explain this.
+//   It offers quite a bit of potential, though. The refresh-rate is
+//   increased dramatically, just by changing this value from 8 to 2
+//   
+#define LVDS_PRESCALER 8//1//2//8//2//1//8//2//4//8//2//8//2
 //8//2//1//2//2//2//2//2//2//2//2//2//2//2//8//4 //1 //2//4//8//2//4
 
 
@@ -135,10 +152,16 @@
  #include "lifeStuff.c"
 #endif
 
+// a/o v59
+//This should probably always be TRUE now... It's been a LONG time since I
+// experimented with it otherwise.
 #define ROW_SEG_BUFFER	TRUE
 //now, SEG_STRETCH >= 3 causes weirdness... (repeated rows)
 // previously 3 was OK
 // This is fixed a/o newSeg, etc.
+//a/o v59 I believe this is only used in the case when no SEG_(mode) is set
+// to stretch a low-resolution row-buffer across the screen
+// And that case (No SEG_mode set) doesn't really do anything anymore
 #define SEG_STRETCH 5//4//3//2//3//4//6//3//4//6	//Stretch pixels using longer segments
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
@@ -150,6 +173,9 @@
  #include "rowSegBuffer.c"
 #endif
 
+//a/o v59:
+//If this is not true, then it uses the frameBuffer... which is no longer
+// tested/implemented...
 #define ROW_BUFFER TRUE
 #if (defined(ROW_BUFFER) && ROW_BUFFER)
  #include "rowBuffer.c"
@@ -166,8 +192,9 @@
 
 
 
-
+// a/o v59:
 //See its old definition elsewhere
+// for an explanation of the math... and a bunch of remaining questions.
 #define NUM_PSEGS (1024/3+16)
 
 
@@ -277,6 +304,7 @@ void showScore(uint16_t rowNum, uint32_t score, uint8_t color)
 // (thus decreasing resolution)
 // each color takes 9 cycles to process in three-shade mode
 // or 12 cycles for red and green, plus 9 for blue in four-shade mode
+// a/o v59: I don't think this does anything in ROW_SEG_BUFFER
 #define FOUR_SHADES TRUE
 
 // TODO: Between OSCCAL_VAL and FRAME_UPDATE_DELAY
@@ -306,7 +334,15 @@ void showScore(uint16_t rowNum, uint32_t score, uint8_t color)
 //  such slow bitrates... heck, some may not run at all even at the fastest
 // If SLOW_EVERYTHING_TEST is true, this value is overridden
 // LTN last used 0x20
-#define OSCCAL_VAL	0xff//0x20//0xff //0x00
+// a/o v59:
+// 0xD8 is the lowest value that syncs reliably, a few glitches from time
+// to time.
+// The effect of lower values isn't *quite* what I was expecting, but
+// definitely suggests that using ROW_SEG_BUFFER at this bit/refresh-rate
+// is dang-near right at the minimum required for this display.
+// This might be why the other (same model) display didn't work, but its
+// flakeyness at 0xff appeared different than this one's at lower OSCCALs
+#define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
 
 //This would normally be 0 for the highest-speed frame-refresh possible
 // However, increasing this value can slow the frame-refresh rate
@@ -329,12 +365,20 @@ void showScore(uint16_t rowNum, uint32_t score, uint8_t color)
 //      if it's too slow, some images may be missed completely.
 //      This is not true for FRAME_SYNC TRUE (below)
 //      (and it's not really useful anymore with FRAME_SYNC)
-#define FRAME_UPDATE_DELAY 0//5000//50000 //2000 //5000 //20000 //50000
+// a/0 v59: This is no longer used (!?) I coulda sworn it was still
+//          responsible for modifying the timer's interrupt frequency
+//          This was also used in an attempt to make the Horizontal Back
+//          Porch constant regardless of row calculation-time
+//          So, either, the HBP is long enough for the current math, or
+//          the display is not sensitive to varying HBPs between rows
+//          (see also lcdStuff.c)
+//#define FRAME_UPDATE_DELAY 0//5000//50000 //2000 //5000 //20000 //50000
 
 //SHOULD PROBABLY BE REVISITED
 // It probably doesn't work with all cases...
 // Definitely with drawPix/Images...
 //This causes main o update the image *after* FRAME_UPDATE_DELAY
+// a/o v59: I don't think this is used anymore...
 #define FRAME_SYNC TRUE
 
 //New Idea:
@@ -366,7 +410,8 @@ void showScore(uint16_t rowNum, uint32_t score, uint8_t color)
 //  Not sure whether it's an electrical problem, but these half-shades 
 //   appear dithered, sometimes ugilly, sometimes it's nice. I guess it
 //   depends on the goal...
-#define FRAME_COUNT_TO_DELAY 2//7//1//5//2//3
+// a/o v59: I believe this doesn't work with ROW_SEG_BUFFER...
+#define FRAME_COUNT_TO_DELAY 8//2//7//1//5//2//3
 
 
 //These two are mutually-exclusive (BLUE_VERT_BAR overrides DE_BLUE)
@@ -2991,7 +3036,7 @@ addSegfb(raceWidth, _W);
 		addSegfb(1, _W); //0x04, (6<<4) | 3);
 
 		//PGM_P charPtr = strchrnul_P(
-		PGM_P tqbf = PSTR(" The Quick Brown Fox Jumped Over The Lazy Dog!"); 
+		PGM_P tqbf = PSTR(" The Quick Brown Fox Jumped Over The Lazy Dog! \177"); 
 		//, rowNum/8);
 
 		strncpy_P(&thisChar, tqbf+(rowNum/8), 1);

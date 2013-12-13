@@ -1,0 +1,582 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 1
+
+
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+   9               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/59-reallyCommon2/",100,0,2,.Ltext0
+  10               		.stabs	"../../../_commonCode/adc/0.20/adc.c",100,0,2,.Ltext0
+  11               		.text
+  12               	.Ltext0:
+  13               		.stabs	"gcc2_compiled.",60,0,0,0
+  14               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,1,0
+  15               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,1,0
+  16               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,1,0
+  17               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,1,0
+  18               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,1,0
+  19               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,1,
+  20               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,1,0
+  21               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,1,0
+  22               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,1,0
+  23               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,1,0
+  24               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,1,0
+  25               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,1,0
+  26               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,1,0
+  27               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,1,0
+  28               		.stabs	"void:t(0,15)=(0,15)",128,0,1,0
+  29               		.stabs	"../../../_commonCode/adc/0.20/adc.h",130,0,0,0
+  30               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/io.h",130,0,0,0
+  31               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/sfr_defs.h",130,0,0,0
+  32               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/inttypes.h",130,0,0,0
+  33               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/stdint.h",130,0,0,0
+  34               		.stabs	"int8_t:t(5,1)=(0,10)",128,0,121,0
+  35               		.stabs	"uint8_t:t(5,2)=(0,11)",128,0,122,0
+  36               		.stabs	"int16_t:t(5,3)=(0,1)",128,0,123,0
+  37               		.stabs	"uint16_t:t(5,4)=(0,4)",128,0,124,0
+  38               		.stabs	"int32_t:t(5,5)=(0,3)",128,0,125,0
+  39               		.stabs	"uint32_t:t(5,6)=(0,5)",128,0,126,0
+  40               		.stabs	"int64_t:t(5,7)=(0,6)",128,0,128,0
+  41               		.stabs	"uint64_t:t(5,8)=(0,7)",128,0,129,0
+  42               		.stabs	"intptr_t:t(5,9)=(5,3)",128,0,142,0
+  43               		.stabs	"uintptr_t:t(5,10)=(5,4)",128,0,147,0
+  44               		.stabs	"int_least8_t:t(5,11)=(5,1)",128,0,159,0
+  45               		.stabs	"uint_least8_t:t(5,12)=(5,2)",128,0,164,0
+  46               		.stabs	"int_least16_t:t(5,13)=(5,3)",128,0,169,0
+  47               		.stabs	"uint_least16_t:t(5,14)=(5,4)",128,0,174,0
+  48               		.stabs	"int_least32_t:t(5,15)=(5,5)",128,0,179,0
+  49               		.stabs	"uint_least32_t:t(5,16)=(5,6)",128,0,184,0
+  50               		.stabs	"int_least64_t:t(5,17)=(5,7)",128,0,192,0
+  51               		.stabs	"uint_least64_t:t(5,18)=(5,8)",128,0,199,0
+  52               		.stabs	"int_fast8_t:t(5,19)=(5,1)",128,0,213,0
+  53               		.stabs	"uint_fast8_t:t(5,20)=(5,2)",128,0,218,0
+  54               		.stabs	"int_fast16_t:t(5,21)=(5,3)",128,0,223,0
+  55               		.stabs	"uint_fast16_t:t(5,22)=(5,4)",128,0,228,0
+  56               		.stabs	"int_fast32_t:t(5,23)=(5,5)",128,0,233,0
+  57               		.stabs	"uint_fast32_t:t(5,24)=(5,6)",128,0,238,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 2
+
+
+  58               		.stabs	"int_fast64_t:t(5,25)=(5,7)",128,0,246,0
+  59               		.stabs	"uint_fast64_t:t(5,26)=(5,8)",128,0,253,0
+  60               		.stabs	"intmax_t:t(5,27)=(5,7)",128,0,273,0
+  61               		.stabs	"uintmax_t:t(5,28)=(5,8)",128,0,278,0
+  62               		.stabn	162,0,0,0
+  63               		.stabs	"int_farptr_t:t(4,1)=(5,5)",128,0,77,0
+  64               		.stabs	"uint_farptr_t:t(4,2)=(5,6)",128,0,81,0
+  65               		.stabn	162,0,0,0
+  66               		.stabn	162,0,0,0
+  67               		.stabs	"/usr/local/lib/gcc/avr/4.4.5/../../../../avr/include/avr/fuse.h",130,0,0,0
+  68               		.stabs	"__fuse_t:t(6,1)=(6,2)=s3low:(0,11),0,8;high:(0,11),8,8;extended:(0,11),16,8;;",128,0,244,0
+  69               		.stabn	162,0,0,0
+  70               		.stabn	162,0,0,0
+  71               		.stabn	162,0,0,0
+  72               		.stabs	"adc_select:F(0,15)",36,0,75,adc_select
+  73               		.stabs	"adcNum:P(5,2)",64,0,75,24
+  74               	.global	adc_select
+  75               		.type	adc_select, @function
+  76               	adc_select:
+  77               		.stabd	46,0,0
+   1:../../../_commonCode/adc/0.20/adc.c **** #include "adc.h"
+   2:../../../_commonCode/adc/0.20/adc.c **** 
+   3:../../../_commonCode/adc/0.20/adc.c **** #if(!(defined(ADC_SUM_REMOVED) && ADC_SUM_REMOVED))
+   4:../../../_commonCode/adc/0.20/adc.c **** uint32_t adcSum[NUMADCS];
+   5:../../../_commonCode/adc/0.20/adc.c **** #endif
+   6:../../../_commonCode/adc/0.20/adc.c **** 
+   7:../../../_commonCode/adc/0.20/adc.c **** void adc_init(void)
+   8:../../../_commonCode/adc/0.20/adc.c **** {
+   9:../../../_commonCode/adc/0.20/adc.c **** 	//Initialize to external reference voltage on AREF
+  10:../../../_commonCode/adc/0.20/adc.c **** 	// Do NOT change this if AREF is connected to ANYTHING other than a capacitor
+  11:../../../_commonCode/adc/0.20/adc.c **** 	// (i.e. a 3.3V voltage regulator output)
+  12:../../../_commonCode/adc/0.20/adc.c **** 	//Technically, these values are reset-defaults, but just make sure
+  13:../../../_commonCode/adc/0.20/adc.c **** 	//!!!According to attiny861, these values set VCC as the voltage ref
+  14:../../../_commonCode/adc/0.20/adc.c **** 	//   NOT an external reference. So the above note seems odd...
+  15:../../../_commonCode/adc/0.20/adc.c **** 	// This IS what I want on the Tiny861 threePinIDer...
+  16:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(REFS0, ADMUX);
+  17:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
+  18:../../../_commonCode/adc/0.20/adc.c **** 	
+  19:../../../_commonCode/adc/0.20/adc.c **** 	//Use right-adjusted output
+  20:../../../_commonCode/adc/0.20/adc.c **** 	// so values read from the 2-byte register are:
+  21:../../../_commonCode/adc/0.20/adc.c **** 	//	8-bits in the Low reg, and 2 in the High reg
+  22:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADLAR, ADMUX);
+  23:../../../_commonCode/adc/0.20/adc.c **** 
+  24:../../../_commonCode/adc/0.20/adc.c **** 	//Enable the ADC
+  25:../../../_commonCode/adc/0.20/adc.c **** 	// (see description for noise cancelling techniques)
+  26:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADEN, ADCSRA);
+  27:../../../_commonCode/adc/0.20/adc.c **** 	
+  28:../../../_commonCode/adc/0.20/adc.c **** 	//Don't use Auto Triggering
+  29:../../../_commonCode/adc/0.20/adc.c **** 	// (@@@ could use a timer, etc.)
+  30:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADATE, ADCSRA);
+  31:../../../_commonCode/adc/0.20/adc.c **** 	
+  32:../../../_commonCode/adc/0.20/adc.c **** 	//Clear the interrupt-flag to be used as a conversion-complete indicator
+  33:../../../_commonCode/adc/0.20/adc.c **** 	// (not currently using the interrupt)
+  34:../../../_commonCode/adc/0.20/adc.c **** 	// "This bit is set when an ADC conversion completes and the Data Registers are updated."
+  35:../../../_commonCode/adc/0.20/adc.c **** 	// "ADIF is cleared by writing a logical one to the flag."
+  36:../../../_commonCode/adc/0.20/adc.c **** 	// " BEWARE that if doing a Read-Modify-Write on ADCSRA, a pending interrupt can be disabled. "
+  37:../../../_commonCode/adc/0.20/adc.c **** 	//   because the flag may be 1 when read, and re-writing 1 clears it.
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 3
+
+
+  38:../../../_commonCode/adc/0.20/adc.c **** 	//   ???could get around this by using a special set/clrbit instruction which would always write 0
+  39:../../../_commonCode/adc/0.20/adc.c **** 	//   to this bit...
+  40:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADIF, ADCSRA);
+  41:../../../_commonCode/adc/0.20/adc.c **** 	
+  42:../../../_commonCode/adc/0.20/adc.c **** 	//make sure the interrupt is not enabled...
+  43:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADIE, ADCSRA);
+  44:../../../_commonCode/adc/0.20/adc.c **** 	
+  45:../../../_commonCode/adc/0.20/adc.c **** 	//Set the conversion clock prescaler
+  46:../../../_commonCode/adc/0.20/adc.c **** 	// "By default, the successive approximation circuitry requires an input
+  47:../../../_commonCode/adc/0.20/adc.c **** 	//  clock frequency between 50kHz and 200 kHz to get maximum resolution. 
+  48:../../../_commonCode/adc/0.20/adc.c **** 	//  If a lower resolution than 10 bits is needed, the input clock frequency 
+  49:../../../_commonCode/adc/0.20/adc.c **** 	//  to the ADC can be higher than 200 kHz to get a higher sample rate."
+  50:../../../_commonCode/adc/0.20/adc.c **** 	// For now, let's go for higher-precision... 
+  51:../../../_commonCode/adc/0.20/adc.c **** 	// 16MHz / 200kHz = 80
+  52:../../../_commonCode/adc/0.20/adc.c **** 	// our best-bet for precision is 128
+  53:../../../_commonCode/adc/0.20/adc.c **** 	adc_setPrescaler(ADPS_128);
+  54:../../../_commonCode/adc/0.20/adc.c **** 		
+  55:../../../_commonCode/adc/0.20/adc.c **** 	//Select GND as the first ADC source...
+  56:../../../_commonCode/adc/0.20/adc.c **** 	adc_select(ADC_SELECT_GND);
+  57:../../../_commonCode/adc/0.20/adc.c **** 	
+  58:../../../_commonCode/adc/0.20/adc.c **** 	//Start a conversion so it will be initialized for the next...
+  59:../../../_commonCode/adc/0.20/adc.c **** 	//"The first conversion after ADSC has been written 
+  60:../../../_commonCode/adc/0.20/adc.c **** 	// after the ADC has been enabled ... 
+  61:../../../_commonCode/adc/0.20/adc.c **** 	// will take 25 ADC clock cycles instead of the normal 13. 
+  62:../../../_commonCode/adc/0.20/adc.c **** 	// This first conversion performs initialization of the ADC. "
+  63:../../../_commonCode/adc/0.20/adc.c **** 	adc_startConversion();
+  64:../../../_commonCode/adc/0.20/adc.c **** 
+  65:../../../_commonCode/adc/0.20/adc.c **** 	//Wait for the initialization to complete for lockstepping...
+  66:../../../_commonCode/adc/0.20/adc.c **** 	while(adc_isBusy())
+  67:../../../_commonCode/adc/0.20/adc.c **** 	{}
+  68:../../../_commonCode/adc/0.20/adc.c **** }
+  69:../../../_commonCode/adc/0.20/adc.c **** 
+  70:../../../_commonCode/adc/0.20/adc.c **** 
+  71:../../../_commonCode/adc/0.20/adc.c **** //adcNum 0-7 directly selects an input. 
+  72:../../../_commonCode/adc/0.20/adc.c **** //	Other values are defined in Table 21-4 (old note, 644?)
+  73:../../../_commonCode/adc/0.20/adc.c **** //adcNum 0-10 directly selects an input on the TinyX61
+  74:../../../_commonCode/adc/0.20/adc.c **** //(This doesn't currently work with differential inputs...)
+  75:../../../_commonCode/adc/0.20/adc.c **** void adc_select(uint8_t adcNum)
+  76:../../../_commonCode/adc/0.20/adc.c **** {
+  78               		.stabn	68,0,76,.LM0-.LFBB1
+  79               	.LM0:
+  80               	.LFBB1:
+  81               	/* prologue: function */
+  82               	/* frame size = 0 */
+  77:../../../_commonCode/adc/0.20/adc.c **** 	//"If a different data channel is selected while a conversion is in progress,
+  78:../../../_commonCode/adc/0.20/adc.c **** 	// the ADC will finish the current conversion before performing the channel change. "
+  79:../../../_commonCode/adc/0.20/adc.c **** 	//  though, it is not safe to do this immediately after a startConversion,
+  80:../../../_commonCode/adc/0.20/adc.c **** 	//  since the ADC clock is significantly slower than the uC
+  81:../../../_commonCode/adc/0.20/adc.c **** 	// see Figure 21.5
+  82:../../../_commonCode/adc/0.20/adc.c **** 	//"Note that the conversion starts on the following rising ADC clock edge after 
+  83:../../../_commonCode/adc/0.20/adc.c **** 	// ADSC is written. The user is thus advised not to write new channel or reference
+  84:../../../_commonCode/adc/0.20/adc.c **** 	// selection values to ADMUX until one ADC clock cycle after ADSC is written. 
+  85:../../../_commonCode/adc/0.20/adc.c **** 
+  86:../../../_commonCode/adc/0.20/adc.c **** 	writeMasked(adcNum, ADC_SELECT_MASK, ADMUX);
+  83               		.stabn	68,0,86,.LM1-.LFBB1
+  84               	.LM1:
+  85 0000 97B1      		in r25,39-0x20
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 4
+
+
+  86 0002 8F71      		andi r24,lo8(31)
+  87 0004 907E      		andi r25,lo8(-32)
+  88 0006 892B      		or r24,r25
+  89 0008 87B9      		out 39-0x20,r24
+  90               	/* epilogue start */
+  87:../../../_commonCode/adc/0.20/adc.c **** }
+  91               		.stabn	68,0,87,.LM2-.LFBB1
+  92               	.LM2:
+  93 000a 0895      		ret
+  94               		.size	adc_select, .-adc_select
+  95               	.Lscope1:
+  96               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+  97               		.stabd	78,0,0
+  98               		.stabs	"adc_startConversion:F(5,2)",36,0,90,adc_startConversion
+  99               	.global	adc_startConversion
+ 100               		.type	adc_startConversion, @function
+ 101               	adc_startConversion:
+ 102               		.stabd	46,0,0
+  88:../../../_commonCode/adc/0.20/adc.c **** 
+  89:../../../_commonCode/adc/0.20/adc.c **** //Return TRUE on error (if there was a previous conversion in progress...)
+  90:../../../_commonCode/adc/0.20/adc.c **** uint8_t adc_startConversion(void)
+  91:../../../_commonCode/adc/0.20/adc.c **** {
+ 103               		.stabn	68,0,91,.LM3-.LFBB2
+ 104               	.LM3:
+ 105               	.LFBB2:
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 108               	.LBB10:
+ 109               	.LBB11:
+  92:../../../_commonCode/adc/0.20/adc.c **** 	//Check if a conversion is already in progress...
+  93:../../../_commonCode/adc/0.20/adc.c **** 	if(adc_isBusy())
+  94:../../../_commonCode/adc/0.20/adc.c **** 		return TRUE;
+  95:../../../_commonCode/adc/0.20/adc.c **** 
+  96:../../../_commonCode/adc/0.20/adc.c **** 	//"The channel and reference selection is continuously updated 
+  97:../../../_commonCode/adc/0.20/adc.c **** 	// until a conversion is started. Once the conversion starts, the channel and 
+  98:../../../_commonCode/adc/0.20/adc.c **** 	// reference selection is locked to ensure a sufficient sampling time for the ADC."
+  99:../../../_commonCode/adc/0.20/adc.c **** 	
+ 100:../../../_commonCode/adc/0.20/adc.c **** 	//"In Single Conversion mode, write this bit to one to start each conversion."
+ 101:../../../_commonCode/adc/0.20/adc.c **** 	// BEWARE: calling this will CLEAR the conversion-complete indicator
+ 102:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADSC, ADCSRA);
+ 103:../../../_commonCode/adc/0.20/adc.c **** 	return FALSE;
+ 104:../../../_commonCode/adc/0.20/adc.c **** }
+ 105:../../../_commonCode/adc/0.20/adc.c **** 
+ 106:../../../_commonCode/adc/0.20/adc.c **** //Return the last value read by the ADC
+ 107:../../../_commonCode/adc/0.20/adc.c **** // check if adc_isBusy is true before reading, in lockstep...
+ 108:../../../_commonCode/adc/0.20/adc.c **** // Since ADLAR is cleared, it will be the low ten bits 
+ 109:../../../_commonCode/adc/0.20/adc.c **** uint16_t adc_getValue(void)
+ 110:../../../_commonCode/adc/0.20/adc.c **** {
+ 111:../../../_commonCode/adc/0.20/adc.c **** 	return ADC;
+ 112:../../../_commonCode/adc/0.20/adc.c **** 	//Note that ADC is a SFR_MEM16 read to ADCH and ADCL, defined in iomxx4.h (not in the datasheet)
+ 113:../../../_commonCode/adc/0.20/adc.c **** 	//reading both values takes longer and some other things mentioned in the manual
+ 114:../../../_commonCode/adc/0.20/adc.c **** 	// (i.e. it might be more efficient to only read one byte if acceptable)
+ 115:../../../_commonCode/adc/0.20/adc.c **** 	// unless only reading ADCH: "ADCL must be read first, then ADCH"
+ 116:../../../_commonCode/adc/0.20/adc.c **** 	//!!! Might want to verify this occurs properly in the assembly code
+ 117:../../../_commonCode/adc/0.20/adc.c **** 	
+ 118:../../../_commonCode/adc/0.20/adc.c **** }
+ 119:../../../_commonCode/adc/0.20/adc.c **** 
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 5
+
+
+ 120:../../../_commonCode/adc/0.20/adc.c **** 
+ 121:../../../_commonCode/adc/0.20/adc.c **** //In free-running mode, this will always return TRUE
+ 122:../../../_commonCode/adc/0.20/adc.c **** // so adc_getValue can be called at any time and used to grab the most recent conversion
+ 123:../../../_commonCode/adc/0.20/adc.c **** // (which might be one behind if it's called right at the end of one)
+ 124:../../../_commonCode/adc/0.20/adc.c **** uint8_t adc_isBusy(void)
+ 125:../../../_commonCode/adc/0.20/adc.c **** {
+ 126:../../../_commonCode/adc/0.20/adc.c **** 	//"This bit stays high as long as the conversion is in progress and 
+ 127:../../../_commonCode/adc/0.20/adc.c **** 	// will be cleared by hardware when the conversion is completed."
+ 128:../../../_commonCode/adc/0.20/adc.c **** 	// "ADSC can also be used to determine if a conversion is in progress. 
+ 129:../../../_commonCode/adc/0.20/adc.c **** 	//  The ADSC bit will be read as one during a conversion, 
+ 130:../../../_commonCode/adc/0.20/adc.c **** 	//  independently of how the conversion was started."
+ 131:../../../_commonCode/adc/0.20/adc.c **** 	//  actually, it would return true /always/ during free-running mode
+ 132:../../../_commonCode/adc/0.20/adc.c **** 
+ 133:../../../_commonCode/adc/0.20/adc.c **** 	//Check state-machine... might be better to use ADIF...?
+ 134:../../../_commonCode/adc/0.20/adc.c **** 	return getbit(ADSC, ADCSRA);
+ 110               		.stabn	68,0,134,.LM4-.LFBB2
+ 111               	.LM4:
+ 112 000c 86B1      		in r24,38-0x20
+ 113               	.LBE11:
+ 114               	.LBE10:
+  93:../../../_commonCode/adc/0.20/adc.c **** 	if(adc_isBusy())
+ 115               		.stabn	68,0,93,.LM5-.LFBB2
+ 116               	.LM5:
+ 117 000e 8074      		andi r24,lo8(64)
+ 118 0010 01F0      		breq .L4
+ 119 0012 81E0      		ldi r24,lo8(1)
+ 120 0014 0895      		ret
+ 121               	.L4:
+ 102:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADSC, ADCSRA);
+ 122               		.stabn	68,0,102,.LM6-.LFBB2
+ 123               	.LM6:
+ 124 0016 369A      		sbi 38-0x20,6
+ 125 0018 80E0      		ldi r24,lo8(0)
+ 104:../../../_commonCode/adc/0.20/adc.c **** }
+ 126               		.stabn	68,0,104,.LM7-.LFBB2
+ 127               	.LM7:
+ 128 001a 0895      		ret
+ 129               		.size	adc_startConversion, .-adc_startConversion
+ 130               	.Lscope2:
+ 131               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 132               		.stabd	78,0,0
+ 133               		.stabs	"adc_init:F(0,15)",36,0,7,adc_init
+ 134               	.global	adc_init
+ 135               		.type	adc_init, @function
+ 136               	adc_init:
+ 137               		.stabd	46,0,0
+   8:../../../_commonCode/adc/0.20/adc.c **** {
+ 138               		.stabn	68,0,8,.LM8-.LFBB3
+ 139               	.LM8:
+ 140               	.LFBB3:
+ 141               	/* prologue: function */
+ 142               	/* frame size = 0 */
+  16:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(REFS0, ADMUX);
+ 143               		.stabn	68,0,16,.LM9-.LFBB3
+ 144               	.LM9:
+ 145 001c 3E98      		cbi 39-0x20,6
+  17:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 6
+
+
+ 146               		.stabn	68,0,17,.LM10-.LFBB3
+ 147               	.LM10:
+ 148 001e 3F98      		cbi 39-0x20,7
+  22:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADLAR, ADMUX);
+ 149               		.stabn	68,0,22,.LM11-.LFBB3
+ 150               	.LM11:
+ 151 0020 3D98      		cbi 39-0x20,5
+  26:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADEN, ADCSRA);
+ 152               		.stabn	68,0,26,.LM12-.LFBB3
+ 153               	.LM12:
+ 154 0022 379A      		sbi 38-0x20,7
+  30:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADATE, ADCSRA);
+ 155               		.stabn	68,0,30,.LM13-.LFBB3
+ 156               	.LM13:
+ 157 0024 3598      		cbi 38-0x20,5
+  40:../../../_commonCode/adc/0.20/adc.c **** 	setbit(ADIF, ADCSRA);
+ 158               		.stabn	68,0,40,.LM14-.LFBB3
+ 159               	.LM14:
+ 160 0026 349A      		sbi 38-0x20,4
+  43:../../../_commonCode/adc/0.20/adc.c **** 	clrbit(ADIE, ADCSRA);
+ 161               		.stabn	68,0,43,.LM15-.LFBB3
+ 162               	.LM15:
+ 163 0028 3398      		cbi 38-0x20,3
+ 164               	.LBB12:
+ 165               	.LBB13:
+ 135:../../../_commonCode/adc/0.20/adc.c **** }
+ 136:../../../_commonCode/adc/0.20/adc.c **** 
+ 137:../../../_commonCode/adc/0.20/adc.c **** void adc_setPrescaler(uint8_t adps)
+ 138:../../../_commonCode/adc/0.20/adc.c **** {
+ 139:../../../_commonCode/adc/0.20/adc.c **** 	//This will clear the conversion-complete flag!
+ 140:../../../_commonCode/adc/0.20/adc.c **** 	writeMasked(adps, ADPS_MASK, ADCSRA);
+ 166               		.stabn	68,0,140,.LM16-.LFBB3
+ 167               	.LM16:
+ 168 002a 86B1      		in r24,38-0x20
+ 169 002c 8760      		ori r24,lo8(7)
+ 170 002e 86B9      		out 38-0x20,r24
+ 171               	.LBE13:
+ 172               	.LBE12:
+ 173               	.LBB14:
+ 174               	.LBB15:
+  86:../../../_commonCode/adc/0.20/adc.c **** 	writeMasked(adcNum, ADC_SELECT_MASK, ADMUX);
+ 175               		.stabn	68,0,86,.LM17-.LFBB3
+ 176               	.LM17:
+ 177 0030 87B1      		in r24,39-0x20
+ 178 0032 8F61      		ori r24,lo8(31)
+ 179 0034 87B9      		out 39-0x20,r24
+ 180               	.LBE15:
+ 181               	.LBE14:
+  63:../../../_commonCode/adc/0.20/adc.c **** 	adc_startConversion();
+ 182               		.stabn	68,0,63,.LM18-.LFBB3
+ 183               	.LM18:
+ 184 0036 00D0      		rcall adc_startConversion
+ 185               	.L9:
+ 186               	.LBB16:
+ 187               	.LBB17:
+ 134:../../../_commonCode/adc/0.20/adc.c **** 	return getbit(ADSC, ADCSRA);
+ 188               		.stabn	68,0,134,.LM19-.LFBB3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 7
+
+
+ 189               	.LM19:
+ 190 0038 86B1      		in r24,38-0x20
+ 191               	.LBE17:
+ 192               	.LBE16:
+  66:../../../_commonCode/adc/0.20/adc.c **** 	while(adc_isBusy())
+ 193               		.stabn	68,0,66,.LM20-.LFBB3
+ 194               	.LM20:
+ 195 003a 8074      		andi r24,lo8(64)
+ 196 003c 01F4      		brne .L9
+ 197               	/* epilogue start */
+  68:../../../_commonCode/adc/0.20/adc.c **** }
+ 198               		.stabn	68,0,68,.LM21-.LFBB3
+ 199               	.LM21:
+ 200 003e 0895      		ret
+ 201               		.size	adc_init, .-adc_init
+ 202               	.Lscope3:
+ 203               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 204               		.stabd	78,0,0
+ 205               		.stabs	"adc_getValue:F(5,4)",36,0,109,adc_getValue
+ 206               	.global	adc_getValue
+ 207               		.type	adc_getValue, @function
+ 208               	adc_getValue:
+ 209               		.stabd	46,0,0
+ 110:../../../_commonCode/adc/0.20/adc.c **** {
+ 210               		.stabn	68,0,110,.LM22-.LFBB4
+ 211               	.LM22:
+ 212               	.LFBB4:
+ 213               	/* prologue: function */
+ 214               	/* frame size = 0 */
+ 111:../../../_commonCode/adc/0.20/adc.c **** 	return ADC;
+ 215               		.stabn	68,0,111,.LM23-.LFBB4
+ 216               	.LM23:
+ 217 0040 24B1      		in r18,36-0x20
+ 218 0042 35B1      		in r19,(36)+1-0x20
+ 118:../../../_commonCode/adc/0.20/adc.c **** }
+ 219               		.stabn	68,0,118,.LM24-.LFBB4
+ 220               	.LM24:
+ 221 0044 C901      		movw r24,r18
+ 222               	/* epilogue start */
+ 223 0046 0895      		ret
+ 224               		.size	adc_getValue, .-adc_getValue
+ 225               	.Lscope4:
+ 226               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 227               		.stabd	78,0,0
+ 228               		.stabs	"adc_isBusy:F(5,2)",36,0,124,adc_isBusy
+ 229               	.global	adc_isBusy
+ 230               		.type	adc_isBusy, @function
+ 231               	adc_isBusy:
+ 232               		.stabd	46,0,0
+ 125:../../../_commonCode/adc/0.20/adc.c **** {
+ 233               		.stabn	68,0,125,.LM25-.LFBB5
+ 234               	.LM25:
+ 235               	.LFBB5:
+ 236               	/* prologue: function */
+ 237               	/* frame size = 0 */
+ 134:../../../_commonCode/adc/0.20/adc.c **** 	return getbit(ADSC, ADCSRA);
+ 238               		.stabn	68,0,134,.LM26-.LFBB5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 8
+
+
+ 239               	.LM26:
+ 240 0048 86B1      		in r24,38-0x20
+ 241 004a 8295      		swap r24
+ 242 004c 8695      		lsr r24
+ 243 004e 8695      		lsr r24
+ 135:../../../_commonCode/adc/0.20/adc.c **** }
+ 244               		.stabn	68,0,135,.LM27-.LFBB5
+ 245               	.LM27:
+ 246 0050 8170      		andi r24,lo8(1)
+ 247               	/* epilogue start */
+ 248 0052 0895      		ret
+ 249               		.size	adc_isBusy, .-adc_isBusy
+ 250               	.Lscope5:
+ 251               		.stabs	"",36,0,0,.Lscope5-.LFBB5
+ 252               		.stabd	78,0,0
+ 253               		.stabs	"adc_setPrescaler:F(0,15)",36,0,137,adc_setPrescaler
+ 254               		.stabs	"adps:P(5,2)",64,0,137,24
+ 255               	.global	adc_setPrescaler
+ 256               		.type	adc_setPrescaler, @function
+ 257               	adc_setPrescaler:
+ 258               		.stabd	46,0,0
+ 138:../../../_commonCode/adc/0.20/adc.c **** {
+ 259               		.stabn	68,0,138,.LM28-.LFBB6
+ 260               	.LM28:
+ 261               	.LFBB6:
+ 262               	/* prologue: function */
+ 263               	/* frame size = 0 */
+ 264               		.stabn	68,0,140,.LM29-.LFBB6
+ 265               	.LM29:
+ 266 0054 96B1      		in r25,38-0x20
+ 267 0056 8770      		andi r24,lo8(7)
+ 268 0058 987F      		andi r25,lo8(-8)
+ 269 005a 892B      		or r24,r25
+ 270 005c 86B9      		out 38-0x20,r24
+ 271               	/* epilogue start */
+ 141:../../../_commonCode/adc/0.20/adc.c **** }
+ 272               		.stabn	68,0,141,.LM30-.LFBB6
+ 273               	.LM30:
+ 274 005e 0895      		ret
+ 275               		.size	adc_setPrescaler, .-adc_setPrescaler
+ 276               	.Lscope6:
+ 277               		.stabs	"",36,0,0,.Lscope6-.LFBB6
+ 278               		.stabd	78,0,0
+ 279               		.stabs	"adc_takeInput:F(0,15)",36,0,144,adc_takeInput
+ 280               		.stabs	"inputNum:P(5,2)",64,0,144,24
+ 281               	.global	adc_takeInput
+ 282               		.type	adc_takeInput, @function
+ 283               	adc_takeInput:
+ 284               		.stabd	46,0,0
+ 142:../../../_commonCode/adc/0.20/adc.c **** 
+ 143:../../../_commonCode/adc/0.20/adc.c **** //Disable the digital input circuitry for the selected channel
+ 144:../../../_commonCode/adc/0.20/adc.c **** void adc_takeInput(uint8_t inputNum)
+ 145:../../../_commonCode/adc/0.20/adc.c **** {
+ 285               		.stabn	68,0,145,.LM31-.LFBB7
+ 286               	.LM31:
+ 287               	.LFBB7:
+ 288               	/* prologue: function */
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 9
+
+
+ 289               	/* frame size = 0 */
+ 146:../../../_commonCode/adc/0.20/adc.c **** 	//"The corresponding PIN Register bit will always read as zero when this bit is set"
+ 147:../../../_commonCode/adc/0.20/adc.c **** 
+ 148:../../../_commonCode/adc/0.20/adc.c **** 	uint8_t bitNum = inputNum;
+ 149:../../../_commonCode/adc/0.20/adc.c **** 
+ 150:../../../_commonCode/adc/0.20/adc.c **** #ifdef _AVR_IOTNx61_H_
+ 151:../../../_commonCode/adc/0.20/adc.c **** 	//ATTINYx61's have AREFD at bit 3, rather than ADC3D
+ 152:../../../_commonCode/adc/0.20/adc.c **** 	// the following ADC inputs are shifted 
+ 153:../../../_commonCode/adc/0.20/adc.c **** 	if(inputNum > 2)
+ 290               		.stabn	68,0,153,.LM32-.LFBB7
+ 291               	.LM32:
+ 292 0060 8330      		cpi r24,lo8(3)
+ 293 0062 00F0      		brlo .L21
+ 154:../../../_commonCode/adc/0.20/adc.c **** 		bitNum = inputNum + 1;
+ 155:../../../_commonCode/adc/0.20/adc.c **** 
+ 156:../../../_commonCode/adc/0.20/adc.c **** 	//Analog inputs 7-10 are selected in DIDR1 and shifted...
+ 157:../../../_commonCode/adc/0.20/adc.c **** 	// 7 is bit 4, 10 is bit 7...
+ 158:../../../_commonCode/adc/0.20/adc.c **** 	//CURRENTLY ONLY: channels 0-7 are usable in this version
+ 159:../../../_commonCode/adc/0.20/adc.c **** 	// THIS NOTE SHOULD BE INVALID AS OF 0.19.
+ 160:../../../_commonCode/adc/0.20/adc.c **** 	if(inputNum >= 7)
+ 294               		.stabn	68,0,160,.LM33-.LFBB7
+ 295               	.LM33:
+ 296 0064 8730      		cpi r24,lo8(7)
+ 297 0066 00F4      		brsh .L20
+ 154:../../../_commonCode/adc/0.20/adc.c **** 		bitNum = inputNum + 1;
+ 298               		.stabn	68,0,154,.LM34-.LFBB7
+ 299               	.LM34:
+ 300 0068 8F5F      		subi r24,lo8(-(1))
+ 301 006a 00C0      		rjmp .L21
+ 302               	.L20:
+ 161:../../../_commonCode/adc/0.20/adc.c **** 	{
+ 162:../../../_commonCode/adc/0.20/adc.c **** 		bitNum = inputNum - 3;
+ 163:../../../_commonCode/adc/0.20/adc.c **** 		setbit(bitNum, DIDR1);
+ 303               		.stabn	68,0,163,.LM35-.LFBB7
+ 304               	.LM35:
+ 305 006c 92B1      		in r25,34-0x20
+ 306 006e 8350      		subi r24,lo8(-(-3))
+ 307 0070 21E0      		ldi r18,lo8(1)
+ 308 0072 30E0      		ldi r19,hi8(1)
+ 309 0074 00C0      		rjmp 2f
+ 310 0076 220F      	1:	lsl r18
+ 311 0078 331F      		rol r19
+ 312 007a 8A95      	2:	dec r24
+ 313 007c 02F4      		brpl 1b
+ 314 007e 922B      		or r25,r18
+ 315 0080 92B9      		out 34-0x20,r25
+ 164:../../../_commonCode/adc/0.20/adc.c **** 		return;
+ 316               		.stabn	68,0,164,.LM36-.LFBB7
+ 317               	.LM36:
+ 318 0082 0895      		ret
+ 319               	.L21:
+ 165:../../../_commonCode/adc/0.20/adc.c **** 	}
+ 166:../../../_commonCode/adc/0.20/adc.c **** #endif
+ 167:../../../_commonCode/adc/0.20/adc.c **** 
+ 168:../../../_commonCode/adc/0.20/adc.c **** 	if(bitNum <= 7)
+ 169:../../../_commonCode/adc/0.20/adc.c **** 		setbit(bitNum, DIDR0);
+ 320               		.stabn	68,0,169,.LM37-.LFBB7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 10
+
+
+ 321               	.LM37:
+ 322 0084 91B1      		in r25,33-0x20
+ 323 0086 21E0      		ldi r18,lo8(1)
+ 324 0088 30E0      		ldi r19,hi8(1)
+ 325 008a 00C0      		rjmp 2f
+ 326 008c 220F      	1:	lsl r18
+ 327 008e 331F      		rol r19
+ 328 0090 8A95      	2:	dec r24
+ 329 0092 02F4      		brpl 1b
+ 330 0094 922B      		or r25,r18
+ 331 0096 91B9      		out 33-0x20,r25
+ 332 0098 0895      		ret
+ 333               		.size	adc_takeInput, .-adc_takeInput
+ 334               	.Lscope7:
+ 335               		.stabs	"",36,0,0,.Lscope7-.LFBB7
+ 336               		.stabd	78,0,0
+ 337               		.stabs	"",100,0,0,.Letext0
+ 338               	.Letext0:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:2      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:3      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:4      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:76     .text:00000000 adc_select
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:101    .text:0000000c adc_startConversion
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:136    .text:0000001c adc_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:208    .text:00000040 adc_getValue
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:231    .text:00000048 adc_isBusy
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:257    .text:00000054 adc_setPrescaler
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccQyJAL9.s:283    .text:00000060 adc_takeInput
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
