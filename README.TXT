@@ -21,6 +21,7 @@ I'm EricWazHung [at] gmail dotcom
 The End Of the Legalities
 ----------
 
+Check in _otherLocalized/ for screenshots, etc...
 
 I'll say up-front there's QUITE A BIT of redundancy and left-over notes
 which are no longer relevent to the current version. 

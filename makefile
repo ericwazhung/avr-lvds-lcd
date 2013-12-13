@@ -223,5 +223,9 @@ CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 # Probably need to create a new variable... LOCALIZE_IN_MAINDIR or som'n
 # Too much for now...
 
+
+LOCALIZABLE_OTHERS = ../screenshots/
+OTHERS_DIR = "_otherLocalized"
+
 include $(COMDIR)/_make/reallyCommon2.mk
 

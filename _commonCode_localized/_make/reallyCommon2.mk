@@ -539,7 +539,8 @@ end:
 	-@$(END)
 ifeq ($(LOCAL), 1)
 	@echo ""
-	@echo " You're Compiling Locally! Changes in _commonCode/ will not be reflected Here!"
+	@echo " You're Compiling Locally! Changes in the system-wide _commonCode/ directory"
+	@echo " will not be reflected Here!"
 	@echo " (use 'make ... LOCAL=0' or 'make delocalize')"
 	@echo " (This message is irrelevent for distributed copies. Keep it localized!)"
 	@echo ""
@@ -658,13 +659,15 @@ ifdef LOCAL_COM_DIR
 
 .PHONY: $(LOCAL_COM_DIR)
 $(LOCAL_COM_DIR):
-	@if [ ! -d "$(LOCAL_COM_DIR)" ] ; then \
+	@echo "Localizing CommonFiles:" ; \
+	if [ ! -d "$(LOCAL_COM_DIR)" ] ; then \
 	 mkdir $(LOCAL_COM_DIR) ; \
 	 rsync -avR --exclude=_BUILD $(RSYNCABLE_COMMON_STUFF) \
 	 										$(LOCAL_COM_DIR) ; \
 	else \
 	 echo "" ; \
-	 echo " $(LOCAL_COM_DIR) already exists, not going to overwrite it." ; \
+	 echo " HEY!!! $(LOCAL_COM_DIR) already exists, not going to overwrite it." ; \
+	 echo "" ; \
 	fi
 
 .PHONY: copyCommon
@@ -672,6 +675,37 @@ copyCommon:
 	@$(REMOVE) $(LOCAL_COM_DIR)
 	@mkdir $(LOCAL_COM_DIR)
 	@rsync -avR --exclude=_BUILD $(RSYNCABLE_COMMON_STUFF) $(LOCAL_COM_DIR)
+
+ifdef LOCALIZABLE_OTHERS
+ifdef OTHERS_DIR
+.PHONY: localizeOthers
+localizeOthers:
+	@echo "Localizing other files:" ; \
+	if [ ! -d "$(OTHERS_DIR)" ] ; then \
+		mkdir ./"$(OTHERS_DIR)" ; \
+		rsync -av $(LOCALIZABLE_OTHERS) ./$(OTHERS_DIR) ; \
+	else \
+		echo "" ; \
+		echo " HEY!!! ./$(OTHERS_DIR) already exists, not going to overwrite it." ;\
+		echo "" ; \
+	fi
+
+else
+.PHONY: localizeOthers
+localizeOthers:
+	@echo "" ; \
+	echo "HEY!!! OTHERS_DIR needs to be set to localize others!" ; \
+	echo ""
+
+endif
+else
+.PHONY: localizeOthers
+localizeOthers:
+	@echo "No Others to localize"
+
+endif
+
+
 endif
 
 
@@ -750,7 +784,7 @@ ifdef LOCAL_COM_DIR
 #  and doesn't try to update it...
 #  NOPE... 
 .PHONY: localize
-localize: $(LOCAL_COM_DIR) localizeFile
+localize: $(LOCAL_COM_DIR) localizeFile localizeOthers
 
 
 #Should only be called from make localize
