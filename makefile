@@ -224,8 +224,10 @@ CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 # Too much for now...
 
 
-LOCALIZABLE_OTHERS = ../screenshots/
-OTHERS_DIR = "_otherLocalized"
+# USE SPARINGLY! Adding screenshots, or whatnot to this means that a
+# download of the distribution (either via git or as a zip) will be huge!
+#LOCALIZABLE_OTHERS = ../screenshots/
+#OTHERS_DIR = "_otherLocalized"
 
 include $(COMDIR)/_make/reallyCommon2.mk
 
