@@ -148,7 +148,7 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1a40
+.text           0x00000000     0x1a4a
  *(.vectors)
  .vectors       0x00000000       0x26 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/crttn861.o
                 0x00000000                __vectors
@@ -251,7 +251,7 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
  .text          0x00000978       0xe8 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
                 0x00000978                sineRaw
                 0x000009f2                sineRaw8
- .text          0x00000a60      0xb80 _BUILD/main.o
+ .text          0x00000a60      0xb8a _BUILD/main.o
                 0x00000a60                getTetBrick
                 0x00000a96                setTetBrick
                 0x00000b12                tetInit
@@ -268,62 +268,62 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
                 0x00001012                lvds_timerInit
                 0x00001060                lcd_Init
                 0x0000106a                updateLCD
-                0x0000116c                init_timer0Hsync
-                0x00001186                main
-                0x000011a6                __vector_14
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_mulhi3.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_udivmodhi4.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_divmodhi4.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_prologue.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_epilogue.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_copy_data.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_clear_bss.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
- .text          0x000015e0        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
-                0x000015e0                . = ALIGN (0x2)
+                0x00001176                init_timer0Hsync
+                0x00001190                main
+                0x000011b0                __vector_14
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_mulhi3.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_udivmodhi4.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_divmodhi4.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_prologue.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_epilogue.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_copy_data.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_clear_bss.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
+ .text          0x000015ea        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
+                0x000015ea                . = ALIGN (0x2)
  *(.text.*)
  .text.avr-libc
-                0x000015e0      0x21e /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
-                0x000015e0                vfprintf
- .text.libgcc   0x000017fe       0x24 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_mulhi3.o)
-                0x000017fe                __mulhi3
- .text.libgcc   0x00001822       0x28 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_udivmodhi4.o)
-                0x00001822                __udivmodhi4
- .text.libgcc   0x0000184a       0x26 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_divmodhi4.o)
-                0x0000184a                __divmodhi4
-                0x0000184a                _div
- .text.libgcc   0x00001870       0x38 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_prologue.o)
-                0x00001870                __prologue_saves__
- .text.libgcc   0x000018a8       0x36 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_epilogue.o)
-                0x000018a8                __epilogue_restores__
- .text.libgcc   0x000018de        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
- .text.libgcc   0x000018de        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_copy_data.o)
- .text.libgcc   0x000018de        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_clear_bss.o)
+                0x000015ea      0x21e /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
+                0x000015ea                vfprintf
+ .text.libgcc   0x00001808       0x24 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_mulhi3.o)
+                0x00001808                __mulhi3
+ .text.libgcc   0x0000182c       0x28 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_udivmodhi4.o)
+                0x0000182c                __udivmodhi4
+ .text.libgcc   0x00001854       0x26 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_divmodhi4.o)
+                0x00001854                __divmodhi4
+                0x00001854                _div
+ .text.libgcc   0x0000187a       0x38 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_prologue.o)
+                0x0000187a                __prologue_saves__
+ .text.libgcc   0x000018b2       0x36 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_epilogue.o)
+                0x000018b2                __epilogue_restores__
+ .text.libgcc   0x000018e8        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
+ .text.libgcc   0x000018e8        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_copy_data.o)
+ .text.libgcc   0x000018e8        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x000018de       0x16 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
-                0x000018de                strchr_P
+                0x000018e8       0x16 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
+                0x000018e8                strchr_P
  .text.avr-libc
-                0x000018f4       0x12 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
-                0x000018f4                strlen_P
+                0x000018fe       0x12 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
+                0x000018fe                strlen_P
  .text.avr-libc
-                0x00001906       0x1e /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
-                0x00001906                strncpy_P
+                0x00001910       0x1e /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
+                0x00001910                strncpy_P
  .text.avr-libc
-                0x00001924       0x58 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
-                0x00001924                fputc
+                0x0000192e       0x58 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
+                0x0000192e                fputc
  .text.avr-libc
-                0x0000197c       0xc0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
-                0x0000197c                __ultoa_invert
-                0x00001a3c                . = ALIGN (0x2)
+                0x00001986       0xc0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
+                0x00001986                __ultoa_invert
+                0x00001a46                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001a3c        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
-                0x00001a3c                exit
-                0x00001a3c                _exit
+ .fini9         0x00001a46        0x0 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
+                0x00001a46                exit
+                0x00001a46                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -342,11 +342,11 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001a3c        0x4 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
+ .fini0         0x00001a46        0x4 /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a(_exit.o)
  *(.fini0)
-                0x00001a40                _etext = .
+                0x00001a4a                _etext = .
 
-.data           0x00800060        0xe load address 0x00001a40
+.data           0x00800060        0xe load address 0x00001a4a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/crttn861.o
@@ -418,8 +418,8 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
                 0x00800152                rowBuffer
                 0x00800192                pimage
                 0x00800194                PROVIDE (__bss_end, .)
-                0x00001a40                __data_load_start = LOADADDR (.data)
-                0x00001a4e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00001a4a                __data_load_start = LOADADDR (.data)
+                0x00001a58                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800194        0x0
                 0x00800194                PROVIDE (__noinit_start, .)
@@ -432,7 +432,7 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
  *(.eeprom*)
                 0x00810000                __eeprom_end = .
 
-.stab           0x00000000     0x44d0
+.stab           0x00000000     0x4524
  *(.stab)
  .stab          0x00000000      0x6cc /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/crttn861.o
  .stab          0x000006cc      0x624 _BUILD/_commonCode_localized/adc/0.20/adc.o
@@ -443,24 +443,24 @@ LOAD /usr/local/lib/gcc/avr/4.4.5/avr25/libgcc.a
                                 0x510 (size before relaxing)
  .stab          0x00001500      0x468 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
                                 0x618 (size before relaxing)
- .stab          0x00001968     0x1ad0 _BUILD/main.o
-                               0x1d4c (size before relaxing)
- .stab          0x00003438      0x840 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
+ .stab          0x00001968     0x1b24 _BUILD/main.o
+                               0x1da0 (size before relaxing)
+ .stab          0x0000348c      0x840 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libprintf_min.a(vfprintf_min.o)
                                 0x864 (size before relaxing)
- .stab          0x00003c78       0x9c /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
+ .stab          0x00003ccc       0x9c /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strchr_P.o)
                                  0xa8 (size before relaxing)
- .stab          0x00003d14       0x84 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
+ .stab          0x00003d68       0x84 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strlen_P.o)
                                  0x90 (size before relaxing)
- .stab          0x00003d98       0xcc /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
+ .stab          0x00003dec       0xcc /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(strncpy_P.o)
                                  0xd8 (size before relaxing)
- .stab          0x00003e64      0x1d4 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
+ .stab          0x00003eb8      0x1d4 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(fputc.o)
                                 0x3b4 (size before relaxing)
- .stab          0x00004038      0x498 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
+ .stab          0x0000408c      0x498 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/libc.a(ultoa_invert.o)
                                 0x4a4 (size before relaxing)
 
-.stabstr        0x00000000     0x2199
+.stabstr        0x00000000     0x21a7
  *(.stabstr)
- .stabstr       0x00000000     0x2199 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/crttn861.o
+ .stabstr       0x00000000     0x21a7 /usr/local/lib/gcc/avr/4.4.5/../../../../avr/lib/avr25/crttn861.o
 
 .stab.excl
  *(.stab.excl)

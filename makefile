@@ -6,12 +6,41 @@ TARGET = LCDdirectLVDS
 
 MCU = attiny861
 
+# This is *completely* wrong...
+# But it's also unused, I think... (usually for BAUD rates, etc)
+# (Maybe it's used by Timer1's OCRC?)
 FCPU = 8000000UL
 
 MY_SRC = main.c
 
 
 CFLAGS += -D'PROJINFO_SHORT=TRUE'
+
+#a/o v59-12ish...
+# The PLL can be used for the system clock!
+# With OSCCAL at max, we might be able to get a system-clock of up to 32MHz
+# Way outta spec, but might be able to get some extra resolution outta it.
+# In this case, sysClk = PLL/4, normally PLL = SYSCLK*8
+# So, the PWM/LVDS-bit-rate will be half as fast, WRT the system-clock
+# (but the same frequency)
+# CKSEL3..0 = 0001 -> PLL/4: Nominal Frequency = 16MHz
+# (Also potentially useful: CKOUT, bit 6, outputs sysClk on PB5)
+# 1, 1, 1, 0, 0, 0, 0, 1
+#a/o v59-20ish...
+# Works great, implemented in most places necessary for timing
+# NOT implemented as far as scaling rowSegs... so all projects will display
+# in *half* the screen-width (same height)
+
+# DON'T FORGET: If you change this, rerun 'make fuse'
+#PLLSYSCLK = 1
+
+ifdef PLLSYSCLK
+FUSEL = 0xe1
+# Nominal:
+FCPU = 16000000UL
+CFLAGS += -D'PLL_SYSCLK=TRUE'
+endif
+
 #Slow the whole system to 1MHz (and 8MHz PLL)... CLKDIV8
 #CFLAGS += -D'SLOW_EVERYTHING_TEST=TRUE'
 # Been here, did this... in LCDdirect (pre LVDS) but we WANTED unrolling
@@ -228,6 +257,19 @@ CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 # download of the distribution (either via git or as a zip) will be huge!
 #LOCALIZABLE_OTHERS = ../screenshots/
 #OTHERS_DIR = "_otherLocalized"
+
+
+#.PHONY: timer0calcs
+#timer0calcs:
+#	@gcc -o timer0Calculator timer0Calculator.c && \
+#		./timer0Calculator
+
+
+
+
+
+
+
 
 include $(COMDIR)/_make/reallyCommon2.mk
 

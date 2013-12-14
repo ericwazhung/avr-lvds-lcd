@@ -12,181 +12,29 @@
 
 
 
-
-// Latest Version is v59-10 or so.. in which I'm adding a lot of notes re:
-// defines, etc... labelled a/o v59
-// These notes, when conflicting with older notes, should be considered
-// the most recent.
+#include "mainConfig.h"
 
 
 
-//The current state is such that basically ONLY the row-segment-buffer
-// display-method has been tested for quite some time. The other code
-// remains, but I can't promise it still works.
-
-//Only one of the following SEG_whatevers should be TRUE
-// (Assuming we're using the Row-Segment-Buffer, as explained above).
-// IF NONE ARE TRUE:
-//  The default is to convert whatever's in the row-buffer into 
-//  the row-segment-buffer...
-//  This is where my old-code starts getting iffy, as the row-buffer hasn't
-//  been used for quite some time.
-// Best to stick with assigning one of these SEG_xxx things true.
-
-
-//Draws a diagonal white line on a red background...
-// I think it's supposed to repeat three times and not fill the entire
-// screen... though it's been a long time since I've used this.
-//#define SEG_LINE TRUE
-
-//A very nice test-pattern... shows a sine-wave, the under-side of which
-// is horizontal color-bars, above it is vertical color-bars. 
-// Above that is two lines of text, showing all available characters
-// And above that is color-patterns using up the remaining Row-Segments
-// This is meant to be rotated 90-degrees
-// Like SEG_HFM, it might be handy to adjust NUM_SEGMENTS for experimenting
-// Note that color-segments which are too long to be stored in a single
-// row-segment are automatically put into the next.
-// And that existing segments are automatically stretched if the next-added
-// segment is the same color.
-// This displays all available colors and shows the resolution capabilities
-#define SEG_SINE TRUE
-
-//Uses "High-Frequency Modulation" to display an interesting pattern...
-// HFM is kinda like PWM. The idea is to have an output ON for
-//  a certain percentage of the time...
-//  In PWM, that's done by turning it on for a fraction of a cycle 
-//  (the "width" of the pulse), then off for the remainder.
-//  In HFM, it's accomplished by knowing the fraction of time it should be
-//  on... (the "power"). The fractions are automatically reduced 5/10->1/2.
-//  e.g. if the on-time should be 1/100th of the time, it will be on
-//  during one update-period, and off for 99, then repeat.
-//  If the on-time should be 1/2 of the time, it will be on during one
-//  update, off during the next, on again, and so-on.
-//  If the on-time is some strange fraction, like 3/5, it will distribute
-//  the pulses accordingly (e.g. on, off, on, off, on, repeat)
-//  Thus, the output toggles as quickly as possible to achieve the desired
-//  power... thus "High-Frequency"
-//  (See _commonCode.../hfModulation/...)
-//  I've been using HFM in ways never originally intended: e.g. it can be
-//  used for smoothing lines between two distant points...
-//  It's used this way in "SEG_RACER" in order to use a low-resolution
-//  course in memory, and increase the resolution by knowing that there are
-//  a certain number of rows in which it has to get from point1 to point2
-//  so the "power" of the HFM is set to (p2-p1)/numRows.
-//  The nice thing about it, is it doesn't use any actual division (which
-//  is quite slow) because it knows that every point inbetween will be 
-//  traversed.
-// THIS visualizes that, and actually looks pretty cool. Like moire
-//  patterns, or magnetic-field-lines.
-// Each row increases in power, essentially: rowNum/NUM_SEGMENTS
-// (Experimenting with NUM_SEGMENTS is fun, in this case, just don't exceed
-//  the available memory, and keep in mind that there's a stack and stuff)
-//#define SEG_HFM		TRUE
-// You can override NUM_SEGMENTS here, for that purpose...
-// OTHERWISE, it should probably be handled in rowSegBuffer.c
-#if(defined(SEG_HFM) && SEG_HFM)
- #define NUM_SEGMENTS   127 //128 //95//96//128 //68 //128//68
+#if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
+	 #include "rowSegBuffer.c"
 #endif
 
-//Displays a Question-Mark box, ala Mario-Brothers. Press the button and
-// receive an award (and occasional goomba)
-// Demonstrates usage of program-memory-based images... (16x16 pixels WOO!)
-//#define SEG_QUESTION	TRUE
-
-//A Game! Ala "Racer" from the ol' TI-82 days...
-// Use a potentiometer to try to keep the "car" on the race-track
-// It gets harder the longer you stay on course!
-// (Ideally: when this isn't true, remove ADC stuff from the makefile
-//  to save codespace. I don't think I've ever actually paid attention to
-//  this...)
-//#define SEG_RACER 	TRUE
+#if (defined(ROW_BUFFER) && ROW_BUFFER)
+ #include "rowBuffer.c"
+#endif
 
 
 
-
-
-
-
-
-//#warning "This needs to be moved... and conditional"
-//#include "rowSegBuffer.c"
 
 //Called as: pgm_readImageByte(pgm_image1, row, col)
 #define pgm_readImageByte(image, row, col)   \
 	   pgm_read_byte((uint8_t *)(&((image)[(row)*FB_WIDTH+(col)])))
 
-
-
-// I hereby declare this FPD-Link simulation technique to forever be called
-//  PW-BANGing
-
-
-//For testing of slower LVDS pixel-rates
-// (maybe we can increase the resolution)
-// value must be 1, 2, 4, or 8
-// This is overridden by 8 when SLOW_LVDS_TEST is true...
-// If commented-out the default of 1 is used...
-// AFAICT, this only increases codesize in HLow_delay...
-// CHANGING THIS MIGHT AFFECT DISPLAYABILITY...
-// One place to look is the delay_cyc in drawPix
-//  Currently 1, 2, and 8 seem to work.
-//  8 no longer works, noticed a/o v46
-// a/o v59, this has been 8 for quite some time... it works well with
-// RowSegBuffer, to increase resolution at the expense of frame-rate
-// I have since tried it with 2... interesting effect
-//   Surprisingly, it works, despite the fact that in this mode, I think it
-//   should be still keeping Data-Enable active for the full image
-//   which extends way beyond the edge of the screen.
-//   Oddly, it seems to be scaling BOTH horizontally *and* vertically
-//   I can't explain this.
-//   It offers quite a bit of potential, though. The refresh-rate is
-//   increased dramatically, just by changing this value from 8 to 2
-//   
-#define LVDS_PRESCALER 8//1//2//8//2//1//8//2//4//8//2//8//2
-//8//2//1//2//2//2//2//2//2//2//2//2//2//2//8//4 //1 //2//4//8//2//4
-
-
 //#define LIFE TRUE
 #if (defined(LIFE) && LIFE)
  #include "lifeStuff.c"
 #endif
-
-// a/o v59
-//This should probably always be TRUE now... It's been a LONG time since I
-// experimented with it otherwise.
-#define ROW_SEG_BUFFER	TRUE
-//now, SEG_STRETCH >= 3 causes weirdness... (repeated rows)
-// previously 3 was OK
-// This is fixed a/o newSeg, etc.
-//a/o v59 I believe this is only used in the case when no SEG_(mode) is set
-// to stretch a low-resolution row-buffer across the screen
-// And that case (No SEG_mode set) doesn't really do anything anymore
-#define SEG_STRETCH 5//4//3//2//3//4//6//3//4//6	//Stretch pixels using longer segments
-
-#if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
- #warning "ROW_SEG_BUFFER requires ROW_BUFFER, but this is a hack"
- #if (!defined(LVDS_PRESCALER) || (LVDS_PRESCALER < 2))
-  #error "ROW_SEG_BUFFER uses 20cyc/pixel, which isn't compatible with ROW_BUFFER -> width=64, since ROW_BUFFER used 16cyc/pixel. Bump your LVDS_PRESCALER up, or comment this error out to see what happens"
- #endif
- #define ROW_BUFFER TRUE
- #include "rowSegBuffer.c"
-#endif
-
-//a/o v59:
-//If this is not true, then it uses the frameBuffer... which is no longer
-// tested/implemented...
-#define ROW_BUFFER TRUE
-#if (defined(ROW_BUFFER) && ROW_BUFFER)
- #include "rowBuffer.c"
-#endif
-
-//Only valid with ROW_BUFFER=TRUE above:
-//#define HORIZONTAL_COLOR_BARS TRUE
-
-
-
-
 
 
 
@@ -342,6 +190,34 @@ void showScore(uint16_t rowNum, uint32_t score, uint8_t color)
 // is dang-near right at the minimum required for this display.
 // This might be why the other (same model) display didn't work, but its
 // flakeyness at 0xff appeared different than this one's at lower OSCCALs
+// --Later note... actually retrying the "flakey" display with the same
+//   configuration. Actually, yes, the problem looks dang-near identical to
+//   the "reliable" display's being run at OSCCAL_VALs lower than 0xD8
+//   Both displays are of the same manufacturer/model.
+//    "reliable" has the chip: LXD91810 VS252AG
+//    "flakey"   has the chip: LXD91810 VS242AC
+//   The only bit I don't get is that I'm dang-near certain I had both
+//   displays working at one point, and from the same code...
+//   but this OSCCAL value is the maximum, and the only other way to speed
+//   up the bit-rate changes the resolution; which I haven't done
+//   for quite some time.
+//   Also different about this test than when I originally determined it
+//   "flakey": I've since switched the 74LS00 and LS32 out for LS86's
+//   (These are wired such that one chip is responsible for the + side of
+//    every LVDS signal, and one chip is responsible for the - side.
+//    The best-practice, probably, would be to have the + and - sides of
+//    an LVDS signal on the same chip. It's also plausible that my test was
+//    so long ago that it was on the old board which had this configuration
+//    but I doubt that, since that board was so hokily-implemented (with
+//    chip-clips and grabbers all over the place) that I can't imagine it
+//    was ever running again after all those months of disuse. Though...
+//    if that *was* the case... it could also be that I'm using a different
+//    ATtiny861... in which case, maybe the RC oscillator and/or PLL aren't
+//    capable of running as fast... 
+//    Not that I have a ton of these things lying around (three total, in
+//    various projects already)
+//    BUT the end-result may be that I just happen to have the one display
+//    and ATtiny861 on the planet that will work together. That'd be lame.)
 #define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
 
 //This would normally be 0 for the highest-speed frame-refresh possible
@@ -1836,233 +1712,8 @@ void delay_cyc(int32_t numCyc)
 }
 #endif
 
-//One dot-clock is 7/8ths of a CPU cycle... (prescaler = 1)
-//                 14/8ths with prescaler = 2 ...
-//
-//    1 dot = 7/8 cyc
-//    n dots = n * 7/8 cyc
-//
-//    1 = 1 dot / (7/8) cyc
-//    1 = 8 dots / 7 cyc
-//
-//  With prescaling = 2:
-//
-//    1 dot = 7/8 * 2 cyc = 14/8 cyc
-//   
-//    8/14 dots = 1 cyc
-//    n dots = n*14/8 cyc
-//   
-//    I coulda sworn the prescaler was on the divide-side...
-//   Also, is there any benefit to adding +7*LVDS_PRESCALER-1 for rounding?
-#define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/8))
 
-#define delay_Dots(numDots) delay_cyc(DOTS_TO_CYC(numDots))
-
-
-//THESE NOTES ARE OLD:
-//This has to be changed every time the DE code is changed...
-// Actually, I think it should just match IMAGE_WIDTH
-//#define FB_WIDTH 28 //21//19
-//#define IMAGE_WIDTH 21
-
-
-#define TESTVALS	0
-#define LTN 1
-#define IDT 2
-
-
-//TIMING:
-//  Measurements below (in microseconds) are referring to preLVDS
-//  There may be other such old-notes...
-
-
-//        |<--T_Hhigh-->| |<-T_Hlow
-//    __   _____________   ____________  3.6V
-// H    |_|             |_|           _  0V
-//
-//    Data Enable
-//       Only active when there's valid pixel data
-//       (for 512 of the 717 clocks in HSYNC-active)
-//       Low during Vsync... (~720us)
-//
-
-//IDTech display: 136 dots
-//2-136+
-//IDTech, last used: 40
-//LTN Last used 8
-// LTN: 1072-1344-1500 clocks per line, 1024DE... Hsync unused
-// SEE Hlow_Delay() notes if this value is large!
-
-#if (DISPLAY == LTN)
-#define H_LOW_DOTS	8
-#elif (DISPLAY == IDT)
-#define H_LOW_DOTS   40//8//1//40 //30 //2//136
-#elif (DISPLAY == TESTVALS)
-#define H_LOW_DOTS	100//0 //LTN doesn't use H_LOW (DE-only)
-							  // And having a value here increases codesize
-#endif
-
-
-//H is set low immediately upon entry of the timer interrupt
-// its low-time is controlled via nops
-// (so if HLow is long for a particular display, this might need revising)
-#define Hlow_Delay() \
-	delay_Dots(H_LOW_DOTS)
-
-
-//#define T_Hlow_CYC 1//8 //(T_Halow_REAL*3)
-#define T_Hlow_CYC DOTS_TO_CYC(H_LOW_DOTS)
-
-
-
-//This was found expermentally with SwitchResX
-//IDTech Last Used: 680
-//LTN last used 1024
-// Oddly: For the LTN, this doesn't seem to affect the horizontal
-//        it does, however, affect the vertical(!)
-// If I recall Correctly, this is used only for setting the timer interrupt
-//  rate...
-#if (DISPLAY == LTN)
-#define DE_ACTIVE_DOTS	1024
-#elif (DISPLAY == IDT)
-#define DE_ACTIVE_DOTS	680 //1024 //800 //920 //943 //812 //472 //1024
-#elif (DISPLAY == TESTVALS)
-#define DE_ACTIVE_DOTS	1024
-#endif
-
-#define T_DE_CYC	DOTS_TO_CYC(DE_ACTIVE_DOTS)
-
-//Horizontal Blank Time: HD_DOTS + H_LOW + DH_DOTS
-//  90-320+
-//Horizontal Total Time: 1206-1344-2047
-// ... but Total = Blank + Pixels, so 90+1024 != 1206
-// Excess waits should be thrown in DH (since that's between interrupts)
-//T_HD is the time from H inactivated to DE activated
-//aka H back-porch: 1-160+
-//IDTech Last Used: 50
-//LTN last used 5
-
-#if (DISPLAY == LTN)
-#define HD_DOTS 5
-#elif (DISPLAY == IDT)
-#define HD_DOTS	50 //5 //0//20//5 //50 //30 //1 //160
-#elif (DISPLAY == TESTVALS)
-#define HD_DOTS 50//5
-#endif
-
-#define HD_Delay()	delay_Dots(HD_DOTS)
-
-//#define T_HD_CYC 1//3//(T_HD_REAL*3)
-#define T_HD_CYC	DOTS_TO_CYC(HD_DOTS)
-
-// This is the number of CPU cycles between DE->L and Horiz->L
-// This is just used in calculating the OCR value...
-// aka H Front Porch: 0-24+
-// IDTech Last Used: 24
-// LTN last used 46
-// 1072-1024-1-1 = 46
-#if (DISPLAY == LTN)
-#define DH_DOTS	46
-#elif (DISPLAY == IDT)
-#define DH_DOTS	24 //46 //480//6//12//24 //46 //24 //122//30 //0 //24
-#elif (DISPLAY == TESTVALS)
-#define DH_DOTS	0//1000//100//46
-#endif
-
-#define T_DH_CYC	DOTS_TO_CYC(DH_DOTS)
-
-//       |
-//       v
-//      T_DH
-//      ||    |<-T_DE->|  |  |<--T_HD (Hsync->DE)
-// H   __.  ____________  .___________
-//      .|_|  .        .|_|  .
-//     _.     .________.     .___________
-// DE   |_____| 512clk |_____|
-//      ^              ^
-//       \___________   \                        (just avoiding \ warning)
-//                   \  |     768 Hsyncs
-//                    v v
-//     _             _ _ _ _ _ _ _ _ _ _ 
-// DE   |___________| | | | | | | | | | |______
-//
-// one Hsync = T_HD+T_DH+T_Hlow+T_DE = 19.865us
-
-//aka V-sync back porch: 7-29-63 "Vbp should be static"
-// IDTech Last Used: 29
-// LTN last used 3
-//LTN Frame: 772-806-1000 lines...
-#if (DISPLAY == LTN)
-#define T_VD 3
-#elif (DISPLAY == IDT)
-#define  T_VD 29 //3//29 //7 //29
-#elif (DISPLAY == TESTVALS)
-#define T_VD 3
-#endif
-
-//aka V-sync front porch: 1-3+
-// IDTech Last Used: 3
-// LTN last used 3
-#if (DISPLAY == LTN)
-#define T_DV 3
-#elif (DISPLAY == IDT)
-#define T_DV 3//3 //1 //3
-#elif (DISPLAY == TESTVALS)
-#define T_DV 3
-#endif
-
-//1-6+ (1 is used by the first switch-case...)
-// IDTech Last Used: 6
-// LTN Last used 16
-// 772 - 768 - 1 - 1 = 2
-#if (DISPLAY == LTN)
-#define T_Vlow 16
-#elif (DISPLAY == IDT)
-#define T_Vlow	6 //16//6 //2 //6
-#elif (DISPLAY == TESTVALS)
-#define T_Vlow 32
-#endif
-
-// IDTech Last Used: 768
-#if (DISPLAY == LTN)
-#define V_COUNT	768
-#elif (DISPLAY == IDT)
-#define V_COUNT	768
-#elif (DISPLAY == TESTVALS)
- #if (LVDS_PRESCALER == 8)
-  #define V_COUNT 768
- #else
-  #define V_COUNT	(768*2/3)
- #endif
-#endif
-
-//                       
-//                      |           
-//                      V           
-//              |<-T_DV>|           |<-T_VD-->|
-//              .       .           .         .
-//     _____________||__.   124us   .____||___________________
-//  V           .   ||  |___________|    ||   .
-//     _ _ _ _ _ _ _|| _ _ _ _ _ _ _ _ _ ||_ _ _ _ _ _ _ _ _ _ _
-//  H   | | | | | | ||| | | | | | | | | ||| | | | | | | | | | |
-//              .   ||                   ||   .
-//     _ _ _ _ _.   ||       720us       ||   ._ _ _ _ _ _ _ _ _
-// DE   | | | | |___||___________________||___| | | | | | | | |
-//                  ||                   ||
-//
-//                        1
-//                        |
-//                        v               
-//     _________________   ___________________   _____________
-//  V                   |_|                   |_|
-//  H  |||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// DE  ||||||||||||||||_____|||||||||||||||||_____||||||||||||
-//                          ^
-//                          |
-//                          2
-
-
-
+#include "LCDdefines.h"
 
 static __inline__ \
 void loadData(uint16_t rowNum, uint8_t dataEnable) \
@@ -2101,7 +1752,6 @@ void loadRow(uint16_t rowNum) \
 //#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
 //#include "lcdUpdate.c"
 
-//SIGNAL(TIMER1_COMPA_vect)
 SIGNAL(TIMER0_COMPA_vect)
 {
 	static uint8_t frameCount = 0;
@@ -2952,7 +2602,19 @@ addSegfb(raceWidth, _W);
 
 	segClear();
 	//addSegfb(3,0x06, (6<<4) | 3);
+//a/o v59-12ish addition of PLL_SYSCLK:
+//Having a white border at the left-edge of the screen has been known to
+// help syncing...
+// Though it doesn't seem to be fixing the current problem.
+// The problem is: Some rows are displaying long white-bars about half
+//  of the displayed-area (~1/4 of the screen)
+// I think I've seen this before.
+#if(defined(PLL_SYSCLK) && PLL_SYSCLK)
+	//This doesn't seem to matter...
+	addSegfb(12, _W);
+#else
 	addSegfb(3, _W);
+#endif
 
 	uint8_t sineVal = (uint8_t)((int8_t)128 + 
 			sineRaw8(rowNum+lastThetaOffset));
@@ -3093,132 +2755,7 @@ addSegfb(raceWidth, _W);
 }
 #endif //LOAD_ROW
 
-void init_timer0Hsync(void)
-{
-	//T_HD + T_DH + T_low + T_DE
-	// For the original system, 19.865us = 695 dot-clocks
-	// We'd need to take advantage of the 16-bit timer
-	//  OCR1A may not be written properly (with a temporary high-byte)
-	//  ... not sure.
-	// TIMER0 DOES NOT HAVE CTC MODE in 16-bit mode
-
-// This is a hack, for testing syncability with long row-calculations
-// before actually drawing it... e.g. loading from program memory
-// This value needs to be larger than the calculation time
-// otherwise, it seems, syncing isn't stable
-// BUT THIS IS A HACK, has nothing to do with actual calculation time
-// And for slow LVDS or whatnot, this may be unnecessarily HUGE
-
-#define DISPLAY_CYC_COUNT \
-	(T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC)
-
-//NOTE that with longer ROW_CALCULATION_CYCS, lines can be repeated...
-// apparently an effect of the display, definitely not a code-thing
-// in which case the vertical resolution decreases
-// though, this could be used to advantage... 
-// (e.g. more processing time outside the drawing interrupts?)
-// NOTE that if the value is too small and calculations take longer in some
-// lines than others (?), those lines may repeat, or syncing could be off
-#if (LVDS_PRESCALER == 8)
- //#define ROW_CALCULATION_DELAY 1//20
- #define ROW_CALCULATION_CYCS (50000) //0 //(70000) //(100000)
-#else
- //#define ROW_CALCULATION_DELAY 9//7//5//2//1//10
- #define ROW_CALCULATION_CYCS	(8*DISPLAY_CYC_COUNT)
-#endif
-
-#define TOTAL_CYC_COUNT \
-	(ROW_CALCULATION_CYCS + DISPLAY_CYC_COUNT)
-//	(ROW_CALCULATION_DELAY * (T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC))
-//#define TOTAL_CYC_COUNT 2000
-#if (TOTAL_CYC_COUNT > 255)
- //Adding +7 causes it to round up (hopefully)
- #define TIMER0_TCNTS ((TOTAL_CYC_COUNT+7)/8)
- #define TIMER0_CLKDIV	CLKDIV8
- #warning "TIMER0_TCNTS = (TOTAL_CYC_COUNT+7)/8: Timer0 CLKDIV8"
- #if (TIMER0_TCNTS > 255)
-  #warning "TIMER0_TCNTS = (TOTAL_CYC_COUNT+63)/64: Timer0 CLKDIV64"
-  #define TIMER0_TCNTS ((TOTAL_CYC_COUNT+63)/64)
-  #define TIMER0_CLKDIV CLKDIV64
-  #if (TIMER0_TCNTS > 255)
-	 #warning "TIMER0_TCNTS = (TOTAL_CYC_COUNT+255)/256: Timer0 CLKDIV256"
-	 #define TIMER0_TCNTS ((TOTAL_CYC_COUNT+255)/256)
-	 #define TIMER0_CLKDIV CLKDIV256
-	 #if (TIMER0_TCNTS > 255)
-		#warning "TIMER0_TCNTS = (TOTAL_CYC_COUNT+1023)/1024: Timer0 CLKDIV1024"
-		#define TIMER0_TCNTS ((TOTAL_CYC_COUNT+1023)/1024)
-		#define TIMER0_CLKDIV	CLKDIV1024
-	 #endif
-  #endif
- #endif
- #if (TIMER0_TCNTS == 0)
-  #error "TIMER0_OCRVAL == 0"
- #endif
-#else
- #define TIMER0_TCNTS TOTAL_CYC_COUNT
- #define TIMER0_CLKDIV CLKDIV1
-#endif
-
-#if (defined(SLOW_EVERYTHING_TEST) && SLOW_EVERYTHING_TEST)
- //For testing, I want to see the pulses with the 'scope
- // Unless the timer is divisible by 7 the pulses will not align with the
- // timer overflow...
- //but shit... it's running at clkdiv8 so each TCNT is 64 bits!
- // but this shouldn't matter for visualizing, that's only ~10 pixel clocks
- // and we'll only start visualizing *after* the extra TCNTs...
- //Since the timer counts from 0 to (and including) OCR1A
- // Add one to this test...
- #if (((TIMER0_TCNTS + 1) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 1) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS)
-
- #elif (((TIMER0_TCNTS + 2) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 2) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS + 1"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS + 1)
-
- #elif (((TIMER0_TCNTS + 3) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 3) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS + 2"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS + 2)
-
- #elif (((TIMER0_TCNTS + 4) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 4) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS + 3"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS + 3)
-
- #elif (((TIMER0_TCNTS + 5) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 5) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS + 4"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS + 4)
-
- #elif (((TIMER0_TCNTS + 6) % 7) == 0)
-  #warning "(TIMER0_TCNTS + 6) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS + 5"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS + 5)
-
- #elif (((TIMER0_TCNTS) % 7) == 0)
-  #warning "(TIMER0_TCNTS) % 7 == 0"
-  #warning "   so... TIMER0_OCRVAL = TIMER0_TCNTS - 1"
-  #define TIMER0_OCRVAL (TIMER0_TCNTS - 1)
-
- #else
-  #error "WTF?"
- #endif
-#else
- #define TIMER0_OCRVAL (TIMER0_TCNTS-1)
-#endif
-
-#if (TIMER0_OCRVAL > 255)
- #error "Despite all my efforts, TIMER0_OCRVAL is *still* > 255!"
-#endif
-
-   OCR0A = TIMER0_OCRVAL; //T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC;
-	timer_setWGM(0, WGM_CLR_ON_COMPARE);
-   timer_selectDivisor(0, TIMER0_CLKDIV); //CLKDIV1);
-   timer_compareMatchIntEnable(0, OUT_CHANNELA);
-}
+#include "timer0Stuff.c"
 
 //For a first go...
 // B5 = OCR=5
@@ -3883,6 +3420,9 @@ asm("nop");
 #else		//ROW_SEG_BUFFER
 void drawPix(uint8_t rowNum)
 {
+	//a/o v59-12ish: WTF, no comment about this?!
+	// I believe this is to enable Green's output
+	// which was disabled prior because...?
 	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
 	         | (0<<COM1B1) | (1<<COM1B0)
 	         | (1<<PWM1A) | (1<<PWM1B) );
@@ -3899,20 +3439,85 @@ void drawPix(uint8_t rowNum)
 #endif
 
 
+// a/o v59-12ish... ROW_COMPLETION_DELAY uses were already commented-out
+// BUT WHY WAS IT REMOVED?! Seems to help, now.
+// 
+//	Some Experimenting has led to the conclusion:
+//   DE's active-duration needn't be exact. In fact, it can be *way* off
+//	  White is shown between the end of drawSegs, and cyan is shown after
+//   ROW_COMPLETION_DELAY (which, for now, is constant, regardless of how
+//    many pixels were drawn)
+//   Almost immediately after the ROW_COMPLETION_DELAY (when it turns cyan)
+//    DE is disabled
+//    Yet the remainder of the screen still fills with cyan.
+//   THUS: Disabling DE before the end of the screen appears to have the
+//    effect of either not being acknowledged, or of repeating the last
+//    color (untested)
+//   Also, DE durations that are *longer* than the screen, seem to be 
+//    absorbed by nonexistent pixels to the left...
+//    (setting ROW_COMPLETION_DELAY==65535 unreasonably high,
+//			just shows white at the right side, and still syncs)
+//   Now, the original problem was that there seemed to be some carry-over
+//   which maybe due to DEs that are EXTRAORDINARILY long?
+//   NO!
+//   Actually, it appears to be due to DEs that are TOO SHORT (?)
+//		(setting ROW_COMPLETION_DELAY to 0 causes the problem again)
+//   Doesn't appear to be *entirely* scientific, as using SEG_SINE
+//    would suggest that these (now cyan) bars would appear at the troughs
+//    in the diagonal-color-stripes at the top...
+//    they seem, instead to be somewhat random, though maybe more common
+//		at those locations.
+//   But Wait! Setting ROW_COMPLETION_DELAY to 1 fixes it again.
+//    realistically, that should be nothing more than a single nop; no?
+//    (Maybe not, with a few cycles to entry, and minimum execution times)
+//    a handful of nops does the trick, as well.
+//    So is it a problem with too short a DE, or is it a matter of
+//    e.g. the last segment drawn is setting new values that might only
+//    be *completely transmitted* after a full PWM cycle...
+//    So maybe somehow that last transaction is being interrupted
+//     by the TCCR1A settings, or new values...
+//    Plausible.
+//
+// FURTHER. Lest it be revisited. It was noted elsewhere that I thought
+// this display was NOT DE-Only. In fact, the datasheet specifically says
+// "DE-Only Mode"
 
-#define ROW_COMPLETION_DELAY \
+
+
+
+/*#define ROW_COMPLETION_DELAY \
 		(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60  \
 		 - WRITE_COLOR_CYCS * COLORS_WRITTEN)
-/*
+*/
+#define ROW_COMPLETION_DELAY 512 //1 //65535//512
 
-#error "should add SEG_STRETCH here..."
+//#error "should add SEG_STRETCH here..."
 #if (ROW_COMPLETION_DELAY > 0)
-		delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
-				- WRITE_COLOR_CYCS*COLORS_WRITTEN);
+//		delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
+//				- WRITE_COLOR_CYCS*COLORS_WRITTEN);
+		delay_cyc(ROW_COMPLETION_DELAY);
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+//		asm("nop;");
+		
 #else
 #warning "ROW_COMPLETION_DELAY <= 0"
 #endif
-*/		//DE->Nada transition expects fullBlue...
+
+		//Just for testing...
+		// Actually, it's quite handy, because it shows where drawSegs has
+		// completed... (I thought it stretched to the end of DE, but nope)
+		// The "bug" with PLL_SYSCLK's white bars now appears to be quite
+		// apparently due to carry-over from a previous line
+		// rather than an Hsync problem, as now it appears cyan.
+		OCR1D = 0;
+
+		//DE->Nada transition expects fullBlue...
 		//Also helps to show the edge of the DE timing...
 
 		//!!! Not sure what the state is at this point...
