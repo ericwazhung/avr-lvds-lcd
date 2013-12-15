@@ -1,5 +1,80 @@
-//bitHandling 0.94-20
+//bitHandling 0.94_parenExperiment-5
 //TODO: Don't Forget .94-18!
+//TODO: and .94_...-5!
+//
+//.95 - It's time to quit typing "_parenExperiment"...
+//      ALSO adding nibbletochar()
+//.94_...-5 AH-HAH! The "proper" way is as in info cpp 3.10.3:
+//          do{ .... } while(0)
+//          I think my method's more elegant, have yet to find an issue
+//             well, the additional {}; is a bit of a nuisance...
+//          But that method would be guaranteed
+//          And, apparently, the *only* case where it's a problem to not
+//          use one of these methods is an else case...
+//          which generates an error, anyhow
+//          Unless there's a hokey-case, like
+//					if (something)
+//						if (something else)
+//							DOSOMETHING();
+//						else
+//                   ...
+//          Which I'd *never* code anyhow... where SHOULD that else belong?//      AH HAH 2.0!
+//        "The `({ ... })' notation produces a compound statement that acts
+//			  as an expression. Its value is the value of its last statement."
+//         --info cpp 3.10.4
+
+//.94_...-4
+//			TRUNCATE_U8(thing) -> (thing&0xff)
+//.94_parenExperiment-3
+//       DUH, MAKELONG should look like a function...
+//         e.g. (MAKELONG(ONE) * MAKELONG(ANOTHER))
+//.94_parenExperiment-2
+//       Adding MAKELONG
+//         e.g. when preprocessed math needs to be done on two constants
+//         neither of which are long, but the result of the math
+//         requires LONG types, it would complain "integer overflow in
+//         expression" (a/o sdramThing2.0-6)
+//         So MAKELONG is used as such:
+//            #define ONE 65535
+//            #define ANOTHER 65535
+//            #define ONEANOTHER ((ONE+MAKELONG)*(ANOTHER+MAKELONG))
+//            (It might make more sense to use (ONE*MAKELONG)... we'll see)
+//			Moving SFR register notes to sfrNotes.txt
+//.94_parenExperiment-1
+//       Apparently the ({}) block returns the value of the last... item
+//       see cTools/bracketsInDefinesTest3.c
+//       So adding {}; at the end prevents the return. LOL
+//       This is friggin' hilarious.
+//.94_parenExperiment Looking into {} in #defines causing issues with
+//       if(...)
+//          DOSOMETHING;
+//       else
+//          whatever...
+//       Where DOSOMETHING -> #define DOSOMETHING {...}
+//       Resulting in:
+//       if(...)
+//          {...}; <--- That semicolon kills the if-statement
+//       else           So else doesn't refer to anything (syntax error)
+//          whatever... 
+//       So change #define DOSOMETHING {...} to ({...})
+//       See cTools/bracketsInDefinesTest.c
+//     Interesting effects...
+//       setPORTinpu() is now acting like a function, ish...
+//       "returning" a value... i.e. reading the port just written into
+//       r24. Yet r24 is unused... 
+//       so it's kinda like having, essentially, "PORTA;" as a line...
+//       which doesn't do anything, but the compiler might not know that
+//       (e.g. reading some SFRs might cause their values to change?)
+//       (e.g.notQuite: reading an Interrupt SFR would clear the interrupt
+//        flags)
+//       (run an lssDiff between sdramThing2.0-4 and 4bh)
+//			otherwise, the code seems identical... just a few extra
+//       (unnecessary) instructions
+//     Thing is: 
+//       I feel like there *could* be a case where the old {} method would
+//       cause unnoticed errors. I can't think of such a case.
+//     Further, is it really logical that a ({}) block has a "return"
+//       value?
 //
 //.94-20 Adding SHIFT_LEFT_ONES() and toBinString() (first function!)
 //       a/o sdramThing19
@@ -103,11 +178,12 @@
 //  Also: Pull-ups = 50k (max) (no info on input capacitance...)
 //  T=RC 2us/50k = 40pF (seems extreme, but... maybe also due to PCB...?)
 #define puWait()							\
-{											\
+({											\
 	uint8_t puCount;						\
 	for(puCount=0; puCount<100; puCount++)	\
 		asm("nop");							\
-}
+	{}; \
+})
 
 //Convert e.g. 30 to 0x30 for display purposes...
 #define TOBCD(dec99)   \
@@ -301,10 +377,11 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 #define writeMaskedVar(val, mask, bitPIN, portOffset)	\
 									writeMasked((val),(mask),(*((bitPIN)+(portOffset))))
 #define	setinpuVar(bitNum, bitPin)	\
-{									\
+({									\
 	setinVar((bitNum), (bitPin));	\
 	setpuVar((bitNum), (bitPin));	\
-}
+	{}; \
+})
 
 //These ...PIN macros work directly with PINx...
 // might make more sense to work with PORTx 
@@ -339,10 +416,11 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 	getbit((bitNum), (PINx))
 
 #define setinpuPIN(bitNum, PINx)	\
-{									\
+({									\
 	setinPIN((bitNum), (PINx));		\
 	setpuPIN((bitNum), (PINx));		\
-}
+	{}; \
+})
 
 // setout(PB6, PORTA)
 //Relative PIN
@@ -380,11 +458,14 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 	   ((value) ? setpinPORT((Pxn),(PORTx)):clrpinPORT((Pxn),(PORTx)))
 
 #warning "TODO: (IMPORTANT?) Using this as a response to an if-statement closes the statement, due to the '};' so the associated else isn't associated! THIS COULD BE A PROBLEM IN MULTIPLE PLACES. WHICH IS WHY I HAVE THIS IN THE BITHANDLING HEADER TO REMIND ME"
+// SEE: cTools/bracketsInDefinesTest.c
+
 #define setinpuPORT(Pxn, PORTx)		\
-{									\
+({									\
 	setinPORT((Pxn), (PORTx));		\
 	setpuPORT((Pxn), (PORTx));		\
-}
+	{}; \
+})
 
 
 #define PIN_FROM_PORT(PORTx) \
@@ -411,10 +492,11 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 #define setPORTpu(PORTx) 		((PORTx) = 0xff)
 
 #define setPORTinpu(PORTx) \
-{\
+({\
 	setPORTin(PORTx); \
 	setPORTpu(PORTx); \
-}
+	{};\
+})
 
 //Equivalent to PINx (from PORTx)
 #define PORTin(PORTx) 			(PIN_FROM_PORT(PORTx))
@@ -430,10 +512,11 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 	writeMasked(0xff, Mask, PORTx)
 
 #define setPORTinpuMasked(PORTx, Mask) \
-{ \
+({ \
 	setPORTinMasked(PORTx, Mask); \
 	setPORTpuMasked(PORTx, Mask); \
-}
+	{};\
+})
 
 
 
@@ -513,85 +596,23 @@ void toBinString(char* stringOut, uint8_t length, int32_t value)
 #endif
 
 
+//See explanation in version-notes 0.94_parenExperiment-2
+// Note also that according to K&R this will force the other operands
+// to become long as well..
+// e.g. the result of (1 + MAKELONG) is a LONG 
+#define MAKELONG(value)	((value) + 0L)
+
+//Not really sure how I feel about this... technically it doesn't change it
+// to u8 math... but it does assure that ... yeah, not sure how I feel...
+// a/o sdramThing: #define BLAH (~(1<<blah)) 
+//	uint8_t blah2 = BLAH; resulted in "large integer implicitly truncated
+// to unsigned type"
+#define TRUNCATE_U8(value) ((value) & 0xff)
 
 
+#define nibbletochar(val)  \
+	   (((val)<=9) ? ((val) + '0') : ((val) + ('A' - 10)))
 
 
-
-/* Notes re: PORT,DDR,PIN register locations:
-
-All Explored MCUs have the same register-order... PINx DDRx PORTx
-so offsets are the same for all, and only one is necessary for #defines...
-Since PORT makes the most sense when working with a pin on a port
- eventually it'd be nice to switch this all up:
-
-getPin, setPin, clrPin, setPinPU, setPinOut, setPinIn or som'n...
-
-Could maybe do #defines such as PinB7 = PB7, PORTB
-so getPin could be as simple as getPin(PinB7)
-besides being quicker to type and visually, it'd also relieve some risk of port mixup getPin(PB7,PORTD)
-
-m168
-0x0B (0x2B) PORTD	PORTD7 PORTD6 PORTD5 PORTD4 PORTD3 PORTD2 PORTD1 PORTD0 89 
-0x0A (0x2A) DDRD	DDD7 DDD6 DDD5 DDD4 DDD3 DDD2 DDD1 DDD0 89 
-0x09 (0x29) PIND	PIND7 PIND6 PIND5 PIND4 PIND3 PIND2 PIND1 PIND0 89 
-0x08 (0x28) PORTC	Ð PORTC6 PORTC5 PORTC4 PORTC3 PORTC2 PORTC1 PORTC0 88 
-0x07 (0x27) DDRC	Ð DDC6 DDC5 DDC4 DDC3 DDC2 DDC1 DDC0 88 
-0x06 (0x26) PINC	Ð PINC6 PINC5 PINC4 PINC3 PINC2 PINC1 PINC0 88 
-0x05 (0x25) PORTB	PORTB7 PORTB6 PORTB5 PORTB4 PORTB3 PORTB2 PORTB1 PORTB0 88 
-0x04 (0x24) DDRB	DDB7 DDB6 DDB5 DDB4 DDB3 DDB2 DDB1 DDB0 88 
-0x03 (0x23) PINB	PINB7 PINB6 PINB5 PINB4 PINB3 PINB2 PINB1 PINB0 88 
-
-
-m8515
-$1B ($3B) PORTA		PORTA7 PORTA6 PORTA5 PORTA4 PORTA3 PORTA2 PORTA1 PORTA0 74 
-$1A ($3A) DDRA		DDA7 DDA6 DDA5 DDA4 DDA3 DDA2 DDA1 DDA0 74 
-$19 ($39) PINA		PINA7 PINA6 PINA5 PINA4 PINA3 PINA2 PINA1 PINA0 74 
-$18 ($38) PORTB		PORTB7 PORTB6 PORTB5 PORTB4 PORTB3 PORTB2 PORTB1 PORTB0 74 
-$17 ($37) DDRB		DDB7 DDB6 DDB5 DDB4 DDB3 DDB2 DDB1 DDB0 74 
-$16 ($36) PINB		PINB7 PINB6 PINB5 PINB4 PINB3 PINB2 PINB1 PINB0 74 
-$15 ($35) PORTC		PORTC7 PORTC6 PORTC5 PORTC4 PORTC3 PORTC2 PORTC1 PORTC0 74 
-$14 ($34) DDRC		DDC7 DDC6 DDC5 DDC4 DDC3 DDC2 DDC1 DDC0 74 
-$13 ($33) PINC		PINC7 PINC6 PINC5 PINC4 PINC3 PINC2 PINC1 PINC0 75 
-$12 ($32) PORTD		PORTD7 PORTD6 PORTD5 PORTD4 PORTD3 PORTD2 PORTD1 PORTD0 75 
-$11 ($31) DDRD		DDD7 DDD6 DDD5 DDD4 DDD3 DDD2 DDD1 DDD0 75 
-$10 ($30) PIND		PIND7 PIND6 PIND5 PIND4 PIND3 PIND2 PIND1 PIND0 75 
---
-$07 ($27) PORTE		- - - - - PORTE2 PORTE1 PORTE0 75 
-$06 ($26) DDRE		- - - - - DDE2 DDE1 DDE0 75 
-$05 ($25) PINE		- - - - - PINE2 PINE1 PINE0 75 
-
-mxx4P
-0x0B (0x2B) PORTD	PORTD7 PORTD6 PORTD5 PORTD4 PORTD3 PORTD2 PORTD1 PORTD0 91 
-0x0A (0x2A) DDRD	DDD7 DDD6 DDD5 DDD4 DDD3 DDD2 DDD1 DDD0 91 
-0x09 (0x29) PIND	PIND7 PIND6 PIND5 PIND4 PIND3 PIND2 PIND1 PIND0 91 
-0x08 (0x28) PORTC	PORTC7 PORTC6 PORTC5 PORTC4 PORTC3 PORTC2 PORTC1 PORTC0 91 
-0x07 (0x27) DDRC	DDC7 DDC6 DDC5 DDC4 DDC3 DDC2 DDC1 DDC0 91 
-0x06 (0x26) PINC	PINC7 PINC6 PINC5 PINC4 PINC3 PINC2 PINC1 PINC0 91 
-0x05 (0x25) PORTB	PORTB7 PORTB6 PORTB5 PORTB4 PORTB3 PORTB2 PORTB1 PORTB0 90 
-0x04 (0x24) DDRB	DDB7 DDB6 DDB5 DDB4 DDB3 DDB2 DDB1 DDB0 90 
-0x03 (0x23) PINB	PINB7 PINB6 PINB5 PINB4 PINB3 PINB2 PINB1 PINB0 90 
-0x02 (0x22) PORTA	PORTA7 PORTA6 PORTA5 PORTA4 PORTA3 PORTA2 PORTA1 PORTA0 90 
-0x01 (0x21) DDRA	DDA7 DDA6 DDA5 DDA4 DDA3 DDA2 DDA1 DDA0 90 
-0x00 (0x20) PINA	PINA7 PINA6 PINA5 PINA4 PINA3 PINA2 PINA1 PINA0 90 
-
-m162
-0x1B (0x3B) PORTA	PORTA7 PORTA6 PORTA5 PORTA4 PORTA3 PORTA2 PORTA1 PORTA0 81 
-0x1A (0x3A) DDRA	DDA7 DDA6 DDA5 DDA4 DDA3 DDA2 DDA1 DDA0 81 
-0x19 (0x39) PINA	PINA7 PINA6 PINA5 PINA4 PINA3 PINA2 PINA1 PINA0 81 
-0x18 (0x38) PORTB	PORTB7 PORTB6 PORTB5 PORTB4 PORTB3 PORTB2 PORTB1 PORTB0 81 
-0x17 (0x37) DDRB	DDB7 DDB6 DDB5 DDB4 DDB3 DDB2 DDB1 DDB0 81 
-0x16 (0x36) PINB	PINB7 PINB6 PINB5 PINB4 PINB3 PINB2 PINB1 PINB0 81 
-0x15 (0x35) PORTC	PORTC7 PORTC6 PORTC5 PORTC4 PORTC3 PORTC2 PORTC1 PORTC0 81 
-0x14 (0x34) DDRC	DDC7 DDC6 DDC5 DDC4 DDC3 DDC2 DDC1 DDC0 81 
-0x13 (0x33) PINC	PINC7 PINC6 PINC5 PINC4 PINC3 PINC2 PINC1 PINC0 82 
-0x12 (0x32) PORTD	PORTD7 PORTD6 PORTD5 PORTD4 PORTD3 PORTD2 PORTD1 PORTD0 82 
-0x11 (0x31) DDRD	DDD7 DDD6 DDD5 DDD4 DDD3 DDD2 DDD1 DDD0 82 
-0x10 (0x30) PIND	PIND7 PIND6 PIND5 PIND4 PIND3 PIND2 PIND1 PIND0 82 
---
-0x07 (0x27) PORTE	Ð Ð Ð Ð Ð PORTE2 PORTE1 PORTE0 82 
-0x06 (0x26) DDRE	Ð Ð Ð Ð Ð DDE2 DDE1 DDE0 82 
-0x05 (0x25) PINE	Ð Ð Ð Ð Ð PINE2 PINE1 PINE0 82 
-*/
 
 #endif

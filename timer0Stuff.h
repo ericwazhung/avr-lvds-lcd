@@ -2,7 +2,7 @@
 // Its interrupt is responsible all display-timing. And all drawing is
 // handled within it.
 
-#include "LCDdefines.h"
+#include "lcdDefines.h"
 
 
 
@@ -55,12 +55,13 @@
 //  Where portions of the screen take longer to calculate (e.g. the "score"
 //  in SEG_RACER), the pixel alignment jitters...
 //  regardless of ALIGN with PIX/SYS clocks.
+
 // I dunno where I came up with this logic... I think it's completely
 // arbitrary:
 #if (LVDS_PRESCALER == 8)
  //#define ROW_CALCULATION_DELAY 1//20
  //#define ROW_CALCULATION_CYCS (50000UL) //0 //(70000) //(100000)
- #define ROW_CALCULATION_CYCS (30000UL) //0UL
+ #define ROW_CALCULATION_CYCS 40000UL //10000UL //0UL
 #else
  //#define ROW_CALCULATION_DELAY 9//7//5//2//1//10
  #define ROW_CALCULATION_CYCS   (8*DISPLAY_CYC_COUNT)

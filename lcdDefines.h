@@ -46,9 +46,18 @@
 //#define IMAGE_WIDTH 21
 
 
-#define TESTVALS   0
-#define LTN 1
+#define TESTVALS   0		//Currently TESTVALS are being used with the LTN
+								// display... 
+#define LTN 1				//LTN and IDT haven't been used for a while.
 #define IDT 2
+
+
+//Options LTN, IDT, or TESTVALS
+// IDT display *still* doesn't sync... maybe my H/V signals aren't right
+#define DISPLAY TESTVALS //LTN //TESTVALS //IDT //LTN
+
+
+
 
 
 //TIMING:

@@ -61,11 +61,13 @@ A Samsung LTN121X1-L02 12.1in 1024x768 display
 	 that won't sync at all...)
 and a 3.3 or 3.6V supply.
 
-I use a USB-Tiny for programming my AVRs
+I use a USB-Tiny, avr-gcc, avr-dude for programming my AVRs
 (look into _commonCode.../_make/avrCommon.mk if you need to change this or
  anything else... also reallyCommon2.mk)
+I generally upload it after a compile, so you might be able to get away
+with just "make fuse" and "make flash". Otherwise:
 You should be able to do 
-("make clean" ?)
+"make clean"
 "make"
 "make fuse"
 "make flash"

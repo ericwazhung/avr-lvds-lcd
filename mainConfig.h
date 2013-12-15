@@ -143,18 +143,23 @@
 #define SEG_STRETCH 5//4//3//2//3//4//6//3//4//6   //Stretch pixels using longer segments
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
- #warning "ROW_SEG_BUFFER requires ROW_BUFFER, but this is a hack"
+ //a/o v60-5ish, this is no longer the case:
+ //#warning "ROW_SEG_BUFFER requires ROW_BUFFER, but this is a hack"
  #if (!defined(LVDS_PRESCALER) || (LVDS_PRESCALER < 2))
   #error "ROW_SEG_BUFFER uses 20cyc/pixel, which isn't compatible with ROW_BUFFER -> width=64, since ROW_BUFFER used 16cyc/pixel. Bump your LVDS_PRESCALER up, or comment this error out to see what happens"
  #endif
- #define ROW_BUFFER TRUE
+ //ROW_SEG_BUFFER uses LOADROW... kinda the whole point.
+ #define LOADROW	TRUE
+// #define ROW_BUFFER TRUE
 // #include "rowSegBuffer.c"
 #endif
 
+//a/o v60: ROW_SEG_BUFFER can now be TRUE without ROW_BUFFER
+//         So, the below note isn't exclusively the case...
 //a/o v59:
 //If this is not true, then it uses the frameBuffer... which is no longer
 // tested/implemented...
-#define ROW_BUFFER TRUE
+//#define ROW_BUFFER TRUE
 
 //Only valid with ROW_BUFFER=TRUE above:
 //#define HORIZONTAL_COLOR_BARS TRUE

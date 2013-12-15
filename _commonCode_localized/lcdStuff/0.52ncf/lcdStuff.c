@@ -1,5 +1,8 @@
-//lcdStuff 0.51ncf-git
+//lcdStuff 0.52ncf
 
+//0.52ncf - getting rid of git in this directory...
+//0.51ncf-git-1ish Adding a few notes remaining from LCDdirectLVDS:
+//						"SCOPING has been removed in LVDS, revisit LCDdirect50"
 //0.51ncf-git first attempt at using git for uploading to googleCode...
 //        this version isn't yet used by any projects
 //0.50ncf cleanup, colorOverride is unused...
@@ -1474,6 +1477,12 @@ void init_timer0Hsync(void)
 // rowNum is the drawable row number on the LCD...
 //static __inline__ void drawPix(uint16_t rowNum);
 
+// This should have a uint16 rowNum!
+// But, so far, the only cases which use all 768 rows are LCDdirectLVDS
+// with RowSegBuffer, and sdramThing (how did this uint8_t thing not cause
+// trouble there?!)
+// RowSegBuffer doesn't pay attention to rowNum in drawPix...
+
 
 static __inline__ \
 void drawPix(uint8_t rowNum) \
@@ -1522,6 +1531,23 @@ void drawPix(uint8_t rowNum)
 	         | (0<<COM1B1) | (1<<COM1B0)
 	         | (1<<PWM1A) | (1<<PWM1B) );
 
+/* This bit was in loadData, just some notes, now...
+
+ WTF, how did this work?! Am I not using drawPix?!
+   Yes, but drawPix calls drawSegs, which doesn't have an argument
+   because loadRow takes the row argument elsewhere, drawSegs just
+   draws 'em
+      //#warning "see 'shouldBe' here..."
+      //Should be:
+      rowNum = rowNum*FB_HEIGHT/V_COUNT;
+      //rowNum = rowNum / (768/FB_HEIGHT);
+
+	So, rowNum change left-over from the ol' FrameBuffer days had no effect
+	on drawSegs.
+*/
+
+
+
 		drawSegs();
 
 #endif
@@ -1560,6 +1586,49 @@ void drawPix(uint8_t rowNum)
 				   | (0<<COM1B1) | (1<<COM1B0)
 					| (1<<PWM1A) | (1<<PWM1B) );
 #endif
+
+
+
+
+
+
+
+
+
+/* These are old tests from above, under if(dataEnable)
+   They should all be implemented in lcdStuff.c, but have not been
+   retested since...
+#if(defined(BLUE_DIAG_BAR) && BLUE_DIAG_BAR)
+      uint16_t blueCyc = DOTS_TO_CYC(rowNum);
+      uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
+      
+      DEonly_fromNada();
+      delay_cyc(notBlueCyc);
+      DEblue_fromDEonly();
+      delay_cyc(blueCyc);
+
+      Nada_fromDEblue();
+#elif(defined(BLUE_VERT_BAR) && BLUE_VERT_BAR)
+      DEonly_fromNada();
+      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS)/3);
+      DEblue_fromDEonly();
+      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS)*2/3);
+      Nada_fromDEblue();
+#elif(defined(DE_BLUE) && DE_BLUE)
+      DEblue_fromNada();
+      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS));
+      Nada_fromDEblue();
+#else  //NOT BLUE_DIAG_BAR, BLUE_VERT_BAR, NOR DE_BLUE
+ #if ( defined(COLOR_BAR_SCROLL) && COLOR_BAR_SCROLL)
+      if(rowNum <= 256)
+         rowNum=0;
+      else
+         rowNum=1;
+ #else //NOT COLOR_BAR_SCROLL... drawPix...
+*/
+
+
+
 
 //a/o sdramThing2.0v8 early... appears to be syncing on Blue signal
 // thus we get diagonal data including Hsync (colored in red) along the

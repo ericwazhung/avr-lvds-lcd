@@ -1,0 +1,8 @@
+Jitter Issues? Look into:
+	increasing ROW_CALCULATION_DELAY
+	Is ALIGN_PIXCLK set?
+
+Trying to compile with different options?
+	First guess, I've moved e.g. RowBuffer code to _unusedIdeas...
+	Try moving files back out of there into the main directory
+

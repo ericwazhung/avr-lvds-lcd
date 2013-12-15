@@ -215,14 +215,14 @@ ERRORHANDLING_HDR = $(COMDIR)/errorHandling/$(VER_ERRORHANDLING)/
 CFLAGS += -D'_ERRORHANDLING_HEADER_="$(ERRORHANDLING_HDR)/errorHandling.h"'
 COM_HEADERS += $(ERRORHANDLING_HDR)
 	
-VER_BITHANDLING = 0.94
+VER_BITHANDLING = 0.95
 BITHANDLING_HDR = $(COMDIR)/bithandling/$(VER_BITHANDLING)/
 # This is so #include _BITHANDLING_HEADER_ can be used in .c and .h files
 # It should probably be moved to bithandling.mk
 CFLAGS += -D'_BITHANDLING_HEADER_="$(BITHANDLING_HDR)/bithandling.h"'
 COM_HEADERS += $(BITHANDLING_HDR)
 
-LCDSTUFF := $(COMDIR)/lcdStuff/0.51ncf-git/lcdStuff.c
+LCDSTUFF := $(COMDIR)/lcdStuff/0.52ncf/lcdStuff.c
 COM_HEADERS += $(dir $(LCDSTUFF))
 CFLAGS += -D'_LCDSTUFF_CFILE_="$(LCDSTUFF)"'
 
