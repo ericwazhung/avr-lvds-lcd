@@ -135,15 +135,15 @@ extern seg_t rowSegBuffer[NUM_SEGMENTS+1];
 // The first three will probably seldom be used
 // The last....
 #define fbBlue_to_seg(fbColor) \
-		((((fbColor & 0x30) | 0x40)))
+		(((((fbColor) & 0x30) | 0x40)))
 		//((((fbColor & 0x30) >> 4) | 0x04)<<4) //fixed
 //	   (((fbColor & 0x30) << 1) | 0x40)
 
 #define fbGreen_to_seg(fbColor) \
-	   ((fbColor & 0x0C) >> 2)
+	   (((fbColor) & 0x0C) >> 2)
 
 #define fbRed_to_seg(fbColor) \
-	   (((fbColor & 0x03) << 1) | (fbColor & 0x01))
+	   ((((fbColor) & 0x03) << 1) | ((fbColor) & 0x01))
 
 //This gives 'red, green_blue' pairs for arguments to newSeg, etc.
 // It's kinda hokey to call a three-argument function with *apparently*

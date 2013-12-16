@@ -221,7 +221,12 @@
  #if (LVDS_PRESCALER == 8)
   #define V_COUNT 768
  #else
-  #define V_COUNT   (768*2/3)
+#warning "V_COUNT for LVDS_PRESCALER != 8 was originally 2/3 * 768... this has been removed"
+  //This must've been due to stretching... or repeated-rows due to extended
+  // DE's? Doesn't make sense, should be the opposite, the case when 
+  //  LVDS_PRESCALER is large, no?
+  //#define V_COUNT   (768*2/3)
+  #define V_COUNT (768)
  #endif
 #endif
 

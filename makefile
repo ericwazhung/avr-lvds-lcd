@@ -32,7 +32,7 @@ CFLAGS += -D'PROJINFO_SHORT=TRUE'
 # in *half* the screen-width (same height)
 
 # DON'T FORGET: If you change this, rerun 'make fuse'
-#PLLSYSCLK = 1
+PLLSYSCLK = 1
 
 ifdef PLLSYSCLK
 FUSEL = 0xe1
@@ -126,6 +126,9 @@ endif
 #DON'T FORGET to change #includes...
 #path to the library.c/mk files, including filenames, excluding extensions
 
+VER_HFMODULATION = 1.00
+HFMODULATION_LIB = $(COMDIR)/hfModulation/$(VER_HFMODULATION)/hfModulation
+include $(HFMODULATION_LIB).mk
 
 VER_ADC = 0.20
 CFLAGS += -D'ADC_SUM_REMOVED=TRUE'

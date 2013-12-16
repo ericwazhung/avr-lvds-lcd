@@ -1,8 +1,105 @@
-Jitter Issues? Look into:
+Some topics to keep in mind:
+	It's a good idea to start and end with white on the horizontal borders.
+  		I usually do 3psegs.
+	After all segments are drawn, they're followed by white for a short
+		duration, then that's followed by cyan (the red value is set 0)
+		Ideally these two colors wouldn't be seen;
+			the total length of all segments would reach the edge...
+			but it's not *necessary*
+		White indicates a duration before DE is disabled
+			a bit of a hack, explained in code
+		Cyan (or the absense of red) indicates row-calculation-time (right?)
+		And these values are dependent on a white segment at the very end?
+		Then there's a green-bar, too... what's this?
+		Blue has dropped-out, but I think that shoulda happened much sooner
+		... when NADA_from_DE is called. I need to look into this more
+
+
+Horizontal Jitter Issues? Look into:
 	increasing ROW_CALCULATION_DELAY
 	Is ALIGN_PIXCLK set?
 
 Trying to compile with different options?
-	First guess, I've moved e.g. RowBuffer code to _unusedIdeas...
+	First guess, I've moved that code to _unusedIdeas...
 	Try moving files back out of there into the main directory
 
+
+Some pixels coming through, but horizontal syncing is off and/or 
+ solid-colors appear pixellated?
+ 	You may be at the minimum LVDS-bit-rate that the display can just 
+	*barely* handle... try to increase the bit-rate 
+	(Decreasing LVDS_PRESCALER, though keep in mind this affects all math
+	 related to pixel-segment-widths, Dot-counts 
+	 (for e.g. Hsync width=T_Hlow), etc.)
+	--TODO for me:
+		Now that PLL_SYSCLK has been added, maybe distribute with it disabled
+		then have a "Double bit-rate" option, which BOTH uses PLL_SYSCLK and
+		divides LVDS_PRESCALER / 2 (==4)
+		This allows math to take the same amount of time for each pixel
+		Thus, no scaling is necessary. Essentially it just doubles
+		the speed of *everything*, bit-clock, CPU frequency, etc. 
+	--NOTE from experience:
+		Doing the above has allowed the "flakey" display to sync!
+	--NOTE 2: Using PLL_SYSCLK far exceedes the specifications for the AVR
+		running at close to 32MHz (rated for 16!)
+	-- Can decrease if necessary by messing with OSCCAL
+	Also a possibility: the signal output by your "LVDS chips" 
+	 (74LS86 specified here) isn't clean enough...
+		Did you use the same chip for both the + and - signals on each LVDS
+			signal?
+		Your likely newer chips may have higher output drive capability than
+			mine... you might need to put some resistors in series (untested)
+		Your 74LS series chips may not like being under-driven at 3.3-3.6V
+			(they're specified for 4.5-5.5V)
+			The displays are rated for 3.3V, but you could probably get away
+			with upping that a little bit... (I've used 3.6)
+	The signal received at the LCD isn't clean enough...
+		Did you twist the pairs of wires in each LVDS signal? Try shielding
+		Try to keep the lengths of all wires between the LCD and the circuit
+			the same
+	Try working with just one signal at a time, in the process...
+		e.g. the "blue" signal is also responsible for timing, so disconnect
+		the "green" and "red" "LVDS drivers" from the AVR, and tie their
+		inputs to a constant voltage (you'll have a combination of 
+				full-red/green and no red/green across the screen)
+		and just work with cleaning up the blue/timing signal, first.
+	Using a solderless-breadboard?
+  		These are inherently flakey...
+	  		Contact between the wires and the breadboard can be "loose" or 
+			 oxidized, at best
+			There's a NON-NEGLIGIBLE amount of capacitance between the rows of
+			 breadboard "clips", and also with the breadboard's backing, if
+			 mounted on metal.
+			They inspire nice little ratsnests of wires which can couple
+			 inductively and capacitively
+			Can also inspire long wires between boards, etc, which make for
+			 great antennae
+			Also inspiring the disuse of "decoupling" capacitors at each chip
+			 (hard to breadboard a capacitor across a TTL chip, whose power
+			  pins are so far away. Even though they're probably *more*
+			  necessary in a breadboard environment than on a PCB!)
+			Nevermind shorting of resistor-leads, etc.
+			The metal breadboard "clips" in each row can actually pop-out of
+			 the breadboard, making them even harder to get good contact with
+				Their springiness also wears out over time... 
+
+
+Rows repeating?
+	Check those RowCalculationCycs... increase, maybe decrease...
+
+
+Made your own thing:
+----------------------
+and it's showing only white and cyan?
+	Make sure you've got enough pixels/psegs to fill a significant portion
+	of the screen... (?) --a/o SEG_STRETCH in tetrifying
+
+with the rowBuffer:
+
+and it seems to be syncing randomly...?
+	Make sure you're not writing rowBuffer[] with direct values...
+	use fb_to_rb()! (fb values are RGB, rowBuffer values are OCRvals)
+
+and it's only showing white and cyan...?
+	Make sure to clear the rowbuffer with valid color-data before
+	calling your drawing-functions! (e.g. tet_drawRow())

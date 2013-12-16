@@ -1,4 +1,4 @@
-//high frequency modulation .92
+//high frequency modulation .94
 
 #include "hfModulation.h"
 
@@ -36,6 +36,7 @@
 // can't tell how to get away without using hfm_setup once
 void hfm_setup(hfm_t *modulator, uint8_t power, uint8_t maxPower)
 {
+	modulator->desiredSum = 0;
 	modulator->maxPower = maxPower;
 	hfm_setPower(modulator, power);
 }
@@ -57,8 +58,14 @@ void hfm_setPower(hfm_t	*modulator, uint8_t power)
 		modulator->power = modulator->maxPower;
 		
 //	modulator->stepNumber = 0;
-	modulator->runningSum = 0;
-	modulator->desiredSum = 0;
+
+//0.94 This is just a test... It should be OK, but it hasn't been
+//     thoroughly-thought-out... (removal of these)
+// CAUSES BADNESS.
+//0.94-2 this should no longer be necessary... (runningSum is no more)
+//	modulator->runningSum = 0;
+	//0.94-2 should also no longer be necessary:
+//	modulator->desiredSum = 0;
 }
 
 //Returns 0 if the "output" should be "off" in this cycle
@@ -67,24 +74,25 @@ uint8_t hfm_nextOutput(hfm_t *modulator)
 {
 	uint8_t toReturn;
 	
-	//Instead of dividing the average by the stepNumber (slow!),
-	//just add the current to the avg and add desired to itself and compare the two
-	
-	
-	//The first time, this will be == desired*1... (and runningSum will be zero)
-	(modulator->desiredSum) += (modulator->power);
+	//The first time, this will be == desired*1... 
+	// (and runningSum will be zero)
+	//(modulator->desiredSum) += (modulator->power);
 
 
-	//The first time, since runningsum == 0, if desiredSum == 0 we else... 	clr == good
-	//The first time, 						 if desiredSum > 0 we if...		set == good
+	//The first time, since runningsum == 0,
+	//	if desiredSum == 0 we else...
+	//		clr == good
+	// if desiredSum > 0 we if...
+	//		set == good
 	
 	// IF desired == 255, we want it never to clr...
 	//		but running will be 0 the first time
 	//		and we'll therefore if... set == good
-	//		and later we'll runningSum == desiredSum (above) and reset and if again
-	if(modulator->desiredSum > modulator->runningSum)
+	//		and later we'll runningSum == desiredSum (above) 
+	//    and reset and if again
+	if(modulator->desiredSum > 0)
 	{
-		(modulator->runningSum) += (modulator->maxPower); //0xff;
+		(modulator->desiredSum) -= (modulator->maxPower); //0xff;
 		toReturn = TRUE;
 	}
 	else	//avg == desired is handled at the start... (except 0-case which works here too)
@@ -93,9 +101,13 @@ uint8_t hfm_nextOutput(hfm_t *modulator)
 		toReturn = FALSE;
 	}
 	
-//	(modulator->stepNumber)++;
+	(modulator->desiredSum) += (modulator->power);
+
 	
-	//Restart the cycle if the output average = the desired
+	
+//	(modulator->stepNumber)++;
+/*
+	//Restart the cycle if the output average == the desired
 	if(modulator->runningSum == modulator->desiredSum)
 	{
 		//Handled below...
@@ -103,6 +115,8 @@ uint8_t hfm_nextOutput(hfm_t *modulator)
 		modulator->runningSum = 0;
 		modulator->desiredSum = 0;
 	}
-	
+*/	
 	return toReturn;
 }
+
+

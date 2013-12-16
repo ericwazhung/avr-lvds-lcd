@@ -25,6 +25,10 @@ And, actually, the Timer0 stuff may not be related to the comment.
 #define FOUR_SHADES TRUE
 
 
+//a/o v60
+//I can't find this anywhere else... Might not be looking hard enough
+#define	NUM_COLORS	48
+
 
 
 

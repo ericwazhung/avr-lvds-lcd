@@ -1,4 +1,4 @@
-// RowBuffer
+// RowBuffer BETTER TITLED: "RowSettingsBuffer"
 //    An entire row is calculated and stored in the rowbuffer
 //    before each line is displayed.
 //    (There is not nearly enough memory for an entire frameBuffer)

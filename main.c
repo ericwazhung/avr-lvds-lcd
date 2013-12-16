@@ -27,7 +27,9 @@
  #include "rowBuffer.c"
 #endif
 
-
+#if (defined(SEG_TET) && SEG_TET)
+ #include "tetStuff.c"
+#endif
 
 
 
@@ -285,27 +287,166 @@ void loadRow(uint16_t rowNum)
 	newSeg(3,0x06, (6<<4) | 3);									//W
 	segTerminate();
 
- #else //NOT SEG_LINE NOR SEG_SINE NOR ANY OTHERS...
+ #elif (defined(SEG_TET) && SEG_TET)
 	//This isn't particularly functional, anymore
 	// it used to be an intermediate stage between rowBuffer and 
 	//  rowSegBuffer... Left here for an example of how it could be done...
   #if(!defined(SEG_STRETCH))
-	#define SEG_STRETCH 1
+	#define SEG_STRETCH 5 //(((NUM_PSEGS-6)+RB_WIDTH-1)/RB_WIDTH)
   #endif
+	//3-5 = white + cyan
+	//6 = letters alternating with above
+	//7-9 = ditto, stretched
 
+#define TET_VSTRETCH	16
+	if(rowNum == 0)
+	{
+		//Probably not best to put this here, as we're still in the interrupt
+		// extra-long calculations might cause syncing issues with displays
+		// that require rows to be a constant time
+		tetUpdate();
+	}
+	if(rowNum % TET_VSTRETCH == 0)
+	{
+		uint8_t i;
+		for(i=0; i<RB_WIDTH; i++)
+			rowBuffer[i] = fb_to_rb(_K);
+		//	rowBuffer[i] = fb_to_rb((i+rowNum/TET_VSTRETCH)&0x3f);
+		
+		tet_drawRow(rowNum/TET_VSTRETCH, rowBuffer);
+	}
 	segClear();
 
 	//Good for syncing to have white on both borders...
-	newSeg(1, 0x06, (6<<4) | 3);
+	newSeg(3, 0x06, (6<<4) | 3);
 	
 	uint16_t i;
-	//i+1 because we don't want to overwrite the white border...
+	//TET_OVERLAY alternates rows between the TETRIS board and
+	// an rgb "gradient" The only purpose is to test the idea of
+	// using the high vertical-resolution to essentially increase the
+	// number of colors available to a low-resolution image
+	// sort of like "dithering" in the ol' days of 256 colors in Windows
+	// but easy to implement in this case with very little overhead 
+	// row-by-row
+	// The effect, from a ways back, looks like the colors are blended
+	// (like the Text and Game-board are translucent)
+#define TET_OVERLAY TRUE
+
+	//TET_GRADIENT takes that a step further and attempts to create a
+	// gradient between each color in that rgb-gradient.
+	// It's not as pretty as I'd hoped... though it makes sense...
+	// first we're alternating between TET's color and the background color
+	// then the background color is (roughly) alternating between a couple
+	// colors, several rows between...
+	// so if a color is stretched 16 rows vertically, that only leaves 8
+	// rows for the color-gradient... might work better over more gradual
+	// color-changes
+#define TET_GRADIENT TRUE
+
+#if (defined(TET_OVERLAY) && TET_OVERLAY)
+	if(rowNum & 0x01)
+	{
+#endif
 	for(i=0; i<RB_WIDTH; i++)
+	{
+		//i+1 because we don't want to overwrite the white border...
 		rbpix_to_seg(rowBuffer[i], i+1, SEG_STRETCH);
-	
+	}
+
+#if (defined(TET_OVERLAY) && TET_OVERLAY)
+	}
+	else
+	{
+		#define ROWS_PER 64//(V_COUNT/NUM_COLORS)
+
+		uint8_t fbColor;
+
+#if (defined(TET_GRADIENT) && TET_GRADIENT)
+		static hfm_t hfmGradient;
+		if(rowNum%ROWS_PER == 0)
+			hfm_setup(&hfmGradient, 0, ROWS_PER/2-4);
+
+		//It's worth it to experiment with changing the range of the 
+		// hfmGradient, ('-4' above and '+4' below).
+		// to try to avoid one or two stray spikes
+		// (e.g. power = 1, maxPower = 15, there'll be one bright row
+		//  and 14 dark, it sticks out like a sore-thumb)
+		//  These values are experimental, and entirely dependent on the
+		//  values used...
+
+		hfm_setPower(&hfmGradient, (rowNum/2)%(ROWS_PER/2)+4);
+
+		if(hfm_nextOutput(&hfmGradient))
+			fbColor = rgbGradient(ROWS_PER-1 - rowNum/(ROWS_PER)+16-1);
+		else
+#endif
+			fbColor = rgbGradient(ROWS_PER-1 - rowNum/(ROWS_PER)+16);
+
+		addSegfb(RB_WIDTH*SEG_STRETCH, (fbColor));
+		//newSeg(SEG_STRETCH, fb_to_seg((rowNum*64/768)&0x3f));
+
+	}
+#endif
 	//white...
-	newSeg(1, 0x06, (6<<4) | 3);
+	newSeg(3, 0x06, (6<<4) | 3);
 	segTerminate();
+ #elif (defined(SEG_GRADIENT) && SEG_GRADIENT)
+	static hfm_t hfmGradient;
+#define ROWS_PER	(255)	//(V_COUNT/3) == 256
+
+	if(rowNum%ROWS_PER == 0)
+		hfm_setup(&hfmGradient, 0, ROWS_PER);
+
+	uint8_t color;
+
+	uint16_t power;
+
+	if(rowNum < ROWS_PER/16)
+		rowNum = 0;
+	else
+		rowNum -= ROWS_PER/16;
+
+	//Since there are four shades, there will be three gradients...
+	if(rowNum < ROWS_PER)
+	{
+		//The ROWS_PER/16 stuff is to help alleviate sharp color-spikes
+		// which occur early-on... see the explanation in SEG_TET.
+		color = 0;
+		//hfm_setPower(&hfmGradient, 
+		power = (rowNum); // + ROWS_PER/16);
+	}
+	else if(rowNum < ROWS_PER*2)
+	{
+		color = 1;
+		//hfm_setPower(&hfmGradient, 
+		power = rowNum-(ROWS_PER); // + ROWS_PER/16;
+	}
+	else
+	{
+		color = 2;
+		//hfm_setPower(&hfmGradient, 
+		power = rowNum-(ROWS_PER*2); // + ROWS_PER/16;
+	}
+
+
+	if(power < ROWS_PER/16)
+		power = 0;
+
+	hfm_setPower(&hfmGradient, (power <= 255) ? power : 255);
+
+	if(hfm_nextOutput(&hfmGradient))
+		color++;
+
+	color |= color<<2 | color<<4;
+
+	segClear();
+	addSegfb(3, _W);
+	addSegfb(NUM_PSEGS-6, color); 
+	addSegfb(3, _W);
+	segTerminate();
+
+ #else
+	#error "Gotta select a SEG_... option, or create your own"
  #endif //SEG_ selection
 #endif //ROW_SEG_BUFFER
 }
@@ -341,6 +482,9 @@ int main(void)
 	racer_init();
 #endif
 
+#if(defined(SEG_TET) && SEG_TET)
+	tetInit(3);
+#endif
 	init_timer0Hsync();
 
 	//This starts pretty late... watch out for WDT

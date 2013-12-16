@@ -8,12 +8,12 @@
  uint8_t __attribute__ ((progmem)) \
    header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/60-thisGitThingIsMessingUpMyVersioningScheme ";
  uint8_t __attribute__ ((progmem)) \
-   header1[] = " Sun Dec 15 06:56:15 PST 2013 ";
+   header1[] = " Mon Dec 16 10:00:47 PST 2013 ";
  uint8_t __attribute__ ((progmem)) \
    headerOpt[] = " WDT_DIS=TRUE ";
 #else //projInfo Shortened
  uint8_t __attribute__ ((progmem)) \
-   header[] = "LCDdirectLVDS60 2013-12-15 06:56:15";
+   header[] = "LCDdirectLVDS60 2013-12-16 10:00:47";
 #endif
 
 //For internal use...

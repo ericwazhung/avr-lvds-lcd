@@ -24,6 +24,43 @@
 // screen... though it's been a long time since I've used this.
 //#define SEG_LINE TRUE
 
+#if(defined(SEG_LINE) && SEG_LINE)
+//****************************
+//** GENERAL NOTE: (NOT specific to SEG_LINE)
+//****************************
+// this is getting ridiculous. The only change was using PLL_SYSCLK and
+// LVDS_PRESCALER=4...
+// ROW_CALCULATION_CYCS is set to something like 40000UL by default WITH
+// LVDS_PRESCALER=8
+// But, when LVDS_PRESCALER<8, ROW_CALCULATION_CYCS defaults to a lower
+// value. Fine. But the effect is nearly identical with EVERY SEG_...
+// The image seems to be stretched vertically, such that half the image
+// fills the screen. 
+// The effect could be quite useful... e.g. could double the frame-rate
+// by halving the vertical resolution. I don't know how to harness this
+// effect, yet. It's a strange effect, because it's *not* the data being
+// sent... the display itself is somehow repeating the previous row's data
+// The effect is crisp.
+// The bit I don't get is that setting ROW_CALCULATION_CYCS to 0 previously
+// caused jitter at the left-edge, but not line-doubling.
+// So... weird.
+// And now, setting it to 0 causes the refresh rate to increase
+// (duh) but no repeated lines.
+
+// More notes in timer0Setup.h.
+// Experiments show that long RCS's give more repeated lines
+// e.g. 100,000 repeats each row once
+// 200,000 repeats it twice (?)
+// 225,000 causes apparently one line to be repeated down the whole display
+// 250,000 is too much for Timer0
+// So, maybe this can't be used to bump up the refresh rate
+// So what could it be used for...? Well, *tons* more calculation-time
+//
+
+#define ROW_CALCULATION_CYCS 0UL //200000//(8*DISPLAY_CYC_COUNT)//(1024*8) //0UL //40000UL
+#endif
+
+
 //A very nice test-pattern... shows a sine-wave, the under-side of which
 // is horizontal color-bars, above it is vertical color-bars. 
 // Above that is two lines of text, showing all available characters
@@ -35,7 +72,11 @@
 // And that existing segments are automatically stretched if the next-added
 // segment is the same color.
 // This displays all available colors and shows the resolution capabilities
-#define SEG_SINE TRUE
+//#define SEG_SINE TRUE
+
+#if(defined(SEG_SINE) && SEG_SINE)
+#define ROW_CALCULATION_CYCS 40000UL
+#endif
 
 //Uses "High-Frequency Modulation" to display an interesting pattern...
 // HFM is kinda like PWM. The idea is to have an output ON for
@@ -71,13 +112,19 @@
 // You can override NUM_SEGMENTS here, for that purpose...
 // OTHERWISE, it should probably be handled in rowSegBuffer.c
 #if(defined(SEG_HFM) && SEG_HFM)
- #define NUM_SEGMENTS   127 //128 //95//96//128 //68 //128//68
+ #define NUM_SEGMENTS   224//192//127 //128 //95//96//128 //68 //128//68
+ #define ROW_CALCULATION_CYCS 40000UL
 #endif
 
 //Displays a Question-Mark box, ala Mario-Brothers. Press the button and
 // receive an award (and occasional goomba)
 // Demonstrates usage of program-memory-based images... (16x16 pixels WOO!)
 //#define SEG_QUESTION   TRUE
+
+#if(defined(SEG_QUESTION) && SEG_QUESTION)
+#define ROW_CALCULATION_CYCS 40000UL
+#endif
+
 
 //A Game! Ala "Racer" from the ol' TI-82 days...
 // Use a potentiometer to try to keep the "car" on the race-track
@@ -87,8 +134,45 @@
 //  this...)
 //#define SEG_RACER    TRUE
 
+#if(defined(SEG_RACER) && SEG_RACER)
+#define ROW_CALCULATION_CYCS 40000UL
+#endif
 
 
+#define SEG_TET	TRUE
+// Look into SEG_TET case in loadRow for some configurables
+// (transparency overlay, etc).
+
+//Tetris was written for the row-buffer
+// and uses conversion...
+// it's a bit wasteful, since it requires *both* a rowBuffer AND a
+// rowSegBuffer, but it should work.
+#if(defined(SEG_TET) && SEG_TET)
+ #define ROW_BUFFER	TRUE
+ #define NUM_SEGMENTS	96 //128//RB_WIDTH+10
+ #define ROW_CALCULATION_CYCS 0//40000UL //10000UL //0UL
+
+#endif
+
+
+//SEG_GRADIENT draws a "smooth" gradient from black to some color 
+// (currently white)... It uses HFM with a "power"-value that increases 
+// with the row-number...
+// It alternates rows between two shades until we've reached "full power"
+// at the next shade. Then it repeats between the next two shades, etc.
+// Mainly it's just for testing how plausible it is to create intermediate
+// color-values... e.g. SEG_QUESTION's color-scheme isn't quite right...
+// that question-box is supposed to look like copper!
+// So one possibility is to alternate between two colors for some pixels
+// Since the pixels are so large, the alternating colors would be barely 
+// visible, and it would likely look more like a smooth color. 
+// This kinda gives the ability to figure out how much we can get away with
+// Also try SEG_TET, which has gradients between colors 
+// (rather than shades)
+//#define SEG_GRADIENT TRUE
+#if(defined(SEG_GRADIENT) && SEG_GRADIENT)
+ #define ROW_CALCULATION_CYCS	40000UL
+#endif
 
 
 
@@ -124,16 +208,28 @@
 //   I can't explain this.
 //   It offers quite a bit of potential, though. The refresh-rate is
 //   increased dramatically, just by changing this value from 8 to 2
-//   
-#define LVDS_PRESCALER 8//1//2//8//2//1//8//2//4//8//2//8//2
+//
+#if (defined(PLL_SYSCLK) && PLL_SYSCLK)
+//a/o v60: This isn't required... using 8 allows for double-resolution
+//         BUT, I've two seemingly identical displays with different 
+//         revisions of the same LVDS-receiver chip... one will not sync
+//         at the low bit-rate achieved with LVDS_PRESCALER=8
+//         (I swear it did without a problem a while back... weird)
+//         So, this doubles the bit-rate rather than doubling the 
+//         resolution
+#define LVDS_PRESCALER 4//8//1//2//8//2//1//8//2//4//8//2//8//2
 //8//2//1//2//2//2//2//2//2//2//2//2//2//2//8//4 //1 //2//4//8//2//4
-
+#else
+#define LVDS_PRESCALER 8
+#endif
 
 
 // a/o v59
 //This should probably always be TRUE now... It's been a LONG time since I
 // experimented with it otherwise.
 #define ROW_SEG_BUFFER   TRUE
+
+/*
 //now, SEG_STRETCH >= 3 causes weirdness... (repeated rows)
 // previously 3 was OK
 // This is fixed a/o newSeg, etc.
@@ -141,6 +237,9 @@
 // to stretch a low-resolution row-buffer across the screen
 // And that case (No SEG_mode set) doesn't really do anything anymore
 #define SEG_STRETCH 5//4//3//2//3//4//6//3//4//6   //Stretch pixels using longer segments
+//a/o v60: It's since been made specific for those cases, in loadRow()
+//         (e.g. SEG_TET)
+*/
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
  //a/o v60-5ish, this is no longer the case:

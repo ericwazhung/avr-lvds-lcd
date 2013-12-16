@@ -19,6 +19,8 @@
 uint8_t fb_to_rb(uint8_t fbColor);
 
 // Tetris:
+// This is the game-board, NOT the number of pixels used (including the
+// border and title)
 // 10 across
 // 18 up
 // 7 pieces (colors = 3 bits each)

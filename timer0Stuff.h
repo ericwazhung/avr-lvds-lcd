@@ -16,7 +16,16 @@
 // (So use the prescaler! Though, this limits the resolution...)
 #define DISPLAY_CYC_COUNT \
    (T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC)
-
+// a/o v60:
+// Strange effecs using this in ROW_CALCULATION_CYCS with LVDS_PRESCALER=4
+// and PLL_SYSCLK
+// DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/4))
+// H_LOW_DOTS = 100 -> 700
+// HD_DOTS = 50 -> 350
+// DE_ACTIVE_DOTS = 1024 -> 7168
+// DH_DOTS = 0 -> 0
+//  == 8218
+// * 8 = 65,744 CYC
 
 
 
@@ -56,8 +65,20 @@
 //  in SEG_RACER), the pixel alignment jitters...
 //  regardless of ALIGN with PIX/SYS clocks.
 
+// a/o v60:
+// Using PLL_SYSCLK and LVDS_PRESCALER=4; should be identical in the
+// signal being transmitted, except the bit-rate is doubled.
+// There're some odd effects... May-be display-specific, but line-doubling
+// is the go-to in nearly all cases... which could be a handy effect to
+// explore. More notes in mainConfig: SEG_LINE of all places.
+// Also, above. Apparently the ROW_CALCULATION_CYCS is *huge*
+// which now makes more sense... I thought it was smaller
+// So, if a row takes too long, it's repeated
+// kinda handy, really....
+
 // I dunno where I came up with this logic... I think it's completely
 // arbitrary:
+#ifndef ROW_CALCULATION_CYCS
 #if (LVDS_PRESCALER == 8)
  //#define ROW_CALCULATION_DELAY 1//20
  //#define ROW_CALCULATION_CYCS (50000UL) //0 //(70000) //(100000)
@@ -66,7 +87,7 @@
  //#define ROW_CALCULATION_DELAY 9//7//5//2//1//10
  #define ROW_CALCULATION_CYCS   (8*DISPLAY_CYC_COUNT)
 #endif
-
+#endif
 
 
 // Also, there's quite a bit of leeway here, as this is based on 
