@@ -1,13 +1,32 @@
-// Latest Version is v59-10 or so.. in which I'm adding a lot of notes re:
-// defines, etc... labelled a/o v59
-// These notes, when conflicting with older notes, should be considered
-// the most recent.
+// Latest Version is v61... 
+
+// v61: Significant cleanup, Experimenting with colors, etc...
+//      notes labelled "a/o v61"
+// v59: in which I'm adding a lot of notes re: defines, etc... 
+//      labelled "a/o v59"
 
 
 
 //The current state is such that basically ONLY the row-segment-buffer
-// display-method has been tested for quite some time. The other code
-// remains, but I can't promise it still works.
+// display-method has been tested for quite some time. Some of the other 
+// code remains, but I can't promise it still works. Most of it has been
+// moved to _old/ and _unusedIdeas/
+// One odd-case: "RowBuffer" is (still) used in some SEG_whatever modes
+//  below... e.g. SEG_TET. In this case, the *old* row-buffer methods are
+//  used, and loadRow() converts this data into row-segments
+//  "RowBuffer" is a bit of a misnomer, as it sort of implies that it
+//  contains color-data. This isn't exactly true. It contains *register
+//  values*, to be written to the PWM registers in real-time.
+//  Likewise, the "RowSegmentBuffer" contains sets of two bytes which 
+//  contain color-value and segment-length. But this data is packed in
+//  these bytes in an odd way to make it calculation-efficient (increasing
+//  the resolution).
+//  In both cases (RowBuffer *and* RowSegBuffer) use function-calls to
+//  write the values, rather than writing to the arrays directly.
+
+
+
+//CONFIGURATION:
 
 //Only one of the following SEG_whatevers should be TRUE
 // (Assuming we're using the Row-Segment-Buffer, as explained above).
@@ -16,8 +35,19 @@
 //  the row-segment-buffer...
 //  This is where my old-code starts getting iffy, as the row-buffer hasn't
 //  been used for quite some time.
+// a/o v61: I think it's the case that an error will be generated if none
+//  of the SEG_whatevers are true. Further, as noted above, now the 
+//  row-buffer translation intow the RowSegBuffer has been tested...
+//  See "SEG_TET" (and loadRow()) for examples.
 // Best to stick with assigning one of these SEG_xxx things true.
-
+// NUM_SEGMENTS and ROW_CALCULATION_CYCS:
+//  These values are overrides for the default, and are mostly for testing-
+//  purposes... e.g. in SEG_LINE ROW_CALCULATION_CYCS is 0... this does NOT
+//  mean that SEG_LINE mysteriously creates the next row's data without
+//  using any processor cycles. It does *not* affect how many cycles the
+//  row-calculation takes. For now, it's just a number that affects
+//  display timing a little bit... read more about it and NUM_SEGMENTS 
+//  elsewhere before changing these overrides.
 
 //Draws a diagonal white line on a red background...
 // I think it's supposed to repeat three times and not fill the entire
@@ -25,37 +55,6 @@
 //#define SEG_LINE TRUE
 
 #if(defined(SEG_LINE) && SEG_LINE)
-//****************************
-//** GENERAL NOTE: (NOT specific to SEG_LINE)
-//****************************
-// this is getting ridiculous. The only change was using PLL_SYSCLK and
-// LVDS_PRESCALER=4...
-// ROW_CALCULATION_CYCS is set to something like 40000UL by default WITH
-// LVDS_PRESCALER=8
-// But, when LVDS_PRESCALER<8, ROW_CALCULATION_CYCS defaults to a lower
-// value. Fine. But the effect is nearly identical with EVERY SEG_...
-// The image seems to be stretched vertically, such that half the image
-// fills the screen. 
-// The effect could be quite useful... e.g. could double the frame-rate
-// by halving the vertical resolution. I don't know how to harness this
-// effect, yet. It's a strange effect, because it's *not* the data being
-// sent... the display itself is somehow repeating the previous row's data
-// The effect is crisp.
-// The bit I don't get is that setting ROW_CALCULATION_CYCS to 0 previously
-// caused jitter at the left-edge, but not line-doubling.
-// So... weird.
-// And now, setting it to 0 causes the refresh rate to increase
-// (duh) but no repeated lines.
-
-// More notes in timer0Setup.h.
-// Experiments show that long RCS's give more repeated lines
-// e.g. 100,000 repeats each row once
-// 200,000 repeats it twice (?)
-// 225,000 causes apparently one line to be repeated down the whole display
-// 250,000 is too much for Timer0
-// So, maybe this can't be used to bump up the refresh rate
-// So what could it be used for...? Well, *tons* more calculation-time
-//
 
 #define ROW_CALCULATION_CYCS 0UL //200000//(8*DISPLAY_CYC_COUNT)//(1024*8) //0UL //40000UL
 #endif
@@ -103,7 +102,7 @@
 //  The nice thing about it, is it doesn't use any actual division (which
 //  is quite slow) because it knows that every point inbetween will be 
 //  traversed.
-// THIS visualizes that, and actually looks pretty cool. Like moire
+// SEG_HFM visualizes that, and actually looks pretty cool. Like moire
 //  patterns, or magnetic-field-lines.
 // Each row increases in power, essentially: rowNum/NUM_SEGMENTS
 // (Experimenting with NUM_SEGMENTS is fun, in this case, just don't exceed
@@ -178,11 +177,6 @@
 
 
 
-//#warning "This needs to be moved... and conditional"
-//#include "rowSegBuffer.c"
-
-
-
 
 // I hereby declare this FPD-Link simulation technique to forever be called
 //  PW-BANGing
@@ -190,7 +184,7 @@
 
 //For testing of slower LVDS pixel-rates
 // (maybe we can increase the resolution)
-// value must be 1, 2, 4, or 8
+// LVDS_PRESCALER value must be 1, 2, 4, or 8
 // This is overridden by 8 when SLOW_LVDS_TEST is true...
 // If commented-out the default of 1 is used...
 // AFAICT, this only increases codesize in HLow_delay...
@@ -208,6 +202,7 @@
 //   I can't explain this.
 //   It offers quite a bit of potential, though. The refresh-rate is
 //   increased dramatically, just by changing this value from 8 to 2
+// a/o v61: PLL_SYSCLK is true by default (and thus LVDS_PRESCALER=4)
 //
 #if (defined(PLL_SYSCLK) && PLL_SYSCLK)
 //a/o v60: This isn't required... using 8 allows for double-resolution
@@ -254,6 +249,7 @@
 #endif
 
 //a/o v60: ROW_SEG_BUFFER can now be TRUE without ROW_BUFFER
+//         (but I don't think it works anymore the other way 'round)
 //         So, the below note isn't exclusively the case...
 //a/o v59:
 //If this is not true, then it uses the frameBuffer... which is no longer
@@ -273,8 +269,97 @@
 // (e.g. SEG_RACER jitters on lines with text. SEG_SINE seems to jitter
 //  with the sharp edges caused by running out of segments)
 // This effect is unrelated, and likely due to experiments with zeroing
-//  ROW_CALCULATION_DELAY (?) YEP.
+//  ROW_CALCULATION_CYCS (?) YEP.
 #define ALIGN_TIMER_WITH_PIXCLK TRUE
 
 
 
+
+// Random Notes...
+//
+//  Basically, for new development, I'd say don't use RowBuffer translation
+//  (Though, rowBuffer *without* rowSegBuffer has *not* been tested for
+//   quite some time. It does have some benefits: It's a little faster,
+//   so with low-resolution the frame-rate can be bumped up a bit... which
+//   might be necessary for some displays... I need to look into this again
+//   soon... Maybe try again to get these other displays working.)
+//  And, actually, using rowBuffer *with* rowSegBuffer (as in SEG_TET)
+//   has the benefit that it's known how long each DE will be... I'll have
+//   to think about this some more.
+//  So lemme reword that:
+//   Since I got this working with the LTN121X1 display, I have focussed
+//   quite a bit on its capabilities rather than general display 
+//   functionality... At one time this code was general enough that
+//   sync-times were dang-near exact... Where, e.g. one could hook up a
+//   display to a computer and mess with sync-parameters there, until the 
+//   display was found to function at the lowest-possible timing parameters
+//   at which point, if those were low enough to be mimicked with the bit-
+//   rates here, then you'd have a pretty good idea it'd work.
+//   That testing-ability has been somewhat compromised since then...
+//   E.G. RowSegBuffer (and RowBuffer) does its drawing calculations during
+//    what looks to the display like the Horizontal Back Porch...
+//    These calculations are *long* and probably not exactly mimickable via
+//    a computer's screen-timing-parameters.
+//    Further, the duration of a "line" varies with ROW_CALCULATION_CYCS
+//    and the total length of the row-segments drawn...
+//    It is possible to have a total of row-segments that is far longer (or
+//    far shorter) than DE. Ideally, for syncing, the total would match DE,
+//    but I've been pretty loose with this requirement, since the display
+//    I'm working with doesn't seem to care. SEG_SINE is a good example of
+//    this looseness. SEG_LINE is a good example where the duration is
+//    constant line-by-line, but DE is held active for far less than the
+//    specified time. SEG_RACER, as of recent versions, has been adapted
+//    to keep a pretty constant DE-duration, line-by-line, AND to match the
+//    DE specification, but the addition of ROW_CALCULATION_CYCS really
+//    stretches the horizontal-back-porch...
+//   E.G.2. Changing things like the LVDS_PRESCALER, OSCCAL, etc. affects 
+//    the bit-rate, and thus the pixel-clock... There's no simple way (in
+//    code, via macros, whatever) to determine how this all would 
+//    correspond to matching timing-parameters with a computer's... it's a
+//    lot of math, in a lot of places).
+//   E.G.3. Changing things like the above to match the timing-parameters
+//    found on a computer may likely result in values which are so fast
+//    that the code would have to be modified... For around ~20Hz refresh
+//    (which I had once) a *tiny* frame-buffer was necessary, limiting the
+//    image to something like 32 pixels by 32 pixels. Good for inital
+//    testing of timing-values, but that code is no longer implemented.
+//    I've ordered a VGA->LVDS converter, which may help me redevelop that
+//    code as a good starting-point for new displays. Ve Shall See.
+//    (Previously, I did those experiments by connecting the displays as my
+//     main display on my main developing system... it was hokey and a bit
+//     traumatizing, and not at all recommended). 
+
+
+
+
+//****************************
+//** GENERAL NOTE: (NOT specific to SEG_LINE)
+//****************************
+// this is getting ridiculous. The only change was using PLL_SYSCLK and
+// LVDS_PRESCALER=4...
+// ROW_CALCULATION_CYCS is set to something like 40000UL by default WITH
+// LVDS_PRESCALER=8
+// But, when LVDS_PRESCALER<8, ROW_CALCULATION_CYCS defaults to a lower
+// value. Fine. But the effect is nearly identical with EVERY SEG_...
+// The image seems to be stretched vertically, such that half the image
+// fills the screen. 
+// The effect could be quite useful... e.g. could double the frame-rate
+// by halving the vertical resolution. I don't know how to harness this
+// effect, yet. It's a strange effect, because it's *not* the data being
+// sent... the display itself is somehow repeating the previous row's data
+// The effect is crisp.
+// The bit I don't get is that setting ROW_CALCULATION_CYCS to 0 previously
+// caused jitter at the left-edge, but not line-doubling.
+// So... weird.
+// And now, setting it to 0 causes the refresh rate to increase
+// (duh) but no repeated lines.
+
+// More notes in timer0Setup.h.
+// Experiments show that long RCS's give more repeated lines
+// e.g. 100,000 repeats each row once
+// 200,000 repeats it twice (?)
+// 225,000 causes apparently one line to be repeated down the whole display
+// 250,000 is too much for Timer0
+// So, maybe this can't be used to bump up the refresh rate
+// So what could it be used for...? Well, *tons* more calculation-time
+//

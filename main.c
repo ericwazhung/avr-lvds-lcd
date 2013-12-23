@@ -444,7 +444,8 @@ void loadRow(uint16_t rowNum)
 	addSegfb(NUM_PSEGS-6, color); 
 	addSegfb(3, _W);
 	segTerminate();
-
+ #elif(defined(SEG_GRADIENT2) && SEG_GRADIENT2)
+#error "Heh, never did implement this..."
  #else
 	#error "Gotta select a SEG_... option, or create your own"
  #endif //SEG_ selection

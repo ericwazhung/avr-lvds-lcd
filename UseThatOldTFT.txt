@@ -1,79 +1,220 @@
 
 Use that oldish LCD!
 
-NOTE: This was last updated over a month before I posted it here. It's mostly just a brain-dump of LCD concepts and vague ideas as to how to make use of them with a cheap 8-bit microcontroller. It's probably not well organized, nor complete. It also goes way too deep into possibilities as opposed to how I actually implemented it. I guess this document is just to inspire experimentation. Much of the useful implementation-information (schematics, timing diagrams) is well-documented in my code, which I eventually plan to make available online, along with video of my setup in action. If you find this "document" useful, and wish for more information, I'll be happy to hear it and be more likely to post the rest of my material sooner.
+NOTE: This was last updated over a month before I posted it here. It's
+mostly just a brain-dump of LCD concepts and vague ideas as to how to make
+use of them with a cheap 8-bit microcontroller. It's probably not well
+organized, nor complete. It also goes way too deep into possibilities as
+opposed to how I actually implemented it. I guess this document is just to
+inspire experimentation. Much of the useful implementation-information
+(schematics, timing diagrams) is well-documented in my code, which I
+eventually plan to make available online, along with video of my setup in
+action. If you find this "document" useful, and wish for more information,
+I'll be happy to hear it and be more likely to post the rest of my material
+sooner.
 
-The main point of this particular document is this: You (generally) don't have to match, or even come close to, the documented timing specifications for a particular TFT... From experience, it's definitely possible to put an image on a 1024x768 laptop display directly from an 8-bit microcontroller running at 16MHz (though maybe not *every* display matching these specs, best to have a couple to experiment with). Experiment!
+The main point of this particular document is this: You (generally) don't
+have to match, or even come close to, the documented timing specifications
+for a particular TFT... From experience, it's definitely possible to put an
+image on a 1024x768 laptop display directly from an 8-bit microcontroller
+running at 16MHz (though maybe not *every* display matching these specs,
+best to have a couple to experiment with). Experiment!
 
-CopyRote Notice: This is my work. This knowledge came from a LOT of rote head-banging and a bit of research. It was written from my own head, except where otherwise quoted and linked. If you wish to reproduce any part of it PLEASE ask permission first. This is just common human decency. I shouldn't have to make it more legally-clear than that. At the very least, it would be nice to know someone found it worthwhile.
-
-
-
-
-
-Who's my intended audience? I don't really know... I hope someone can make use of it. I'm hoping my work won't be stolen verbatim for a school project, but we all understand that there's no such thing as any project that isn't based on others' work, and,  in this era, everyone's work can be made available to everyone... I hope this doesn't contain too much jargon to make it difficult for anyone with a basic understanding of digital electronics and microcontrollers (e.g. Arduino). 
-
-
-
-These days, old laptop LCDs are pretty easy to come by. Buy one off ebay for $10-$15, or find one in an old laptop which's been, quite literally, pho'd.
-
-Was a time replacing that display would cost upwards of $200, even for a used one, but these days, I guess, there're a lot of pho'd laptops. Also, we have the benefit that they've standardized things, and improved the technology, quite a bit since the last time I tried to use an old (386) laptop display in a project.
-
-I won't go into too much history here, except to say that life is significantly easier now that TFT's are on the junk pile. Or at least, it's significantly easier to give new life to that old TFT than it would be for a 486-era display.
+CopyRote Notice: This is my work. This knowledge came from a LOT of rote
+head-banging and a bit of research. It was written from my own head, except
+where otherwise quoted and linked. If you wish to reproduce any part of it
+PLEASE ask permission first. This is just common human decency. I shouldn't
+have to make it more legally-clear than that. At the very least, it would
+be nice to know someone found it worthwhile.
 
 
-A few things, before I begin with the technicalities: I have experimented with exactly *3* old TFT displays. Two worked with my methods described here, one didn't. I still have some hope for that display, but not as much drive. (Maybe someone here can figure it out?). I've pieced together this "document" from experimentation, lots of experimentation, as well as piecing together quite a bit from data-sheets and other specifications as a starting-point. I have no training, nor professional experience, with LCDs, so take *everything* said here with that in mind. I will also throw in this IMPORTANT BIT: Apparently most of these displays are SIGNIFICANTLY more flexible than their documentation claims. One additional thing: If you just want to use your old laptop display as an additional DVI or VGA display for your desktop computer, then you're in a tremendous amount of luck... these days that conversion circuitry can be purchased off ebay for less than $50 (and you needn't read on).
+
+
+
+Who's my intended audience? I don't really know... I hope someone can make
+use of it. I'm hoping my work won't be stolen verbatim for a school
+project, but we all understand that there's no such thing as any project
+that isn't based on others' work, and,  in this era, everyone's work can be
+made available to everyone... I hope this doesn't contain too much jargon
+to make it difficult for anyone with a basic understanding of digital
+electronics and microcontrollers (e.g. Arduino). 
+
+
+
+These days, old laptop LCDs are pretty easy to come by. Buy one off ebay
+for $10-$15, or find one in an old laptop which's been, quite literally,
+pho'd.
+
+Was a time replacing that display would cost upwards of $200, even for a
+used one, but these days, I guess, there're a lot of pho'd laptops. Also,
+we have the benefit that they've standardized things, and improved the
+technology, quite a bit since the last time I tried to use an old (386) 
+laptop display in a project.
+
+I won't go into too much history here, except to say that life is
+significantly easier now that TFT's are on the junk pile. Or at least, it's
+significantly easier to give new life to that old TFT than it would be for
+a 486-era display.
+
+
+A few things, before I begin with the technicalities: I have experimented
+with exactly *3* old TFT displays. Two worked with my methods described
+here, one didn't. I still have some hope for that display, but not as much
+drive. (Maybe someone here can figure it out?). I've pieced together this
+"document" from experimentation, lots of experimentation, as well as
+piecing together quite a bit from data-sheets and other specifications as a
+starting-point. I have no training, nor professional experience, with LCDs,
+so take *everything* said here with that in mind. I will also throw in this
+IMPORTANT BIT: Apparently most of these displays are SIGNIFICANTLY more
+flexible than their documentation claims. One additional thing: If you just
+want to use your old laptop display as an additional DVI or VGA display for
+your desktop computer, then you're in a tremendous amount of luck... these
+days that conversion circuitry can be purchased off ebay for less than $50
+(and you needn't read on).
 
 
 
 Notes on Types of LCDs:
 I'm not an expert, so don't quote me on these details...
 TFT (Thin-Film-Transistor)
-displays are pretty much the only ones discussed here, they are pretty much the standard for many years now. Each pixel is backed by a transistor (and capacitor?) that holds its value until the next refresh. Most of these displays have very similar timing requirements, signal inputs, and by now even similar pinouts.
+displays are pretty much the only ones discussed here, they are pretty much
+the standard for many years now. Each pixel is backed by a transistor (and
+capacitor?) that holds its value until the next refresh. Most of these
+displays have very similar timing requirements, signal inputs, and by now
+even similar pinouts.
 
 [D]STN ([Double] Super-Twist-Som'n)
-displays are the old style (grayscale and color displays from before and during the 486 era). They couldn't hold an image for long. So, to prevent noticeable flicker as best they could by increasing refresh-rate, they often split the screen in half and wrote to the top half and the bottom half at the same time. Realistically, I think they use roughly the same signals as TFT, and very similar timing (besides the split-screen thing), but they're not particularly easy to interface in any standard way. Pinouts were as varying as the devices themselves. Compatibility between laptops of different models was almost ziltch.
+displays are the old style (grayscale and color displays from before and
+during the 486 era). They couldn't hold an image for long. So, to prevent
+noticeable flicker as best they could by increasing refresh-rate, they
+often split the screen in half and wrote to the top half and the bottom
+half at the same time. Realistically, I think they use roughly the same
+signals as TFT, and very similar timing (besides the split-screen thing),
+but they're not particularly easy to interface in any standard way. Pinouts
+were as varying as the devices themselves. Compatibility between laptops of
+different models was almost ziltch.
 
 
 The rest refers to TFT displays, specifically:
 
 Signals:
-Pixel Clock - usually a constant frequency, never disabled even when not actively "drawing." Generally all the other signals are loaded/latched once per pixel clock. See notes re: pixel clock, below.
-Hsync - "Horizontal Sync" Tells the display it's time to start a new row. Usually a very brief pulse (on the order of 20 pixel clocks) immediately before pixel data is drawn
-Vsync - "Vertical Sync" Tells the display it's time to start a new frame. Usually several hsyncs long (thus 1000's of pixel clocks).
-DE - "Data Enable" When this is active, pixel data is drawn to the display one (or two) pixels per pixel clock. Thus, if the screen is 1024x768, this will be active for *exactly* 1024 pixel clocks. (See notes re DE below)
-Color data - usually 6bits per color (Red, Green, and Blue). This data is completely neglected if DE is inactive. If all those wires are too daunting just tie them all together on a single uC pin! You'll get black-and-white. Or break them apart by color and tie all of the same color bits together and you'll only need three pins and get 8 colors.
+Pixel Clock - usually a constant frequency, never disabled even when not
+actively "drawing." Generally all the other signals are loaded/latched once
+per pixel clock. See notes re: pixel clock, below.
+Hsync - "Horizontal Sync" Tells the display it's time to start a new row.
+Usually a very brief pulse (on the order of 20 pixel clocks) immediately
+before pixel data is drawn
+Vsync - "Vertical Sync" Tells the display it's time to start a new frame.
+Usually several hsyncs long (thus 1000's of pixel clocks).
+DE - "Data Enable" When this is active, pixel data is drawn to the display
+one (or two) pixels per pixel clock. Thus, if the screen is 1024x768, this
+will be active for *exactly* 1024 pixel clocks. (See notes re DE below)
+Color data - usually 6bits per color (Red, Green, and Blue). This data is
+completely neglected if DE is inactive. If all those wires are too daunting
+just tie them all together on a single uC pin! You'll get black-and-white.
+Or break them apart by color and tie all of the same color bits together
+and you'll only need three pins and get 8 colors.
 
 Notes Re Pixel Clock:
-Some displays may actually require this to be constantly-running as long as the display is powered-up. Some displays (especially LVDS) may not actually look at the pixel clock itself for drawing pixels... This should be a different note.
+Some displays may actually require this to be constantly-running as long as
+the display is powered-up. Some displays (especially LVDS) may not actually
+look at the pixel clock itself for drawing pixels... This should be a
+different note.
 
 NOTE RE DE: Different displays seem to handle extended DEs differently
- Also, the same display might handle them differently depending on the other timing signals.
- e.g. sometimes DEs that are active longer than the number of horizontal pixels appear to start a new row. Sometimes they seem to be gobbled up by the nonexistant pixels on the right side of the display (which is certainly easier to work with, since *exact* timing when dealing with CPU cycles is difficult).
-DEs shorter than the number of horizontal pixels also have interesting effects
-If it's not too short, it often seems to just repeat whatever last pixel was drawn until reaching the edge of the screen. If it's too short, sometimes it won't sync at all. There're probably lots of interesting things that could be done here with experimentation...
+ Also, the same display might handle them differently depending on the
+other timing signals.
+ e.g. sometimes DEs that are active longer than the number of horizontal
+pixels appear to start a new row. Sometimes they seem to be gobbled up by
+the nonexistant pixels on the right side of the display (which is certainly
+easier to work with, since *exact* timing when dealing with CPU cycles is
+difficult).
+DEs shorter than the number of horizontal pixels also have interesting
+effects
+If it's not too short, it often seems to just repeat whatever last pixel
+was drawn until reaching the edge of the screen. If it's too short,
+sometimes it won't sync at all. There're probably lots of interesting
+things that could be done here with experimentation...
 
 Electrical Interfaces:
 These are described more later, but briefly:
-TTL - uses a single wire for each signal. Significantly easier to interface, but pretty daunting when looking at 30+ wires.
-LVDS - each pair of wires transmits 7 bits of data per pixel clock, pretty much the standard for laptop displays (in fact it's more appropriately called FPD-Link). This data is usually transmitted at speeds nowhere near a microcontroller's reach, but it can be fudged, and most of my experiments have been with an LVDS display.
+TTL - uses a single wire for each signal. Significantly easier to
+interface, but pretty daunting when looking at 30+ wires.
+LVDS - each pair of wires transmits 7 bits of data per pixel clock, pretty
+much the standard for laptop displays (in fact it's more appropriately
+called FPD-Link). This data is usually transmitted at speeds nowhere near a
+microcontroller's reach, but it can be fudged, and most of my experiments
+have been with an LVDS display.
 
 Notes re: Stretching...
-Some displays seem to stretch their pixel data horizontally over multiple pixels if driven with a slow pixel-clock. They may be *really smart* and implement scaling for lower resolutions internally, but I'm not convinced. Especially since the cases where I've seen this still have the same vertical resolution.
-I'm not sure this stretching is LVDS-specific, but it might make sense. This is all hypothesizing here:
-LVDS uses a special scheme to "recover" the bit-clocking information. There is a dedicated "clock" signal, but its purpose is specifically for the pixel-clock, which only transitions twice per 7 bits. In order to "recover" the bit-clock, the receiving end generally has a "Phase-Locked-Loop" (PLL) which in this case is basically a frequency-multiplier. The receiver looks at the pixel clock signal and multiplies its frequency by 7 in order to sample each data bit before separating them back into individual wires. These PLLs have certain operating-ranges. Sometimes they may run at a lower frequency than 7*the input (if the input frequency is too high) or sometimes they may run at a higher frequency (if the input frequency is really low). Depending on how it's implemented, it may well sync up perfectly for a few cycles and drop out completely for a few more. It's a stretch (haha) to think that it could sync for seven cycles, then lose sync, while yet another PLL has been tied to the actual pixel clock running as a repeater, of sorts... in which case, data would be received sporadically... nah, this is all quite a stretch. Or there are two PLLs, one for the bits and one for the pixel-clock, the bit-PLL syncs up fine, but the clock PLL runs faster than the actual clock (it's running at its minimum frequency). Yeah, that makes some sense. Then the LCD itself is sampling (with the "repeated" (haha, again) pixel-clock) data that the bit-PLL latches at a slightly slower rate, thus doubling some pixels...
+Some displays seem to stretch their pixel data horizontally over multiple
+pixels if driven with a slow pixel-clock. They may be *really smart* and
+implement scaling for lower resolutions internally, but I'm not convinced.
+Especially since the cases where I've seen this still have the same
+vertical resolution.
+I'm not sure this stretching is LVDS-specific, but it might make sense.
+This is all hypothesizing here:
+LVDS uses a special scheme to "recover" the bit-clocking information. There
+is a dedicated "clock" signal, but its purpose is specifically for the
+pixel-clock, which only transitions twice per 7 bits. In order to "recover"
+the bit-clock, the receiving end generally has a "Phase-Locked-Loop" (PLL)
+which in this case is basically a frequency-multiplier. The receiver looks
+at the pixel clock signal and multiplies its frequency by 7 in order to
+sample each data bit before separating them back into individual wires.
+These PLLs have certain operating-ranges. Sometimes they may run at a lower
+frequency than 7*the input (if the input frequency is too high) or
+sometimes they may run at a higher frequency (if the input frequency is
+really low). Depending on how it's implemented, it may well sync up
+perfectly for a few cycles and drop out completely for a few more. It's a
+stretch (haha) to think that it could sync for seven cycles, then lose
+sync, while yet another PLL has been tied to the actual pixel clock running
+as a repeater, of sorts... in which case, data would be received
+sporadically... nah, this is all quite a stretch. Or there are two PLLs,
+one for the bits and one for the pixel-clock, the bit-PLL syncs up fine,
+but the clock PLL runs faster than the actual clock (it's running at its
+minimum frequency). Yeah, that makes some sense. Then the LCD itself is
+sampling (with the "repeated" (haha, again) pixel-clock) data that the
+bit-PLL latches at a slightly slower rate, thus doubling some pixels...
 
 
 
 
 Dual-Pixel 
 (This is not the same as DSTN)
-displays use one pixel-clock to display two horizontally-adjacent pixels at a time. Why? Because it's fun to make things complicated, of course! No, it increases frame-rate, makes it possible to send twice as much data at the same bit-frequency, at the cost of twice as many wires. It's becoming increasingly common as display resolutions increase. Generally, if you have a laptop display larger than 1024x768 it's most likely Dual-Pixel (this is a rough estimate). DVI also has a dual-pixel mode, but that doesn't necessarily mean the display itself is as well, and vice-versa. For instance, I was surprised to discover that an old 1024x768 VGA screen had a dual-pixel interface at the LCD. That must have been fun for the VGA-to-TFT circuit designers.
-What's it mean for hackers? Well, actually, it's kind of nice. With a microcontroller it's darn-near impossible to use the full resolution. My latest is roughly 300 drawable pixels scaled across to 1024 physical. If this display was dual-pixel, it would equate to 300 drawable pixels scaled across 512, which would double the frame-rate... err... that's not right, because the row-rate is determined by the processing time devoted to the number of pixels... Anyways, the only additional work it would require is a little soldering, and could in fact make your project easier.
-Yeah, it's a LOT of wires, and looks very daunting, but those "odd" pixels and "even" pixels could easily be wired directly together, in which case it's literally no different to physically interface than a single-pixel display.
+displays use one pixel-clock to display two horizontally-adjacent pixels at
+a time. Why? Because it's fun to make things complicated, of course! No, it
+increases frame-rate, makes it possible to send twice as much data at the
+same bit-frequency, at the cost of twice as many wires. It's becoming
+increasingly common as display resolutions increase. Generally, if you have
+a laptop display larger than 1024x768 it's most likely Dual-Pixel (this is
+a rough estimate). DVI also has a dual-pixel mode, but that doesn't
+necessarily mean the display itself is as well, and vice-versa. For
+instance, I was surprised to discover that an old 1024x768 VGA screen had a
+dual-pixel interface at the LCD. That must have been fun for the VGA-to-TFT
+circuit designers.
+What's it mean for hackers? Well, actually, it's kind of nice. With a
+microcontroller it's darn-near impossible to use the full resolution. My
+latest is roughly 300 drawable pixels scaled across to 1024 physical. If
+this display was dual-pixel, it would equate to 300 drawable pixels scaled
+across 512, which would double the frame-rate... err... that's not right,
+because the row-rate is determined by the processing time devoted to the
+number of pixels... Anyways, the only additional work it would require is a
+little soldering, and could in fact make your project easier.
+Yeah, it's a LOT of wires, and looks very daunting, but those "odd" pixels
+and "even" pixels could easily be wired directly together, in which case
+it's literally no different to physically interface than a single-pixel
+display.
 
 DE-Only
-displays don't pay attention to Hsync or Vsync signals. They determine that information by the amount of time between active DE signals. I'm not certain, but they seem to be easier to work with. Though that seems backwards considering they'd have to do a lot more computation on the display itself... So it would seem their timing requirements would be a lot more sensitive to whatever computation methods they use (and don't exactly document). All of my functional experiments with an LVDS display are with a DE-ONLY LVDS display, and it seems astoundingly tolerant. However, I don't know that this has anything to do with its being DE-Only.
+displays don't pay attention to Hsync or Vsync signals. They determine that
+information by the amount of time between active DE signals. I'm not
+certain, but they seem to be easier to work with. Though that seems
+backwards considering they'd have to do a lot more computation on the
+display itself... So it would seem their timing requirements would be a lot
+more sensitive to whatever computation methods they use (and don't exactly
+document). All of my functional experiments with an LVDS display are with a
+DE-ONLY LVDS display, and it seems astoundingly tolerant. However, I don't
+know that this has anything to do with its being DE-Only.
 
 non-DE-Only (most common?)
 Uses Hsync and Vsync signals, as described. 
@@ -86,34 +227,149 @@ Now put it to use!
 
 
 
-The main thing is this, *as I understand it* (I won't keep saying that after this, so keep it in mind): TFT displays, inherently, have built-in memory. It's the whole point of the "Thin-film transistors" to be able to store each pixel's state until the next refresh. There's a transistor at every pixel, used to hold its state. Thus, why TFT displays look so much better than the older non-TFT displays (which many of you may have never encountered), which literally flicker on when written and fade to off until they're written again. For the most part, those non-TFT flickery-days are long-past. (Though, you'll find out here that flickering TFT's can be used to our advantage).
+The main thing is this, *as I understand it* (I won't keep saying that
+after this, so keep it in mind): TFT displays, inherently, have built-in
+memory. It's the whole point of the "Thin-film transistors" to be able to
+store each pixel's state until the next refresh. There's a transistor at
+every pixel, used to hold its state. Thus, why TFT displays look so much
+better than the older non-TFT displays (which many of you may have never
+encountered), which literally flicker on when written and fade to off until
+they're written again. For the most part, those non-TFT flickery-days are
+long-past. (Though, you'll find out here that flickering TFT's can be used
+to our advantage).
 
-Maybe, at this point, I've already given all the information necessary for you to get one working from an arduino or similarly under-powered device! If not, I'll continue.
+Maybe, at this point, I've already given all the information necessary for
+you to get one working from an arduino or similarly under-powered device!
+If not, I'll continue.
 
-This needn't be mentioned so early in the document, but eventually it's a consideration. Also, it's not necessary to pay too much attention to my hypothesizing... You can skip to the next paragraph.
+This needn't be mentioned so early in the document, but eventually it's a
+consideration. Also, it's not necessary to pay too much attention to my
+hypothesizing... You can skip to the next paragraph.
 
-Take that main-point just a little further: LCDs of all sorts have this inherent  issue... When the liquid crystals (pixels) are driven with a constant (DC) voltage they cannot retain their visible state forever. Gradually, they will revert to their original state (either black or clear, depending on the technology used in the particular display). At one time it was made very clear that driving a liquid crystal (segment, or pixel) with DC will eventually "ruin" that pixel. I have yet to encounter this effect, but it's been made very clear in numerous places over the years. I don't know what method they use for driving pixels at fractional-intensities (gray) without using DC. Maybe they read the pixel's TFT during each refresh and write a new temporary DC value based on that...? I *highly* doubt they have an *additional* frame-buffer for the sake of remembering the previous DC value of each pixel and calculating a new one. I also *highly* doubt they refresh all the pixels *separately* from (and faster than) the regular refresh rate driven by a video-card, (otherwise there wouldn't be the effect described below?). It could well be that I completely misunderstood those warnings I read over and over again all those years ago. It could also be that nowadays DC *won't* damage the crystal, and it could be that they're actually using DC values to drive these pixels to fractional-values. IF that's the case, it's likely those DC values are stored in a (leaky) capacitor which drives the TFT which holds the pixel state. Whatever the case, we have another issue causing the main point of this paragraph... 
+Take that main-point just a little further: LCDs of all sorts have this
+inherent  issue... When the liquid crystals (pixels) are driven with a
+constant (DC) voltage they cannot retain their visible state forever.
+Gradually, they will revert to their original state (either black or clear,
+depending on the technology used in the particular display). At one time it
+was made very clear that driving a liquid crystal (segment, or pixel) with
+DC will eventually "ruin" that pixel. I have yet to encounter this effect,
+but it's been made very clear in numerous places over the years. I don't
+know what method they use for driving pixels at fractional-intensities
+(gray) without using DC. Maybe they read the pixel's TFT during each
+refresh and write a new temporary DC value based on that...? I *highly*
+doubt they have an *additional* frame-buffer for the sake of remembering
+the previous DC value of each pixel and calculating a new one. I also
+*highly* doubt they refresh all the pixels *separately* from (and faster
+than) the regular refresh rate driven by a video-card, (otherwise there
+wouldn't be the effect described below?). It could well be that I
+completely misunderstood those warnings I read over and over again all
+those years ago. It could also be that nowadays DC *won't* damage the
+crystal, and it could be that they're actually using DC values to drive
+these pixels to fractional-values. IF that's the case, it's likely those DC
+values are stored in a (leaky) capacitor which drives the TFT which holds
+the pixel state. Whatever the case, we have another issue causing the main
+point of this paragraph... 
 
-The point of the above diatribe is that, whatever the cause, the displays I've worked with *do* eventually fade if not refreshed regularly. However, nowhere near as regularly as stated in the documentation for these displays. An example: The LTN121X1 display I acquired from an old iBook specs the minimum refresh rate at ~50Hz. My current code refreshes at ~1/5Hz. There is visible fade between each refresh, and you also have the joy of *watching* as each pixel is redrawn (a horizontal black bar scrolls down the screen for about 5 seconds), BUT, this means that we can stretch our refresh rate down to *once per five seconds,* well within the abilities of a lowly 8-bit microcontroller. 
+The point of the above diatribe is that, whatever the cause, the displays
+I've worked with *do* eventually fade if not refreshed regularly. However,
+nowhere near as regularly as stated in the documentation for these
+displays. An example: The LTN121X1 display I acquired from an old iBook
+specs the minimum refresh rate at ~50Hz. My current code refreshes at
+~1/5Hz. There is visible fade between each refresh, and you also have the
+joy of *watching* as each pixel is redrawn (a horizontal black bar scrolls
+down the screen for about 5 seconds), BUT, this means that we can stretch
+our refresh rate down to *once per five seconds,* well within the abilities
+of a lowly 8-bit microcontroller. 
 
-So, if you have a relatively stationary image you wish to display, and don't mind a visible update on the screen, we can stretch the screen's capabilities quite a bit, and even drive it from an arduino-like device with only a couple TTL chips.
+So, if you have a relatively stationary image you wish to display, and
+don't mind a visible update on the screen, we can stretch the screen's
+capabilities quite a bit, and even drive it from an arduino-like device
+with only a couple TTL chips.
 
-On to the capabilities (not all-inclusive, and likely mutually-exlusive). These are my accomplishments so far on two different 1024x768 TFT displays, using an Atmel AVR microcontroller (like those used in Arduinos) running at ~16MHz:
+On to the capabilities (not all-inclusive, and likely mutually-exlusive).
+These are my accomplishments so far on two different 1024x768 TFT displays,
+using an Atmel AVR microcontroller (like those used in Arduinos) running at
+~16MHz:
 *30Hz refresh, 21pixels by 21pixels (stretched across the screen), 8 colors
-*1/5Hz refresh, 300ish (stretched horizontally) pixels by 768pixels, 48 colors
+*1/5Hz refresh, 300ish (stretched horizontally) pixels by 768pixels, 48
+colors
 *5Hz refresh, 64pixels by 48pixels (stretched), 48 colors.
 and more.
 
-Using these specification-stretching techniques we can do quite a bit. With a higher-power 8-bit microcontroller (high-end arduino), low expectations for number of displayed colors, low pixel-count, etc. We can get 30Hz refresh, no problem. For most, the flicker at 30Hz isn't even visible (old tube TV's run at 30Hz, or 33?). And, with some clever coding, this could quite probably be an image that changes slightly in *every* frame, just like a low-resolution movie. The particular display I implemented this on was not an old laptop display, but an old desktop display with its innards removed, an ATmega644 connected directly to its Pixel-clock, Hsync, Vsync, Data-Enable inputs. The display itself was a "dual-pixel" display, which means for 1024x768 it required 512 pixel clocks per row, and had two sets of color inputs, one for each of the two pixels that were displayed. It's quite daunting to look at 40+ wires, at first, but when realizing only four of them are necessary for timing, (the same four signals used by most displays), the rest can all be tied together to a few outputs to create an image. I initially chose to tie all the blues together, all the reds, and all the greens, then using a single output port I could write each "pixel" in a single "out" instruction (e.g. PORTA = 0x07; // Display white, PORTA=0x01; //Red)
+Using these specification-stretching techniques we can do quite a bit. With
+a higher-power 8-bit microcontroller (high-end arduino), low expectations
+for number of displayed colors, low pixel-count, etc. We can get 30Hz
+refresh, no problem. For most, the flicker at 30Hz isn't even visible (old
+tube TV's run at 30Hz, or 33?). And, with some clever coding, this could
+quite probably be an image that changes slightly in *every* frame, just
+like a low-resolution movie. The particular display I implemented this on
+was not an old laptop display, but an old desktop display with its innards
+removed, an ATmega644 connected directly to its Pixel-clock, Hsync, Vsync,
+Data-Enable inputs. The display itself was a "dual-pixel" display, which
+means for 1024x768 it required 512 pixel clocks per row, and had two sets
+of color inputs, one for each of the two pixels that were displayed. It's
+quite daunting to look at 40+ wires, at first, but when realizing only four
+of them are necessary for timing, (the same four signals used by most
+displays), the rest can all be tied together to a few outputs to create an
+image. I initially chose to tie all the blues together, all the reds, and
+all the greens, then using a single output port I could write each "pixel"
+in a single "out" instruction (e.g. PORTA = 0x07; // Display white,
+PORTA=0x01; //Red)
 
 Some other considerations for this particular set-up:
-I chose to implement this using an ATmega644 running at 15MHz with a clock-prescaler of 2 from an external crystal running at 30MHz (also used to directly drive the pixel-clock). Thus, each processor instruction was running 2 pixels wide, but each pixel-clock was displaying two pixels (dual-pixel display). Between loading from the frame-buffer and writing that value to the output port, I had control over 21 (stretched) pixels in each horizontal scan. Since I was working with a frame-buffer, this equated to each row being repeated numerous times. Though, later, I was able to improve this significantly. Also, repeating of rows isn't necessary, so 21 (really wide) pixels by 768 pixels was entirely possible. 
+I chose to implement this using an ATmega644 running at 15MHz with a
+clock-prescaler of 2 from an external crystal running at 30MHz (also used
+to directly drive the pixel-clock). Thus, each processor instruction was
+running 2 pixels wide, but each pixel-clock was displaying two pixels
+(dual-pixel display). Between loading from the frame-buffer and writing
+that value to the output port, I had control over 21 (stretched) pixels in
+each horizontal scan. Since I was working with a frame-buffer, this equated
+to each row being repeated numerous times. Though, later, I was able to
+improve this significantly. Also, repeating of rows isn't necessary, so 21
+(really wide) pixels by 768 pixels was entirely possible. 
 
-There is *plenty* of room for improvement on this design, as it was my first TFT experiment... Other considerations: Don't use a prescaler for the ATmega's clock... 30MHz is way out of specs, but maybe it'd work? Use assembly instead of C for the pixel-loading routines, those are just a few, and not even considering Other Effects...
+There is *plenty* of room for improvement on this design, as it was my
+first TFT experiment... Other considerations: Don't use a prescaler for the
+ATmega's clock... 30MHz is way out of specs, but maybe it'd work? Use
+assembly instead of C for the pixel-loading routines, those are just a few,
+and not even considering Other Effects...
 
-And, since I've mentioned "Other effects" let's talk about them... For one thing, though it seemed like a hassle while coding what I was intending, if timing is not quite right, there are some interesting effects. For instance, sometimes Hsync timing issues would cause *rows* to be repeated. No joke. I have no idea how it works on a fundamental level, but it did. That likely could be taken advantage of if explored. (e.g. If it could be determined how to intentionally cause it to repeat rows numerous times, then the frame-rate could be increased that much more, assuming those rows would have been duplicated anyhow via software... i.e. to create square pixels). Another timing effect that I haven't yet discovered how to harness: somehow it's possible to cause only partial refreshes... e.g. a partial refresh starts from the top and only refreshes the top portion of the screen, it could then be followed by a full refresh, to effectively double the refresh-rate in the top portion of the screen. (Things which change seldomly would be at the bottom portion). Another timing-related oddity is that some displays appear to do stretching on their own... 
+And, since I've mentioned "Other effects" let's talk about them... For one
+thing, though it seemed like a hassle while coding what I was intending, if
+timing is not quite right, there are some interesting effects. For
+instance, sometimes Hsync timing issues would cause *rows* to be repeated.
+No joke. I have no idea how it works on a fundamental level, but it did.
+That likely could be taken advantage of if explored. (e.g. If it could be
+determined how to intentionally cause it to repeat rows numerous times,
+then the frame-rate could be increased that much more, assuming those rows
+would have been duplicated anyhow via software... i.e. to create square
+pixels). Another timing effect that I haven't yet discovered how to
+harness: somehow it's possible to cause only partial refreshes... e.g. a
+partial refresh starts from the top and only refreshes the top portion of
+the screen, it could then be followed by a full refresh, to effectively
+double the refresh-rate in the top portion of the screen. (Things which
+change seldomly would be at the bottom portion). Another timing-related
+oddity is that some displays appear to do stretching on their own... 
 
-For instance, I did some heavy-testing of a display connected to my laptop, using "SwitchResX." I was bumping down its pixel clock as low as I possibly could, just to see if it was even plausible to run it off my AVR. What I found boggled my mind, as I bumped down its pixel clock, the image started to stretch horizontally... When I finally found a rate that *should* work with my AVR setup, my 1024x768 display was down to 680 (stretched) by 768. The lower horizontal resolution meant I could bump the frame-rate up with lower pixel-clocks, which was a blessing I looked forward to taking advantage of. But, ultimately, this was the display I haven't yet been able to drive via the AVR... This particular display had a bold note stating that it would display black if an input signal did not match the timing specifications required. While the timing I'd gotten to work via SwitchResX was *way* outside the specified range, it never displayed anything but black when connected to my circuit. Ponderings as to why the image was stretched...? Maybe the pixel clock isn't used directly... maybe the PLL that extracts the pixel clock saturates at a lower limit which is higher than the pixel clock I was supplying... Regardless, the settings which I was able to mimick with the AVR were *not* capapble of driving this display. I'm guessing it's due to a poor LVDS implementation.
+For instance, I did some heavy-testing of a display connected to my laptop,
+using "SwitchResX." I was bumping down its pixel clock as low as I possibly
+could, just to see if it was even plausible to run it off my AVR. What I
+found boggled my mind, as I bumped down its pixel clock, the image started
+to stretch horizontally... When I finally found a rate that *should* work
+with my AVR setup, my 1024x768 display was down to 680 (stretched) by 768.
+The lower horizontal resolution meant I could bump the frame-rate up with
+lower pixel-clocks, which was a blessing I looked forward to taking
+advantage of. But, ultimately, this was the display I haven't yet been able
+to drive via the AVR... This particular display had a bold note stating
+that it would display black if an input signal did not match the timing
+specifications required. While the timing I'd gotten to work via SwitchResX
+was *way* outside the specified range, it never displayed anything but
+black when connected to my circuit. Ponderings as to why the image was
+stretched...? Maybe the pixel clock isn't used directly... maybe the PLL
+that extracts the pixel clock saturates at a lower limit which is higher
+than the pixel clock I was supplying... Regardless, the settings which I
+was able to mimick with the AVR were *not* capapble of driving this
+display. I'm guessing it's due to a poor LVDS implementation.
 
 
 
@@ -124,69 +380,238 @@ For instance, I did some heavy-testing of a display connected to my laptop, usin
 
 On that note Signal Inputs:
 Flat-Panel-Display-Link (aka "FPD-Link", aka, poorly, "LVDS"):
-There are two common interfaces, that I've run into, at the LCD panel's connector, LVDS or (low-voltage) TTL. If you've got a desktop LCD display or LCD TV, there's most likely a circuit which converts from VGA, HDMI, or DVI, or any number of other input signals to either LVDS or TTL which connects to the panel itself. (Interestingly, I've worked on a Plasma TV, which uses LVDS... the plasma display itself was busted, but I was lucky enough to be able to rewire it to connect *directly* to an LCD panel, it was even the right resolution, though I believe some of the bits were reversed, as high-brightness colors showed up as different colors... e.g. bright red appearing as bright blue).
+There are two common interfaces, that I've run into, at the LCD panel's
+connector, LVDS or (low-voltage) TTL. If you've got a desktop LCD display
+or LCD TV, there's most likely a circuit which converts from VGA, HDMI, or
+DVI, or any number of other input signals to either LVDS or TTL which
+connects to the panel itself. (Interestingly, I've worked on a Plasma TV,
+which uses LVDS... the plasma display itself was busted, but I was lucky
+enough to be able to rewire it to connect *directly* to an LCD panel, it
+was even the right resolution, though I believe some of the bits were
+reversed, as high-brightness colors showed up as different colors... e.g.
+bright red appearing as bright blue).
 
-So, at the connector of your LCD panel, you most likely have either TTL or LVDS. I'll start with TTL, it's simpler to understand. The terms TTL and LVDS have nothing to do with LCDs, specifically, and mostly just define the hardware-level interface. 
+So, at the connector of your LCD panel, you most likely have either TTL or
+LVDS. I'll start with TTL, it's simpler to understand. The terms TTL and
+LVDS have nothing to do with LCDs, specifically, and mostly just define the
+hardware-level interface. 
 
 TTL:
-Has separate wires for each timing signal... Horizontal-Sync, Vertical-Sync, Data-Enable, and Pixel-Clock. It also has separate wires for each color bit used for each pixel.
-e.g. a simple 640x480 TFT display running at 18bits-per-pixel will have 4 timing wires, and 6 wires for each color (red, green, blue), or 22 wires. It will also have a few wires for the power supply (+3.3V and GND). If you're lucky, the wires will be colored based on their purpose. In most cases, those signals will be at or close to 3.3V = High (a '1' bit) and 0V = Low (a '0' bit). Each wire is "sampled" at either the falling (high-to-low) or rising (low-to-high) edge of the pixel-clock. (The pixel-clock is running constantly, regardless of whether actual pixels are being transmitted, for instance an H-Sync may be indicated by the H-Sync pin being held low for 20 pixel-clocks).
-The simplest way to connect this to a microcontroller (AVR, Arduino, PIC, whatever) is to just wire each of the LCD pins to a microcontroller output, and run that microcontroller at 3.3V... from there it's all software.
+Has separate wires for each timing signal... Horizontal-Sync,
+Vertical-Sync, Data-Enable, and Pixel-Clock. It also has separate wires for
+each color bit used for each pixel.
+e.g. a simple 640x480 TFT display running at 18bits-per-pixel will have 4
+timing wires, and 6 wires for each color (red, green, blue), or 22 wires.
+It will also have a few wires for the power supply (+3.3V and GND). If
+you're lucky, the wires will be colored based on their purpose. In most
+cases, those signals will be at or close to 3.3V = High (a '1' bit) and 0V
+= Low (a '0' bit). Each wire is "sampled" at either the falling
+(high-to-low) or rising (low-to-high) edge of the pixel-clock. (The
+pixel-clock is running constantly, regardless of whether actual pixels are
+being transmitted, for instance an H-Sync may be indicated by the H-Sync
+pin being held low for 20 pixel-clocks).
+The simplest way to connect this to a microcontroller (AVR, Arduino, PIC,
+whatever) is to just wire each of the LCD pins to a microcontroller output,
+and run that microcontroller at 3.3V... from there it's all software.
 
 FPD-Link/LVDS:
-Uses fewer wires, transmitting those very same signals in serial-form. In (the most common form of) FPD-Link, each wire carries seven bits of information for each pixel-clock. Thus, those six wires per color, in the example above, can easily be combined into three wires (well, actually, pairs of wires, more on that later), with a few bits to spare. Brilliantly, there are three bits remaining, which are used for the timing bits (excluding the pixel clock). The pixel-clock is on its own wire, but still sent in 7-bit serial form.
-There's a lot of detailed information out there as to how that data is formatted (and a lot in my code). For now I'll say it's as simple as this: during one pixel-clock on one wire, each other wire sends seven bits of color (or timing) data. Thus, the bit-transmission-rate of a single wire is seven times faster than the pixel-clock. We're talking some fast data-rates here, especially for a lowly 8-bit microcontroller running at, say, 16MHz. 
+Uses fewer wires, transmitting those very same signals in serial-form. In
+(the most common form of) FPD-Link, each wire carries seven bits of
+information for each pixel-clock. Thus, those six wires per color, in the
+example above, can easily be combined into three wires (well, actually,
+pairs of wires, more on that later), with a few bits to spare. Brilliantly,
+there are three bits remaining, which are used for the timing bits
+(excluding the pixel clock). The pixel-clock is on its own wire, but still
+sent in 7-bit serial form.
+There's a lot of detailed information out there as to how that data is
+formatted (and a lot in my code). For now I'll say it's as simple as this:
+during one pixel-clock on one wire, each other wire sends seven bits of
+color (or timing) data. Thus, the bit-transmission-rate of a single wire is
+seven times faster than the pixel-clock. We're talking some fast data-rates
+here, especially for a lowly 8-bit microcontroller running at, say, 16MHz. 
 
-And as an aside, the data is NOT formatted such that each wire corresponds to a single color. Though, in most cases I will refer to them as the red signal, the green signal, and the blue/timing signal, since the low bits are so dim they can hardly be seen. This is much better visualized in graphic form, but I'm feeling wordy. See the code, it's got lots of ASCII graphics). In fact, the six bits of red are on signal 0, along with the first (least significant) bit of green. The remaining five of green are on signal 1, along with the first two of blue. The remaining four bits of blue are on signal 2, along with the Data Enable, Vertical Sync, and Horizontal Sync bits.
+And as an aside, the data is NOT formatted such that each wire corresponds
+to a single color. Though, in most cases I will refer to them as the red
+signal, the green signal, and the blue/timing signal, since the low bits
+are so dim they can hardly be seen. This is much better visualized in
+graphic form, but I'm feeling wordy. See the code, it's got lots of ASCII
+graphics). In fact, the six bits of red are on signal 0, along with the
+first (least significant) bit of green. The remaining five of green are on
+signal 1, along with the first two of blue. The remaining four bits of blue
+are on signal 2, along with the Data Enable, Vertical Sync, and Horizontal
+Sync bits.
 
-To make things a little more complicated, LVDS means "Low-Voltage Differential Signaling." The low-voltage part means it's lower than 3.3V (TTL-levels). The "differential" part means that each signal is sent on two wires. When one wire is high, the other is low, and vice-versa. There're a lot of great reasons for this, but I'll leave them out for now.
+To make things a little more complicated, LVDS means "Low-Voltage
+Differential Signaling." The low-voltage part means it's lower than 3.3V
+(TTL-levels). The "differential" part means that each signal is sent on two
+wires. When one wire is high, the other is low, and vice-versa. There're a
+lot of great reasons for this, but I'll leave them out for now.
 
 Now, how do we make this work with our microcontroller?
-Well, if your microcontroller (rare) has four differential serial ports that can run at full speed and in 7-bit mode, then it's just a matter of a few resistors (and those might not actually be necessary, more on that later). If you have four serial ports that *aren't* differential, we can simulate that as described later.
+Well, if your microcontroller (rare) has four differential serial ports
+that can run at full speed and in 7-bit mode, then it's just a matter of a
+few resistors (and those might not actually be necessary, more on that
+later). If you have four serial ports that *aren't* differential, we can
+simulate that as described later.
 
-Regardless, using serial ports means loading those serial buffers *constantly*. Also consider that a LOT of the data being sent to an LCD repeats numerous times. During a twenty-pixel HSync active period, that means sending the same data set down all the serial lines twenty times. During a V-Sync active it means sending the same data 1024 times (H=Off, V=On, DataEnable=Off, no color data) AND the 7-bit-encoded pixel clock, which never varies. But, most serial ports don't repeat the same data, so that means reloading those serial buffers repeatedly, which takes a lot of processing power. Further, since most serial ports max out at the CPU frequency, that'd limit the pixel-clock to 1/7th of the CPU frequency!
+Regardless, using serial ports means loading those serial buffers
+*constantly*. Also consider that a LOT of the data being sent to an LCD
+repeats numerous times. During a twenty-pixel HSync active period, that
+means sending the same data set down all the serial lines twenty times.
+During a V-Sync active it means sending the same data 1024 times (H=Off,
+V=On, DataEnable=Off, no color data) AND the 7-bit-encoded pixel clock,
+which never varies. But, most serial ports don't repeat the same data, so
+that means reloading those serial buffers repeatedly, which takes a lot of
+processing power. Further, since most serial ports max out at the CPU
+frequency, that'd limit the pixel-clock to 1/7th of the CPU frequency!
 
-There are plenty of intriguing possibilities, with even just one serial port, anyhow. Consider, for instance, that the pixel-clock (three-bits-on, four-bits-off, as I recall) could be handled via a PWM pin. And Red/Green/Blue could all be combined on a single serial port for, roughly, grayscale.
+There are plenty of intriguing possibilities, with even just one serial
+port, anyhow. Consider, for instance, that the pixel-clock (three-bits-on,
+four-bits-off, as I recall) could be handled via a PWM pin. And
+Red/Green/Blue could all be combined on a single serial port for, roughly,
+grayscale.
 
-It *may* even be possible to actually bit-bang the FPD-Link signals... My 1/5Hz refresh-rate experiments, running at a pixel-clock of ~2MHz suggest that it's worth exploring stretching these things to their limits.
+It *may* even be possible to actually bit-bang the FPD-Link signals... My
+1/5Hz refresh-rate experiments, running at a pixel-clock of ~2MHz suggest
+that it's worth exploring stretching these things to their limits.
 
 USE PWM outputs instead of Serial!
 
-Anyways, believe it or not, my setup uses Pulse-Width-Modulation outputs to simulate serial data streams. The ATTiny861 has three separate PWM outputs which can run up to 8 times faster than the CPU clock. Thus, the "bit rate" for my pseudo-serial signals is up to 128Mbps(!), or a pixel-clock 8/7ths(?) faster than the CPU frequency. There's a lot to be discussed here, and it's well-documented in my code. As far as limitations: No, of course we can't use a PWM signal to send *any* serial data stream, but by changing the width of the pulse and shifting it left or right (using the Dead-Time-Generator), we can send some pretty useful data, including all timing signals. In the end, I've gotten up to 48 colors pretty well stretched across the spectrum from black to white: four shades of red and green, and three of blue (including black). I also started exploring other timing configurations, which would allow hundreds of colors, but in strange palettes. Have even considered options for switching those palettes on the fly, by inverting the polarity of the LVDS signals, etc.
+Anyways, believe it or not, my setup uses Pulse-Width-Modulation outputs to
+simulate serial data streams. The ATTiny861 has three separate PWM outputs
+which can run up to 8 times faster than the CPU clock. Thus, the "bit rate"
+for my pseudo-serial signals is up to 128Mbps(!), or a pixel-clock
+8/7ths(?) faster than the CPU frequency. There's a lot to be discussed
+here, and it's well-documented in my code. As far as limitations: No, of
+course we can't use a PWM signal to send *any* serial data stream, but by
+changing the width of the pulse and shifting it left or right (using the
+Dead-Time-Generator), we can send some pretty useful data, including all
+timing signals. In the end, I've gotten up to 48 colors pretty well
+stretched across the spectrum from black to white: four shades of red and
+green, and three of blue (including black). I also started exploring other
+timing configurations, which would allow hundreds of colors, but in strange
+palettes. Have even considered options for switching those palettes on the
+fly, by inverting the polarity of the LVDS signals, etc.
 
-Ultimately, though, since my latest project uses 1/5Hz refresh, a specialized high-speed "Phase-Locked-Loop" pulse-width-modulator is unnecessary, and this could likely be implemented on an Arduino, directly.
+Ultimately, though, since my latest project uses 1/5Hz refresh, a
+specialized high-speed "Phase-Locked-Loop" pulse-width-modulator is
+unnecessary, and this could likely be implemented on an Arduino, directly.
 
 
 
 
 LVDS signals from a microcontroller pin:
-So, before I get into the details of my configuration, I'll throw this out there... I spent *quite a bit* of time experimenting with various methods to create electrical signals that the LVDS receiver in the display would interpret correctly. Though there's plenty of room for improvement and experimentation with other methods, ultimately the simplest worked the best...
+So, before I get into the details of my configuration, I'll throw this out
+there... I spent *quite a bit* of time experimenting with various methods
+to create electrical signals that the LVDS receiver in the display would
+interpret correctly. Though there's plenty of room for improvement and
+experimentation with other methods, ultimately the simplest worked the
+best...
 
-All it takes is a couple TTL-level XOR chips. This, too, is well-documented in my code, but I'll summarize here (actually, the documentation might be easier to understand than this explanation): 
+All it takes is a couple TTL-level XOR chips. This, too, is well-documented
+in my code, but I'll summarize here (actually, the documentation might be
+easier to understand than this explanation): 
 
-At the microcontroller-side, each of the four to-be-LVDSicized signals is output on a single pin. That pin, as described before, is at TTL levels; it will ideally be 0-3.3v depending on its value (low or high). Feed that signal into two separate XORs, and configure them such that the output on one will be high whenever the other is low, and vice-versa. (e.g. tie the unused input on one XOR high, and the other unused input on the other XOR low, we've made a buffer and an inverter with TTL-level outputs). Now just tie these directly to the differential LVDS signals connected to the LCD. (I'll add a note that this is based entirely on experiment, if your chips don't match, I'd highly recommend doing some additional testing *before* connecting directly to your LCD and possibly killing it. I'll try to explain how, later.)
+At the microcontroller-side, each of the four to-be-LVDSicized signals is
+output on a single pin. That pin, as described before, is at TTL levels; it
+will ideally be 0-3.3v depending on its value (low or high). Feed that
+signal into two separate XORs, and configure them such that the output on
+one will be high whenever the other is low, and vice-versa. (e.g. tie the
+unused input on one XOR high, and the other unused input on the other XOR
+low, we've made a buffer and an inverter with TTL-level outputs). Now just
+tie these directly to the differential LVDS signals connected to the LCD.
+(I'll add a note that this is based entirely on experiment, if your chips
+don't match, I'd highly recommend doing some additional testing *before*
+connecting directly to your LCD and possibly killing it. I'll try to
+explain how, later.)
 
-But wait! This TTL chip is driving TTL levels, not low-voltage! And Why do we need a buffer, since the output of the microcontroller is already at the same levels it'll output? And, further, my TTL chip isn't rated for those speeds, nor supply voltages! Or, what about using separate Buffer and Inverter chips?
+But wait! This TTL chip is driving TTL levels, not low-voltage! And Why do
+we need a buffer, since the output of the microcontroller is already at the
+same levels it'll output? And, further, my TTL chip isn't rated for those
+speeds, nor supply voltages! Or, what about using separate Buffer and
+Inverter chips?
 
-Well, This is based *entirely* on my (limited) experiments... but here goes:
-The currently-working and heavily experimented-with setup consists of Texas Instruments' SN74LS86, from 1980. They're under-speced in nearly every way. The LS series is supposed to be run from 5V, no less than 4.5V. Yes, I am running them off 3.3V. Yes, I have used them at the highest bit-frequency possible from my AVR (~128MHz, *way* faster than the '86, or even the AVR, is rated).
+Well, This is based *entirely* on my (limited) experiments, but here goes:
+The currently-working and heavily experimented-with setup consists of Texas
+Instruments' SN74LS86, from 1980. They're under-speced in nearly every way.
+The LS series is supposed to be run from 5V, no less than 4.5V. Yes, I am
+running them off 3.3V. Yes, I have used them at the highest bit-frequency
+possible from my AVR (~128MHz, *way* faster than the '86, or even the AVR,
+is rated).
 
-I have a dozen of these ancient XOR chips, and knew just by looking at them that they weren't spec'd for speed or output voltage, not even current, nor even the power-supply voltage of 3.3V. I put off experimenting with them for a *long* time because of this. I even desoldered a couple more properly-spec'd chips from an old motherboard to do my initial experiments. I found *exactly* enough XORs to try out two channels; the Clock, and the Blue/Timing channel. These were AHC-series; higher-speed, rated for 3.3V, better, if not ideal, for these experiments.
+I have a dozen of these ancient XOR chips, and knew just by looking at them
+that they weren't spec'd for speed or output voltage, not even current, nor
+even the power-supply voltage of 3.3V. I put off experimenting with them
+for a *long* time because of this. I even desoldered a couple more
+properly-spec'd chips from an old motherboard to do my initial experiments.
+I found *exactly* enough XORs to try out two channels; the Clock, and the
+Blue/Timing channel. These were AHC-series; higher-speed, rated for 3.3V,
+better, if not ideal, for these experiments.
 
 First, a little more about LVDS:
-At the LCD-side, the signal-pairs are "terminated" with 100ohm resistors. I could go into all my vague understanding for the reasoning behind this (and it's useful stuff, signal-bounce reduction, noise-immunity, etc.), but for these purposes I just care about how it makes this system work...
+At the LCD-side, the signal-pairs are "terminated" with 100ohm resistors. I
+could go into all my vague understanding for the reasoning behind this (and
+it's useful stuff, signal-bounce reduction, noise-immunity, etc.), but for
+these purposes I just care about how it makes this system work...
 
-So, basically, when one of my AHC (TTL) outputs is driving high (and the other low) it's almost like driving 3.3V into a 100ohm resistor, to ground... but the TTL outputs aren't strong enough to drive a 100ohm load at 3.3V, so the output voltage sags, quite a bit actually, less than 2.5V if I recall correctly. And, when looking at the other side, it's kind of like driving 0V into a 100ohm resistor up to 3.3V. But the TTL outputs aren't strong enough for that either, so instead of low being 0V, it's closer to 1V. 
+So, basically, when one of my AHC (TTL) outputs is driving high (and the
+other low) it's almost like driving 3.3V into a 100ohm resistor, to
+ground... but the TTL outputs aren't strong enough to drive a 100ohm load
+at 3.3V, so the output voltage sags, quite a bit actually, less than 2.5V
+if I recall correctly. And, when looking at the other side, it's kind of
+like driving 0V into a 100ohm resistor up to 3.3V. But the TTL outputs
+aren't strong enough for that either, so instead of low being 0V, it's
+closer to 1V. 
 
-Now here's the part that I find cool... these voltages are *damn-near exactly* the values spec'd by LVDS. It's quite plausible it was designed based on devices with similar characteristics being used way outside their specifications.
+Now here's the part that I find cool... these voltages are *damn-near
+exactly* the values spec'd by LVDS. It's quite plausible it was designed
+based on devices with similar characteristics being used way outside their
+specifications.
 
-That said, there's no necessity, even, for additional resistors on our driver (XOR) outputs. 
+That said, there's no necessity, even, for additional resistors on our
+driver (XOR) outputs. 
 
-How did I get away with the 'LS86, when it requires 4.5-5.5V supply? I dunno. It could well have been that they were designed such that the output drivers *require* a certain voltage to even function... (e.g. to overcome the "dead-band" in a transistor voltage-follower). But, thankfully, it wasn't the case with this particular batch of 'LS86's from 1980. It's a curiosity, but for now I'm just glad it worked. (One of the nice things about datasheets of devices from that era is the "equivalent circuit" drawings, which might be a great place to look into the hows and whys of their stated vs. real limitations... I'm not that smart that I can just look at a diagram of transistors and know how it works, especially at this analog level).
+How did I get away with the 'LS86, when it requires 4.5-5.5V supply? I
+dunno. It could well have been that they were designed such that the output
+drivers *require* a certain voltage to even function... (e.g. to overcome
+the "dead-band" in a transistor voltage-follower). But, thankfully, it
+wasn't the case with this particular batch of 'LS86's from 1980. It's a
+curiosity, but for now I'm just glad it worked. (One of the nice things
+about datasheets of devices from that era is the "equivalent circuit"
+drawings, which might be a great place to look into the hows and whys of
+their stated vs. real limitations... I'm not that smart that I can just
+look at a diagram of transistors and know how it works, especially at this
+analog level).
 
-One note, here: At full-speed (128MHz bit-rate) it *is* somewhat important to use matching TTL chips. When I tried the AHC's for clock and Blue/Timing and the LS's for Green and Red, there was a noticeable bit-shift. E.G. Displaying black would come through as a dark shade of green. Replacing the faster AHC's with *all* LS's cleared that up quite a bit. LIKEWISE, at these high-speeds, and *especially* when using under-spec'd chips like the LS's, I recommend using pairs of XORs from a single XOR chip for each differential pair. 
+One note, here: At full-speed (128MHz bit-rate) it *is* somewhat important
+to use matching TTL chips. When I tried the AHC's for clock and Blue/Timing
+and the LS's for Green and Red, there was a noticeable bit-shift. E.G.
+Displaying black would come through as a dark shade of green. Replacing the
+faster AHC's with *all* LS's cleared that up quite a bit. LIKEWISE, at
+these high-speeds, and *especially* when using under-spec'd chips like the
+LS's, I recommend using pairs of XORs from a single XOR chip for each
+differential pair. 
 
-Some alternatives (not recommended unless you enjoy experimenting, and really, isn't that why we're here?) would be using separate buffer and inverter chips, or even forgoing the buffers altogether. It's likely these will work fine at low speeds, but as you increase the bit-rate it's quite likely that the signals feeding into the LCD will be shifted by as much as an entire bit, maybe more. When these delayed signals are feeding off each other (they are connected to each other through a low-value resistor, remember) who knows what kind of mess could be received. Worst-case voltages could swing for nearly a bit-period outside the maximum rating for LVDS, up to 3.3V, or even worse with some signal bounce. It's best to keep those "propagation delays" as equal as possible, not only by using the same *types* of chips, but even those from the same date and location of manufacture. This is why I used XORs instead of separate buffers and inverters. (Yes, most manufacturers have different locations around the world, and their processes may be slightly different, may even vary from day-to-day... at least, this is what I've been told. At least keep it in mind when using whatever chips you have lying around.) All that said, my first functioning experiment at full speed used four separate one-gang (single-gate) AHC chips (desoldered); one each of an OR and an XOR for each channel (clock and blue/timing).
+Some alternatives (not recommended unless you enjoy experimenting, and
+really, isn't that why we're here?) would be using separate buffer and
+inverter chips, or even forgoing the buffers altogether. It's likely these
+will work fine at low speeds, but as you increase the bit-rate it's quite
+likely that the signals feeding into the LCD will be shifted by as much as
+an entire bit, maybe more. When these delayed signals are feeding off each
+other (they are connected to each other through a low-value resistor,
+remember) who knows what kind of mess could be received. Worst-case
+voltages could swing for nearly a bit-period outside the maximum rating for
+LVDS, up to 3.3V, or even worse with some signal bounce. It's best to keep
+those "propagation delays" as equal as possible, not only by using the same
+*types* of chips, but even those from the same date and location of
+manufacture. This is why I used XORs instead of separate buffers and
+inverters. (Yes, most manufacturers have different locations around the
+world, and their processes may be slightly different, may even vary from
+day-to-day... at least, this is what I've been told. At least keep it in
+mind when using whatever chips you have lying around.) All that said, my
+first functioning experiment at full speed used four separate one-gang
+(single-gate) AHC chips (desoldered); one each of an OR and an XOR for each
+channel (clock and blue/timing).
 
 
 
@@ -195,4 +620,24 @@ Some alternatives (not recommended unless you enjoy experimenting, and really, i
 
 NOTE RE LVDS DISPLAYS WHICH ARE NOT DE-ONLY:
 
-I have one LVDS-based non-DE-Only display which has yet to display anything but black. Its documentation explicitly states that if a signal is received that doesn't match its timing requirements it will display black, so it's possible it was just a coding error. HOWEVER: I did *match* the timing (as best I could with early-code experiments and no feedback) to a timing I tried with it *in my computer.* If that timing was programmed into the microcontroller correctly, and the LVDS was working properly, it should have worked. Which leads me to this: It's *quite likely* the reason I haven't gotten this one working is due to my flakey LVDS simulation method... maybe the bits aren't aligned appropriately with the pixel-clock; the DE signal is active-high while the others are active-low, thus DE may be readable as true as long any bits surrounding DE are also high... Also: With my earlier attempts at LVDS it was found that skinny-bits (e.g. H-sync only = low, the rest of the bits are high) aren't necessarily active long-enough for the bit to cross the thresholds... (In other words, it the skinny bit may be lost, which is *pretty important* for Hsync). The circuitry has changed since then, and another quick test didn't work, but I haven't looked into the skinny-bit-issue since the latest circuitry. There are *many* other theories regarding the LVDS implementation... (e.g. at high-speed with the LS's, bits may not be aligning correctly, some of the colors are slightly off, dark red shows as slightly green, etc.)
+I have one LVDS-based non-DE-Only display which has yet to display anything
+but black. Its documentation explicitly states that if a signal is received
+that doesn't match its timing requirements it will display black, so it's
+possible it was just a coding error. HOWEVER: I did *match* the timing (as
+best I could with early-code experiments and no feedback) to a timing I
+tried with it *in my computer.* If that timing was programmed into the
+microcontroller correctly, and the LVDS was working properly, it should
+have worked. Which leads me to this: It's *quite likely* the reason I
+haven't gotten this one working is due to my flakey LVDS simulation
+method... maybe the bits aren't aligned appropriately with the pixel-clock;
+the DE signal is active-high while the others are active-low, thus DE may
+be readable as true as long any bits surrounding DE are also high... Also:
+With my earlier attempts at LVDS it was found that skinny-bits (e.g. H-sync
+only = low, the rest of the bits are high) aren't necessarily active
+long-enough for the bit to cross the thresholds... (In other words, it the
+skinny bit may be lost, which is *pretty important* for Hsync). The
+circuitry has changed since then, and another quick test didn't work, but I
+haven't looked into the skinny-bit-issue since the latest circuitry. There
+are *many* other theories regarding the LVDS implementation... (e.g. at
+high-speed with the LS's, bits may not be aligning correctly, some of the
+colors are slightly off, dark red shows as slightly green, etc.)

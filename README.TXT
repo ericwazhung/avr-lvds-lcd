@@ -21,10 +21,14 @@ I'm EricWazHung [at] gmail dotcom
 The End Of the Legalities
 ----------
 
-Check in _otherLocalized/ for screenshots, etc...
+(This document written at the time of the first upload. Some of it may be
+ outdated).
 
 I'll say up-front there's QUITE A BIT of redundancy and left-over notes
-which are no longer relevent to the current version. 
+which are no longer relevent to the current version. (This has been cleaned
+up *quite a bit* as of the latest version... those no-longer-relevent bits
+have been moved to _old/ and _unusedIdeas/).
+
 Also, there're a *ton* of configurable options which render much of the
 code unused... e.g. "racer" is a game I've been working on, it uses a
 potentiometer connected to an ADC as a controller... the ADC is not used
@@ -44,16 +48,22 @@ Previously, I had my own version-tracking scheme. They're not particularly
 compatible... As of this writing, this first "distribution" contains
 the 59th functional version of the code... when I move on to 60, it may be
 difficult to use my versioning-scheme along with git to upload it...
+(a/o v61: yeah, git and my versioning scheme are *not at all* compatible.
+ Trying to keep it git-friendly is making things I've done for years quite
+ a bit more difficult...)
+
 So the updates may be pretty irregular. We'll see how it goes.
 
 As it stands, this is meant to work with an ATtiny861, the pinout should
 be burried in various places in code. YAY! 
-(check pinout.h, and possibly the makefile)
-To use as-is:
+(a/o v61: check pinout.h, it should be all contained in there)
+
+To use as-is (with an LVDS/FPD-Link display):
 You'll need an ATtiny861
-	(The AVR model is *very* specific, as this *requires* PWM Dead-Timers
-	 and Three PWM channels, with bipolar outputs. I've only seen these 
-	 options available on two AVR chips, this and the AT90PWM-som'n)
+	(For LVDS the AVR model is *very* specific, as this pseudo-FPD-Link
+	 implementation *requires* PWM Dead-Timers and Three PWM channels, with
+	 complementary outputs. I've only seen these options available on two 
+	 AVR chips, this and the AT90PWM-som'n)
 Two 74LS86 XOR chips (or buffers and inverters...?)
 A Samsung LTN121X1-L02 12.1in 1024x768 display 
 (and an inverter to drive its backlight) 
@@ -61,7 +71,7 @@ A Samsung LTN121X1-L02 12.1in 1024x768 display
 	 that won't sync at all...)
 and a 3.3 or 3.6V supply.
 
-I use a USB-Tiny, avr-gcc, avr-dude for programming my AVRs
+I use a USB-Tiny, avr-gcc, and avr-dude for programming my AVRs
 (look into _commonCode.../_make/avrCommon.mk if you need to change this or
  anything else... also reallyCommon2.mk)
 I generally upload it after a compile, so you might be able to get away
@@ -78,17 +88,25 @@ rates (and much lower resolution) with a tiny frame-buffer...
 
 Currently it uses a "Row-Segment Buffer" which is reloaded after each row
 is drawn... These row-segments are defined by a color-value and a number of
-pixels... I think it's got a maximum of 96 row-segments...
-There're 341 drawable pixels per row (streched across 1024 physical)...
+pixels... Depending on the amount of memory used otherwise, the number of
+row-segments can be increased or decreased. (They take 2 Bytes apiece, so
+there's a *definite* limit of 256 row-segments).
+There're something like 341 drawable pixels per row 
+(streched across 1024 physical)...
 So, you can see it's impossible to have a different color in every drawable
-pixel in a row... (not enough memory!)
+pixel in a row... (not enough memory!) (Note that the AT90PWM161 has 1K.
+It may not be difficult to port to this chip, in which case, every drawable
+pixel could be individually written!)
 
-This means text is hard to display in a row... (But you can rotate the 
-screen and text 90-degrees, as the 768 rows are each drawn individually)
+Because of the limited memory and the limited horizontal resolution, text
+is hard to display in a row... (But you can rotate the screen and text 
+90-degrees, as the 768 rows are each calculated and drawn individually)
 
 
-There are two modes that have been tested recently:
-In main.c, near the top (only one should be TRUE):
+There are several drawing/game/... modes that have been tested recently
+(a/o v61: all SEG_<mode>'s have been tested. See their descriptions in
+ mainConfig.h)
+Here are a couple examples:
 SEG_QUESTION displays 16x16 pixel images, which are changed by pressing
 	the button (It uses sprites from Mario Brothers... Thanks Nintendo!)
 	Some day I'll build a box and attach the button to a bump-sensor and
@@ -121,9 +139,21 @@ Another Note: I have two of these Samsung displays... I've had *both* of
 them working at one time or another. But doing some testing for this
 distribution, one is quite flakey. It seems it's not syncing correctly with
 the LVDS data-bits. The effect-of-which is what I'd call "snow" appearing
-pretty regularly across the image. The image displays and syncs, but the
-colors are coming through flakily. Not sure what's wrong, but switching to
-the other display and it works perfectly.
+pretty regularly across the image. The image displays and syncs for the
+most part, but the colors are coming through flakily. 
+Not sure what's wrong, but switching to the other display and it works 
+perfectly.
+
+(a/o v61: doubling the LVDS-bit-rate has fixed the problem, and it now 
+ works with *both* LTN121X1 displays in my posession. Let this be a lesson:
+ If you see *something* on your screen, it's *quite likely* you'll be able
+ to sync it up properly with a little work. 
+ Note that my two LTN121X1 displays have different revisions of the same
+ LVDS receiver chip, I don't have the part-numbers in front of me.
+ See below for a bunch of theorizing as to why it wasn't working, as 
+ written *when* it wasn't working.)
+
+---- Theories ---
 Thing is, these data-rates are *horrendously* slow compared to the display
 specifications... It's quite plausible (in fact *likely*) that I'm right on
 the threshold of the rates the LVDS chipsets in these displays can sync 
@@ -160,6 +190,7 @@ supply. I tried swapping them with my trusty XORs and the effect was the
 same... Maybe this other display is less sensitive to misalignment between
 the positive and negative inputs... or the resistance in the display is
 different, or a million other things. I haven't scoped it.)
+---- End of theorizing ----
 
 As it is, the code is pretty limited to the current state-of-the-art...
 I haven't messed with lower resolutions (which equate to faster-bit-rates
@@ -176,3 +207,17 @@ there. Again, it's been a while.
 
 If you have identical equipment, you might be lucky with the code 
 as-configured. Or you might get some ugliness as I just experienced.
+(a/o v61: the latest configuration is with the doubled-pixel-clock, so it
+ should be more functional with more displays)
+
+Another note: The display used is DE-Only, which means it doesn't pay 
+attention to the Hsync and Vsync bits. As far as I'm aware, that code is
+implemented properly. My other two displays (also from iBook G3's) are
+*not* DE-Only, and neither of them sync. OTOH, one explicitly states in its
+data-sheet that refresh-rates that are too slow will be disregarded "to
+protect the liquid crystals". If you see that note, you'll be hard-pressed
+to get the display working with this system... it relies heavily on 
+stretching the displays' limits.)
+
+Good luck and have fun!
+

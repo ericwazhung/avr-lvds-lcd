@@ -6,19 +6,19 @@
 
 #if (!defined(PROJINFO_SHORT) || !PROJINFO_SHORT)
  uint8_t __attribute__ ((progmem)) \
-   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/60-thisGitThingIsMessingUpMyVersioningScheme ";
+   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/61-moreColors ";
  uint8_t __attribute__ ((progmem)) \
-   header1[] = " Mon Dec 16 10:00:47 PST 2013 ";
+   header1[] = " Mon Dec 16 23:49:44 PST 2013 ";
  uint8_t __attribute__ ((progmem)) \
    headerOpt[] = " WDT_DIS=TRUE ";
 #else //projInfo Shortened
  uint8_t __attribute__ ((progmem)) \
-   header[] = "LCDdirectLVDS60 2013-12-16 10:00:47";
+   header[] = "LCDdirectLVDS61 2013-12-16 23:49:44";
 #endif
 
 //For internal use...
 //Currently only usable in main.c
-#define PROJ_VER 60
+#define PROJ_VER 61
 #define COMPILE_YEAR 2013
 
 #endif
