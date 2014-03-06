@@ -1,5 +1,11 @@
-//lcdStuff 0.52ncf
+//lcdStuff 0.55ncf-1
 
+//0.55ncf-1 - adding BLUE_DIAG_SCROLL_FLASH
+//0.55ncf - drawPix had uint8_t rowNum... switching to uint16_t
+//          a/o LCDdirectLVDS-62 (attempting to use DE_BLUE with ChiMei
+//          display)
+//          Also added BLUE_DIAG_BAR_SCROLL
+//0.52ncf-1 - Adding notes re: old mental hurdles.
 //0.52ncf - getting rid of git in this directory...
 //0.51ncf-git-1ish Adding a few notes remaining from LCDdirectLVDS:
 //						"SCOPING has been removed in LVDS, revisit LCDdirect50"
@@ -51,6 +57,83 @@
 //   Unless you want to be depressed
 //   Good Starting Point DE_BLUE
 
+
+
+// GENERAL TIMING NOTES
+// a/o 0.52ncf-1:
+//   Upon revisiting an ancient display controller project I did 15 years
+//   ago, I'm finding myself falling into similar thought-hurdles I had
+//   the first go-round with a graphic LCD display... so here're some
+//   concepts:
+//
+// Most graphical displays without onboard memory have basically these 
+// same signals:
+//
+//	Pixel Clock: Each clock-pulse *generally* corresponds to one pixel...
+//   Whether these clock-pulses are used for drawing actual pixels, or
+//   otherwise...
+//
+// Horizontal Sync: Each time the Hsync pin is active, the display starts a
+// 	new row. It syncs up the pixels horizontally, at the left of the
+// 	screen.
+//
+//   (This was one of my biggest mental-hurdles from those old days...
+//    aided by the fact that my display's timing-chips had different names
+//    for the Pixexl-Clock, Hsync, and Vsync pins.) 
+//   Hsync is only pulsed *once* at the *beginning* of each row. 
+//   It is *not* pulsed with each pixel. It syncs the edge of the
+//   pixel-data with the edge of the screen.
+//
+// Vertical Sync: Each time the Vsync pin is active, the display starts a
+// new frame. It syncs the pixel-data with the top of the screen.
+//
+// (Data Enable: This tells the (usually LCD) display that actual pixels
+//  are now being transmitted. It's a bit redundant, and some displays,
+//  especially older non-TFT displays don't even have it. 
+//  Some newer TFT displays *only* use Data-Enable, determining the
+//  horizontal and vertical positions of the pixels based on the delay
+//  between Data-Enable pulses).
+//
+// I can't recall what the names were on my old display... but they were
+// danged confusing. Especially to someone who'd never messed with graphics
+// prior and had to reverse-engineer the whole thing. 
+// Oh yes, here they are: CPX, Frame, and Load. 
+
+// As far as these three signals (Pixel Clock, Hsync, and Vsync):
+//  The actual timing-requirements may vary from display to display.
+//  But, it's pretty-well-established that for most displays these signals
+//  remain pretty constant. For example, an Hsync pulse may arrive at a
+//  specific rate (the duration of a "row"). Vsync, therefore, remains
+//  active for a number of "rows", even though no pixel-data is being sent
+//  during this time. And, again, even though no pixel-data is being sent,
+//  the Hsync pulse still occurs at the same rate it would if pixels were
+//  being drawn.
+//
+//  This, I guess, is a remnant of ancient times, probably something to do
+//  with analog TV signals... the durations necessary for the electro-
+//  magnets to be moved from one side of the screen to the next, and the
+//  time necessary to move them again from top-to-bottom.
+//
+//  In this digital era, it doesn't seem these timings would be necessary,
+//  and, in fact, most displays I've gotten working are highly tolerant of
+//  timing that doesn't match this rigidity.
+//
+//  E.G. my *ancient* LCD project was designed long before I understood
+//  these "standard" timing specifications. As I recall, I don't have any
+//  delays between the "Frame" signal indicating the beginning of the next
+//  frame and the "Load" signal indicating the beginning of the first row
+//  of data. Certainly not several "rows" of Frame (aka Vsync)
+//  pulse-active.
+//
+//  Further, most of these standardized timings involve "porches", both
+//  front and back. The "Horizontal Front Porch" is the time between the
+//  end of a row and the Hsync signal. The "Horizontal Back Porch" is the
+//  time between the Hsync signal and the beginning of the actual 
+//  pixel-data. During these "porches", no pixel-data is sent, and the
+//  Hsync signal is not active. Again, in the digital era these are pretty
+//  much unnecessary, but some displays still rely on them, and most
+//  specify timing-values for them.
+//
 
 
 //new notes a/o 0.10ncf-3ish:
@@ -1485,7 +1568,7 @@ void init_timer0Hsync(void)
 
 
 static __inline__ \
-void drawPix(uint8_t rowNum) \
+void drawPix(uint16_t rowNum) \
 	  __attribute__((__always_inline__));
 #if 0
 #if (!defined(ROW_SEG_BUFFER) || !ROW_SEG_BUFFER)
@@ -1629,6 +1712,33 @@ void drawPix(uint8_t rowNum)
 
 
 
+//a/o LCDdirectLVDS62:
+// These BLUE_... tests are being reimplemented.
+// They're *quite* handy for initial-testing of an untested display.
+//
+// Realistically, they should probably be less LVDS-specific
+// (non-LVDS displays needn't be coded with these transition-specific
+// functions like DEonly_fromNada() or DEblue_fromDEonly(), and certainly
+// needn't be limited to blue/black testing. LVDS displays contain their
+// syncing signals on the same wire as the blue pixel-data, thus these
+// tests...)
+// In the long-run, maybe they should be moved to an lvdsLCD commonCode
+// and the transition-specific code removed from here, but I've yet to
+// explore this.
+// For non-LVDS displays, these should still be pretty good tests, and
+// implementing transition-specific functions shouldn't be too difficult...
+// e.g. "#define DEonly_fromNada()    setpinPORT(DE_PIN, DE_PORT)"
+// or   "#define DEblue_fromDEonly()  BLUE_PORT = 0xff"
+// (Actually, transition-specific functions make it faster regardless of
+// the LVDS/non-LVDS nature of the display, as some things are redundant...
+// e.g. if calls to DEonly_fromNada() were replaced with calls to DEonly(),
+// it would require disabling H-sync and V-sync, in addition to enabling DE
+// in every call. When we start getting into worrying about aligning pixels
+// with the edge of the display and making them as skinny as possible, each
+// cpu instruction counts.
+// So, I guess, the only LVDS-specific stuff here is the blue-related
+// transitions (and, more specifically, the fact that there are *only*
+// blue-related transitions, as opposed to red and green)
 
 //a/o sdramThing2.0v8 early... appears to be syncing on Blue signal
 // thus we get diagonal data including Hsync (colored in red) along the
@@ -1652,6 +1762,80 @@ static __inline__ void drawPix(uint16_t rowNum)
 		Nada_fromDEblue();
 }
 #endif
+
+
+//a/o LCDdirectLVDS62: This is the same as above, but scrolls vertically
+// one line per refresh... so it's easy to calculate the refresh-rate
+#if(defined(BLUE_DIAG_BAR_SCROLL) && BLUE_DIAG_BAR_SCROLL)
+static __inline__ void drawPix(uint16_t rowNum)
+{
+	static uint16_t rowOffset;
+	if(rowNum == 0)
+		rowOffset++;
+		//uint16_t blueCyc = DOTS_TO_CYC(rowNum);
+		//uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
+		uint16_t blueDots = (rowNum + rowOffset)%DE_ACTIVE_DOTS;
+		uint16_t notBlueDots = DE_ACTIVE_DOTS - blueDots;
+
+		DEonly_fromNada();
+		//delay_cyc(notBlueCyc);
+		//delay_Dots(notBlueDots);
+		DE_DotDelay(notBlueDots);
+		DEblue_fromDEonly();
+		//delay_cyc(blueCyc);
+		//delay_Dots(blueDots);
+		DE_DotDelay(blueDots);
+		Nada_fromDEblue();
+}
+#endif
+
+
+
+//a/o LCDdirectLVDS62: This is the same as above, but alternates colors
+//between each frame...
+// (Careful, this one'll cause seizures!)
+#if(defined(BLUE_DIAG_SCROLL_FLASH) && BLUE_DIAG_SCROLL_FLASH)
+static __inline__ void drawPix(uint16_t rowNum)
+{
+	static uint16_t rowOffset;
+	if(rowNum == 0)
+		rowOffset++;
+		//uint16_t blueCyc = DOTS_TO_CYC(rowNum);
+		//uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
+		uint16_t blueDots = (rowNum + rowOffset)%DE_ACTIVE_DOTS;
+		uint16_t notBlueDots = DE_ACTIVE_DOTS - blueDots;
+
+#if(defined(BDSF_ALTERNATE_ROWS) && BDSF_ALTERNATE_ROWS)
+	if(rowNum&0x01)
+#else
+	if(rowOffset&0x01)
+#endif
+	{
+		DEonly_fromNada();
+		//delay_cyc(notBlueCyc);
+		//delay_Dots(notBlueDots);
+		DE_DotDelay(notBlueDots);
+		DEblue_fromDEonly();
+		//delay_cyc(blueCyc);
+		//delay_Dots(blueDots);
+		DE_DotDelay(blueDots);
+		Nada_fromDEblue();
+	}
+	else
+	{
+		DEblue_fromNada();
+		//delay_cyc(notBlueCyc);
+		//delay_Dots(notBlueDots);
+		DE_DotDelay(notBlueDots);
+		DEonly_fromDEblue();
+		//delay_cyc(blueCyc);
+		//delay_Dots(blueDots);
+		DE_DotDelay(blueDots);
+		Nada_fromDEonly();
+	}
+}
+#endif
+
 
 //a/o sdramThing2.0v8-31ish: LooksPromising, but delayed
 // also LVDS bit-shifts causing vertical striping

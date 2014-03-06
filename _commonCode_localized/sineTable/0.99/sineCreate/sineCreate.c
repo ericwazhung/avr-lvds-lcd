@@ -4,8 +4,11 @@
 
 #define PI		(double)(3.14159265358979)
 #define QUADRANT	(PI/2)
+
+
+#error "Make sure you select SINEMAX as desired"
 // SINEMAX is the maximum, thus SINEDIST is 2*SINEMAX
-#define SINEMAX		(INT16_MAX)
+#define SINEMAX		(INT8_MAX) //(INT16_MAX)
 
 /* Sine(theta) will be the same as sin(theta)=[-1,1]
  *  with a magnitude of SINEMAX... Sine(theta) = [-SINEMAX, SINEMAX]

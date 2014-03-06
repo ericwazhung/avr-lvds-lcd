@@ -12,7 +12,7 @@ void racer_init(void)
 
 
 
-
+//TODO: This has been implemented in commonCode's grabDecimal...
 //For converting an integer to text-characters without using sprintf...
 // Call once with the value to be written, and newVal TRUE
 // then call repeatedly with the same value and newVal FALSE

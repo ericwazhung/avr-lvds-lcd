@@ -55,7 +55,8 @@ void segQuestion_loadRow(uint16_t rowNum)
       // each "segment length" appears to be 3 physical pixels
       //+1 is a result of random experiments with stretch
       // resulting in a stretch larger than 1
-      #define Q_SEGLENGTH   (1024/3/Q_WIDTH+1)
+      //#define Q_SEGLENGTH   (1024/3/Q_WIDTH+1)
+		#define Q_SEGLENGTH (NUM_PSEGS / Q_WIDTH)
 
    //These are not included in NUM_ICONS
    #include "icons/Question.h"

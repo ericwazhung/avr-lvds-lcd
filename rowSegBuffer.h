@@ -18,6 +18,9 @@
 
 
 
+//a/o v62: This has been determined in drawSeg()...
+#define DRAWSEG_CPU_CYCS_PER_PSEG 20
+
 
 #ifndef NUM_SEGMENTS	
 //128 works with SEG_SINE, shows just a tiny bit of early-termination

@@ -1,3 +1,10 @@
+//drawPix from program memory
+//a/0 v60: Again, unused for its original purpose, but tightly intertwined
+// in old code that's still being (mis)used...
+#define FB_WIDTH 16
+#define FB_HEIGHT 16
+uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
+
 
 
 //AHHH it wasn't IMAGE_BUFFER that's entangled, but IMAGE_CHANGE
@@ -6,7 +13,6 @@
 //This was #if'd into existence with IMAGE_BUFFER, but since it's only been
 // used with frameBuffer, and since IMAGE_BUFFER is somewhat entangled with
 // newer stuff, I'm putting it here and NOT including this file, (yet)
-#if(defined(IMAGE_BUFFER) && IMAGE_BUFFER)
 void setColor(uint8_t red, uint8_t green, uint8_t blue, 
                uint8_t row, uint8_t col)
 {
@@ -16,15 +22,9 @@ void setColor(uint8_t red, uint8_t green, uint8_t blue,
 
    frameBuffer[row][col] = red | ((green)<<2) | ((blue)<<4);
 }
-#endif
 
 
 
-//drawPix from program memory
-//a/0 v60: Again, unused for its original purpose, but tightly intertwined
-// in old code that's still being (mis)used...
- #define FB_WIDTH 16
- #define FB_HEIGHT 16
 
 //Called as: pgm_readImageByte(pgm_image1, row, col)
 #define pgm_readImageByte(image, row, col)   \
@@ -63,20 +63,20 @@ void frameBufferInit(void)
 
 }
 
-
-#if(defined(IMAGE_BUFFER) && IMAGE_BUFFER)
-uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
+#if(defined(FB_SMILEY) && FB_SMILEY)
+#include "_options/smiley.c"
 #endif
 
+//#include "_options/smiley.c"
 
+
+#if(!defined(FB_DONT_USE_UPDATE) || !FB_DONT_USE_UPDATE)
 // This code was in main...
 // This isn't generalized enough to justify this function-name
 // just not ready to delete it completely
 void frameBufferUpdate(void)
 {
-        #if (defined(IMAGE_BUFFER) && IMAGE_BUFFER)
-         uint8_t *pimage;
-        #endif
+         uint8_t *pimage = pgm_image1;
 
 			//Here's where it alternated pimage to point to alternate images
 			//This code worked alongside rowBuffer, via fb_to_rb, I guess
@@ -105,7 +105,8 @@ void frameBufferUpdate(void)
 
 
 
-        #if (defined(IMAGE_BUFFER) && IMAGE_BUFFER)
+			uint8_t row, col, colorShift=0;
+
          for(row=0; row<FB_HEIGHT; row++)
          for(col=0; col<FB_WIDTH; col++)
          {
@@ -125,8 +126,9 @@ void frameBufferUpdate(void)
          */
          }
          colorShift++;
-        #endif
 }
+#endif
+
 
 
 

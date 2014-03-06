@@ -121,10 +121,12 @@
    //#define CLOCKCYCS (TIMER0_TCNTS * 64)
    //We know that CLOCKCYCS is divisible by four... (the system clock)
    // so we just need to round to the nearest 7...
-   #define ROUND_TO(minVal, roundTo) \
-      ((((minVal)+((roundTo)-1))/(roundTo))*(roundTo))
+	//a/o v62: Where does 4 come from? Is this an LVDS-Prescaler thing?
 
-   #define TIMER0_TCNTS_A (ROUND_TO(TOTAL_CYC_COUNT, 64*7)/64)
+//   #define ROUND_TO(minVal, roundTo) \
+//      ((((minVal)+((roundTo)-1))/(roundTo))*(roundTo))
+
+   #define TIMER0_TCNTS_A (ROUND_UP_TO(TOTAL_CYC_COUNT, 64*7)/64)
 
 
    #if (TIMER0_TCNTS_A <= 255)
@@ -144,7 +146,7 @@
    
     #if(defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
      //#define CLOCKCYCS (TIMER0_TCNTS * 256)
-     #define TIMER0_TCNTS_B (ROUND_TO(TOTAL_CYC_COUNT, 256*7)/256)
+     #define TIMER0_TCNTS_B (ROUND_UP_TO(TOTAL_CYC_COUNT, 256*7)/256)
 
 
      #if (TIMER0_TCNTS_B <= 255)
@@ -162,7 +164,7 @@
       #define TIMER0_CLKDIV   CLKDIV1024
 
       #if (defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
-       #define TIMER0_TCNTS_C (ROUND_TO(TOTAL_CYC_COUNT, 1024*7)/1024)
+       #define TIMER0_TCNTS_C (ROUND_UP_TO(TOTAL_CYC_COUNT, 1024*7)/1024)
 
 
        #if (TIMER0_TCNTS_C <= 255)

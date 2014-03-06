@@ -1,4 +1,6 @@
-//high frequency modulation 1.00-4
+//high frequency modulation 1.00-5
+//1.00-5 a/o LCDrevisited2012-28:
+//       v1.00 uses 40Bytes less space than 0.93
 //1.00-4 Looks like the gradient works... a little more testing.
 //1.00-3 HOLY SHIT...
 //       v0.94-1.00 were completely broken.

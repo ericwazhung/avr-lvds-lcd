@@ -421,26 +421,32 @@ __asm__ __volatile__
 __asm__ __volatile__
    (
    "LoadNext_%=: \n\t"
-      "ld r20, %a0+ ; \n\t"    //%a0 refers to XYZ whichever is selected
-      "mov r21, r20 ; \n\t"     // Load R (+length)
+      "ld r20, %a0+ ; \n\t"  //%a0 refers to XYZ whichever is selected 2
+      "mov r21, r20 ; \n\t"  // Load R (+length)                       1
 //      "andi r21, 0x0f ; \n\t"  //Remove length from Rred
-		"andi r21, %5 ; \n\t"
-      "ld r22, %a0+ ; \n\t"    //Load G 
+		"andi r21, %5 ; \n\t"  //                                        1
+      "ld r22, %a0+ ; \n\t"  //Load G                                  2
+		                       //                                       =6
+//a/o v62, this has been the case for quite some time...
 #if (defined(GB_COMBINED) && GB_COMBINED)
-		"mov r23, r22 ; \n\t"	 //copy G(+B) to B
-		"andi r22, 0x0f ; \n\t"	 // strip B from G
-		"swap r23 ; \n\t"			 // swap B and G nibbles in B
-		"andi r23, 0x0f \n\t"	 // strip G from B
+		"mov r23, r22 ; \n\t"  //copy G(+B) to B                         1
+		"andi r22, 0x0f ; \n\t"// strip B from G                         1
+		"swap r23 ; \n\t"      // swap B and G nibbles in B              1
+		"andi r23, 0x0f \n\t"  // strip G from B                         1
+		                       //                                       =4
 #else
-		"ld r23, %a0+ ; \n\t"    //Load B
+		"ld r23, %a0+ ; \n\t"  //Load B          NotCurrentlyImplemented
 #endif
-		"out %1, r21 ; \n\t"  // Write OCR1D (Red)
-      "out %2, r22 ; \n\t"     // Write DT1 (Green)
-      "out %3, r23 ; \n\t"  // Write OCR1A (Blue)
+		"out %1, r21 ; \n\t"   // Write OCR1D (Red)                      1
+      "out %2, r22 ; \n\t"   // Write DT1 (Green)                      1
+      "out %3, r23 ; \n\t"   // Write OCR1A (Blue)                     1
 
 //      "andi r20, 0xf0 ; \n\t"  // Remove red from length
-      "andi r20, %4 ; \n\t"
-		"breq Done_%= ; \n\t"      // if length==0 from the start, we're done
+      "andi r20, %4 ; \n\t"  //                                        1
+		"breq Done_%= ; \n\t"  // if length==0 initially, we're done     1(2)
+                             //                                       =5
+		// (A zero-length PSEG is used to terminate the segment-drawing)
+		// ( so it needn't be the same number of instruction-cycles)
 #if (defined(GB_COMBINED) && GB_COMBINED)
 #warning "This probably isn't necessary anymore..."
 		// What was it for? Maybe because I was thinking about
@@ -457,36 +463,43 @@ __asm__ __volatile__
 
 		//Bump it to a round-number for counting...
 		// 18 cyc -> 20 cyc... 20 is divisible by 4
-		"nop ; \n\t"
-		"nop ; \n\t"
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		                       //                                       =2
 #endif
 
    "Counter_%=: \n\t"
-      "subi r20, %6 ; \n\t"  //Decrement the counter by 0x10...
-      "breq LoadNext_%= ; \n\t"  // if we've decremented to 0, next segment
+      "subi r20, %6 ; \n\t"  //Decrement the counter by 0x10...        1
+      "breq LoadNext_%= ; \n\t"  // if we've decremented to 0,         1 2
+		                           // load the next segment               =3
+		                           //                                    ==20
+		                           // fall-through                     ==19
+//We need this in the header file...
+//#define DRAWSEG_CPU_CYCS_PER_PSEG	20
+#warning "a/o v62: drawSegs may not actually be exactly 20 cycles for each branching case! Further, wouldn't 21 be better?"
 #if (defined(SQUARE_SEGMENTS) && SQUARE_SEGMENTS)
 		//Match a single-pixel-width...
 		//(18cyc w/o GB_COMBINED)
  #if (defined(GB_COMBINED) && GB_COMBINED)
-		"nop ; \n\t"
-		"nop ; \n\t"
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
  #endif
-		"nop ; \n\t"		// if length = 0x10 this will be avoided
-		"nop ; \n\t"		// for each step of 0x10 > 0x10
-		"nop ; \n\t"		//   this will match a pixel-width
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
-		"nop ; \n\t"
+		"nop ; \n\t"		// if length = 0x10 this will be avoided       1
+		"nop ; \n\t"		// for each step of 0x10 > 0x10                1
+		"nop ; \n\t"		//   this will match a pixel-width             1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
+		"nop ; \n\t"           //                                        1
 #endif
-		"rjmp Counter_%= ; \n\t"
+		"rjmp Counter_%= ; \n\t" // next counter loop                    2
 
    "Done_%=: \n\t"
       :                       //No output register...

@@ -1,3 +1,11 @@
+Early "BLUE_TESTING"
+	Weird seemingly-random garbage coming through? Try disconnecting the
+	programming-header. There's no way 'round using the same pins for
+	programming as "LVDS", due to the chip-layout.
+   (Oddly, this presented itself on one display, but not another, same
+	 exact code. Dunno.)	
+
+
 Some topics to keep in mind:
 	It's a good idea to start and end with white on the horizontal borders.
   		I usually do 3psegs.

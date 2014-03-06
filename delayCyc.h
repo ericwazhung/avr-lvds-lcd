@@ -13,6 +13,8 @@ static __inline__ \
 void delay_cyc(int32_t numCyc) \
      __attribute__((__always_inline__));
 
+#ifndef DELAY_CYC_DELAY_LOOP
 #define DELAY_CYC_DELAY_LOOP TRUE//FALSE
+#endif
 
 #endif

@@ -4,22 +4,25 @@
 #define __PROJINFO_H__
 #include <inttypes.h>
 
-#if (!defined(PROJINFO_SHORT) || !PROJINFO_SHORT)
+#if (defined(_PROJINFO_OVERRIDE_) && _PROJINFO_OVERRIDE_)
  uint8_t __attribute__ ((progmem)) \
-   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/61-moreColors ";
+   header[] = "";
+#elif (defined(PROJINFO_SHORT) && PROJINFO_SHORT)
  uint8_t __attribute__ ((progmem)) \
-   header1[] = " Mon Dec 16 23:49:44 PST 2013 ";
+   header[] = "LCDdirectLVDS65 2014-03-06 14:26:51";
+#else //projInfo Not Shortened nor overridden
+ uint8_t __attribute__ ((progmem)) \
+   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/65-reGittifying ";
+ uint8_t __attribute__ ((progmem)) \
+   header1[] = " Thu Mar  6 14:26:51 PST 2014 ";
  uint8_t __attribute__ ((progmem)) \
    headerOpt[] = " WDT_DIS=TRUE ";
-#else //projInfo Shortened
- uint8_t __attribute__ ((progmem)) \
-   header[] = "LCDdirectLVDS61 2013-12-16 23:49:44";
 #endif
 
 //For internal use...
 //Currently only usable in main.c
-#define PROJ_VER 61
-#define COMPILE_YEAR 2013
+#define PROJ_VER 65
+#define COMPILE_YEAR 2014
 
 #endif
 

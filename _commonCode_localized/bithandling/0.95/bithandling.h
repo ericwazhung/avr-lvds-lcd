@@ -1,7 +1,14 @@
-//bitHandling 0.94_parenExperiment-5
+//bitHandling 0.95-4
 //TODO: Don't Forget .94-18!
 //TODO: and .94_...-5!
 //
+//.95-4  adding ROUND_UP_TO()
+//.95-3  adding CLI_SAFE() -> SEI_RESTORE()
+//.95-2  Adding MAKEFLOAT()
+//.95-1	Adding this note: BV(thing) is old from libc_dep (and before)
+//       This is defined as _BV(thing), which apparently is defined
+//       somewhere. This is equivalent to (1<<thing), as I recall.
+//       This note, a/o LCDRevisited2012-25
 //.95 - It's time to quit typing "_parenExperiment"...
 //      ALSO adding nibbletochar()
 //.94_...-5 AH-HAH! The "proper" way is as in info cpp 3.10.3:
@@ -137,6 +144,33 @@
 #define __BITHANDLING_H__
 
 #include <stdint.h>
+
+#ifdef __AVR_ARCH__
+
+//If only used once, can call this as:
+// uint8_t CLI_SAFE(uint8_name);
+// ...
+// SEI_RESTORE(uint8_name);
+// ...
+// //But can also be reused:
+// CLI_SAFE(uint8_name);
+// ...
+// SEI_RESTORE(uint8_name);
+#define CLI_SAFE(uint8_name) (uint8_name) = (SREG & (1<<7)); cli()
+
+#define SEI_RESTORE(uint8_name) if(uint8_name) sei()
+#endif
+
+
+
+//Takes a value and rounds it up such that it is divisible by roundTo...
+// e.g. minVal=5, roundTo=7 -> 7
+//      minVal=15, roundTo=7 -> 21
+#define ROUND_UP_TO(minVal, roundTo) \
+	   ((((minVal)+((roundTo)-1))/(roundTo))*(roundTo))
+
+
+
 
 //Takes a 2^n value and determines how many shifts are necessary to create
 // it... e.g. 128 = (1<<7) so DESHIFT(128) = 7
@@ -601,6 +635,8 @@ void toBinString(char* stringOut, uint8_t length, int32_t value)
 // to become long as well..
 // e.g. the result of (1 + MAKELONG) is a LONG 
 #define MAKELONG(value)	((value) + 0L)
+
+#define MAKEFLOAT(value) ((value)*1.0)
 
 //Not really sure how I feel about this... technically it doesn't change it
 // to u8 math... but it does assure that ... yeah, not sure how I feel...

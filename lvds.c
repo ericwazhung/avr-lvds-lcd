@@ -15,6 +15,10 @@ And, actually, the Timer0 stuff may not be related to the comment.
 
 
 
+
+//a/o v62: Are these necessary if NOT using writeColor??? TODO
+
+//#############
 //For Red and Green (NOT Blue) This enables four shades, instead of three
 // (including black)
 // Doing so increases pixel-processing time, thus the pixel-widths
@@ -28,7 +32,7 @@ And, actually, the Timer0 stuff may not be related to the comment.
 //a/o v60
 //I can't find this anywhere else... Might not be looking hard enough
 #define	NUM_COLORS	48
-
+//##############
 
 
 
@@ -569,6 +573,7 @@ And, actually, the Timer0 stuff may not be related to the comment.
 #define DEonly_fromNada()     DE_init()
 #define DEblue_fromDEonly()   DE_init()
 #define Nada_fromDEblue()      Nada_init()
+#define DEonly_fromDEblue()	DE_init()
  #if(DE_BLUE)
   #warning "DE_BLUE is true, but not implemented with DE_ONLY_DISPLAY"
   #warning "...The display should be blank"
@@ -587,7 +592,7 @@ And, actually, the Timer0 stuff may not be related to the comment.
 #define DEblue_fromDEonly()   DEblue_init()
 #define Nada_fromDEonly()      Nada_init()
 #define Nada_fromDEblue()      Nada_init()
-
+#define DEonly_fromDEblue()	DEonly_init()
 
 #else   //NOT FULL_INIT_TESTS
 //#define Vsync_fromNada()   { DT1=(4<<4); }
@@ -607,6 +612,12 @@ And, actually, the Timer0 stuff may not be related to the comment.
 #define DEonly_fromNada()   { DT1=(2<<4); }
 #define DEblue_fromNada()   { OCR1A=0xff; }
 #define DEblue_fromDEonly() { OCR1A=0xff; }
+
+//a/o v62: This hadn't existed previously, necessary for
+//BLUE_VERT_BAR_REVERSED
+#warning "This is just a guess, piecing together Nada_fromDEblue and whatnot"
+//But it seems to work... 
+#define DEonly_fromDEblue() { OCR1A=4; }
 
 /*
 #if (!defined(DE_BLUE) || !DE_BLUE)
@@ -962,7 +973,22 @@ And, actually, the Timer0 stuff may not be related to the comment.
 
 
 
+// a/o v62-17:
+// See notes in lvds_timerInit()...
+// Basically, Green should be enabled at the beginning of a drawPix
+// function, and disabled at the end.
+// I can't remember the *exact* details, but I think V/H signals might
+// require dead-time values which would affect the clock if it is in
+// complementary-output-mode (but *don't* when it's not)
+#define lvds_disableGreen_MakeClockInsensitiveToDT() \
+	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0) \
+			   | (1<<COM1B1) | (0<<COM1B0) \
+				| (1<<PWM1A) | (1<<PWM1B) )
 
+#define lvds_enableGreen_MakeClockSensitiveToDT() \
+	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0) \
+				| (0<<COM1B1) | (1<<COM1B0) \
+				| (1<<PWM1A) | (1<<PWM1B) )
 
 
 void lvds_timerInit(void)
@@ -1190,10 +1216,29 @@ void lvds_timerInit(void)
    // don't want to have to rewrite...
    TCCR1C = ( (1<<COM1D1) | (0<<COM1D0)
             | (1<<PWM1D) );
+/* a/o v62-17: The notes are sparse as to why I disabled the Green signal
+ * at all times, except during DE... As I recall, it was an experiment with
+ * whether it was possible to get greater control over BLUE, by hacking the
+ * clock signal during the DE period... e.g. since none of the V/H timings
+ * are necessary during DE, maybe it was possible to have a clock that
+ * wasn't perfectly as-spec'd... it didn't work. So, why not remove the
+ * necessity for enabling/disabling the green signal...
+ (Yes, it's that tightly-knit that affecting the clock affects green,
+ affects blue... but there's some confusion in my mind as to why green
+ couldn't've remained active anyhow...)
+ Ahh, wait, something about when Complementary mode is enabled, then the
+ clock is affected by Dead-Times... Still a bit vague.
+*/
+//	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0) 
+//            | (1<<COM1B1) | (0<<COM1B0) //Don't use complementary for CLK
+//            | (1<<PWM1A) | (1<<PWM1B) );
+	lvds_disableGreen_MakeClockInsensitiveToDT();
 
-   TCCR1A = ( (0<<COM1A1) | (1<<COM1A0) 
-            | (1<<COM1B1) | (0<<COM1B0) //Don't use complementary for CLK
-            | (1<<PWM1A) | (1<<PWM1B) );
+/* ... but this didn't work... nothing's showing up at all.
+	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
+	         | (0<<COM1B1) | (1<<COM1B0)
+	         | (1<<PWM1A) | (1<<PWM1B) );
+*/
 
 //#define lvds_clrOnCompare() lvds_ComplementaryClrOnCompare()
 
@@ -1378,252 +1423,6 @@ __asm__ __volatile__
 }
 #endif //FALSE
 
-#if(!defined(ROW_SEG_BUFFER) || !ROW_SEG_BUFFER)
-static __inline__ \
-void writeColor(uint8_t colorVal) \
-     __attribute__((__always_inline__));
-
-#if(defined(ROW_BUFFER) && ROW_BUFFER)
-//THIS IS JUST AN ESTIMATE
- #define WRITE_COLOR_CYCS   (13)
-#elif(defined(FOUR_SHADES) && FOUR_SHADES)
- // Roughly...
- #define WRITE_COLOR_CYCS   (12*2+9+3)
-#else
- // Roughly...
- #define WRITE_COLOR_CYCS   (9*3+3)
-#endif
-
-void writeColor(uint8_t colorVal)
-{
-//#warning "I'm absolutely certain this'll need to be revised, probably asm"
-   //   Red: (+OC1D => RX0+)
-   //    Off (0/63): OCR1D = 0
-   //    35/63:      OCR1D = 3
-   //    63/63:      OCR1D >= 6
-
-/* No Shit: This compiles to a 16-bit test!
-   switch((uint8_t)(colorVal & (uint8_t)0x03))
-   {
-      case (uint8_t)0:
-         OCR1D = 0;
-         break;
-      case (uint8_t)1:
-         OCR1D = 3;
-         break;
-      case (uint8_t)2:
-      default:
-         OCR1D = 6;
-         break;
-   }
-*/
-
-#if(defined(ROW_BUFFER) && ROW_BUFFER)
-   // In this case, colorVal is actually settingVal...
-   // Between LDI, these instructions, and OCR/DT register writes
-   // this is 14 cycles... or 16 pixels...
-
-   //                              //ldi (colorVal) (2 cyc)
-   //Red: (temp)
-   uint8_t ocrd = colorVal >> 2;   //mov, shl, shl
-   //Green:
-   uint8_t dt = colorVal & 0x03; //andi
-   //Blue:
-   uint8_t ocra = ocrd >> 3;      //mov, shl, shl, shl
-   //And red...
-   ocrd &= 0x07;                  //andi
-                                 //out OCRD, out DT, out OCRA
-
-#else //NOT ROW_BUFFER (FRAMEBUFFER)
-
-//   uint8_t redVal; // = colorVal & 0x03;
-   uint8_t ocrd;
-
-/*
-   if(redVal == 0x00)
-      ocrd = 0;
-   else if(redVal == 0x01)
-      ocrd = 3;
-   else //2, 3
-      ocrd = 6;
-*/
-#if(defined(FOUR_SHADES) && FOUR_SHADES)
- // "nop; nop; nop;" compiles to just a single nop! 
- //"\n\t" or maybe the space is necessary
- #define FOUR_SHADES_NOPS "nop ; \n\t nop ; \n\t nop ; \n\t"
-#else
- #define FOUR_SHADES_NOPS "\n\t"
-#endif
-   //Each branch is 9 cycles... (12 with FOUR_SHADES)
-__asm__ __volatile__
-   ( "mov    %0, %1    ; \n\t"   // ocrd (redVal) = colorVal           //1
-     "andi   %0, 0x03   ; \n\t"   // ocrd = ocrd & 0x03                 //1
-     "brne   red1tst_%=; \n\t"   // if(ocrd != 0x00) jump to red1test  //1`2
-     "ldi   %0, 0x00   ; \n\t"   // (ocrd==0x00) add some delays        //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     FOUR_SHADES_NOPS         //                                    //N .
-     "rjmp  end_%=   ; \n\t"   //   jump to the end                    //2 .
-                                // (ocrd_reg = redVal_reg = 0)            .
-   "red1tst_%=:"               //"%=" is a unique identifier for this asm.
-                              //  invocation, so the label won't be     .
-                              //  mistaken from another invocation      .
-     "cpi   %0, 0x01   ; \n\t"   // if(ocrd-0x01 != 0)                 //  1
-     "brne   red23_%=   ; \n\t"   //   jump to red=2,3                    //  1`2
-     FOUR_SHADES_NOPS         //                                    //  N .
-     "ldi   %0, 0x03   ; \n\t"   // else ocrd = 0x03                   //  1 .
-     "rjmp   end_%=   ; \n\t"   //      jump to the end               //  2 .
-   "red23_%=:"                                                      //    .
-#if (defined(FOUR_SHADES) && FOUR_SHADES)                           //   /.
-     "cpi   %0, 0x02 ; \n\t"   // if(ocrd-0x02 !=0)                  //( . 1
-     "brne  red3_%=   ; \n\t"   //      jump to red=3                   //( . 1`2
-     "ldi   %0, 0x04 ; \n\t"   // else ocrd=4                        //( . 1 .
-     "rjmp  end_%=   ; \n\t"   //      jump to the end               //( . 2 .
-   "red3_%=:"                                                       //( .   /
-#endif                                                              //(  \ /
-     "ldi   %0, 0x06   ; \n\t"   // ocrd = 0x06                        //    1
-     "nop            ; \n\t"  // one delay...                       //    1
-  "end_%=:"
-
-     : "=r" (ocrd)      //Output only "%0"
-     : "r"  (colorVal)  //colorVal is "%1"
-     //,  "d0"  (ocrd)     //ocrd is also used for andi, and is %2
-   );
-
-
-//   OCR1D = ocrd;
-
-
-   //   Green: (/OC1B => RX1-)          (B1,0 Active, as well as G2,1)
-   //    Off (6/63): DTL1 = 0
-   //    38-39/63:      DTL1 = 1
-   //    62-63/63:      DTL1 = 3
-/*   switch(colorVal & 0x0C)
-   {
-      case 0x00:
-         DT1 = 0;
-         break;
-      case 0x04:
-         DT1 = 1;
-         break;
-      case 0x08:
-      default:
-         DT1 = 3;
-         break;
-   }
-*/
-//   uint8_t greenVal = colorVal & 0x0C;
-   uint8_t dt;
-/*   if(greenVal == 0x00)
-      dt=0;
-   else if(greenVal == 0x04)
-      dt=1;
-   else //0x06, 0x0C
-      dt=3;
-*/
-   //Each branch is 9 cycles... (12 with FOUR_SHADES)
-__asm__ __volatile__
-   ( "mov   %0, %1   ; \n\t"  // dt (greenVal) = colorVal           //1
-     "andi  %0, 0x0C ; \n\t"  // dt = dt & 0x0C                     //1
-     "brne  grn4tst_%=; \n\t" // if(dt != 0x00) jump to grn4test    //1`2
-     "ldi   %0, 0x00 ; \n\t"  // (dt==0x00) add some delays         //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     FOUR_SHADES_NOPS         //                                    //N .
-     "rjmp  end_%=   ; \n\t"  //   jump to the end                  //2 .
-   "grn4tst_%=:"              //"%=" is a unique identifier for this asm.
-                              //  invocation, so the label won't be     .
-                              //  mistaken from another invocation      .
-     "cpi   %0, 0x04 ; \n\t"  // if(dt-0x04 != 0)                   //  1
-     "brne  grn8C_%= ; \n\t"  //   jump to green=8,C                //  1`2
-     "ldi   %0, 0x01 ; \n\t"  // else dt = 0x01                     //  1 .
-     FOUR_SHADES_NOPS         //                                    //  N .
-     "rjmp  end_%=   ; \n\t"  //      jump to the end               //  2 .
-   "grn8C_%=:"                                                      //    .
-#if (defined(FOUR_SHADES) && FOUR_SHADES)                           //   /.
-     "cpi   %0, 0x08 ; \n\t"  // if(dt-0x08 !=0)                    //( . 1
-     "brne  grn3_%=  ; \n\t"  //    jump to green=3                 //( . 1`2
-     "ldi   %0, 0x02 ; \n\t"  // else dt=2                          //( . 1 .
-     "rjmp  end_%=   ; \n\t"  //      jump to the end               //( . 2 .
-   "grn3_%=:"                                                       //( .   /
-#endif                                                              //(  \ /
-     "ldi   %0, 0x03 ; \n\t"  // dt = 0x03                          //    1
-     "nop            ; \n\t"  // one delay...                       //    1
-   "end_%=:"
-
-     : "=r" (dt)      //Output only "%0"
-     : "r"  (colorVal)  //colorVal is "%1"
-     //,  "d0"  (ocrd)     //ocrd is also used for andi, and is %2
-   );
-
-
-
-//   DT1 = dt;
-   //   Blue: (+OC1A => RX2+)               (B3,2 Active from here down)
-   //    Off (15/63):  OCR1A=4
-   //    47/63:        OCR1A=5
-   //    63/63:        OCR1A=6
-/*   switch(colorVal & 0x30)
-   {
-      case 0x00:
-         OCR1A = 4;
-         break;
-      case 0x10:
-         OCR1A = 5;
-         break;
-      case 0x20:
-      default:
-         OCR1A = 6;
-         break;
-   }
-*/
-//   uint8_t blueVal = colorVal & 0x30;
-   uint8_t ocra;
-/*   if(blueVal == 0x00)
-      ocra=4;
-   else if(blueVal == 0x10)
-      ocra=5;
-   else //0x20, 0x30
-      ocra=6;
-*/
-
-   //Each branch is 9 cycles...
-__asm__ __volatile__
-   ( "mov   %0, %1   ; \n\t"  // ocra (blueVal) = colorVal          //1
-     "andi  %0, 0x30 ; \n\t"  // ocra = ocra & 0x30                 //1
-     "brne  blu1tst_%=; \n\t" // if(ocra != 0x00) jump to red1test  //1`2
-     "ldi   %0, 0x04 ; \n\t"  // (ocra==0x00) add some delays       //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "nop            ; \n\t"  //                                    //1 .
-     "rjmp  end_%=   ; \n\t"  //   jump to the end                  //2 .
-                              // (ocra_reg = blueVal_reg = 0)            .
-   "blu1tst_%=:"              //"%=" is a unique identifier for this asm.
-                              //  invocation, so the label won't be     .
-                              //  mistaken from another invocation      .
-     "cpi   %0, 0x10 ; \n\t"  // if(ocra-0x10 != 0)                 //  1
-     "brne  blu23_%= ; \n\t"  //   jump to red=2,3                  //  1`2
-     "ldi   %0, 0x05 ; \n\t"  // else ocra = 0x05                   //  1 .
-     "rjmp  end_%=   ; \n\t"  //      jump to the end               //  2 .
-   "blu23_%=:"                                                      //    .
-     "ldi   %0, 0x06 ; \n\t"  // ocra = 0x06                        //    1
-     "nop            ; \n\t"  // one delay...                       //    1
-   "end_%=:"
-
-     : "=r" (ocra)      //Output only "%0"
-     : "r"  (colorVal)  //colorVal is "%1"
-     //,  "d0"  (ocra)     //ocra is also used for andi, and is %2
-   );
-
-#endif //SETTING vs. FRAMEBUFFER
-
-   DT1 = dt;
-   OCR1D = ocrd;
-   OCR1A=ocra;
-}
-#endif //!ROW_SEG_BUFFER
 
 
 

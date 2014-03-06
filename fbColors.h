@@ -17,6 +17,9 @@
 //Takes three values, from 0-3 each...
 #define rgb(r,g,b) (((r)&0x03) | (((g)&0x03)<<2) | (((b)&0x03)<<4))
 
+/*  rgb8: (from  seg_question + rgb()
+((((((r)*3)/255))&0x03) | ((((((g)*3)/255))&0x03)<<2) | ((((((b)*3)/255))&0x03)<<4))
+*/
 
 #define _R  0x03	//0x03						00 00 11
 #define _O  0x07	//0x03 | 0x10				00 01 11

@@ -1,4 +1,17 @@
-//sineTable.h 0.99-3
+//sineTable.h 0.99-7
+//.99-7 replacing non AVR macros with avrOverride
+//.99-6 WTF... Modified sineCreate.c to use SINE_MAX = INT8_MAX, but didn't
+//      save it as a separate file... For now, since it's not used often,
+//      just adding a note to it.
+//      This modification occurred 12-20-13 (now: 1-29-14)
+//      Noticed as a result of diff -r LCDdirectLVDS 62 vs 61
+//.99-5 Looking into .99-4's todo...
+//      SINE_TYPE=8 defaults DISABLE_SINERAW and SINE_RAW8 to true...
+//.99-4 Looking into some optimization, a/o LCDreIDer49
+//      quadrantizeTheta for use in sineRaw and sineRaw8
+//      	massive code-size reduction
+//      TOdone: If only using sineRaw8, there's no need for 16bit sineTable
+//      SINE_DISABLE_SINERAW in case only sineRaw8 is used...
 //.99-3 Looking into note from .99-2 a/o glColor18bit-1
 //.99-2 Adding this note:
 //       TODO: Isn't arrays' definitions incompatible with non AVRs?
@@ -47,17 +60,20 @@
 #include <inttypes.h>
 
 #if defined(__AVR_ARCH__) //__COMPILING_AVR_LIBC__)
-#   include <avr/pgmspace.h>
+	#include <avr/pgmspace.h>
 #else
+//#warning "This isn't ready for distribution... add it to your makefile"
+//#   include "../../avrOverride/0.80/avrOverride.h"
+	#include _AVROVERRIDE_HEADER_
 //#   error "WTF"
-#   define prog_int16_t	const int16_t
-#   define prog_int32_t const int32_t
+//#   define prog_int16_t	const int16_t
+//#   define prog_int32_t const int32_t
 //  called as: (wow, this works?!)
 // pgm_read_sine(sineTable[SINE_SIZE2-theta])
 // where pgm_read_sine(arrayItem) = pgm_read_word(&arrayItem)
-#   define pgm_read_word(pArrayItem)		(*(pArrayItem))
-#   define pgm_read_dword(pArrayItem)	(*(pArrayItem))
-#	define PROGMEM 
+//#   define pgm_read_word(pArrayItem)		(*(pArrayItem))
+//#   define pgm_read_dword(pArrayItem)	(*(pArrayItem))
+//#	define PROGMEM 
 #endif
 
 
@@ -107,6 +123,8 @@ typedef int16_t theta_t;
  #define SINE_MAX INT32_MAX
  typedef int32_t	sine_t;
  typedef int64_t	mult_t;
+#elif (_SINE_TYPE_ == 8)
+//Nothing to do...?
 #else
  #error
 #endif
@@ -124,7 +142,9 @@ typedef int32_t	axis_t;
 //	360deg = (SINE_SIZE-1)*4 (i.e. 512)
 
 #if (!defined(SINE_TABLE_ONLY) || !SINE_TABLE_ONLY)
+#if (!defined(SINE_DISABLE_SINERAW) || !SINE_DISABLE_SINERAW)
 sine_t sineRaw(theta_t theta);
+#endif
 
 #if ( defined(SINE_RAW8) && SINE_RAW8 )
 int8_t sineRaw8(theta_t theta);

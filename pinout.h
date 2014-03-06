@@ -110,6 +110,9 @@
 //                         |____________________|          \  for "Racer"
 //                                                         |  control
 //                                                        GND
+//
+//                    PA7 = ADC6/AIN1... used for the bump-sensor in 
+//                                       FB_QUESTION...
 
 
 // Button is used in "Mario"/"QUESTION" mode. Shorting the pin to ground

@@ -38,6 +38,7 @@
 
 #define delay_Dots(numDots) delay_cyc(DOTS_TO_CYC(numDots))
 
+#define DE_DotDelay(numDots) delay_Dots(numDots)
 
 //THESE NOTES ARE OLD:
 //This has to be changed every time the DE code is changed...

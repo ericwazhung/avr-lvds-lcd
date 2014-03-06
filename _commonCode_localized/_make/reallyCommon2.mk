@@ -2,6 +2,9 @@
 
 # Changing over from reallyCommon to reallyCommon2:
 #  Add to makefile: (Uncomment indented commentted lines)
+# (If using an AVR, definitely look into copying a code-block from there,
+# as well, regarding PRINTF and STDIO and code-size)
+
 #  This goes roughly after COMDIR=...
 ################# SHOULD NOT CHANGE THIS BLOCK... FROM HERE ############## 
 #                                                                        #
@@ -57,6 +60,14 @@
 #          turning and turning and turning yeah... nothing can stop it,
 #           the way it goes around")
 #
+# Haven't been keeping this list up to date...
+# There're probably several changes between each noted version that aren't
+# at all noted...
+
+#2++ - Looking into 'make openDir', an idea to open 
+#          commonCode files/folders
+#      Called As (e.g.) : 'make openDir file=bitHandling'
+#... - Added 'make includes' to list all included-files...
 #2-?+1 - Removing necessity for TWO verifications on make-clean
 #2-? - Haven't been updating... fixed tarball so it's not COMREL specific
 #      Added RSYCNABLE and copyCommon
@@ -500,10 +511,42 @@ RSYNCABLE_COMMON_STUFF := \
 
 
 
+# This is a target-specific variable... 
+# Personally, I think this is confusing, as it looks like a target
 
+###############
+# Added a/o LCDrevisited2012-27, in order to figure out who was calling
+# stdio (and thus, why vfprintf was being compiled-in)
+# Turns out stdio *wasn't* called, but there was an LDFLAG...
+#   (see avrCommon.mk for more details)
+#
+#'make includes':
+#	This is pretty hokily-implemented...
+#  Best idea: 'make clean' first, then 'make includes'
+#  this will create .o files in _BUILD, and its subdirs, that contain
+#  a list of the #includes...
+#
+#  then you can e.g. 'grep -r stdio.h _BUILD/*'
+#  or 'find ./_BUILD/ -name \*.o -exec cat {} \;'
+#
+#  Be sure to run 'make clean' after you're done.
+#
+#  Note that includesMessage never runs because the build fails when trying
+#  to create the final output-file since the object-files are not actually 
+#  compiled code. 
+#  That's just how this is currently implemented
+#
+includes: ALL_CFLAGS += -M
 
+.PHONY: includes
+includes: $(TARGETS) includesMessage
 
-
+.PHONY: includesMessage
+includesMessage:
+	@echo ""
+	@echo "includes-lists have been placed in .o files under _BUILD"
+#
+###############
 
 
 #BACKUP_DIR = "backup_$(MCU)_$(shell date '+%Y-%m-%d_%H.%M.%S')"
@@ -758,6 +801,9 @@ list:
 	@echo "ALL_CFLAGS="
 	@echo $(ALL_CFLAGS)
 	@echo ""
+	@echo "LDFLAGS="
+	@echo $(LDFLAGS)
+	@echo ""
 	@echo "COM_MAKE="
 	@echo $(COM_MAKE)
 	@echo ""
@@ -775,6 +821,21 @@ list:
 #@echo "MAKEFILE_LIST="
 #@echo $(MAKEFILE_LIST)
 #@echo ""
+
+.PHONY: openDir
+openDir: openDirBegin end
+
+
+.PHONY: openDirBegin
+openDir:
+	@if [ "`which openDirFromList.sh`" != "" ] ; \
+	then \
+		openDirFromList.sh $(file) $(RSYNCABLE_COMMON_STUFF) ; \
+	else \
+		echo "Sorry buddy, you need 'openDirFromList.sh' in your path to run this" ; \
+	fi
+
+
 
 
 ifdef LOCAL_COM_DIR

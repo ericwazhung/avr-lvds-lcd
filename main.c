@@ -14,7 +14,9 @@
 #include "mainConfig.h"
 
 
+
 #include "delayCyc.h"
+
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
 	 #include "rowSegBuffer.h"
@@ -32,7 +34,26 @@
 #endif
 
 
+#if ( (defined(BLUE_ADC) && BLUE_ADC) \
+	|| (defined(FB_QUESTION) && FB_QUESTION))
+ #include _ADC_HEADER_
+#endif
 
+
+#define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
+#include "delayCyc.c"
+#include "lcdDefines.h"
+#include "pll.c"
+#include "lvds.c"
+
+
+#if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+ #include "_options/writeColor.c"
+#endif
+
+#if (defined(FB_QUESTION) && FB_QUESTION)
+#include "fb_question.c"
+#endif
 
 // a/o v59:
 //PSEGS are the "pixel segments" addressable in RowSegmentBuffer
@@ -61,11 +82,74 @@
 // TODO: If it was 21cyc/pixel, wouldn't we have perfect alignment with
 //       color-transitions and segment widths?
 //#define NUM_PSEGS	(1024/3+16) //357
-#define NUM_PSEGS (1024/3+16)
 
+#if (LVDS_PRESCALER == 1)
+ #warning "LVDS_PRESCALER == 1 is used extensively a/o v62 to indicate that	we're testing v62... this is hokey, for sure."
+ //Let's see if this math can be figured out...
+ //
+ // Hah, right??? I completely forgot about SQUARE_SEGMENTS in all this
+ // Assuming they're always square, for now.
+ //
+ // H_PIXELS (DE_ACTIVE_DOTS)		1024             pixels
+ 
+ // LVDS_PRESCALER					(1,2,4,8...)     pll_cyc/lvds_bit
+ //    PLLCYC_PER_LVDSBIT        LVDS_PRESCALER
 
-#include "delayCyc.c"
-#include "lcdDefines.h"
+ // LVDS_BITS_PER_PIXEL				7                lvds_bits/pixel
+ // PLL_SYSCLK
+ //    TRUE:  PLLCYC_PER_CPUCYC  4                pll_cyc/cpu_cyc
+ //    FALSE: PLLCYC_PER_CPUCYC  8                pll_cyc/cpu_cyc
+ // DRAWSEG_CPU_CYCS_PER_PSEG		20               cpu_cyc/pseg
+ //
+ // PIXELS_PER_PSEG = 1pseg * CPUCYCS_PER_PSEG   -> cpu_cycs
+ //                         * PLLCYC_PER_CPUCYC  -> pll_cycs
+ //                         / PLLCYC_PER_LVDSBIT -> lvds_bits
+ //                         / LVDSBITS_PER_PIXEL -> pixels
+ //   This is where dimensional-analysis always bites me in the ass...
+ //   my units are now PIXELS_PER_PSEG = pix/pseg = pix
+ //   I THINK (and this is an epiphany after years of recurring troubles
+ //   here) it's possible to, instead, note that 1pseg came from *nowhere*
+ //   so should be 1pseg/1pseg * <all the dimensional-analysis stuff>
+ //   Then:
+ //   (Note, in most cases PIXELS_PER_PSEG will be small, and here
+ //   fractions are highly important...)
+ #define CPUCYC_PER_PSEG	(DRAWSEG_CPU_CYCS_PER_PSEG)
+ #if(defined(PLL_SYSCLK) && PLL_SYSCLK)
+  #define PLLCYC_PER_CPUCYC	4
+ #else
+  #define PLLCYC_PER_CPUCYC	8
+ #endif
+ #define PLLCYC_PER_LVDSBIT	(LVDS_PRESCALER)
+ #define LVDSBITS_PER_PIXEL	7
+
+ #define PIXELS_PER_PSEG_F ( MAKEFLOAT( CPUCYC_PER_PSEG   ) \
+		 							* MAKEFLOAT( PLLCYC_PER_CPUCYC  ) \
+		 							/ MAKEFLOAT( PLLCYC_PER_LVDSBIT ) \
+		 							/ MAKEFLOAT( LVDSBITS_PER_PIXEL ) )
+ // NUM_PSEGS = H_PIXELS / PIXELS_PER_PSEG
+ #define NUM_PSEGS_F (MAKEFLOAT(DE_ACTIVE_DOTS) / PIXELS_PER_PSEG_F)
+ // And here, we're leaving NUM_PSEGS_F as a float so it can be used in 
+ // macro-comparisons, if necessary...
+ // (I don't think MAKELONG or any other such macro could handle this
+ // casting... it may be redundant since most uses would be assignments in
+ // integers, but if math is used, we don't want floating-point math to be
+ // run on it in real-time calculations...)
+ #define NUM_PSEGS ((uint16_t)(NUM_PSEGS_F))
+ // As a hand-job test: Using old values (when 357 was determined)
+ // DE_ACTIVE_DOTS = 1024
+ // CPUCYCS_PER_PSEG = 20
+ // PLLCYC_PER_CPUCYC = 8
+ // PLLCYC_PER_LVDSBIT =8
+ // LVDSBITS_PER_PIXEL =7
+ // 1024 / (20 * 8 / 8 / 7) = 358.4
+ // (The old NUM_PSEGS = 1024/3+16 = 357.333)
+ // (As an aside, if CPUCYCS_PER_PSEG = 21: 1024/(21*8/8/7)=341.333 
+ //    == exactly three pixels per pseg)
+#else
+ #warning "NUM_PSEGS is hardcoded, but should be calculated by many factors, such as LVDS_PRESCALER, and PLL_SYSCLK..."
+ #define NUM_PSEGS (1024/3+16)
+#endif
+
 //Yes, I know #including C files is bad-practice...
 // and yes, this has to be here... for now.
 #if(defined(SEG_RACER) && SEG_RACER)
@@ -141,8 +225,8 @@
 //    various projects already)
 //    BUT the end-result may be that I just happen to have the one display
 //    and ATtiny861 on the planet that will work together. That'd be lame.)
-#define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
-
+//#define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
+//This has been moved to the top...
 
 
 
@@ -176,9 +260,8 @@
 
 
 
-#include "pll.c"
 
-#include "lvds.c"
+//#include "lvds.c"
 
 
 
@@ -193,6 +276,7 @@ void loadRow(uint16_t rowNum) \
 
 
 
+volatile uint8_t frameCount = 0;
 
 //Nearly everything display-related happens in this interrupt
 // It even calls the functions that load (and calculate!) the data for the
@@ -200,13 +284,26 @@ void loadRow(uint16_t rowNum) \
 // So basically, the entire project is running via timer-interrupt.
 SIGNAL(TIMER0_COMPA_vect)
 {
-	static uint8_t frameCount = 0;
+//	static uint8_t frameCount = 0;
 
 	//Could insert a delay of sorts for scopability...
 	// (otherwise there's not much guarantee that register-assignments
 	//  later will align with the LVDS frame... though ALIGN should help)
 	// see scopeHsync.c
 
+	//So here's the deal:
+	// This handles a single row of pixel/timing data (Hblanks included)
+	// updateLCD()             (from lcdStuff.c) 
+	//  --> loadData()         (from lcdStuff.c)
+	//        HSync
+	//        H-Back-Porch
+	//        --> drawPix()    (drawPix() may be here or elsewhere)
+	//        (H-Front-Porch)
+	//
+	// drawPix is only called for drawn-rows (where DE is active, NOT for
+	// Vblank rows)
+	// H-Front-Porch is handled in the time between completion of this
+	// interrupt and the next interrupt...
 
 	if(updateLCD())
 	{
@@ -291,9 +388,37 @@ void loadRow(uint16_t rowNum)
 	//This isn't particularly functional, anymore
 	// it used to be an intermediate stage between rowBuffer and 
 	//  rowSegBuffer... Left here for an example of how it could be done...
-  #if(!defined(SEG_STRETCH))
-	#define SEG_STRETCH 5 //(((NUM_PSEGS-6)+RB_WIDTH-1)/RB_WIDTH)
-  #endif
+	//ACTUALLY, a/o v60ish it has been reinstated...
+	// and, in fact, a/o v62, this may become a great early-test for new
+	// displays, as the necessary resolution is low, which would allow for
+	// higher refresh-rates (which some displays may need)
+	// (There are certainly other ways to make things more suitable for new
+	// displays... these'll be explored in later code-revisions, probably)
+
+  //SEG_STRETCH is the number of PSEGS that each row-buffer pixel is
+  //stretched-across. In this case (SEG_TET) (or any case where *only* the
+  //rowbuffer is used to fill the screen), the value of SEG_STRETCH should
+  //probably be varied dependent on NUM_PSEGS (which should be dependent on
+  //LVDS_PRESCALER and a few other factors) in order to stretch the
+  //row-buffer acreoss the entire screen. But I think most of these things
+  //are so-far hard-coded...
+  // Further, it's entirely possible (in a not-implemented-here case) to
+  // have the row-buffer occupy only a certain portion of the screen and
+  // modify the remaining psegs directly via other means... (I had this
+  // once, when displaying Tetris, Life, and a few others on the same
+  // screen, I think, right?)
+  //Anyhow, a/o a while back, SEG_TET is the only case using SEG_STRETCH 
+//  #if(!defined(SEG_STRETCH))
+// And a/o v62 Trying to bump the frame-rate up so the ChiMei display will
+// work, using LVDS_PRESCALER, this might help... again hardcoded where
+// ideally the thing would calculate itself... Though it's also handy to
+// have it hard-coded as it allows for testing the display's immunity (or
+// lack thereof) for long/short DEs
+#if(LVDS_PRESCALER == 1)
+ #define SEG_STRETCH 1
+#else
+ #define SEG_STRETCH 5 //(((NUM_PSEGS-6)+RB_WIDTH-1)/RB_WIDTH)
+#endif
 	//3-5 = white + cyan
 	//6 = letters alternating with above
 	//7-9 = ditto, stretched
@@ -379,14 +504,14 @@ void loadRow(uint16_t rowNum)
 		if(hfm_nextOutput(&hfmGradient))
 			fbColor = rgbGradient(ROWS_PER-1 - rowNum/(ROWS_PER)+16-1);
 		else
-#endif
+#endif	//TET_GRADIENT
 			fbColor = rgbGradient(ROWS_PER-1 - rowNum/(ROWS_PER)+16);
 
 		addSegfb(RB_WIDTH*SEG_STRETCH, (fbColor));
 		//newSeg(SEG_STRETCH, fb_to_seg((rowNum*64/768)&0x3f));
 
 	}
-#endif
+#endif	//TET_OVERLAY
 	//white...
 	newSeg(3, 0x06, (6<<4) | 3);
 	segTerminate();
@@ -456,24 +581,52 @@ void loadRow(uint16_t rowNum)
 #include "timer0Stuff.c"
 
 
-
+#if (!defined(EXTERNAL_DRAWPIX) || !EXTERNAL_DRAWPIX)
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
-void drawPix(uint8_t rowNum)
+void drawPix(uint16_t rowNum)
 {
 	//Note that rowNum isn't really used here...
 	// and it's only a uint8_t!
 	rsb_drawPix(rowNum);
 }
+
+#elif (defined(BLUE_ADC) && BLUE_ADC)
+//This is pretty much identical to most of the BLUE_TESTING in lcdStuff.c
+// with a slight twist...
+static __inline__ void drawPix(uint16_t rowNum)
+{
+      //uint16_t blueCyc = DOTS_TO_CYC(rowNum);
+      //uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
+		adc_startConversion();
+		while(adc_isBusy())
+			asm("nop;");
+
+      uint16_t blueDots = adc_getValue();
+      uint16_t notBlueDots = DE_ACTIVE_DOTS - blueDots;
+
+      DEonly_fromNada();
+      //delay_cyc(notBlueCyc);
+      //delay_Dots(notBlueDots);
+      DE_DotDelay(notBlueDots);
+      DEblue_fromDEonly();
+      //delay_cyc(blueCyc);
+      //delay_Dots(blueDots);
+      DE_DotDelay(blueDots);
+      Nada_fromDEblue();
+}
+
+
 #else
-#include "nonRSB_drawPix.c"
-void drawPix(uint8_t rowNum)
+//#include "_options/writeColor.c"
+//#include "nonRSB_drawPix.c"
+void drawPix(uint16_t rowNum)
 {
 	//This hasn't been used in quite some time... 
 	// it may not work at all anymore.
-	nonRSB_drawPix();
+	nonRSB_drawPix(rowNum);
 }
 #endif
-
+#endif
 
 
 int main(void)
@@ -483,11 +636,25 @@ int main(void)
 	racer_init();
 #endif
 
+#if ( (defined(BLUE_ADC) && BLUE_ADC) \
+		|| (defined(FB_QUESTION) && FB_QUESTION) )
+	adc_takeInput(6);
+	adc_init();
+	adc_select(6);
+#endif
+
 #if(defined(SEG_TET) && SEG_TET)
 	tetInit(3);
 #endif
 	init_timer0Hsync();
 
+
+
+#if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+#if(!defined(FB_DONT_USE_UPDATE) || !FB_DONT_USE_UPDATE)
+	frameBufferUpdate();
+#endif
+#endif
 	//This starts pretty late... watch out for WDT
 	init_heartBeat();
 
@@ -499,13 +666,77 @@ int main(void)
 	// MUCH Of this is outside the screen...
 
 
+#if(defined(FB_QUESTION) && FB_QUESTION)
+	adc_startConversion();
+#endif
+
 	uint8_t imageNum = 0;
 	uint8_t colorShift = 0;
 	while(1)
 	{
+#if(defined(FB_QUESTION) && FB_QUESTION)
+		static int32_t adcAvg = 0;
+		static uint16_t adcVal;
+		static uint8_t avgCount = 100;
+		if(!adc_isBusy())
+		{
+			adcVal = adc_getValue();
+			
+			adc_startConversion();
+
+
+			if(avgCount > 1)
+				avgCount--;
+			else if(avgCount == 1)
+			{
+				avgCount=0;
+				adcAvg += adcVal;
+			}
+			else if(avgCount == 0)
+			{
+				//After the first case, the average should be somewhere
+				//'round the ADC Val... then after subtracting the current
+				//adcVal, we should be close to zero...
+				adcAvg -= adcVal;
+				{
+					int32_t absDiff = adcAvg;
+					if(absDiff < 0)
+						absDiff = -absDiff;
+
+					// At this point, absDiff is essentially the derivative
+					// of the ADC measurements... (absoluted)
+					// If there's no change, it will be near-zero
+					// If there's a lot of change, it will be positive...
+					// the ADC is ten-bits, so 3.3V/1024 = .003V per LSB
+					// Of course, a spike isn't instantaneous...
+					// .2V is measurable on the 'scope, currently...
+#define ADC_DETECTION_THRESHOLD	15 //20 //38 //(1024*125/3300)
+					if(absDiff > ADC_DETECTION_THRESHOLD)
+						fbQuestion_hitDetected();
+				}
+				adcAvg = 0;
+				avgCount=1;
+			}
+
+		}
+
+		//static uint32_t count = 0;
+		static uint8_t lastFrameCount = 0;
+#define FRAME_COUNT_LIMIT 0x03
+		uint8_t thisFrameCount = frameCount&FRAME_COUNT_LIMIT;
+
+//		if(( (thisFrameCount==0) && (lastFrameCount==FRAME_COUNT_LIMIT) ))
+		if(thisFrameCount != lastFrameCount)
+		{
+			fbQuestion_update();
+		}
+
+		lastFrameCount = thisFrameCount;
+#endif
 		heartUpdate();
 	}
 
 }
 
-#include "rowSegBuffer.c"
+
+//#include "rowSegBuffer.c"

@@ -31,13 +31,15 @@ static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
 //	 MASK_INIT(GETNAMED(QUESTION));
 
 
-#define NUMPALETTES_Q 3
+#define NUMPALETTES_Q 3//5
 
 //gimpPixelValToLColor should probably be taken into account.
 static uint8_t pgm_paletteQ[4*NUMPALETTES_Q] PROGMEM =
    { 37, 2, 7, 0,   
+//	  37, 2, 7, 0,
 	  37, 2, 2, 0,  
 	  37, 2, 1, 0 };
+//  	  37, 2, 2, 0	};
 
 static sprite_t spriteQ =
       { pgm_imageQ, pgm_maskQ, pgm_paletteQ, NUMPALETTES_Q};

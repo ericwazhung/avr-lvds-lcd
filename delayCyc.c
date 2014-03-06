@@ -92,7 +92,8 @@ void delay_cyc(int32_t numCyc)
    // Here's an attempted hack...
    //  it *should* optimize the test out in either case, so it's like a 
    //  preprocessing directive...
-   uint16_t numLoops = (((uint16_t)(numCyc)+7)>>3);
+	uint8_t loopRemainder = numCyc & 0x07;
+	uint16_t numLoops = (((uint16_t)(numCyc)+7)>>3);
 
 
    // HACK ATTEMPT 2: THATS A LOT OF CODE.
@@ -181,5 +182,36 @@ void delay_cyc(int32_t numCyc)
       asm("nop");
       asm("nop");
    }
+
+	//This addition a/o v62-20
+	// When delay_cyc is called with a constant-value, it should optimize
+	// out to merely the number of nops... but if it's non-constant, then
+	// this will slow things a bit... UNTESTED.
+	// (Actually, briefly tested with BLUE_DIAG_BAR_SCROLL and seems to
+	// work, but not highly precise, as expected)
+
+	//Realistically, this should probably be done in assembly, the whole
+	//thing...
+	// but doing-so might make optimization more difficult...?
+	switch(loopRemainder)
+	{
+		case 7:
+			asm("nop");
+		case 6:
+			asm("nop");
+		case 5:
+			asm("nop");
+		case 4:
+			asm("nop");
+		case 3:
+			asm("nop");
+		case 2:
+			asm("nop");
+		case 1:
+			asm("nop");
+		default:
+			break;
+	}
+
 }
 #endif

@@ -26,18 +26,278 @@
 
 
 
+//a/o v62, in which I attempt to get the ChiMei screen working
+
+//START HERE. 
+//Set this true, then see the explanations below.
+//#define BLUE_TESTING	TRUE
+#define FRAMEBUFFER_TESTING	TRUE
+
+
+
+
+
+
+#if (defined(BLUE_TESTING) && BLUE_TESTING)
+
+//These strip it down to basically the bare-minimum for the highest
+//refresh-rate and bit-rate possible with this system... 
+//Just ignore these for now.
+#define EXTERNAL_DRAWPIX	TRUE
+#define ROW_SEG_BUFFER FALSE
+#define LVDS_PRESCALER 1
+#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
+#define ROW_CALCULATION_CYCS 0
+
+//START HERE (continued):
+//When starting with a new (untested) display, you're best-off starting
+//with one of these "BLUE" options
+// Benefits are many. As I recall, they assure proper timing
+// (Porch-widths, etc. as-configured) since no calculations are done 
+// off-display.
+//
+// Additionally, since there's so little calculation being done, period,
+// these tests give kind-of a go-nogo as to whether a display can sync with
+// the maximum bit-rate and/or refresh-rate this system can provide (being
+// that this system's maximum is probably far-below the display's specs).
+//
+// These may be better-described in lcdStuff.c
+//
+// When starting with a new display, probably best to try each of these in
+// order... uncomment DE_BLUE, flash-it, try it... if it works, then
+// comment it back out, and uncomment BLUE_VERT_BAR, and so-on.
+//
+//(In these tests, in LCDdirectLVDS, "blue" is actually more of a
+// cyan/blue-green. I can't recall the exact details (they're documented
+// somewhere) but I think I decided at one point to display green as an
+// indicator after an entire row's pixels is completely drawn, in case I
+// happened to be writing fewer pixels than the display expects, I'd
+// know by seeing green... I think that code is carrying-over into these
+// "older" tests. Or else I have a bug somewhere. Oh, and where it shows
+// green, code-wise it would be "black.")
+//
+// Note that the timing-values are *not* exact, there's a bit more
+// explanation in BLUE_BORDER, below... So, if you have trouble, maybe try
+// fudging some timing-values...
+//
+// DE_BLUE displays solid blue on the screen
+// This gives a pretty good idea whether the display is even capable of
+// syncing. If you see *any* solid blue, (offset, or otherwise) then it's
+// quite likely this display can be synced with a little experimentation.
+// If it's solid ble and nothing else, then you lucked out!
+//#define DE_BLUE TRUE
+
+// BLUE_VERT_BAR, BLUE_VERT_BAR_REVERSED, and BLUE_BORDER display "black" (or green) and "blue" in vertical columns... 
+// Again, a good test for the display's ability to sync
+// If you want to lose hope, read this: It's quite plausible that the
+// display may just be repeating one row's data, rather than actually
+// paying attention to each (identical) row's data... So cross your fingers
+// when you move on to BLUE_DIAG_BAR
+// These two display one column in blue and another in "black"
+//#define BLUE_VERT_BAR TRUE
+//#define BLUE_VERT_BAR_REVERSED TRUE
+// 
+// BLUE_BORDER takes a value and draws (roughly) a vertical border on each
+// side that number of pixels-wide. 
+// Note, at small blue-borders it may be visible that the right edge is cut
+// short due to integer-rounding, delay-loops, etc...
+// (Note that this also means that DE may actually be active for longer
+// than 1024 pixel-clocks! These tests are pretty simple, using simple
+// delay-counter-loops which aren't *extremely* precise. In most cases
+// they'll *increase* the DE-width, so if your display is having trouble
+// syncing with values you're pretty sure should work, try decreasing the
+// values in this project... e.g. DE_ACTIVE_DOTS on a 1024x768 display
+// *should be* 1024, but with these delays you might have better luck with
+// 1000... I've yet to run into such a display, but they might exist. Also,
+// if it's *way* longer than the display's expecting, I've noticed that
+// some displays continue onto the next line, or even repeat the previous
+// line... weird.).
+//
+// Also, an odd experience: reflashing from 10 to 341 led to no syncing at
+// all, until powered-down and powered-up. Dunno, maybe the MISO/MOSI pins
+// were sending stray data to the display which confused it.
+//#define BLUE_BORDER 341//10//20
+
+
+
+// BLUE_DIAG_BAR displays two triangles, essentially, of blue, and black.
+// This is where things get iffy... I've seen some amazingly weird
+// patterns with this one; one time I swear ancient egyptians were trying
+// to communicate through time by transmitting their heiroglyphs to my
+// display. Really, it's just supposed to be the screen divided diagonally
+// from upper-right to lower-left (roughly) the top half "black" and the 
+// bottom-half "blue".
+//Now for the moment of truth for my ChiMei display:
+// Worked on the First Go!
+// And no visible refresh?! Wow!
+//#define BLUE_DIAG_BAR TRUE
+
+//A new test (for this refreshless display)
+// BLUE_DIAG_BAR_SCROLL just takes the above idea, and scrolls it
+// vertically, one row at a time.
+// 
+// Amazing... no visible refresh *at all*, also lines seem highly precise,
+// resolution-wise... almost shockingly-so... TODO revisit this math!
+// The entire diagonal pattern cycles at 1:04, it's 1024 pixels tall
+// that's a refresh-rate of... 64seconds for 1024 refreshes, or dang-near
+// exactly 16Hz refresh.
+// Really, this all seems too good to be true. 
+#define BLUE_DIAG_BAR_SCROLL TRUE
+
+
+//Another new test
+// BLUE_DIAG_SCROLL_FLASH takes the above idea and alternates the colors in
+// each frame... Another good visual test for refresh-rate and method.
+// Also, this'll probably cause seizures, so be warned.
+// On this "refreshless" display, it causes some pretty interesting
+// illusions... while the image itself is scrolling up, peripheral-vision
+// seems to think it's it's scrolling down. Totally unintentional, just an
+// interesting observation.
+//#define BLUE_DIAG_SCROLL_FLASH TRUE
+//This just disables flashing, and alternates rows, instead...
+// probably mostly-useless. It should be enabled *with*
+// BLUE_DIAG_SCROLL_FLASH
+//#define BDSF_ALTERNATE_ROWS TRUE
+
+
+//Yet Another New Test
+// BLUE_ADC reads the ADC value before drawing each row...
+// The value read determines the horizontal position of the color-change
+// thus, it's a very simple Oscilloscope!
+//This is pretty much identical to most of the BLUE_TESTING in lcdStuff.c
+// but, it throws some stuff before DEonly, which means that the
+// horizontal-back-porch is extended during this calculation/measurement
+// time... The amount may vary, so if the display requires a stable HFP,
+// then this may cause syncing problems. Further, the delayDots function is
+// really best-optimized to non-varying values, so it may cause DE to be
+// extended longer than in previous tests. (Wait, DIAG_BAR is varying...)
+// TODO: Consider creating a specific test for a display's immunity to 
+//   varying porch-times...? (This is kinda hokey to implement, because
+//   some displays seem more/less immune depending on the particular
+//   refresh-rate, etc.)
+// Interestingly, the ChiMei display seems to sync almost perfectly despite
+// this varying HFP, etc. but has an *audible* squeel (power-switching
+// circuitry?). The LTD display does not appear to respond to this at all.
+// it shows an unchanging solid vertical bar
+// TODO: Look into this!
+
+
+//This is specific to LCDdirectLVDS... only because I've already
+//implemented the adc here. It could be handy as a test in lcdStuff, in
+//general.
+//
+// Also, Have thought about using the analog-comparator, instead... the
+// benefit being that its interrupt could be used to trigger color-change,
+// which would leave the processor *free* during the DE-Active time
+//Again, its functionality is somewhat limited, one display doesn't like
+//it at all, and the other quite literally squeels.
+//#define BLUE_ADC	TRUE
+
+#if(defined(BLUE_ADC) && BLUE_ADC)
+ #undef EXTERNAL_DRAWPIX
+#endif
+
+
+// If you've gotten it going with all the above tests, then you're well on
+// your way to doing some pretty groovy things. 
+// Check out lcdStuff.c and create your own "drawPix" functions based on
+// those in lcdStuff, or try commenting-out BLUE_TESTING, at the top of
+// this file and continue below.
+
+
+
+#elif (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+
+//#include "_options/writeColor.c" //frameBuffer.c"
+
+//a/o v62:
+//Not sure why this isn't working in this case...
+//Some rows "wobble" with this TRUE... it looks better if this is FALSE...
+// (Still jitters, but less noticeable)
+// Is this a ChiMei thing, or bad math somewhere...?
+#define ALIGN_TIMER_WITH_PIXCLK FALSE
+
+//My delay-loop should be more precise *when its argument is constant*
+// Here it's used for stretching the framebuffer pixels horizontally
+#define DELAY_CYC_DELAY_LOOP FALSE
+
+#define LVDS_PRESCALER 1
+#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
+#define ROW_CALCULATION_CYCS 0
+#define ROW_BUFFER FALSE
+#define ROW_SEG_BUFFER FALSE
+
+
+//Loads a stationary smiley-face image into the frame-buffer and display it
+//#define FB_SMILEY	TRUE
+
+//Loads the frameBuffer equivalent of SEG_QUESTION (see description, below)
+#define FB_QUESTION	TRUE
+
+
+#if(defined(FB_QUESTION) && FB_QUESTION)
+ #define FB_DONT_USE_UPDATE TRUE
+#undef ALIGN_TIMER_WITH_PIXCLK
+#define ALIGN_TIMER_WITH_PIXCLK TRUE
+#endif
+
+
+#else	//NOT BLUE_TESTING or FRAMEBUFFER_TESTING
+
+//Re the next two settings: (a/o v62)
+//This is a quick-attempt at getting the ChiMei display working with
+//SEG_Watevers, below...
+//The ChiMei display seems to need higher bit-rates than the other display,
+//so remove the prescaler...
+#define LVDS_PRESCALER 1
+//Some math relies on a higher LVDS_PRESCALER value... There's an #error
+//regarding this, but it can be ignored in some cases... 
+// so let's ignore it.
+#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
+#define ROW_CALCULATION_CYCS 0
+
+//From here-on I've done a ton of development with a particular display 
+// which seemed particularly-forgiving of things like DE-Active for way 
+// longer (or shorter) than expected... Further, it was more than happy 
+// refreshing all the way down to 1/5th of a Hz. Yes, that's 5 seconds 
+// to refresh the entire display. This is nice for high-resolution, but 
+// also it's quite probable that most displays can't handle these sorts of
+// refreshes. (This is part of why I've put off the ChiMei display for so 
+// long, though have been pleasantly surprised with it since I 
+// reimplemented the BLUE_TESTs to get it going.
+
+// Realistically, there's a significant bit that's been removed inbetween
+// the BLUE_TESTING and the SEG_whatevers below...
+// (With regards to the original tests with the LTN display)
+// These tests have been removed, but I might need to rethink them for this
+// ChiMei display, which worked fine with all the BLUE_TESTs but not yet
+// with the SEG_Whatevers, below...
+// * A *tiny* frame-buffer (16pixels x 16pixels stretched across the LCD)
+//   (Nice for early testing, because it doesn't require much processing
+//    and therefore doesn't interfere with timing)
+// * A *similarly tiny* row-buffer (Calculations and/or loading from 
+//    program-space are done during the Horizontal Front Porch, but if they
+//    take longer than the HFP, some displays might not be happy)
+//
+// And then, here, these "SEG_whatevers" basically do *all* the
+// calculations (and a lot of them) during the HFP, almost always causing
+// the HFP to actually be *longer* than the actual time it takes to display
+// a single row (the DE-Active time).
+
+
 //CONFIGURATION:
 
 //Only one of the following SEG_whatevers should be TRUE
 // (Assuming we're using the Row-Segment-Buffer, as explained above).
+//  HAH !!! I SEEM TO HAVE LOST THAT EXPLANATION A/O v62!!! TODO TODO TODO
 // IF NONE ARE TRUE:
 //  The default is to convert whatever's in the row-buffer into 
 //  the row-segment-buffer...
 //  This is where my old-code starts getting iffy, as the row-buffer hasn't
-//  been used for quite some time.
+//  been used (exclusively) for quite some time.
 // a/o v61: I think it's the case that an error will be generated if none
 //  of the SEG_whatevers are true. Further, as noted above, now the 
-//  row-buffer translation intow the RowSegBuffer has been tested...
+//  row-buffer translation into the RowSegBuffer has been tested...
 //  See "SEG_TET" (and loadRow()) for examples.
 // Best to stick with assigning one of these SEG_xxx things true.
 // NUM_SEGMENTS and ROW_CALCULATION_CYCS:
@@ -52,7 +312,7 @@
 //Draws a diagonal white line on a red background...
 // I think it's supposed to repeat three times and not fill the entire
 // screen... though it's been a long time since I've used this.
-//#define SEG_LINE TRUE
+#define SEG_LINE TRUE
 
 #if(defined(SEG_LINE) && SEG_LINE)
 
@@ -120,8 +380,17 @@
 // Demonstrates usage of program-memory-based images... (16x16 pixels WOO!)
 //#define SEG_QUESTION   TRUE
 
+//a/o v62:
+// ROW_CALCULATION_CYCS is highly finicky with the screen's syncing at
+// LVDS_PRESCALER==1
 #if(defined(SEG_QUESTION) && SEG_QUESTION)
-#define ROW_CALCULATION_CYCS 40000UL
+ #if(LVDS_PRESCALER == 1)
+  #define NUM_SEGMENTS 128
+  #define ROW_CALCULATION_CYCS 8000UL
+ #else
+  //This is from memory, should be compared with an older version
+  #define ROW_CALCULATION_CYCS 40000UL
+ #endif
 #endif
 
 
@@ -138,7 +407,7 @@
 #endif
 
 
-#define SEG_TET	TRUE
+//#define SEG_TET	TRUE
 // Look into SEG_TET case in loadRow for some configurables
 // (transparency overlay, etc).
 
@@ -174,7 +443,7 @@
 #endif
 
 
-
+#endif //BLUE_TESTING and SEG_whatevers...
 
 
 
@@ -204,6 +473,7 @@
 //   increased dramatically, just by changing this value from 8 to 2
 // a/o v61: PLL_SYSCLK is true by default (and thus LVDS_PRESCALER=4)
 //
+#ifndef LVDS_PRESCALER
 #if (defined(PLL_SYSCLK) && PLL_SYSCLK)
 //a/o v60: This isn't required... using 8 allows for double-resolution
 //         BUT, I've two seemingly identical displays with different 
@@ -217,12 +487,17 @@
 #else
 #define LVDS_PRESCALER 8
 #endif
-
+#endif
 
 // a/o v59
 //This should probably always be TRUE now... It's been a LONG time since I
 // experimented with it otherwise.
+#ifndef ROW_SEG_BUFFER
 #define ROW_SEG_BUFFER   TRUE
+
+// a/o v62: This shouldn't need to be TRUE for blue-testing, etc... right?
+#error "WTF?"
+#endif
 
 /*
 //now, SEG_STRETCH >= 3 causes weirdness... (repeated rows)
@@ -240,7 +515,10 @@
  //a/o v60-5ish, this is no longer the case:
  //#warning "ROW_SEG_BUFFER requires ROW_BUFFER, but this is a hack"
  #if (!defined(LVDS_PRESCALER) || (LVDS_PRESCALER < 2))
-  #error "ROW_SEG_BUFFER uses 20cyc/pixel, which isn't compatible with ROW_BUFFER -> width=64, since ROW_BUFFER used 16cyc/pixel. Bump your LVDS_PRESCALER up, or comment this error out to see what happens"
+  #if (!defined(LVDS_PRESCALER_ERROR_OVERRIDE) || \
+		  !LVDS_PRESCALER_ERROR_OVERRIDE)
+   #error "ROW_SEG_BUFFER uses 20cyc/pixel, which isn't compatible with ROW_BUFFER -> width=64, since ROW_BUFFER used 16cyc/pixel. Bump your LVDS_PRESCALER up, or comment this error out to see what happens"
+  #endif
  #endif
  //ROW_SEG_BUFFER uses LOADROW... kinda the whole point.
  #define LOADROW	TRUE
@@ -270,8 +548,9 @@
 //  with the sharp edges caused by running out of segments)
 // This effect is unrelated, and likely due to experiments with zeroing
 //  ROW_CALCULATION_CYCS (?) YEP.
+#ifndef ALIGN_TIMER_WITH_PIXCLK
 #define ALIGN_TIMER_WITH_PIXCLK TRUE
-
+#endif
 
 
 

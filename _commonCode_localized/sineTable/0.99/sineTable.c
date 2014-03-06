@@ -2,7 +2,45 @@
 //#include <avr/pgmspace.h>
 #include "sineTable.h"
 
-#if (_SINE_TYPE_ == 16)
+#if (_SINE_TYPE_ == 8)
+int8_t sineTable[129] PROGMEM = {
+	0, \
+	2, 3, 5, 6, 8, \
+	9, 11, 12, 14, 16, \
+	17, 19, 20, 22, 23, \
+	25, 26, 28, 29, 31, \
+	32, 34, 35, 37, 38, \
+	40, 41, 43, 44, 46, \
+	47, 49, 50, 51, 53, \
+	54, 56, 57, 58, 60, \
+	61, 63, 64, 65, 67, \
+	68, 69, 71, 72, 73, \
+	74, 76, 77, 78, 79, \
+	81, 82, 83, 84, 85, \
+	86, 88, 89, 90, 91, \
+	92, 93, 94, 95, 96, \
+	97, 98, 99, 100, 101, \
+	102, 103, 104, 105, 106, \
+	106, 107, 108, 109, 110, \
+	111, 111, 112, 113, 113, \
+	114, 115, 115, 116, 117, \
+	117, 118, 118, 119, 120, \
+	120, 121, 121, 122, 122, \
+	122, 123, 123, 124, 124, \
+	124, 125, 125, 125, 125, \
+	126, 126, 126, 126, 126, \
+	127, 127, 127, 127, 127, \
+	127, 127, 127
+};
+
+#define pgm_read_sine8(variable) \
+     ((int8_t)pgm_read_byte((int8_t *)(&(variable))))
+
+
+#define SINE_DISABLE_SINERAW	TRUE
+#define SINE_RAW8	TRUE
+
+#elif (_SINE_TYPE_ == 16)
 
 // WHOOPS! ... actually the nearly exactly 256byte data section increase
 //   was due to double in sineScaled... (?)
@@ -109,6 +147,51 @@
 #endif
 
 #if (!defined(SINE_TABLE_ONLY) || !SINE_TABLE_ONLY)
+
+//Takes theta of any value in theta_t's range, and returns a theta
+// that fits in the first quadrant (for reading from the table)
+// negative values returned here are to be absoluted, first
+// but they indicate that the resulting sine value is to be negated
+theta_t quadrantizeTheta(theta_t theta)
+{
+
+	theta %= SINE_2PI;
+
+	if(theta < 0)
+		theta = SINE_2PI + theta;
+
+//For more accurate realtimeishness, it might be worthwhile to reverse this order...
+	
+	//in the first quadrant, just take the sine value from the table
+	if(theta < SINE_SIZE-1) //128)
+	{
+		//theta=theta;
+	}	
+	//in the second quadrant, mirror theta and subtract the offset
+	else if(theta < SINE_SIZE2) //256)
+	{
+		theta=SINE_SIZE2-theta;
+		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
+	}
+	//in the third quadrant, mirror the value and subtract the offset
+	else if(theta < SINE_SIZE3) //384)
+	{
+		theta=-(theta-SINE_SIZE2);
+		//negative=TRUE;
+		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
+	}
+	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
+	else
+	{
+		theta=-(SINE_SIZE4-theta);
+		//negative=TRUE;
+		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
+	}
+
+	return theta;
+}
+
+#if(!defined(SINE_DISABLE_SINERAW) || !SINE_DISABLE_SINERAW)
 //Stores the scaled sine-values... so calculations can be executed initially
 //  and retrieval can be quite quick...
 //  These values are scaled to match the axes AND amplitude
@@ -123,6 +206,10 @@
 //output is a value between -INT32_MAX and INT32_MAX (representing sin values -1 to 1)
 sine_t sineRaw(theta_t theta)
 {
+	uint8_t negative=FALSE;
+
+	theta = quadrantizeTheta(theta);
+/*
 //	theta %= 512;
 	theta %= SINE_2PI;
 
@@ -133,22 +220,53 @@ sine_t sineRaw(theta_t theta)
 	
 	//in the first quadrant, just take the sine value from the table
 	if(theta < SINE_SIZE-1) //128)
-		return pgm_read_sine(sineTable[theta]);
+	{
+		//theta = theta;
+		//return pgm_read_sine(sineTable[theta]);
+	}	
 	//in the second quadrant, mirror theta and subtract the offset
 	else if(theta < SINE_SIZE2) //256)
-		return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
+	{
+		theta=SINE_SIZE2-theta;
+		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
+	}
 	//in the third quadrant, mirror the value and subtract the offset
 	else if(theta < SINE_SIZE3) //384)
-		return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
+	{
+		theta=theta-SINE_SIZE2;
+		negative=TRUE;
+		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
+	}
 	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
 	else
-		return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
-}
+	{
+		theta=SINE_SIZE4-theta;
+		negative=TRUE;
+		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
+	}
 
+	//This reduced code-size from 3860 to 3838
+*/
+	//adding quadrantizeTheta increased it to 3844
+	// but should be dramatic in combination with sineRaw8
+	if(theta < 0)
+	{
+		theta = -theta;
+		negative=TRUE;
+	}
+
+	sine_t sine=pgm_read_sine(sineTable[theta]);
+	
+	if(negative)
+		sine = -sine;
+	return sine;
+}
+#endif
 
 #if ( defined(SINE_RAW8) && SINE_RAW8 )
 int8_t sineRaw8(theta_t theta)
 {
+	/*
 	theta %= SINE_2PI;
 
 	if(theta < 0)
@@ -162,7 +280,23 @@ int8_t sineRaw8(theta_t theta)
 		return -(int8_t)pgm_read_sine8(sineTable[theta-SINE_SIZE2]); //256]);
 	else
 	   return -(int8_t)pgm_read_sine8(sineTable[SINE_SIZE4-theta]); 
+	*/
 
+	//And doing this here, reduced from 3844 to 3770
+	uint8_t negative = FALSE;
+	theta=quadrantizeTheta(theta);
+
+	if(theta < 0)
+	{
+		theta = -theta;
+		negative = TRUE;
+	}
+
+	int8_t sine=pgm_read_sine8(sineTable[theta]);
+
+	if(negative)
+		sine = -sine;
+	return sine;
 }
 #endif
 

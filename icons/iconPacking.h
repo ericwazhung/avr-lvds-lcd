@@ -40,15 +40,64 @@ typedef struct _BLAH_SHROOM_
 */
 
 
+sprite_t *skyOverrideSprite = NULL;
+//uint8_t skyOverridePalette;
+
+void setSpriteSkyColorOverride(sprite_t *sprite) //, uint8_t palette)
+{
+	skyOverrideSprite = sprite;
+//	skyOverridePalette = palette;
+}
+
+
+uint8_t getRawPixelVal(sprite_t *sprite, uint8_t row, uint8_t col)
+{
+
+	return
+		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ \
+					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
+		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
+}
+
+
+uint8_t rawPixValToGimpColorVal(uint8_t rawPixelVal, sprite_t *sprite, 
+																			uint8_t palette)
+{
+	return 
+	pgm_read_byte(
+			(uint8_t *)(&(sprite->p_palette[ (palette)*4 + rawPixelVal ])));
+}
+
+
+//This doesn't exactly work as expected... see drawSpriteRow for a better
+//implementation
 uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row, 
 																			 	uint8_t col)
 {
-	return 
-	pgm_read_byte((uint8_t *)(&(sprite->p_palette[ (palette)*4 + \
-		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ \
-					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
-		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03) ])));
+	//No shit, this entire function was a single "line" of code, at one
+	//point... (broken up a/o v63)
+
+	//This is the value as-seen in the icon's .h file... (0-3)
+	uint8_t rawPixelVal = getRawPixelVal(sprite, row, col);
+//		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ \
+//					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
+//		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
+
+
+	//The sky is always 0, as of recently (v63)
+	// That's not to say the same color isn't used for other purposes
+	// this isn't that smart...
+	if((rawPixelVal == 0) && (skyOverrideSprite != NULL))
+	{
+		sprite = skyOverrideSprite;
+		//palette = skyOverridePalette;
+	}
+
+	return rawPixValToGimpColorVal(rawPixelVal, sprite, palette); 
+//	pgm_read_byte(
+//			(uint8_t *)(&(sprite->p_palette[ (palette)*4 + rawPixelVal ])));
 }
+
 
 
 //Number of pixels that can be packed into a single byte

@@ -14,6 +14,16 @@ ifdef OSCCAL_SET
 endif
 
 
+
+# To use this, set 'PROJINFO_OVERRIDE := ""' in your makefile
+# It can be a string, or empty as shown...
+ifdef PROJINFO_OVERRIDE
+ CFLAGS += -D'_PROJINFO_OVERRIDE_=TRUE'
+endif
+
+
+
+
 # MCU-specific make stuff...
 include $(COMDIR)/_make/$(MCU).mk
 # And, since it's not yet in the mcu files:
@@ -64,8 +74,14 @@ OPT = s
 endif
 
 
+# Without ifdef, F_CPU will be defined, but empty, if F_CPU is not defined
+# in which case, code that relies on it will report weird errors as opposed
+# to a message regarding an undefined F_CPU...
+# Not sure this is the best way to handle this...
+# But it may be less confusing...
+ifdef FCPU
 CFLAGS += -D'F_CPU=$(FCPU)'
-
+endif
 
 # WOULDN'T IT MAKE (MORE) SENSE TO PUT THIS IN ASFLAGS?
 # (but then it wouldn't be in CFLAGS, is that necessary?)
@@ -95,11 +111,70 @@ LDFLAGS += -Wl,-Map=$(TARGET).map,--cref
 #  which also included this file...)
 # This could be ifdef'd...?
 #
+
+# From the avr-libc user-manual:
+#three different flavours of vfprintf() can be selected using linker
+#options. The default vfprintf() implements all the mentioned functionality
+#except floating point conversions. A minimized version of vfprintf() is
+#available that only implements the very basic integer and string 
+#conversion facilities, but only the # additional option can be specified 
+#using conversion flags (these flags are parsed correctly from the format
+#specification, but then simply ignored). This version can be
+#requested using the following compiler options:
+#So, if neither AVR_MIN_PRINTF is defined, nor AVR_FLOAT_PRINTF
+# Then we get the default...
+# WHICH CAN MAKE CODESIZE SMALLER
+# e.g. if you're not using stdio.h at all
+# (a/o LCDrevisited2012-27)
 # Minimalistic printf version
+
+# So far, these options are only to be set in the project's makefile
+# And setting AVR_NO_STDIO is risky if stdio.h is actually included
+# Since it compiles the default version, which is larger than min...
+# Which also doesn't have floating-point support.
+ifneq ($(AVR_NO_STDIO), TRUE)
+ifeq ($(AVR_MIN_PRINTF), TRUE)
 LDFLAGS += -Wl,-u,vfprintf -lprintf_min
-#
+else
+ifeq ($(AVR_FLOAT_PRINTF), TRUE)
 # Floating point printf version (requires -lm below)
-#LDFLAGS +=  -Wl,-u,vfprintf -lprintf_flt
+LDFLAGS +=  -Wl,-u,vfprintf -lprintf_flt
+endif
+endif
+endif
+
+# So put this in your makefile:
+# and choose one...
+
+# Only one is paid-attention-to, in decreasing priority...
+#AVR_NO_STDIO = TRUE
+#AVR_MIN_PRINTF = TRUE
+#AVR_FLOAT_PRINTF = TRUE
+# NOTE that if AVR_NO_STDIO is true AND you make no reference to stdio.h
+# anywhere in your code, or its dependencies...
+# Then code-size should be smaller than choosing MIN_PRINTF, because
+# vfprintf will not be linked in at all
+# HOWEVER: If AVR_NO_STDIO is TRUE  AND stdio.h is referenced (maybe by
+# mistake?) then code-size will be *larger* than having chosen MIN_PRINTF
+# It's confusing and hokey.
+# See also _commonCode/_make/avrCommon.mk
+# Example a/o LCDrevisited2012-27:
+# stdio.h is not referenced anywhere
+# with AVR_MIN_PRINTF=TRUE, codesize is 8020 Bytes
+# with AVR_NO_STDIO=TRUE, codesize is 7048 Bytes
+# That's nearly 1/8th of the codeSpace, or 1KB, taken up by functions 
+# that're never used! (e.g. vfprintf was linking-in)
+# (Previously, LDFLAGS was set as in AVR_MIN_PRINTF as a default, in
+# avrCommon.mk)
+# with AVR_FLOAT_PRINTF=TRUE, codesize overflows by 1664 Bytes.
+# so that's... 9856 Bytes
+
+
+
+
+
+
+
 #
 # -lm = math library
 #LDFLAGS += -lm
@@ -190,12 +265,13 @@ flash:
 			 if [ "$$s5" != "0" ] ; \
 	  			then $(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
 	 		 fi
-	@echo "****************************************************************"
-	@echo "* EEPROM WRITING HASN'T BEEN TESTED SINCE EMPTY-TESTING        *"
-	@echo "* (I don't have such a project at-hand... this warning just to *"
-	@echo "*  remind me to check next time I have one.)                   *"
-	@echo "****************************************************************"
-	@echo ""
+# Works!
+#	@echo "****************************************************************"
+#	@echo "* EEPROM WRITING HASN'T BEEN TESTED SINCE EMPTY-TESTING        *"
+#	@echo "* (I don't have such a project at-hand... this warning just to *"
+#	@echo "*  remind me to check next time I have one.)                   *"
+#	@echo "****************************************************************"
+#	@echo ""
 
 # Could this be IFed for different MCUs?
 .PHONY: fuse
@@ -217,16 +293,19 @@ projInfo:
 	@echo "#define __PROJINFO_H__" >> projInfo.h
 	@echo "#include <inttypes.h>"  >> projInfo.h
 	@echo >> projInfo.h
-	@echo "#if (!defined(PROJINFO_SHORT) || !PROJINFO_SHORT)" >> projInfo.h
+	@echo "#if (defined(_PROJINFO_OVERRIDE_) && _PROJINFO_OVERRIDE_)" >> projInfo.h
+	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
+	@echo "   header[] = \"$(PROJINFO_OVERRIDE)\";" >> projInfo.h 
+	@echo "#elif (defined(PROJINFO_SHORT) && PROJINFO_SHORT)" >> projInfo.h
+	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
+	@echo "   header[] = \"$(ORIGINALTARGET)$(VER_NUM) $(shell date "+%Y-%m-%d %H:%M:%S")\";" >> projInfo.h
+	@echo "#else //projInfo Not Shortened nor overridden" >> projInfo.h
 	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
 	@echo "   header0[] = \" $(PWD) \";" >> projInfo.h
 	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
 	@echo "   header1[] = \" $(shell date) \";" >> projInfo.h
 	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
 	@echo "   headerOpt[] = \" $(PROJ_OPT_HDR) \";" >> projInfo.h
-	@echo "#else //projInfo Shortened" >> projInfo.h
-	@echo " uint8_t __attribute__ ((progmem)) \\" >> projInfo.h
-	@echo "   header[] = \"$(ORIGINALTARGET)$(VER_NUM) $(shell date "+%Y-%m-%d %H:%M:%S")\";" >> projInfo.h
 	@echo "#endif" >> projInfo.h
 	@echo >> projInfo.h
 	@echo "//For internal use..." >> projInfo.h
