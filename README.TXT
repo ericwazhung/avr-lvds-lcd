@@ -38,8 +38,8 @@ been helpful. Some of the code here has been developed over more than a
 decade, and this project itself is several years in the making.
 
 Please be respectful... if you find anything here useful, awesome!
-If you use it verbatim, please give credit where it's due, and it'd be
-awesome if you'd let me know (I'll link yah).
+If you use it verbatim, please give credit where it's due.
+Either way, it'd be awesome if you'd let me know (I'll link yah).
 If you find yourself profitting from it, please send me a beer (or cash is
 always handy).
 
