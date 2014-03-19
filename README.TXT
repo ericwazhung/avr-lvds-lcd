@@ -1,18 +1,58 @@
+The original code-site for this code is located at:
+https://code.google.com/p/avr-lvds-lcd/
+
+If that ever changes, I will be sure to note it here, and link from the
+google-code page.
+
+As it stands, this project is in no way associated with or hosted at GitHub
+
+As I'm relatively unfamiliar with versioning utilities like Git, and am new
+to contributing to the OpenSource scene, I'm trying to keep an open mind 
+about the fact that someone seems to be hosting my code on GitHub.com.
+(And that that site is the first result in a Google Search!). 
+
+I'm glad for the exposure, and grateful to know that even if I lose access
+to my account or die or something, my hard work will still be available to
+others! But, I thought part of the point of these OpenSource/Versioning 
+systems is that of trying to keep an original master-branch somewhere 
+locatable, along with keeping contributors in contact... To that end:
+
+Again, the original code-site for this code is located at:
+
+https://code.google.com/p/avr-lvds-lcd/
+
+And the non-code site is at:
+
+https://sites.google.com/site/geekattempts/home-1/drive-an-old-laptop-display-from-an-avr
+
+And, I'd absolutely be grateful to anyone attempting projects based on my
+code to get in touch with me, just so I know it wasn't a complete waste of
+time. Email below.
+
+--------------
+As-of 3-19-14, there are no contributors to this project besides myself.
+
 Dang-near every line of code here and in the subdirectories is my work
 including makefiles, etc. I have made-reference where others' work has 
-been helpful.
+been helpful. Some of the code here has been developed over more than a
+decade, and this project itself is several years in the making.
 
 Please be respectful... if you find anything here useful, awesome!
-If you use it verbatim, please give credit where it's due. 
+If you use it verbatim, please give credit where it's due, and it'd be
+awesome if you'd let me know (I'll link yah).
 If you find yourself profitting from it, please send me a beer (or cash is
 always handy).
 
-The only BIG restriction is to organizations: If you *intend* to profit off
-my work, you must contact me first. And if your intent is related to
-military, NSA, or other creepy purposes, you do NOT have my permission to
-use my work.
+The only BIG restrictions are:
+ If you *intend* to profit off my work, you must contact me first.
+  ** That includes, if you host my work on a revenue-making site! **
+ If your intent is related to military, NSA, or other creepy purposes, 
+ you do NOT have my permission to use my work.
 
 I'm EricWazHung [at] gmail dotcom
+
+or visit:
+https://sites.google.com/site/geekattempts/
 
 
 (I hate this legal bullshit, people should just have basic human decency
@@ -21,8 +61,10 @@ I'm EricWazHung [at] gmail dotcom
 The End Of the Legalities
 ----------
 
-(This document written at the time of the first upload. Some of it may be
- outdated).
+(This document written at the time of the first upload version 60ish. 
+ Some of it may be outdated. 
+ This is version 65. Though it's quite likely I'll forget to update this 
+ note, come v66).
 
 I'll say up-front there's QUITE A BIT of redundancy and left-over notes
 which are no longer relevent to the current version. (This has been cleaned
@@ -34,6 +76,11 @@ code unused... e.g. "racer" is a game I've been working on, it uses a
 potentiometer connected to an ADC as a controller... the ADC is not used
 at all for the "Mario"/"QUESTION" stuff... 
 Similar for sineTable, and a few others...
+(a/o v65: the above is related to "SEG_QUESTION."
+ FB_QUESTION is a different story, the ADC is used in FB_QUESTION for
+ "hit-detection" via piezo-element. This isn't well-documented, yet.
+ And SEG_QUESTION is *quite old* in comparison to FB_QUESTION)
+
 
 Stuff in _commonCode_localized/ is stuff I use regularly for various
 projects... _commonCode.../lcdStuff is a good place to start looking for
