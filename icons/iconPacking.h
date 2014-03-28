@@ -5,6 +5,16 @@
  *    Enjoy!
  */
 
+// This file contains tools for packing an icon/sprite into the least
+// memory possible, while allowing the image-data itself to be somewhat
+// viewable in the sprites' header files.
+// Each sprite contains four color-indices (two bits per pixel)
+// These four color-indices are converted into actual displayable colors
+// via the sprite's color palette(s).
+// a/o v66: * The sprite's mask is completely unused, as I recall.
+//          * The color-indices were arbitrary until recently
+//            Now some attempt has been made to use certain indices for
+//            certain purposes (e.g. index=0 -> Sky)
 
 #ifndef __ICONPACKING_H__
 #define __ICONPACKING_H__

@@ -6,6 +6,30 @@
  */
 
 
+//rowSegBuffer...
+// This description from mainConfig.h:
+// RowBuffer (as opposed to rowSegBuffer) works by calculating each row's 
+//  pixel-data before drawing then storing that pixel-data in a row-buffer
+//  which is drawn in real-time with the display-update. 
+//  The benefit being much higher resolution than a frameBuffer
+//    (16x16 pixel framebuffer -> 256 pixel rowBuffer, maybe 128, which can
+//     be recalculated for *every* row: e.g. 128x768 on a 1024x768 display)
+// RowSegBuffer works similarly to RowBuffer, but rather than storing each
+//   individual pixel in a row, it stores "row-segments" which consist of
+//   a color-value and a number of (drawable) pixels to display that color.
+//   THIS IS HIGHLY DEPENDENT on the display's abilities. Some displays do
+//   not like unpredictable/long delays between one row and the next... and
+//   since, in this case, each row is calculated before being drawn, this
+//   can introduce some *long* delays between rows. 
+//   The latest, as I recall, is an "addressable" resolution of 680
+//   drawable pixels across 1024, but of course there's not enough memory
+//   for 680 color-changes. That means, any drawable pixel-segment can be 
+//   any multiple of (and including) 1/680th of the screen-width, but 
+//   there's a limit to how many such pixel-segments can be drawn.
+
+
+
+
 #include "rowSegBuffer.h"
 
 // Dunno why this was originally in main() upon init...

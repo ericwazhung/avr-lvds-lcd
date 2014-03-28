@@ -9,6 +9,11 @@
 #include "iconPacking.h"
 
 
+// This image-data was generated from screenshots from Nintendo's 
+// Super Mario Brothers
+// Converted for use here using The Gimp -> Save as Header File
+// And hand-manipulated into this form for viewability/usability here
+
 #define QUESTIONR0 ROWPACK(0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0)
 #define QUESTIONR1 ROWPACK(1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3)
 #define QUESTIONR2 ROWPACK(1,2,3,2,2,2,2,2,2,2,2,2,2,3,2,3)

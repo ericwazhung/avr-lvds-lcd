@@ -6,6 +6,61 @@
  */
 
 
+//delayCyc intends to create "functions" that cause delays of a specific
+//number of CPU cycles. This isn't by any means highly accurate...
+
+//There are a couple compilation-options:
+//  one uses _delay_loop_2 from <util/delay_basic.h> (this is newer)
+//  the other is my original hokey implementation.
+
+//The original "hokey" implementation was before I was familiar with
+//assembly-inlining. Though, it makes use of gcc's optimizer to weed-out
+//the unused code WHEN each function-call has a constant argument.
+//Unfortunately, this means that different versions of C/gcc may compile
+//these delays differently. In *my* configuration, it seems to work well,
+//but no promises, here.
+// 'avr-gcc -v' gives:
+//Target: avr
+//Configured with: ../gcc-4.4.5/configure --target=avr --enable-languages=c
+//--disable-libssp
+//Thread model: single
+//gcc version 4.4.5 (GCC) 
+
+// ALSO, there are *definitely* cases where it's called with VARIABLES as
+// arguments, as opposed to constant, especially BLUE_DIAG_BAR(_SCROLL).
+// In which case, things are pretty hokey.
+// Both compilation-options work, in my testing, but not perfectly.
+
+//(A more accurate method has since been developed in
+// _commonCode/delay_cyc/, which can create a delay of exactly 1->127 
+// cycles, if set-up ahead of time, even with a variable as an argument.
+// This method is to be called via asm, and hasn't been implemented here).
+
+// So, again, in cases here with a CONSTANT argument:
+//  initial set-up math should optimize-out, and we'll be left with either
+//  a specific number of loops, or a specific number of nops, inlined with
+//  the original caller.
+//  With _delay_loop_2() this results in a number of cycles rounded-up to
+//  the nearest 4. (e.g. delay_cyc(3) results in 4 cycles. delay_cyc(13)
+//  results in 16 cycles).
+//  With the hokey method, it might very well result in exactly the number
+//  of requested cycles, between a potential loop *and* remaining nops...
+// And with a VARIABLE argument:
+//  With _delay_loop_2() there's a bit of set-up overhead, which may in
+//  fact be quite large (division by 4 => Shift-Rights. + an addition
+//  + negative-argument testing). And then there's the number of 4-cycle
+//  loops, rounded-up.
+//  With the "hokey" method, it's probably all messed-up, a bunch of
+//  switch-statements, set-up, and more... lots of jumping, etc.
+
+// As it stands, this may result in row-timing (H-Blanks + DE) that aren't
+// constant and/or aren't exactly as requested...
+// This *may* affect some display's sync-ability.
+// So far, it hasn't been found to be a problem, except visually where,
+// e.g. in BLUE_DIAG_BAR(_SCROLL) the bar is not perfectly diagonal, more
+// stair-stepped (or even slightly jagged, in the "hokey" case).
+
+
 #include "delayCyc.h"
 
 //This'll optimze-out in some cases.
@@ -196,7 +251,10 @@ void delay_cyc(int32_t numCyc)
 	// out to merely the number of nops... but if it's non-constant, then
 	// this will slow things a bit... UNTESTED.
 	// (Actually, briefly tested with BLUE_DIAG_BAR_SCROLL and seems to
-	// work, but not highly precise, as expected)
+	// work, but not highly precise, as expected.
+	// In Other Words: It worked better in BLUE_DIAG_BAR_SCROLL withOUT the
+	// following addition, because this function is then called with a
+	// variable, instead of a constant, and it does not optimize out.)
 
 	//Realistically, this should probably be done in assembly, the whole
 	//thing...

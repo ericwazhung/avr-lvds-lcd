@@ -6,6 +6,33 @@
  */
 
 
+//fb_question is the good-ol' "Mario" Question-box, using a frameBuffer...
+//  It was created after seg_question, which was created after a
+//  frameBuffer-based method. Long convoluted story.
+
+// Essentially, fb_question is the latest (a/o v66) version of the
+// Mario-Question-Box, which has actually been installed at a somewhat
+// permanent location for public-interaction. (and Seg_question has since
+// been put on the back-burner).
+
+// When the question-box is "hit" it displays a random sprite:
+//  A Coin, 1-up, Biggie, Star, Flower, or possibly a Goomba
+//  If you *hit* the goomba, it dies.
+
+// As-implemented (in main), the ADC is used as the hit-detector. Connected
+// to it is a piezo-element. Unfortunately, I'm certain, the
+// threshold-values, etc. for this "hit-sensor" will have to be configured
+// for your particular hardware... And, in fact, I've found that it's
+// sensitive to electrical noise (e.g. from the backlight inverter) as well
+// as things like temperature. It's kinda hokey, but it's also in main()
+// and could easily be converted to a simple momentary-switch.
+
+
+
+
+
+
+
 	//Start at brown, to match the SOLID color
 #define Q_QSTART	7 //3
 #define GOOMBA_QCOUNT	(24*2)

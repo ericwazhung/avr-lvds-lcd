@@ -10,6 +10,10 @@
 
 #include "1up.h" //has SHROOM in it...
 
+// Biggie is the same as 1up with a different color-palette
+
+
+
 #define NUMPALETTES_BIG 1
 
 //1up Mapping: 0->37 (sky/mask) 1->7, 2->4 3->47

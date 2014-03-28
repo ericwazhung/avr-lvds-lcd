@@ -6,6 +6,9 @@
  */
 
 
+//Please see writeColor.c
+
+
 //drawPix from program memory
 //a/0 v60: Again, unused for its original purpose, but tightly intertwined
 // in old code that's still being (mis)used...

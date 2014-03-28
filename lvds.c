@@ -6,6 +6,39 @@
  */
 
 
+//lvds.c contains code/information/definitions regarding the 
+//  FPD-Link/"LVDS" implementation
+//  There's quite a bit of useful information here, but it's a long way
+//  from well-organized.
+//  The basic jist is this:
+//    Three PWM channels are used to generate signals compatible with
+//     FPD-Link (LVDS Clock, DE/Vsync/Hsync/"Blue", "Red", and "Green").
+//    These PWM channels have "complementary outputs", which generally
+//     means that these channels have a normal output and an inverted
+//     output. In reality, the complementary (inverted) outputs have
+//     different timing than the normal outputs, due to:
+//    These PWM channels have "Dead-Time Generators" which allow for
+//     adding delays between the assigned PWM rise/fall edges and the
+//     actual output rise/fall edges. These edges are delayed *differently*
+//     on the normal and inverted outputs. This is *necessary* to generate
+//     usable FPD-Link signals.
+//    These PWM channels are driven by the processor's internal PLL
+//     allowing the actual FPD-Link bit-rate to be up to 8-times faster
+//     than the CPU speed (~128Mbits/sec, which is still much slower than
+//     most LCDs' specs).
+//    Currently I'm aware of only two lines of 8-bit AVRs which meet these
+//     requirements. The ATtiny861, for certain. Also, there appears to be
+//     an AT90PWMxxx series which may work, containing twice the RAM (1K).
+//     I have yet to implement it on this chip, the register names, etc.
+//     appear to be quite different, though its pinout is nearly identical.
+//
+//  This contains macros/functions that are used by _commonCode.../lcdStuff
+//  It's not properly-implemented, so must be #included before lcdStuff, in
+//  main.c. (Yes, #include this _C_ file...)
+//  There also may be some dependency on the order this is #included with
+//  respect to lcdDefines.h... wee!
+
+
 
 /*
 This is an old note from main() upon init...

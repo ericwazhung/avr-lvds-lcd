@@ -6,6 +6,18 @@
  */
 
 
+// This image-data was generated from screenshots from Nintendo's 
+// Super Mario Brothers
+
+// This file was actually output directly by The Gimp
+// (via Save As C Header File)
+// All sprite-files in the "icons" directory originally started this way
+// This file is (should be, at least) completely unused, now.
+// It's left here for a reminder of the process used to generate the icons
+// files.
+
+
+
 /*  GIMP header image file format (INDEXED): /Users/meh/Desktop/Mario/Coin3.h  */
 
 static unsigned int width = 16;

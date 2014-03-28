@@ -8,6 +8,11 @@
 
 #include "iconPacking.h"
 
+// This image-data was generated from screenshots from Nintendo's 
+// Super Mario Brothers
+// Converted for use here using The Gimp -> Save as Header File
+// And hand-manipulated into this form for viewability/usability here
+
 #define SOLIDR0 ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
 #define SOLIDR1 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
 #define SOLIDR2 ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)

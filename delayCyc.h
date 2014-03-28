@@ -5,6 +5,7 @@
  *    Enjoy!
  */
 
+//Please see the description and functionality explanation in delayCyc.c
 
 #ifndef __DELAY_CYC_H__
 #define __DELAY_CYC_H__

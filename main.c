@@ -6,6 +6,19 @@
  */
 
 
+// Please see mainConfig.h!
+
+
+//The order of these #includes is *very specific*
+// please see the associated files (especially lcdStuff, lcdDefines, and
+// lvds)
+
+
+//This file contains code for *many* options, chosen by mainConfig.h
+// (and possibly makefile)
+
+
+
 #include "projInfo.h"   //Don't include in main.h 'cause that's included in other .c's?
 #include "main.h"
 #include <util/delay.h> //For delay_us in pll_enable
@@ -34,7 +47,8 @@
 //#define ROW_BUFFER FALSE
 //#define LOADROW TRUE
 #if (defined(ROW_BUFFER) && ROW_BUFFER)
- #include "rowBuffer.c"
+#error
+#include "rowBuffer.c"
 #endif
 
 #if (defined(SEG_TET) && SEG_TET)

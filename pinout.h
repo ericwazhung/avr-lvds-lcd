@@ -79,9 +79,11 @@
 //   PB5   OC1D -> LVDS-"Red"   (RXin0)
 //   PB1   OC1A -> LVDS-"D/V/H/Blue"  (RXin2)
 
+
+//###############################
 // GREEN needs to be inverted... this is easily done by swapping the 
 //  RXin1+ and RXin1- out of the respective XORs to the LCD
-
+//###############################
 
 /* From lvds_timerInit() in main.c:
    setoutPORT(PB1, PORTB); //+OC1A, DVH/BLUE, MISO (usually heart)
@@ -121,10 +123,43 @@
 //
 //                    PA7 = ADC6/AIN1... used for the bump-sensor in 
 //                                       FB_QUESTION...
+//                                       Unfortunately, it's probably not
+//                                       particularly repeatable, as it's
+//                                       highly analog and highly dependent
+//                                       on the hardware used. 
 
+// FOR FB_QUESTION:
+//   Piezo element
+//   (contact-mic/
+//    "hit-sensor")    3.3V 3.3V
+//                      |    |
+//                      \   _|__
+//    ______            /    /\
+//   /  __  \           \   /__\
+//  |  /  \  |    ||    |    |
+//  | |   o-------||----+----+-------> PA7
+//  |  \__/  |    ||    |    |
+//   \o_____/           \   _|__
+//    |                 /    /\
+//   GND                \   /__\
+//                      |    |
+//                     GND  GND
+//
+// AGAIN: This whole hit-sensor is completely hokey... the analog threshold
+// values in main.c certainly would need to be changed according to your
+// circuit. And, even after fine-tuning, mine acts differently in different
+// temperatures, etc. It's *very* sensitive to electrical interference
+// (ended up shielding *everything*). And, even viewing it on the 'scope,
+// the actual "hit" is barely discernable from just regular noise in the
+// circuit. Certainly the code could stand to be improved. You might be
+// best-off replacing it with a button.
+//
 
-// Button is used in "Mario"/"QUESTION" mode. Shorting the pin to ground
+// Button is used in "SEG_QUESTION" mode. Shorting the pin to ground
 // momentarily causes the image to change.
+
+
+
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
  *    necessary; where people would respect others' work and wishes, 

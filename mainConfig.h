@@ -6,8 +6,91 @@
  */
 
 
-// Latest Version is v61... 
+//a/o v66:
+//This file is used for configuring the project at a high-level...
+// Most configuration-options are simplified, here, by uncommenting various
+// options.
+// The basic idea, with a new/untested display is:
+//   select BLUE_TESTING=TRUE (FRAMEBUFFER_TESTING=FALSE/commented-out)
+//   select DE_BLUE=TRUE (all remaining = FALSE/commented-out)
+//   If the display shows *anything* blue, then it's quite likely the
+//    display can be used with this system with a little tweaking of
+//    timing-values, etc.
+//    If it shows completely blank (black or white) then you might be out 
+//    of luck with this particular display... or maybe there's an
+//    electrical or other problem (check those LVDS voltages)?
+//    Don't select any of the other options until you can get DE_BLUE 
+//    working (see troubleshooting.txt, maybe)
+//
+//   Once DE_BLUE is working, comment it out, and select BLUE_VERT_BAR...
+//   Continue down the line...
+//
+//   Once all the "BLUE" tests are running (except maybe BLUE_ADC), 
+//    quite a bit can be done by just manipulating the "BLUE" code...
+//
+//   OR:
+//    comment-out BLUE_TESTING and select FRAMEBUFFER_TESTING
+//   So far, there's only one FB_xxx test (FB_QUESTION)
+//    Unfortunately, it's pretty complex as far as a starting-point.
+//    If that works, you can do quite a bit with the display, already, at
+//     low-resolution and basically the highest refresh-rate possible with
+//     this system.
+//    Other FB-based code exists, but hasn't been (re)implemented for use
+//     in mainConfig.h. e.g. smiley.c, tetStuff.c, lifeStuff.c,
+//     colorBarScroll.c (as I recall)
+//
+//    Also, RowBuffer code has not been (re)implemented in mainConfig.h
+//     This code works by calculating each row's pixel-data before drawing
+//     then storing that pixel-data in a row-buffer which is drawn in
+//     real-time with the display-update. The benefit being much higher
+//     resolution (16x16 pixel framebuffer -> 256 pixel rowBuffer, maybe
+//     128, which can be recalculated for *every* row: e.g. 128x768 on a
+//     1024x768 display) TODO
+//
+//   If you want more resolution (at the cost of refresh-rate) try
+//    commenting-out FRAMEBUFFER_TESTING and BLUE_TESTING
+//    and look into the SEG_xxx tests.
+//    These work similarly to RowBuffer, but rather than storing each
+//    individual pixel in a row, it stores "row-segments" which consist of
+//    a color-value and a number of (drawable) pixels.
+//   THIS IS HIGHLY DEPENDENT on the display's abilities. Some displays do
+//   not like unpredictable/long delays between one row and the next... and
+//   since, in this case, each row is calculated before being drawn, this
+//   can introduce some *long* delays between rows. 
+//   Unfortunately, TODO: I haven't yet had the chance to develop a more
+//   step-by-step approach to determining a display's sensitivity to these
+//   delays, so it's kinda all-or-nothing if the SEG_xxx method will work.
+//   The latest, as I recall, is an "addressable" resolution of 680
+//   drawable pixels across 1024, but of course there's not enough memory
+//   for 680 color-changes. That means, any drawable pixel-segment can be 
+//   any multiple of (and including) 1/680th of the screen-width, but 
+//   there's a limit to how many such pixel-segments can be drawn.
 
+
+// Again, start with BLUE_TESTING and DE_BLUE
+// The "BLUE" methods are simple enough they can be easily modified for
+// your own purposes.
+// Some other things to consider, for your own projects:
+//  (see lvds.c)
+//  Since there are, essentially, separate wires for "Red" and "Green",
+//  this system could be used purely for timing-purposes, using DE_BLUE,
+//  and the "Red" and "Green" signals could be controlled externally (e.g. 
+//  by analog-comparators, to create a dual-trace oscilloscope)
+//  Or, DE_BLUE could be modified with different color-values to turn the
+//  display into a color-filter for a stage-light... (or just hook the
+//  "red" and "green" signals to switches?)
+//  TODO: Add some color into the "BLUE" tests... before FRAMEBUFFER_TESTs
+
+
+
+// Latest Version is v66... 
+
+// Various notes exist from previous versions, and may be outdated...
+// This file (like all, here) could stand to be reorganized.
+
+
+// v66: Adding implementation notes to most files...
+//      (Probably forgot quite a bit inbetween)
 // v61: Significant cleanup, Experimenting with colors, etc...
 //      notes labelled "a/o v61"
 // v59: in which I'm adding a lot of notes re: defines, etc... 
@@ -384,8 +467,10 @@
 #endif
 
 //Displays a Question-Mark box, ala Mario-Brothers. Press the button and
-// receive an award (and occasional goomba)
-// Demonstrates usage of program-memory-based images... (16x16 pixels WOO!)
+// receive a reward (and occasional goomba)
+// Demonstrates usage of program-memory-based images in rowSegBuffer... 
+//(16x16 pixels WOO!)
+// This is much less functional than FB_QUESTION
 //#define SEG_QUESTION   TRUE
 
 //a/o v62:

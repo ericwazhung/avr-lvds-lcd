@@ -9,19 +9,19 @@
    header[] = "";
 #elif (defined(PROJINFO_SHORT) && PROJINFO_SHORT)
  uint8_t __attribute__ ((progmem)) \
-   header[] = "LCDdirectLVDS65 2014-03-19 22:54:55";
+   header[] = "LCDdirectLVDS66 2014-03-28 05:47:05";
 #else //projInfo Not Shortened nor overridden
  uint8_t __attribute__ ((progmem)) \
-   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/65-reGittifying ";
+   header0[] = " /Users/meh/_avrProjects/LCDdirectLVDS/66-notesNCleanup ";
  uint8_t __attribute__ ((progmem)) \
-   header1[] = " Wed Mar 19 22:54:55 PDT 2014 ";
+   header1[] = " Fri Mar 28 05:47:05 PDT 2014 ";
  uint8_t __attribute__ ((progmem)) \
    headerOpt[] = " WDT_DIS=TRUE ";
 #endif
 
 //For internal use...
 //Currently only usable in main.c
-#define PROJ_VER 65
+#define PROJ_VER 66
 #define COMPILE_YEAR 2014
 
 #endif

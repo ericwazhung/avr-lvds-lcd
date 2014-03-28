@@ -6,6 +6,9 @@
  */
 
 
+//timer0 is used for timing each LCD row.
+// Please see timer0Stuff.h for implementation notes.
+
 #include "timer0Stuff.h"
 
 //Testing with values returned by timer0Calculator

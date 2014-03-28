@@ -6,6 +6,14 @@
  */
 
 
+//a/o v66:
+// RowBuffer probably isn't (re)implemented in *any* of the cases in
+//   mainConfig.h, and should probably be moved to _unusedIdeas or _old
+//   Though it might be worthwhile at some point to reimplement it as an
+//   early-test before SEG_xxx's
+//   There may be some SEG_xxx's that use rowBuffer as a translation-step
+//   between old code, but I'm not certain.
+
 // RowBuffer BETTER TITLED: "RowSettingsBuffer"
 //    An entire row is calculated and stored in the rowbuffer
 //    before each line is displayed.

@@ -6,6 +6,14 @@
  */
 
 
+//seg_question.c (uses rowSegBuffer):
+//Displays a Question-Mark box, ala Mario-Brothers. Press the button and
+// receive a reward (and occasional goomba)
+// Demonstrates usage of program-memory-based images in rowSegBuffer... 
+// (16x16 pixels WOO!)
+// This is much less functional than FB_QUESTION
+
+
 void segQuestion_loadRow(uint16_t rowNum) 
 {
 //Actually, this probably won't work right...

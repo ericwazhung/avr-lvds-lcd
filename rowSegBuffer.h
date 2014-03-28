@@ -6,6 +6,9 @@
  */
 
 
+// Please see rowSegBuffer.c for a functionality-description
+
+
 #ifndef __ROW_SEG_BUFFER_H__
 #define __ROW_SEG_BUFFER_H__
 

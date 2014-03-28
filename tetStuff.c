@@ -6,6 +6,24 @@
  */
 
 
+//tetStuff.c:
+//
+//This is Tetris! Yeah!
+// This code is largely *largely* my own writing. But of course, props/cred
+// needs to be given to the original author, whose name I don't know.
+//
+// As far as I'm aware, long after last using it, this was written either
+// for rowBuffer or frameBuffer... Last-Used it was implemented in
+// rowSegBuffer via conversion functions. I have no idea how functional it
+// is anymore. And can't even recall where the code from the last use might
+// be located.
+// (Actually, it looks like SEG_TET is an option in mainConfig.h, so it
+// must be somewhere not too distant. But, at one point I had Tetris, Life,
+// and gradient-stuff all running at the same time... THAT I have no idea
+// where it disappeared to, and was it in rowBuffer or rowSegBuffer?)
+//
+// Old Note:
+//
 //YEP. In a previous version (long before the row-seg-buffer)
 // Tetris was dang-near completion...
 // each block was a single drawable pixel

@@ -6,6 +6,17 @@
  */
 
 
+
+//seg_racer.c (uses rowSegBuffer):
+//
+//A Game! Ala "Racer" from the ol' TI-82 days...
+// Use a potentiometer to try to keep the "car" on the race-track
+// It gets harder the longer you stay on course!
+// Demonstrates text-usage, using HFM to interpolate between distant points
+// and more. Even at a refresh-rate of only 1/5th Hz, this game can get
+// quite difficult.
+
+
 #include _ADC_HEADER_
 //   #include <stdio.h>
 #include <stdlib.h>   //rand()

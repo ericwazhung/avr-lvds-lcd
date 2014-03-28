@@ -8,6 +8,12 @@
 
 #include "iconPacking.h"
 
+
+// This image-data was generated from screenshots from Nintendo's 
+// Super Mario Brothers
+// Converted for use here using The Gimp -> Save as Header File
+// And hand-manipulated into this form for viewability/usability here
+
 #define COINR0 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 #define COINR1 ROWPACK(0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0)
 #define COINR2 ROWPACK(0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0)
@@ -63,6 +69,7 @@
 
 
 //It looks to me like this is a direct flip of COIN1...
+// (But the colors are different)
 #define COIN3R0 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 #define COIN3R1 ROWPACK(0,0,0,0,0,0,0,3,1,0,0,0,0,0,0,0)
 #define COIN3R2 ROWPACK(0,0,0,0,0,0,0,3,1,0,0,0,0,0,0,0)

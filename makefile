@@ -5,25 +5,69 @@
 # *    Enjoy!
 # */
 #
-#
-# Modified for reallyCommon2.mk via sdramThing2.0-13
 
-# This gets modified for compilation to _BUILD/
-# if needed after common.mk is included Reference ORIGINALTARGET...
+# This makefile scheme is highly-dependent on the inclusion of various
+# other makefiles, including _commonCode.../_make/reallyCommon2.mk
+# (Modified for reallyCommon2.mk via sdramThing2.0-13)
+
+
+
+#This is the project-name... the compiled (e.g. hex) files will have this
+# as their filename (e.g. _BUILD/<TARGET>.hex)
+#
+# This variable ("TARGET") gets modified in an included .mk file, later
+# down the line (for compilation to '_BUILD/').
+# If you need to refer to this value, refer to ORIGINALTARGET instead.
+# (This hasn't been tested, but should work anywhere)
+# In other words, you're best NOT referring to TARGET directly anywhere...
 TARGET = LCDdirectLVDS
 
+#This is the selected AVR... Used in MANY cases, including configuration of
+# avr-dude, avr-gcc, and more.
 MCU = attiny861
 
-# This is *completely* wrong...
-# But it's also unused, I think... (usually for BAUD rates, etc)
+# This is the CPU frequency. Generally it's used for calculating BAUD
+# rates, and timer compare-match values. In C/H code, its value can be
+# referenced via the preprocessor macro F_CPU
+#
+# HERE: This value is *completely* wrong...
+# But it's also unused, I think...
 # (Maybe it's used by Timer1's OCRC?)
 FCPU = 8000000UL
 
+
+# This is the project-specific source-code to be compiled.
+# This does *not* include code found in _commonCode.../
+#  (That code is added automagically, when properly implemented)
+# NOTE: This particular project isn't particularly well-implemented in the
+# c/h-file domain... main.c literally #includes many other .c files.
+# This isn't good-practice, as, among other things, it leads to quite a bit
+# of confusion regarding the proper organization of the #includes. 
+# But it also allows for inline code that gets highly-optimized, prevents
+# compilation of functions that are never referenced, etc.
+#  (There may be a way around this, and I don't deny a bit of laziness in
+#  trying to understand that scheme merely for the sake of trying to avoid
+#  #inclusion of .c files. But the #inclusion organization issue is darned
+#  frustrating at times, so I should TODO this).
 MY_SRC = main.c
 
 
+# This can be commented-out as desired.
+# projInfo.h is generated automatically during "make"
+# This file contains header-information which is viewable whenever reading
+# the chip-contents... (e.g. "make view")
+# When program-memory isn't lacking, it's nice to be able to see what
+# project/version is loaded in the chip (especially when I pull a chip from
+# a socket for use in another project, or when revisiting a project months
+# later)
+# When program-memory is running-short, using PROJINFO_SHORT=TRUE limits
+# the information written in the chip's program-memory to only the
+# bare-essentials.
 CFLAGS += -D'PROJINFO_SHORT=TRUE'
 
+
+
+#PROJECT-SPECIFIC:
 #a/o v59-12ish...
 # The PLL can be used for the system clock!
 # With OSCCAL at max, we might be able to get a system-clock of up to 32MHz
@@ -49,44 +93,73 @@ FCPU = 16000000UL
 CFLAGS += -D'PLL_SYSCLK=TRUE'
 endif
 
+#These haven't been tested for quite some time...
+# It was used, mainly, for the sake of oscilloscoping
 #Slow the whole system to 1MHz (and 8MHz PLL)... CLKDIV8
 #CFLAGS += -D'SLOW_EVERYTHING_TEST=TRUE'
-# Been here, did this... in LCDdirect (pre LVDS) but we WANTED unrolling
-# In any case, it seems to have no effect, and even placing it directly
-# in the gcc command, both at the end and the beginning of the flags
-# has no effect. no-unroll-loops as well as no-unroll-all-loops
-#CGLAGS += -fno-unroll-loops
-#HAH! CGLAGS!
-
-# Only run the preprocessor
-#CFLAGS += -E
-# Display the used headers and other #includes
-#CFLAGS += -H
-#CFLAGS += -mint8
-
-# Experimenting with Preprocessor output...
-# files will still be named .o...
-#CFLAGS += -E
 
 # It doesn't make sense to enable this without enabling SLOW_EVERYTHING...
 # (does it?)
 # And vice-versa
 #So SLOW_EVERYTHING enables this...
 #CFLAGS += -D'SLOW_LVDS_TEST=TRUE'
-#TRUE'
 
+
+
+
+# Been here, did this... in LCDdirect (pre LVDS) but we WANTED unrolling
+# In any case, it seems to have no effect, and even placing it directly
+# in the gcc command, both at the end and the beginning of the flags
+# has no effect. no-unroll-loops as well as no-unroll-all-loops
+#CGLAGS += -fno-unroll-loops
+#HAH! CGLAGS! No Wonder???
+
+
+
+# Experimenting with Preprocessor output...
+# Only run the preprocessor (I think there's a 'make <something>' option
+# for this, now).
+# files will still be named .o...
+#CFLAGS += -E
+
+# Display the used headers and other #includes
+#CFLAGS += -H
+#CFLAGS += -mint8
+
+
+
+	
+	
+	
+# Disable the Watch-Dog Timer
+# It's not used in this project...
 WDT_DISABLE = TRUE
+# And add a note to projinfo.h for the progmem header info...
 	PROJ_OPT_HDR += WDT_DIS=$(WDT_DISABLE)
 
 
-#Location of the _common directory, relative to here...
-# this should NOT be an absolute path...
-# COMREL is used for compiling common-code locally...
+
+
+
+
+
+#COMREL is the location of the _common directory, relative to here...
+# this should NOT be an absolute path because:
+# COMREL is also used for compiling common-code into _BUILD
+# These values are for a *shared* (system-wide) _commonCode/ directory
+#
+# For a distributed (aka "localized") project, these values will be
+# modified in the block below. 
 COMREL = ../../..
 COMDIR = $(COMREL)/_commonCode
 
 
-
+#This block can be found in _commonCode.../_make/reallyCommon.mk:
+# BUT it must be included here, immediately after the definitions above,
+# and long before including reallyCommon.mk
+# (Why didn't I just have another .mk to include here? Something about the
+# path?)
+#
 ################# SHOULD NOT CHANGE THIS BLOCK... FROM HERE ############## 
 #                                                                        #
 # This stuff has to be done early-on (e.g. before other makefiles are    #
@@ -96,11 +169,11 @@ COMDIR = $(COMREL)/_commonCode
 # If this is defined, we can use 'make copyCommon'                       #
 #   to copy all used commonCode to this subdirectory                     #
 #   We can also use 'make LOCAL=TRUE ...' to build from that code,       #
-#     rather than that in _commonCode                                    #
+#     rather than that in _commonCode/                                   #
 LOCAL_COM_DIR = _commonCode_localized
 #                                                                        #
 #                                                                        #
-# If use_LocalCommonCode.mk exists and contains "LOCAL=1"                #
+# If __use_Local_CommonCode.mk exists and contains "LOCAL=1"             #
 # then code will be compiled from the LOCAL_COM_DIR                      #
 # This could be slightly more sophisticated, but I want it to be         #
 #  recognizeable in the main directory...                                #
@@ -129,20 +202,54 @@ endif
 
 
 
-# Common "Libraries" to be included
-#  haven't yet figured out how to make this less-ugly...
-#DON'T FORGET to change #includes...
+
+
+# Common "Libraries" to be included for this project
+# (Note that "libraries" usually implies precompiled code, which isn't the
+# case, here, because these are used on many different processors)
+# I haven't yet figured out how to make this less-ugly...
+
+# These "Libraries" (or _commonCode) can include others, as dependencies.
+# Where that's the case, it is handled automatically.
+# However, by *explicitly* listing them here, the versions listed here will
+# override those that would be included as a dependency.
+
+# xxx_LIB is:
 #path to the library.c/mk files, including filenames, excluding extensions
 
+#There are two methods for passing configuration-options to the commonCode
+#  CFLAGS += -D'xxx=yyy'
+# or just
+#  xxx = yyy
+# There's no real distinct reason for my having chosen one method over the
+# other, except that the 'xxx = yyy' method is easier to implement, as it
+# doesn't require modifying the commonCode's .mk file to add CFLAGS+=...
+# Anyways, it's just the way it is.
+# Many commonCodes have options for code-size optimization, so you'll see
+# lots of "REMOVED" options, below. 
+
+#The usage-explanations below may not be all-inclusive...
+
+#hfModulation is used in many places and in many ways...
+# For certain, it's used by SEG_RACER to create smooth lines between
+# distant points. Though, generally, it's similar to
+# Pulse-Width-Modulation, in the sense that it creates a more analog-like
+# power output using a digital "output".
 VER_HFMODULATION = 1.00
 HFMODULATION_LIB = $(COMDIR)/hfModulation/$(VER_HFMODULATION)/hfModulation
 include $(HFMODULATION_LIB).mk
 
+#adc is used by fb_question for the "hit-sensor" (a piezo-element), as well
+# by SEG_RACER for the potentiometer.
 VER_ADC = 0.20
 CFLAGS += -D'ADC_SUM_REMOVED=TRUE'
 ADC_LIB = $(COMDIR)/adc/$(VER_ADC)/adc
 include $(ADC_LIB).mk
 
+
+#timerCommon is used by everything timer-related... timer1 is used for
+# Pulse-Width-Modulation which simulates FPD-Link. timer0 is used for the
+# regular LCD timing-signals (interrupts at the beginning of each Hsync)
 VER_TIMERCOMMON = 1.21
 CFLAGS+=-D'TIMER_SETOUTPUTMODES_UNUSED=TRUE'
 CFLAGS+=-D'TIMER_SELECTDIISOR_UNUSED=TRUE'
@@ -153,6 +260,22 @@ TIMERCOMMON_LIB = $(COMDIR)/timerCommon/$(VER_TIMERCOMMON)/timerCommon
 include $(TIMERCOMMON_LIB).mk
 
 
+
+
+#heartbeat implements a fading heartbeat LED on the specified pin.
+# In addition, the same pin can be used as a momentary-pushbutton input.
+# Generally, the heartbeat pin is connected to MISO, which, among other
+# things, allows for easy addition of a pushbutton to the project, by
+# merely connecting an adaptor between my programmer and the CPU.
+# USUALLY it's in *all* my projects, until either code-space runs out, or
+# there are no remaining pins. This particular project is an exception.
+# The heart is explicitly removed from this project, so it would make sense
+# to just remove all references to it. But it's useful and should probably
+# be reimplemented for the sake of early tests, in order to make sure the
+# CPU isn't crashing when running with PLL_SYSCLK (32MHz when rated for 16)
+# Setting HEART_REMOVED=TRUE causes all references to heart functions to be
+# replaced with '0;' which optimizes out to nothing.
+# And, for now, it *must* be the case, due to pinout stuff, described below
 #SEE NOTE BELOW IN COM_HEADERS...
 HEART_REMOVED = TRUE
 
@@ -165,7 +288,7 @@ HEART_DMS = FALSE
 CFLAGS += -D'HEARTPIN_HARDCODED=TRUE'
 
 #This pinout is... questionable.
-# The typical heart-pin is MISO, since the slave device is capable of 
+# The typical heart-pin is MISO, since the slave device (CPU) is capable of
 # driving up to 40mA (could easily drive an LED AND the programmer's input)
 # But, MISO is an OC1x pin, used by the LCD, in this case...
 # Since HEART_REMOVED is true, above, this doesn't matter either way
@@ -177,6 +300,11 @@ CFLAGS += -D'HEART_LEDCONNECTION=LED_TIED_HIGH'
 include $(HEARTBEAT_LIB).mk
 
 
+
+
+#sineTable is a table of values for sin(), but not using floating-point.
+# Here it's used by SEG_RACER to generate the track, by SEG_SINE to
+# generate the sine-wave image, and possibly elsewhere.
 VER_SINETABLE = 0.99
 SINETABLE_LIB = $(COMDIR)/sineTable/$(VER_SINETABLE)/sineTable
 CFLAGS += -D'SINE_DISABLEDOUBLESCALE=TRUE'
@@ -185,7 +313,12 @@ CFLAGS+=-D'SINE_RAW8=TRUE'
 #CGLAGS += -D'SINE_TABLE_ONLY=TRUE'
 include $(SINETABLE_LIB).mk
 
-# HEADERS... these are LIBRARY HEADERS which do NOT HAVE SOURCE CODE
+
+
+
+
+
+# HEADERS... these are 'library' HEADERS which do NOT HAVE SOURCE CODE
 # (That's not entirely true... bithandling has source-code in macro-form.
 #  Additionally, this has been hacked a bit to be used for "ncf"
 #  aka "not-common-filed" source in _commonCode... meaning these particular
@@ -197,7 +330,6 @@ include $(SINETABLE_LIB).mk
 # AND POSSIBLY any case where the _commonCode/ stuff is localized...
 # (Which would be any case that's downloaded/distributed, etc. Unless 
 #  you've created your own _commonCode/ directory somewhere on your system)
-#  would be nice to remove this...
 # NOTE: These CAN BE MULTIPLY-DEFINED!
 #  (That's poorly-worded... It means that COM_HEADERS might include
 #   multiple references to different versions of headers...)
@@ -221,25 +353,51 @@ include $(SINETABLE_LIB).mk
 # the CFLAGS += -D'_BITHANDLING_HEADER_=...' stuff is actually necessary
 # now regardless of tarballs, etc.
 
+#errorHandling is a bit lame... Its main use is in timerCommon, it's
+# supposed to give an error if a timer is configured with a value that's
+# not implementable. But where does that error go? That's why it's a bit
+# hokey. Ultimately it shoulda been passed up the call-tree and end up
+# causing the heartbeat to blink an error-number, but it never got that
+# far. Regardless, it's necessary here, to compile timerCommon (and maybe
+# others). I don't know why I didn't set up timerCommon.mk to handle this.
 VER_ERRORHANDLING = 0.99
 ERRORHANDLING_HDR = $(COMDIR)/errorHandling/$(VER_ERRORHANDLING)/
 CFLAGS += -D'_ERRORHANDLING_HEADER_="$(ERRORHANDLING_HDR)/errorHandling.h"'
 COM_HEADERS += $(ERRORHANDLING_HDR)
 	
+#bithandling is used *everywhere*
+# Maybe it'd make sense to have it automatically included in every
+# commonCode's .mk file, but then, still, it'd probably have to be in
+# makefile for projects that don't include any other commonCode... so I
+# guess it gets to go here all the time.
 VER_BITHANDLING = 0.95
 BITHANDLING_HDR = $(COMDIR)/bithandling/$(VER_BITHANDLING)/
 # This is so #include _BITHANDLING_HEADER_ can be used in .c and .h files
-# It should probably be moved to bithandling.mk
+# It should probably be moved to bithandling.mk (?)
 CFLAGS += -D'_BITHANDLING_HEADER_="$(BITHANDLING_HDR)/bithandling.h"'
 COM_HEADERS += $(BITHANDLING_HDR)
 
+
+#lcdStuff handles timing for H-sync/blank, V-sync/blank, DataEnable, etc.
+# Yes, this is one of those cases where COM_HEADERS is being hacked for
+# direct-inclusion of a .c file. It's ugly. lcdStuff.h and lcdStuff.mk
+# should be created. They haven't yet.
 LCDSTUFF := $(COMDIR)/lcdStuff/0.55ncf/lcdStuff.c
 COM_HEADERS += $(dir $(LCDSTUFF))
 CFLAGS += -D'_LCDSTUFF_CFILE_="$(LCDSTUFF)"'
 
+#charBitmap is a "font"
+# It's used by SEG_SINE and SEG_RACER for displaying text.
+# Not much to say here, except that this originated in one of my earliest
+# microcontroller projects. As I recall, originally from screenshots of 
+# Microsoft Windows' 8x8 command-prompt font.
 CHARBITMAP := $(COMDIR)/charBitmap/0.10/charBitmap.h
 COM_HEADERS += $(CHARBITMAP)
 CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
+
+
+
+
 
 # This is a TOTAL hack...
 # Apparently I wasn't thinking when creating HEART_REMOVED, which removes
@@ -281,8 +439,17 @@ CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 
 
 
-
+#reallyCommon2.mk is the third version of my common.mk scheme...
+# yeahp: common.mk -> reallyCommon.mk -> reallyCommon2.mk
+# Take a look at it, it's fun! I don't even know how the vast-majority of
+# it works, even though I wrote the vast-majority of the damned thing. 
+# makefiles is fun!
+# It also includes other files in _make/ such as avrCommon.mk
+# THOUGH reallyCommon2.mk is *NOT* specific to AVRs 
+# (and will not include avrCommon.mk, if not compiling for an AVR).
 include $(COMDIR)/_make/reallyCommon2.mk
+
+
 
 #/* mehPL:
 # *    I would love to believe in a world where licensing shouldn't be

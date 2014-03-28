@@ -1,3 +1,33 @@
+delay_cyc isn't highly-accurate, and may work differently on different
+C compilers. TODO: I need to look into this.
+This is in delayCyc.c/h
+ Also affects delay_Dots()
+THESE AFFECT: display's timing-parameters aren't exact...
+ And where called with a VARIABLE argument, 
+ As it stands, this may result in row-timing (H-Blanks + DE) that aren't
+ constant and/or aren't exactly as requested...
+ This *may* affect some display's sync-ability.
+ So far, it hasn't been found to be a problem, except visually where,
+ e.g. in BLUE_DIAG_BAR(_SCROLL) the bar is not perfectly diagonal, more
+ stair-stepped (or even slightly jagged, in the "hokey" case).
+
+First test (BLUE_TESTING + DE_BLUE) isn't showing *anything*?
+ You might want to make sure the processor's functioning *at all*
+ ('scope?) This is where it'd be handy to have the heartbeat functioning
+ again... TODO!!!
+ Problem may be: Technically, with the default values, the processor is
+ running at twice its rated speed. the PLL is set to run at its maximum
+ (which is more than its rated "saturation" speed) ~128MHz,
+ the processor is set to run *from* the PLL / 4 (~32MHz, rated for 16MHz).
+ This works in my case, but maybe some other versions/revisions/batches of
+ the ATtiny861 might not handle this...
+ You might be able to get away with disabling PLL_SYSCLK and/or modifying
+ LVDS_PRESCALER.
+	
+
+
+
+
 Early "BLUE_TESTING"
 	Weird seemingly-random garbage coming through? Try disconnecting the
 	programming-header. There's no way 'round using the same pins for

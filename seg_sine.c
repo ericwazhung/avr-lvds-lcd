@@ -5,6 +5,20 @@
  *    Enjoy!
  */
 
+//seg_sine.c (uses rowSegBuffer):
+//
+//A very nice test-pattern... shows a sine-wave, the under-side of which
+// is horizontal color-bars, above it is vertical color-bars. 
+// Above that is two lines of text, showing all available characters
+// And above that is color-patterns using up the remaining Row-Segments
+// This is meant to be rotated 90-degrees
+// Like SEG_HFM, it might be handy to adjust NUM_SEGMENTS for experimenting
+// Note that color-segments which are too long to be stored in a single
+// row-segment are automatically put into the next.
+// And that existing segments are automatically stretched if the next-added
+// segment is the same color.
+// This displays all available colors and shows the resolution capabilities
+
 
 
 void segSine_loadRow(uint16_t rowNum) 

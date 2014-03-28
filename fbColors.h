@@ -6,6 +6,25 @@
  */
 
 
+//fbColors refers to the color-values stored in, e.g. the frameBuffer
+//        (if used). 
+//        Basically, it's just 4-shades for each of R, G, and B.
+//        ( Technically, B can only display 3 shades, due to the LVDS
+//          implementation. )
+//        (It's essentially storing RGB as 2 bits each, 64 colors, total)
+//        (The alpha-channel isn't really implemented, in the vast majority
+//        of cases)
+
+// This also contains a "gradient" for drawing all the colors without sharp
+// changes in color... (each adjacent color should only be one shade of
+// difference).
+
+//fbColors is used even when the frameBuffer isn't used... there're
+//conversion-schemes all over the place to convert these RGB values to 
+//other buffer-types.
+
+
+
 // 7 6 5 4 3 2 1 0
 // a a b b g g r r
 //             0 0 = 0x00
@@ -29,24 +48,31 @@
 ((((((r)*3)/255))&0x03) | ((((((g)*3)/255))&0x03)<<2) | ((((((b)*3)/255))&0x03)<<4))
 */
 
-#define _R  0x03	//0x03						00 00 11
-#define _O  0x07	//0x03 | 0x10				00 01 11
-#define _Y  0x0F  //0x03 | 0x0C           00 11 11
-#define _G 0x0C	//       0x0C				00 11 00
-#define _C 0x3C   //       0x0C | 0x30    11 11 00
-#define _B 0x30	//              0x30		11 00 00
-#define _V 0x13   //0x03 |        0x10		01 00 11
-#define _M  0x33	//0x03 |			 0x30		11 00 11
-#define _K  0x00	//								00 00 00
-#define _W 0x3F	//0x03 | 0x0C | 0x30		11 11 11
-#define _r 0x01	//0x01						00 00 01
-#define _g 0x04	//			0x04				00 01 00
-#define _b 0x10	//					 0x10		01 00 00
-#define _c 0x14	//			0x04	 0x10		01 01 00
-#define _m 0x11	//0x01 |			 0x10		01 00 01
-#define _y 0x05	//0x01 | 0x04				00 01 01
-#define _k 0x15	//0x01 | 0x04 | 0x10		01 01 01
+// CAPS == Full-brightness
+// lower-case == dim
+#define _R  0x03	//0x03						00 00 11		RED
+#define _O  0x07	//0x03 | 0x10				00 01 11		ORANGE
+#define _Y  0x0F  //0x03 | 0x0C           00 11 11		YELLOW
+#define _G 0x0C	//       0x0C				00 11 00		GREEN
+#define _C 0x3C   //       0x0C | 0x30    11 11 00		CYAN
+#define _B 0x30	//              0x30		11 00 00		BLUE
+#define _V 0x13   //0x03 |        0x10		01 00 11		VIOLET
+#define _M  0x33	//0x03 |			 0x30		11 00 11		MAGENTA
+#define _K  0x00	//								00 00 00		BLACK
+#define _W 0x3F	//0x03 | 0x0C | 0x30		11 11 11		WHITE
+#define _r 0x01	//0x01						00 00 01		red
+#define _g 0x04	//			0x04				00 01 00		green
+#define _b 0x10	//					 0x10		01 00 00		blue
+#define _c 0x14	//			0x04	 0x10		01 01 00		cyan
+#define _m 0x11	//0x01 |			 0x10		01 00 01		magenta
+#define _y 0x05	//0x01 | 0x04				00 01 01		yellow
+#define _k 0x15	//0x01 | 0x04 | 0x10		01 01 01		black
 #define Tr 0xC0   //Transparent
+// Other colors exist, but aren't named...
+
+//The idea, here, was to be able to initialize arrays with images that
+//could be discerned visually... but the ',_' in the initializers made it
+//difficult to see
 
 
 //Creates a "gradient" effect, where no color-change is greater than 1

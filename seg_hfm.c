@@ -6,6 +6,40 @@
  */
 
 
+//seg_hfm.c (uses the rowSegBuffer):
+//Uses "High-Frequency Modulation" to display an interesting pattern...
+// HFM is kinda like PWM. The idea is to have an output ON for
+//  a certain percentage of the time...
+//  In PWM, that's done by turning it on for a fraction of a cycle 
+//  (the "width" of the pulse), then off for the remainder.
+//  In HFM, it's accomplished by knowing the fraction of time it should be
+//  on... (the "power"). The fractions are automatically reduced 5/10->1/2.
+//  e.g. if the on-time should be 1/100th of the time, it will be on
+//  during one update-period, and off for 99, then repeat.
+//  If the on-time should be 1/2 of the time, it will be on during one
+//  update, off during the next, on again, and so-on.
+//  If the on-time is some strange fraction, like 3/5, it will distribute
+//  the pulses accordingly (e.g. on, off, on, off, on, repeat)
+//  Thus, the output toggles as quickly as possible to achieve the desired
+//  power... thus "High-Frequency"
+//  (See _commonCode.../hfModulation/...)
+//  I've been using HFM in ways never originally intended: e.g. it can be
+//  used for smoothing lines between two distant points...
+//  It's used this way in "SEG_RACER" in order to use a low-resolution
+//  course in memory, and increase the resolution by knowing that there are
+//  a certain number of rows in which it has to get from point1 to point2
+//  so the "power" of the HFM is set to (p2-p1)/numRows.
+//  The nice thing about it, is it doesn't use any actual division (which
+//  is quite slow) because it knows that every point inbetween will be 
+//  traversed.
+// SEG_HFM visualizes that, and actually looks pretty cool. Like moire
+//  patterns, or magnetic-field-lines.
+// Each row increases in power, essentially: rowNum/NUM_SEGMENTS
+// (Experimenting with NUM_SEGMENTS is fun, in this case, just don't exceed
+//  the available memory, and keep in mind that there's a stack and stuff)
+
+
+
 
 void segHFM_loadRow(uint16_t rowNum) {
    segClear();

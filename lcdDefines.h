@@ -5,6 +5,13 @@
  *    Enjoy!
  */
 
+//lcdDefines.h contains project-specific definitions (and redefinitions?)
+//  for functions/macros/constants/timing-values used by:
+//  _commonCode.../lcdStuff
+//  This, along with lcdStuff, is not properly implemented, as far as
+//  c/header files... so this must be #included in main.c *before* lcdStuff
+
+
 
 #ifndef __LCD_DEFINES_H__
 #define __LCD_DEFINES_H__
