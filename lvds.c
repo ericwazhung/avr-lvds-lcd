@@ -280,7 +280,8 @@ And, actually, the Timer0 stuff may not be related to the comment.
 //   Of course: The Not Green/Red bits above are low-bits and
 //              basically have little/no visible effect
 //
-//
+//#error "Is this right?! Will this work with +V and +H separable?!"
+//See note at line 402, and graphic at line 347, timing @ 495
 // Ponderings on using /OC1x's and OC1D for other colors...
 //    /OC1D could easily be used for another color, unaffected by others
 //          since DT1(L) and OCR1D are unused
@@ -379,6 +380,12 @@ And, actually, the Timer0 stuff may not be related to the comment.
 //  Its polarity is reversed (but that's easy since we have a single-ended
 //  to differential converter, and its outputs can just be swapped)
 //  DTL1 determines its brightness (G0 affected by Red):
+//
+// NOTE a/o v67 (unverified)
+//  DTL1 is located in the DT1 register
+//  and as far as I can recall, DTH1 (the high nibble of DT1) is unused
+//  during drawing, so these values are written directly to DT1.
+//
 //   (/OC1B => RX1+)
 //    Off (0/63):   DTL1 = 3 (is this possible?)
 //    8-9/63:         DTL1 = 2
@@ -400,6 +407,7 @@ And, actually, the Timer0 stuff may not be related to the comment.
 //
 // The clock is single-ended (complementary-mode disabled) during NON-DE
 //  because the DE/V/H signals (except in DE mode) require DT1H to vary.
+//  (Which affects the clock.)
 //  When DE is active the clock channel (OC1B) is switched to 
 //  complementary-output-mode to enable the Green PWM output
 //
@@ -1354,6 +1362,28 @@ void lvds_timerInit(void)
 //   12 is damn-near black
 
 #define fullBlue()   DEblue_init()
+//a/o v67 (pwm161! but this file is for Tiny861...)
+// This stolen from the hsync interrupt handler, so it should be right
+// but it is UNTESTED on Tiny861
+#define fullRed()    (OCR1D = 6)
+
+//a/o v67 (pwm161! but this file is for Tiny861...)
+// These are pieced-together from the color-listing table
+// (do a search in here for "Red is connected to OC1D", ~line 366)
+// So far these are only used in BLUE_AND_COLORS, but may become more
+// generalized sometime in the future...
+// Until then, I'm only defining them for BLUE_AND_COLORS until I have a
+// chance to verify their functionality, so we don't have warnings/errors
+// in other modes.
+#if(defined(BLUE_AND_COLORS) && BLUE_AND_COLORS)
+ #error "fullGreen(), noRed(), and noGreen() are untested"
+ #error "Comment-out these errors and see what happens!"
+ #define fullGreen()	(DT1 = 3)
+ #define noRed()		(OCR1D = 0)
+ #define noGreen()	(DT1 = 0)
+#endif
+
+
 
 /*
 static __inline__ \

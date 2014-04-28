@@ -36,7 +36,7 @@
 
 
 
-#include "delayCyc.h"
+#include "delay_cyc.h"
 
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
@@ -63,11 +63,15 @@
 
 
 #define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
-#include "delayCyc.c"
+#include "delay_cyc.c"
 #include "lcdDefines.h"
 #include "pll.c"
-#include "lvds.c"
 
+#if (defined(__AVR_AT90PWM161__))
+ #include "lvds161.c"
+#else
+ #include "lvds.c"
+#endif
 
 #if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
  #include "_options/writeColor.c"
@@ -287,26 +291,27 @@
 
 
 
-
+#if(defined(LOADROW) && LOADROW)
 static __inline__ \
 void loadRow(uint16_t rowNum) \
 	__attribute__((__always_inline__));
+#endif
 
 
-#include _LCDSTUFF_CFILE_
-//#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
+#if(!defined(PWM_TESTING) || !PWM_TESTING)
+ #include _LCDSTUFF_CFILE_
+ //#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
 
 
+ volatile uint8_t frameCount = 0;
 
-volatile uint8_t frameCount = 0;
-
-//Nearly everything display-related happens in this interrupt
-// It even calls the functions that load (and calculate!) the data for the
-// next row.
-// So basically, the entire project is running via timer-interrupt.
-SIGNAL(TIMER0_COMPA_vect)
-{
-//	static uint8_t frameCount = 0;
+ //Nearly everything display-related happens in this interrupt
+ // It even calls the functions that load (and calculate!) the data for the
+ // next row.
+ // So basically, the entire project is running via timer-interrupt.
+ SIGNAL(HSYNC_TIMER_INTERRUPT_VECT) //TIMER0_COMPA_vect)
+ {
+ //	static uint8_t frameCount = 0;
 
 	//Could insert a delay of sorts for scopability...
 	// (otherwise there's not much guarantee that register-assignments
@@ -335,7 +340,7 @@ SIGNAL(TIMER0_COMPA_vect)
 		// (e.g. FRAME_COUNT_TO_DELAY)
 	}
 
-#if(defined(LOADROW) && LOADROW)
+ #if(defined(LOADROW) && LOADROW)
 	//Load the next row into the row(seg)buffer
 	//data is enabled after T_VD+T_Vlow...
 	//a/o v60: Rereading this is confusing...
@@ -343,7 +348,7 @@ SIGNAL(TIMER0_COMPA_vect)
 	// which don't display data (e.g. V-Sync)
 	if((hsyncCount >= T_VD+T_Vlow) && (hsyncCount < T_VD+T_Vlow+V_COUNT))
 		loadRow(hsyncCount - (T_VD+T_Vlow));
-#endif
+ #endif
 	// a/o v60: This is a funny old note... I can't recall a time when
 	// loadRow was written, then removed, then added again. Weird:
 	// Here is where loadRow used to be called
@@ -355,8 +360,8 @@ SIGNAL(TIMER0_COMPA_vect)
 	// calculations to determine the memory location to write from
 	// This effect has since been minimized
 	// BUT loadRow might be necessary for program-memory-based images...
-}
-
+ }
+#endif //!PWM_TESTING
 
 
 #if(defined(SEG_HFM) && SEG_HFM)
@@ -600,7 +605,7 @@ void loadRow(uint16_t rowNum)
 }
 #endif //LOAD_ROW
 
-#include "timer0Stuff.c"
+#include "hsyncTimerStuff.c"
 
 
 #if (!defined(EXTERNAL_DRAWPIX) || !EXTERNAL_DRAWPIX)
@@ -637,12 +642,264 @@ static __inline__ void drawPix(uint16_t rowNum)
       Nada_fromDEblue();
 }
 
+#elif (defined(BLUE_AND_COLORS) && BLUE_AND_COLORS)
+// This draws four colors on the screen, black, red, blue, and cyan
+// in order to test the other colors (red and green)
+static __inline__ void drawPix(uint16_t rowNum)
+{
+	//DE_ACTIVE_DELAYABLE attempts to take into account the overhead of
+	//DE_DotDelay, setColors(), etc...
+	//It's entirely arbitrary, and dependent on CPU speed (PLL_SYSCLK)
+	// and many other factors...
+#if(defined(PLL_SYSCLK) && PLL_SYSCLK)
+ #define DE_ACTIVE_DELAYABLE	(DE_ACTIVE_DOTS-100)
+		//Attempting to stretch the diagonal from corner-to-corner...
+		uint16_t blueDots = (uint32_t)DE_ACTIVE_DELAYABLE * (uint32_t)rowNum
+		  										/ V_COUNT;
+#else
+		//Because, I guess, the math is too long without PLL_SYSCLK
+		// since it's not syncing
+ #define DE_ACTIVE_DELAYABLE	(DE_ACTIVE_DOTS-200)
+		uint16_t blueDots = rowNum;
+#endif
+		uint16_t notBlueDots = DE_ACTIVE_DELAYABLE - blueDots;
+
+		uint16_t halfNotBlueDots = notBlueDots/2;
+
+		uint16_t halfBlueDots = blueDots/2;
+
+
+		//fullRed(), noRed(), fullGreen(), and noGreen()
+		// function differently than the DEblue...() functions.
+		// Since "blue" is shared with the timing-signals,
+		// changing a blue-value requires keeping in mind the previous and
+		// next states of the timing (usually DE-active in all cases, but not
+		// always).
+		// Changing of the "red" and "green" signals is easier, since
+		// doing-so doesn't affect anything else.
+
+		DEonly_fromNada();
+
+		//Black
+		DE_DotDelay(halfNotBlueDots);
+		
+		//Red
+		fullRed();
+		DE_DotDelay(halfNotBlueDots);
+
+		//Blue
+		noRed();
+		DEblue_fromDEonly();
+		
+		DE_DotDelay(halfBlueDots);
+
+		//Cyan
+		fullGreen();
+		
+		DE_DotDelay(halfBlueDots);
+
+		noGreen();
+		Nada_fromDEblue();
+}
+#elif (defined(BLUE_ALLSHADES) && BLUE_ALLSHADES)
+//This is an attempt at showing all available shades of blue
+// Originally it was determined that 11 shades could be shown
+// but there seems to be some trouble with using wrap-around values
+// (e.g. when reset occurs before set in the count)
+// It works fine when it's the *only* shade shown, but if shown with other
+// shades on the screen, it causes syncing problems
+// So, it's been determined that there are basically four discernable
+// shades of blue which are usable with the PWM161
+//
+// The original idea: BLUE_ALLSHADES=TRUE, ALLSHADES_GRADIENT=FALSE
+//  would fade the screen from black to bright blue
+//  (it makes use of the wraparound-values)
+// Then ALLSHADES_GRADIENT would display them all on the screen at once
+// 
+// It's since been somewhat hacked, to disable the unstable wrap-around
+// values...
+// Then ALLSHADES_AND_COLORS was added, to show all usable colors
+// This's gotten a bit bloated, and would probably be better-implemented as
+// several different BLUE_WHATEVERs
+static __inline__ void drawPix(uint16_t rowNum)
+{
+#define BLUESHADES_MAX 11
+		
+#if(!defined(ALLSHADES_GRADIENT) || !ALLSHADES_GRADIENT)
+ #define DOTSPERSHADE (DE_ACTIVE_DOTS) ///BLUESHADES_MAX)
+		static uint8_t frameCount = 0;
+		static uint8_t shadeNum = 0;
+
+		if(rowNum == 0)
+			frameCount++;
+
+		if(frameCount == 60)
+		{
+			frameCount = 0;
+			shadeNum++;
+			if(shadeNum >= BLUESHADES_MAX)
+				shadeNum = 0;
+		}
+#else
+ #if(defined(ALLSHADES_AND_COLORS) && ALLSHADES_AND_COLORS)
+		setRed4(4*rowNum/V_COUNT);
+		setGreen4((16*rowNum/V_COUNT)%4);
+		/*
+		//K, R, G, Y
+		if(rowNum < V_COUNT/4)
+		{
+			noRed();
+			noGreen();
+		}
+		else if(rowNum < 2*V_COUNT/4)
+		{
+			fullRed();
+			noGreen();
+		}
+		else if(rowNum < 3*V_COUNT/4)
+		{
+			fullGreen();
+			noRed();
+		}
+		else
+		{
+			fullGreen();
+			fullRed();
+		}
+		*/
+ #endif
+ //Add a little bit of extra delay for calculations...
+ #define START_SHADE 0//10 //5 //10
+ #define END_SHADE   10//0 //7 //10 //0
+
+ #define SHADE_DIR_SIGN ((END_SHADE > START_SHADE) ? +1 : -1)
+ #define NUM_SHADES  (((SHADE_DIR_SIGN > 0) ? (END_SHADE-START_SHADE) \
+			 :(START_SHADE-END_SHADE))+1)
+
+// Weird... with +0, syncing is way-off (such that the red/green doesn't
+// come through *at all*
+// and so-forth.
+ #define DOTSPERSHADE (DE_ACTIVE_DOTS/(NUM_SHADES+15))
+		int8_t shadeNum;
+
+		DEonly_init();
+
+		for(shadeNum=START_SHADE; shadeNum != (END_SHADE+SHADE_DIR_SIGN);
+				shadeNum+=SHADE_DIR_SIGN)
+		{
+
+#endif
+		uint8_t ocr2sa_val;
+		uint8_t ocr2ra_val;
+
+		//Black
+//		DE_DotDelay(DOTSPERSHADE);
+
+		//The commented-out cases are those that require wrapping
+		// (e.g. "set" occurs *after* "reset")
+		// They don't seem to work too well, when switching back and forth
+/*		switch(shadeNum)
+		{
+			//Black	//these're from DEonly_init();
+			case 0:
+				ocr2sa_val = 1;
+				ocr2ra_val = 4;
+				break;
+			case 1:
+				//4:
+				ocr2sa_val = 0;
+				ocr2ra_val = 4;	
+				break;
+//			case 2:
+//				//12:
+//				ocr2sa_val = 6;
+//				ocr2ra_val = 4;	
+//				break;
+//			case 3:
+//				//28:
+//				ocr2sa_val = 5;
+//				ocr2ra_val = 4;	
+//				break;
+			case 2:
+				//32:
+				ocr2sa_val = 1;
+				ocr2ra_val = 5;	
+				break;
+			case 3:
+				//36:
+				ocr2sa_val = 0;
+				ocr2ra_val = 5;	
+				break;
+//			case 6:
+//				//44:
+//				ocr2sa_val = 6;
+//				ocr2ra_val = 5;	
+//				break;
+			case 4:
+				//48:
+				ocr2sa_val = 1;
+				ocr2ra_val = 6;	
+				break;
+			case 5:
+				//52:
+				ocr2sa_val = 0;
+				ocr2ra_val = 6;	
+				break;
+//			case 9:
+//				//56:
+//				ocr2sa_val = 1;
+//				ocr2ra_val = 0;	
+//				break;
+			default:
+				//60:
+				ocr2sa_val = 0;
+				ocr2ra_val = 8;	//7 dun woik... all-low
+				break;
+		}
+
+		//DEonly_fromNada();
+	
+		//setbit(PLOCK2, PCNF2);
+
+		lockPSC2();
+		OCR2SAL = ocr2sa_val;
+		OCR2RAL = ocr2ra_val;
+		unlockPSC2();
+		//clrbit(PLOCK2, PCNF2);
+*/
+		uint8_t newShade = shadeNum; //rowNum*64/V_COUNT) % NUM_SHADES;
+
+		if(newShade <= 3)			//0, 1, 2, 3
+			newShade = newShade;
+		else if(newShade <= 6)   //4->2, 5->1, 6->0
+			newShade = (6-newShade);
+		else
+			newShade = 3;
+
+		setBlue4(newShade);
+
+		DE_DotDelay(DOTSPERSHADE);
+
+#if(defined(ALLSHADES_GRADIENT) && ALLSHADES_GRADIENT)
+		}
+ #if(defined(ALLSHADES_AND_COLORS) && ALLSHADES_AND_COLORS)
+		setRed4(0); //4*rowNum/V_COUNT);
+		setGreen4(0); //(16*rowNum/V_COUNT)%4);
+ #endif
+#endif
+		Nada_init(); //fromDEblue();
+}
+
+#elif (defined(PWM_TESTING) && PWM_TESTING)
+	//No drawPix necessary...
 
 #else
 //#include "_options/writeColor.c"
 //#include "nonRSB_drawPix.c"
 void drawPix(uint16_t rowNum)
 {
+	//a/o v67, this is used by FRAMEBUFFER_TESTING...
+	//Old:
 	//This hasn't been used in quite some time... 
 	// it may not work at all anymore.
 	nonRSB_drawPix(rowNum);
@@ -651,8 +908,12 @@ void drawPix(uint16_t rowNum)
 #endif
 
 
+
+
+
 int main(void)
 {
+
 
 #if(defined(SEG_RACER) && SEG_RACER)
 	racer_init();
@@ -668,9 +929,10 @@ int main(void)
 #if(defined(SEG_TET) && SEG_TET)
 	tetInit(3);
 #endif
-	init_timer0Hsync();
-
-
+	
+#if(!defined(PWM_TESTING) || !PWM_TESTING)
+	init_hsyncTimer();
+#endif
 
 #if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
 #if(!defined(FB_DONT_USE_UPDATE) || !FB_DONT_USE_UPDATE)
@@ -692,10 +954,12 @@ int main(void)
 	adc_startConversion();
 #endif
 
-	uint8_t imageNum = 0;
-	uint8_t colorShift = 0;
 	while(1)
 	{
+//#if(defined(FB_SMILEY) && FB_SMILEY)
+//		frameBufferUpdate();
+//#endif
+
 #if(defined(FB_QUESTION) && FB_QUESTION)
 		static int32_t adcAvg = 0;
 		static uint16_t adcVal;
@@ -742,6 +1006,11 @@ int main(void)
 
 		}
 
+#endif
+
+#if((defined(FB_QUESTION) && FB_QUESTION) \
+		|| (defined(FB_SMILEY) && FB_SMILEY) )
+
 		//static uint32_t count = 0;
 		static uint8_t lastFrameCount = 0;
 #define FRAME_COUNT_LIMIT 0x03
@@ -750,12 +1019,24 @@ int main(void)
 //		if(( (thisFrameCount==0) && (lastFrameCount==FRAME_COUNT_LIMIT) ))
 		if(thisFrameCount != lastFrameCount)
 		{
+
+#if(defined(FB_QUESTION) && FB_QUESTION)
 			fbQuestion_update();
+#elif (defined(FB_SMILEY) && FB_SMILEY)
+			frameBufferUpdate();
+#endif
 		}
 
 		lastFrameCount = thisFrameCount;
 #endif
+		//see cTools/unusedMacroTest.c
+		//({0;});	no warning (anymore), I'm sure it did before...
+		//(0);	"statement with no effect"
 		heartUpdate();
+/*	Testing HEART_REMOVED for warnings...
+		if(heartUpdate())
+			heartUpdate();
+*/
 	}
 
 }

@@ -35,7 +35,7 @@
 //37, 7, 2, not used
 //37, 2, 0, not used
 
-static uint8_t pgm_imageSTAR[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageSTAR[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(STAR);
 
 
@@ -47,7 +47,7 @@ static uint8_t pgm_imageSTAR[ICON_PACKED_BYTES] PROGMEM =
 #define NUMPALETTES_STAR 2
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteSTAR[4*NUMPALETTES_STAR] PROGMEM =
+const static uint8_t pgm_paletteSTAR[4*NUMPALETTES_STAR] PROGMEM =
    { 37, 7, 2, 0,
      37, 2, 0, 0 };
 

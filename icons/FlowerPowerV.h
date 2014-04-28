@@ -36,7 +36,7 @@
 //37 (sky), 23 (outter Ring), 2 (inner ring), 0 middle
 //37, 7, 5, 2
 
-static uint8_t pgm_imageFLOWER[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageFLOWER[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(FLOWER);
    
 
@@ -56,7 +56,7 @@ static uint8_t pgm_imageFLOWER[ICON_PACKED_BYTES] PROGMEM =
 #define FLOWER_PALETTE1_ROW	8
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteFLOWER[4*NUMPALETTES_FLOWER] PROGMEM =
+const static uint8_t pgm_paletteFLOWER[4*NUMPALETTES_FLOWER] PROGMEM =
    { 
 	  37,  4, 0, 0,
 	  37, 47, 7, 4,

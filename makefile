@@ -12,6 +12,27 @@
 
 
 
+###### Listed Early-On because THIS IS BAD if it's TRUE
+#CFLAGS += -D'ALLOW_UNIMPLEMENTED=TRUE'
+###### In other words, this should be commented-out
+
+
+#####
+# As-Of installation of avr-libc 1.8, avr-gcc 4.82, etc. 4-20-14:
+# Message about "const" being necessary with PROGMEM...
+# From avr-libc's "Summary of changes in 1.8.html"
+# This might have something to do with it...
+# "all the type names starting with prog_ (like prog_char, prog_uint16_t
+# and so on) are now no longer declared by default."
+CFLAGS += -D'__PROG_TYPES_COMPAT__=TRUE'
+# Or not... seems to have no effect on this error:
+#error: variable ‘sineTable’ must be const in order to be put into 
+#read-only section by means of ‘__attribute__((progmem))’
+#  theta_t sineTable[129] PROGMEM = {
+# But it should be helpful in other such cases... for now.
+#####
+
+
 #This is the project-name... the compiled (e.g. hex) files will have this
 # as their filename (e.g. _BUILD/<TARGET>.hex)
 #
@@ -24,7 +45,9 @@ TARGET = LCDdirectLVDS
 
 #This is the selected AVR... Used in MANY cases, including configuration of
 # avr-dude, avr-gcc, and more.
-MCU = attiny861
+#MCU = at_dneTest
+MCU = at90pwm161
+#attiny861
 
 # This is the CPU frequency. Generally it's used for calculating BAUD
 # rates, and timer compare-match values. In C/H code, its value can be
@@ -86,7 +109,8 @@ CFLAGS += -D'PROJINFO_SHORT=TRUE'
 # DON'T FORGET: If you change this, rerun 'make fuse'
 PLLSYSCLK = 1
 
-ifdef PLLSYSCLK
+ifeq "$(PLLSYSCLK)" "1"
+#This value is the same for the ATTiny861 and AT90PWM161
 FUSEL = 0xe1
 # Nominal:
 FCPU = 16000000UL
@@ -138,6 +162,16 @@ WDT_DISABLE = TRUE
 	PROJ_OPT_HDR += WDT_DIS=$(WDT_DISABLE)
 
 
+
+#hsyncTimerStuff.c/h handle the atTiny861 by default... these override that
+ifeq "$(MCU)" "at90pwm161"
+CFLAGS += -D'HSYNC_TIMER_NUM=1'
+CFLAGS += -D'HSYNC_TIMER_OCR=ICR1'
+CFLAGS += -D'HSYNC_TIMER_MAX=0xffff'
+#PWM161's Timer1 only has CLKDIV1... so if it doesn't fit, we're screwed.
+CFLAGS += -D'HSYNC_TIMER_CLKDIV=CLKDIV1'
+CFLAGS += -D'HSYNC_TIMER_INTERRUPT_VECT=TIMER1_CAPT_vect'
+endif
 
 
 
@@ -243,14 +277,21 @@ include $(HFMODULATION_LIB).mk
 # by SEG_RACER for the potentiometer.
 VER_ADC = 0.20
 CFLAGS += -D'ADC_SUM_REMOVED=TRUE'
+# For early testing toward the pwm161
+CFLAGS += -D'ADC_MCU_NYI_ERROR_DISABLED=TRUE'
 ADC_LIB = $(COMDIR)/adc/$(VER_ADC)/adc
 include $(ADC_LIB).mk
 
 
-#timerCommon is used by everything timer-related... timer1 is used for
-# Pulse-Width-Modulation which simulates FPD-Link. timer0 is used for the
-# regular LCD timing-signals (interrupts at the beginning of each Hsync)
-VER_TIMERCOMMON = 1.21
+#timerCommon is used by everything timer-related... 
+#With the ATtiny861:
+# timer1 is used for Pulse-Width-Modulation which simulates FPD-Link. 
+# timer0 is used for the regular LCD timing-signals 
+#        (interrupts at the beginning of each Hsync)
+#With the AT90PWM161:
+# timer0 DNE
+# timer1 will likely be used for the LCD timing-signals
+VER_TIMERCOMMON = 1.22
 CFLAGS+=-D'TIMER_SETOUTPUTMODES_UNUSED=TRUE'
 CFLAGS+=-D'TIMER_SELECTDIISOR_UNUSED=TRUE'
 #CFLAGS+=-D'TIMER_SETWGM_UNUSED=TRUE'
@@ -266,20 +307,28 @@ include $(TIMERCOMMON_LIB).mk
 # In addition, the same pin can be used as a momentary-pushbutton input.
 # Generally, the heartbeat pin is connected to MISO, which, among other
 # things, allows for easy addition of a pushbutton to the project, by
-# merely connecting an adaptor between my programmer and the CPU.
+# merely connecting an adapter between my programmer and the CPU.
 # USUALLY it's in *all* my projects, until either code-space runs out, or
-# there are no remaining pins. This particular project is an exception.
+# there are no remaining pins. 
+#
+# This particular project is an exception.
 # The heart is explicitly removed from this project, so it would make sense
 # to just remove all references to it. But it's useful and should probably
 # be reimplemented for the sake of early tests, in order to make sure the
 # CPU isn't crashing when running with PLL_SYSCLK (32MHz when rated for 16)
 # Setting HEART_REMOVED=TRUE causes all references to heart functions to be
 # replaced with '0;' which optimizes out to nothing.
+#
 # And, for now, it *must* be the case, due to pinout stuff, described below
+# The above notes re: Tiny861, AT90PWM161 has MISO on an otherwise unused
+# pin, so therefore heartbeat can be used with the default configuration
+# (on MISO)
 #SEE NOTE BELOW IN COM_HEADERS...
+ifneq "$(MCU)" "at90pwm161"
 HEART_REMOVED = TRUE
+endif
 
-VER_HEARTBEAT = 1.21
+VER_HEARTBEAT = 1.30
 HEARTBEAT_LIB = $(COMDIR)/heartbeat/$(VER_HEARTBEAT)/heartbeat
 HEART_DMS = FALSE
 #DMS_EXTERNALUPDATE = FALSE
@@ -290,12 +339,23 @@ CFLAGS += -D'HEARTPIN_HARDCODED=TRUE'
 #This pinout is... questionable.
 # The typical heart-pin is MISO, since the slave device (CPU) is capable of
 # driving up to 40mA (could easily drive an LED AND the programmer's input)
+
+#Tiny861:
 # But, MISO is an OC1x pin, used by the LCD, in this case...
 # Since HEART_REMOVED is true, above, this doesn't matter either way
 # BUT, it means we can't use the typical heart-pin as a momentary-low-input
 # In other words, this pin is basically unused. See pinout.h
+#PWM161:
+# MISO is otherwise unused, so can therefore be used for the heart
+# (as long as there's enough code-space and whatnot)
+ifneq "$(MCU)" "at90pwm161"
 CFLAGS += -D'HEART_PINNUM=PA3'
 CFLAGS += -D'HEART_PINPORT=PORTA'
+else
+CFLAGS += -D'HEART_PINNUM=PB6'
+CFLAGS += -D'HEART_PINPORT=PORTB'
+endif
+
 CFLAGS += -D'HEART_LEDCONNECTION=LED_TIED_HIGH'
 include $(HEARTBEAT_LIB).mk
 
@@ -377,6 +437,24 @@ BITHANDLING_HDR = $(COMDIR)/bithandling/$(VER_BITHANDLING)/
 CFLAGS += -D'_BITHANDLING_HEADER_="$(BITHANDLING_HDR)/bithandling.h"'
 COM_HEADERS += $(BITHANDLING_HDR)
 
+
+#stringify is used by delayCyc (see below)
+# It handles creating strings, creating custom variable-names, etc. in
+# preprocessor definitions
+STRINGIFY := $(COMDIR)/__std_wrappers/stringify/0.10/stringify.h
+COM_HEADERS += $(STRINGIFY)
+CFLAGS += -D'_STRINGIFY_HEADER_="$(STRINGIFY)"'
+
+#delayCyc is used by the lvds161.c in order to synchronize PSCR and PSC2
+# Rather than only conditionally including it in COM_HEADERS, I'll include
+# it regardless. That way, if a distribution goes out configured for the
+# Tiny861, and someone decides to reconfigure it for the PWM161, then the
+# code will be available...
+#NOTE: delayCyc in _commonCode.../ is NOT THE SAME as delay_cyc.c/h in the
+# main project directory
+DELAYCYC := $(COMDIR)/delayCyc/0.20ncf/delayCyc.h
+COM_HEADERS += $(DELAYCYC)
+CFLAGS += -D'_DELAYCYC_HEADER_="$(DELAYCYC)"'
 
 #lcdStuff handles timing for H-sync/blank, V-sync/blank, DataEnable, etc.
 # Yes, this is one of those cases where COM_HEADERS is being hacked for

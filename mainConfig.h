@@ -119,15 +119,30 @@
 
 //a/o v62, in which I attempt to get the ChiMei screen working
 
+
+
 //START HERE. 
 //Set this true, then see the explanations below.
 //#define BLUE_TESTING	TRUE
+
+//Later, comment-out the above, and try this one...
 #define FRAMEBUFFER_TESTING	TRUE
 
+//This is for testing a new (unimplemented) chip
+// could also be useful for testing an implemented chip, since we're really
+// pushing the chip's limits...
+//For now, this just sets a specific and unchanging PWM signal, for
+//'scoping.
+//#define PWM_TESTING	TRUE
 
-
-
-
+//TODO: This should probably be changed such that ROW_SEG_BUFFER is only
+//paid attention to when it's TRUE... as it stands (a/o v67) it must be
+//explicitly either TRUE or FALSE...
+#define ROW_SEG_BUFFER FALSE
+//This'll probably get changed during testing...
+#define LVDS_PRESCALER 1
+//This needs to be TRUE for LVDS_PRESCALER == 1
+#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
 
 #if (defined(BLUE_TESTING) && BLUE_TESTING)
 
@@ -233,7 +248,7 @@
 // that's a refresh-rate of... 64seconds for 1024 refreshes, or dang-near
 // exactly 16Hz refresh.
 // Really, this all seems too good to be true. 
-#define BLUE_DIAG_BAR_SCROLL TRUE
+//#define BLUE_DIAG_BAR_SCROLL TRUE
 
 
 //Another new test
@@ -251,7 +266,54 @@
 //#define BDSF_ALTERNATE_ROWS TRUE
 
 
-//Yet Another New Test
+//New a/o pwm161 (v67):
+// BLUE_AND_COLORS does quick-testing for the other colors as well
+// It should display black, red, blue, and cyan in diagonal "bars"
+// I should probably move its code to _commonCode.../lcdStuff
+// but for now it's in main.c
+// THIS HAS NOT BEEN TESTED on the Tiny861, but should be implemented...
+//#define BLUE_AND_COLORS	TRUE
+
+#if(defined(BLUE_AND_COLORS) && BLUE_AND_COLORS)
+ #undef EXTERNAL_DRAWPIX
+#endif
+
+//New a/o pwm161 (v67):
+// BLUE_ALLSHADES fades from black to bright blue...
+// THIS DOES NOT WORK with the Tiny861
+#define BLUE_ALLSHADES	TRUE
+//ALLSHADES_GRADIENT shows the BLUE_ALLSHADES as a gradient
+// (BLUE_ALLSHADES should also be TRUE, to use ALLSHADES_GRADIENT)
+//It doesn't work! Does something *really* weird
+// Not sure what's going on... maybe the bits are misaligned...?
+// except, that BLUE_ALLSHADES seems to work right....
+// Could have to do with DelayDots() being too long...?
+// Also, maybe, consider the fact that having a white border seemed to help
+// syncing in much older versions...
+// I've tried *numerous* different ways, and it just ain't woikin.
+// Also plausible... Maybe One-Ramp-Mode doesn't actually pay attention to
+// 2RB, explicitly... in which case, switching things 'round might cause
+// the clock signal to be distorted...
+// That seems to be it... or close, anyways. Now it works.
+// (by disabling the shades that require wrap-around)
+// So we're left with essentially four discernable shades, 
+// which is one more than the Tiny861, Woot!
+#define ALLSHADES_GRADIENT TRUE
+//ALLSHADES_AND_COLORS adds Red, Green, and Yellow horizontal bars
+// to ALLSHADES_GRADIENT (which must be true, for this to also be)
+//The name's a bit misleading, it's not "All Shades-and-colors" it's 
+// "All-Shades and colors"
+#define ALLSHADES_AND_COLORS	TRUE
+
+#if(defined(BLUE_ALLSHADES) && BLUE_ALLSHADES)
+ #undef EXTERNAL_DRAWPIX
+ #ifndef __AVR_AT90PWM161__
+  #error "BLUE_ALLSHADES only works with the AT90PWM161, so far..."
+ #endif
+#endif
+
+
+//Yet Another New Test (prior to v67)
 // BLUE_ADC reads the ADC value before drawing each row...
 // The value read determines the horizontal position of the color-change
 // thus, it's a very simple Oscilloscope!
@@ -282,6 +344,8 @@
 // which would leave the processor *free* during the DE-Active time
 //Again, its functionality is somewhat limited, one display doesn't like
 //it at all, and the other quite literally squeels.
+
+//THIS HAS NOT BEEN TESTED AT ALL with the PWM161
 //#define BLUE_ADC	TRUE
 
 #if(defined(BLUE_ADC) && BLUE_ADC)
@@ -322,7 +386,14 @@
 //Loads a stationary smiley-face image into the frame-buffer and display it
 //#define FB_SMILEY	TRUE
 
+//#if(defined(FB_SMILEY) && FB_SMILEY)
+// #define FB_DONT_USE_UPDATE FALSE
+//#endif
+
 //Loads the frameBuffer equivalent of SEG_QUESTION (see description, below)
+// Note there are several options for testing in fb_question.c
+// It's entirely plausible I might've left one enabled that shouldn't be...
+// e.g. "AUTO_HIT" or random-override...
 #define FB_QUESTION	TRUE
 
 
@@ -333,7 +404,12 @@
 #endif
 
 
-#else	//NOT BLUE_TESTING or FRAMEBUFFER_TESTING
+#elif (defined(PWM_TESTING) && PWM_TESTING)
+
+
+
+#else	//NOT BLUE_TESTING, FRAMEBUFFER_TESTING, or PWM_TESTING
+		//(SEG_Whatevers)
 
 //Re the next two settings: (a/o v62)
 //This is a quick-attempt at getting the ChiMei display working with
@@ -567,7 +643,7 @@
 // a/o v61: PLL_SYSCLK is true by default (and thus LVDS_PRESCALER=4)
 //
 #ifndef LVDS_PRESCALER
-#if (defined(PLL_SYSCLK) && PLL_SYSCLK)
+ #if (defined(PLL_SYSCLK) && PLL_SYSCLK)
 //a/o v60: This isn't required... using 8 allows for double-resolution
 //         BUT, I've two seemingly identical displays with different 
 //         revisions of the same LVDS-receiver chip... one will not sync
@@ -575,21 +651,21 @@
 //         (I swear it did without a problem a while back... weird)
 //         So, this doubles the bit-rate rather than doubling the 
 //         resolution
-#define LVDS_PRESCALER 4//8//1//2//8//2//1//8//2//4//8//2//8//2
+  #define LVDS_PRESCALER 4//8//1//2//8//2//1//8//2//4//8//2//8//2
 //8//2//1//2//2//2//2//2//2//2//2//2//2//2//8//4 //1 //2//4//8//2//4
-#else
-#define LVDS_PRESCALER 8
-#endif
+ #else
+  #define LVDS_PRESCALER 8
+ #endif
 #endif
 
 // a/o v59
 //This should probably always be TRUE now... It's been a LONG time since I
 // experimented with it otherwise.
 #ifndef ROW_SEG_BUFFER
-#define ROW_SEG_BUFFER   TRUE
+ #define ROW_SEG_BUFFER   TRUE
 
 // a/o v62: This shouldn't need to be TRUE for blue-testing, etc... right?
-#error "WTF?"
+ #error "WTF?"
 #endif
 
 /*

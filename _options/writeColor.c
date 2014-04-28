@@ -90,16 +90,22 @@
 
 //#if(!defined(ROW_SEG_BUFFER) || !ROW_SEG_BUFFER)
 
-
-#if(defined(ROW_BUFFER) && ROW_BUFFER)
-//THIS IS JUST AN ESTIMATE
- #define WRITE_COLOR_CYCS   (13)
-#elif(defined(FOUR_SHADES) && FOUR_SHADES)
- // Roughly...
- #define WRITE_COLOR_CYCS   (12*2+9+3)
+#if(defined(__AVR_AT90PWM161__))
+ #define WRITE_COLOR_CYCS 56
+ //This value determined from .lss
+ // probably not 100% accurate.
+ //And kinda surprising it's so much more than the others...
 #else
- // Roughly...
- #define WRITE_COLOR_CYCS   (9*3+3)
+ #if(defined(ROW_BUFFER) && ROW_BUFFER)
+ //THIS IS JUST AN ESTIMATE
+  #define WRITE_COLOR_CYCS   (13)
+ #elif(defined(FOUR_SHADES) && FOUR_SHADES)
+  // Roughly...
+  #define WRITE_COLOR_CYCS   (12*2+9+3)
+ #else
+  // Roughly...
+  #define WRITE_COLOR_CYCS   (9*3+3)
+ #endif
 #endif
 
 // DE_CYC = FB_WIDTH * ( WRITE_COLOR_CYCS + WRITE_COLOR_DELAY )
@@ -109,14 +115,178 @@
 #define WRITE_COLOR_DELAY \
 	( DOTS_TO_CYC(DE_ACTIVE_DOTS) / FB_WIDTH - WRITE_COLOR_CYCS-4)
 #if((WRITE_COLOR_DELAY < 0) || (WRITE_COLOR_DELAY >127))
- #error "problem here..."
+ #define WRITE_COLOR_DELAY 0
+ #warning "problem here..."
+// #error "problem here..."
 #endif
 
 //load a color-value from the frame/row buffer and write the registers
+
+
+
+
+static __inline__ 
+void writeColor(uint8_t includeDelay, uint8_t colorVal) 
+	__attribute__((__always_inline__));
+
+#if(defined(__AVR_AT90PWM161__))
+
+ void writeColor(uint8_t includeDelay, uint8_t colorVal)
+ {
+	uint8_t redVal = colorVal & 0x03;
+	uint8_t greenVal = (colorVal >> 2) & 0x03;
+	uint8_t blueVal = (colorVal >> 4) & 0x03;
+
+	setRed4(redVal);
+	setGreen4(greenVal);
+	setBlue4(blueVal);
+
+	if(includeDelay)
+		delay_cyc(WRITE_COLOR_DELAY);		
+
+ }
+#if 0
+ void writeColor(uint8_t includeDelay, uint8_t colorVal)
+ {
+
+#if(defined(ROW_BUFFER) && ROW_BUFFER)
+	#error "ROW_BUFFER is NYI for the PWM161"
+#endif
+
+
+	 //This is pieced-together from the ATTiny861's writeColor()
+	 // and memory...
+
+	 //The basic idea is to set a color in a specific/non-varying number of
+	 //instruction-cycles.
+	 // Thus, we can't use "if" statements, etc, without paying attention to
+	 // the actual assembly output.
+	 // Additionally, it would be nice to know exactly how many cycles the
+	 // entire function-call takes, so we can determine the number of pixels
+	 // that can fit in a DE-active period... 
+	 // (How many writeColor() calls can fit horizontally)
+	 // Further still, this function is "always inline"
+	 // which means that it will be optimized in each usage...
+	 // which means that it might compile differently in different calls
+	 // (e.g. if one call has a constant-argument and another has a
+	 // variable)
+	 // which is another reason to use inline-assembly, to assure it's the
+	 // exact same number of clock-cycles each time.
+	 // That's reserved for later...
+
+	 // FURTHER STILL:
+	 // the optimizer reorganizes things... duh.
+	 // Which means that even though these calculations are listed at the
+	 // top of the function...
+	 // their actual instructions may not occur until later.
+	 // The write to OCR-registers would ideally occur simultaneously
+	 // such that the red/green/blue edges would align
+	 // Without doing this in ASM, we can't guarantee (and I've seen
+	 // first-hand) that it can't happen that one OCR is written, the next
+	 // is calculated, *then* the next is written.
+
+	 //First, unpack the colors:
+	 uint8_t redVal = colorVal&0x03;
+	 //uint8_t greenVal = (colorVal>>2)&0x03;
+	 //uint8_t blueVal = (colorVal>>4)&0x03;
+	 //The above is optimized below by combining two of the
+	 //blue-shifts... It should be smaller
+	 uint8_t bgTemp = colorVal>>2;
+	 uint8_t greenVal = bgTemp&0x03;
+	 uint8_t blueVal = (bgTemp>>2)&0x03;
+
+	 //Now prep some variables for the register-values
+	 // the actual registers will be written all at once at the end
+
+	 //see setRed4() and setGreen4()...
+	 uint8_t redOCR_val   = (redVal + 2);
+	 uint8_t greenOCR_val = (greenVal + 3);
+
+	 //Blue is more difficult, it requires a test
+	 // which, when compiled, would likely result in two branches that take
+	 // different numbers of clock-cycles
+	 uint8_t blueOCR_val = (blueVal + 4);
+
+	 // So far, none of the above code has any branches (right?)
+	 // So it should be a constant number of clock-cycles
+	 // (unless an inline-call has a constant as an argument!)
+
+	 //The following is nothing more than 
+	 // if (blueVal == 3) 
+	 //     blueOCR_val=8;
+
+
+	 //This is NOT AT ALL optimized:
+	 // But it is guaranteed to be exactly 3 cycles *in each branch*
+__asm__ __volatile__
+	(                                                        // cycles
+	 "cpi   %1, 3 ; \n\t"				// (blueVal == 3) ?     //    1
+	 "brne  nothingToDo_%= ; \n\t"	// N: skip next line    // N:2  Y:1
+	 "ldi   %0, 6 ; \n\t"            //   blueOCR_val=8      //   .    1
+  "nothingToDo_%=: \n\t"            // just a jump-to label //   0    0
+    : "=r" (blueOCR_val) //blueOCR_val is an output-value, "%0"
+	 : "r" (blueVal)		//blueVal is an input-value, "%1"
+	);
+
+	//Now all the OCR_val variables are set
+	// write them to the registers
+	// Locking/unlocking of the PSCs can't occur simultaneously,
+	// so it's likely there will be a pixel or two of difference between the
+	// transition from one value of blue to the next vs red/green's
+	// transition
+	lockPSC2();
+	lockPSC0();
+//		OCR2RA = blueOCR_val;
+//		OCR0SA = redOCR_val;
+//		OCR0SB = greenOCR_val;
+//"When addressing the I/O Registers as data space using LD and ST
+// instructions, 0x20 must be added to these addresses"
+//"For the Extended I/O space from 0x60-0xFF in SRAM, only the ST... and
+//LD... instructions can be used"
+// So, rather than using _SFR_IO_ADDR(), use _SFR_MEM_ADDR()
+		__asm__ __volatile__
+		(
+		 "sts %3, %0; \n\t"
+		 "sts %4, %1; \n\t"
+		 "sts %5, %2; \n\t"
+		 :
+		 : "r" (blueOCR_val),	//"%0"
+		   "r" (redOCR_val),		//"%1"
+			"r" (greenOCR_val),	//"%2"
+			"M" (_SFR_MEM_ADDR(OCR2RAL)), //"%3" //0x2e (0x4e)
+			"M" (_SFR_MEM_ADDR(OCR0SAL)), //"%4"	//(0x60)
+			"M" (_SFR_MEM_ADDR(OCR0SBL)) //"%5"  //0x22 (0x42)
+
+		);
+	unlockPSC0();
+	unlockPSC2();
+
+
+	//"Attempt to stretch across the full screen"
+	// Not sure if/where this is used... 
+	if(includeDelay)
+		delay_cyc(WRITE_COLOR_DELAY);
+ }
+#endif
+
+
+
+#endif
+
+
+
+
+
+
+
+
+
+
+/*
 static __inline__ \
 void writeColor(uint8_t includeDelay, uint8_t colorVal) \
      __attribute__((__always_inline__));
-
+*/
 
 
 
@@ -150,6 +320,18 @@ void nonRSB_drawPix(uint16_t rowNum)
 //	rowNum &= 0x0f;
 	uint8_t *color = &(frameBuffer[rowNum][0]);
 #endif
+
+	//a/o v67:
+	// WTF... this didn't work without DEonly_init();
+	// despite the fact that writeColor() on the 161 sets DE?!
+	// AND it worked on the Tiny861 without this?!
+	// No... writeColor doesn't change one register, which needs to be set
+	// for blue...
+	DEonly_init();
+	//lockPSC2();
+	//OCR2SA=1;	//WTF, 0 doesn't work?!
+	//OCR2RA=4;
+	//unlockPSC2();
    /*
       DEonly_fromNada();
       //Enable complementary-output for Green (on /OC1B, where CLK is OC1B)
@@ -189,7 +371,7 @@ void nonRSB_drawPix(uint16_t rowNum)
       writeColor(TRUE, *(color+6));  
       writeColor(TRUE, *(color+7));                         
       writeColor(TRUE, *(color+8));                         
-      writeColor(TRUE, *(color+9));                         
+		writeColor(TRUE, *(color+9));                         
       writeColor(TRUE, *(color+10));                         
       writeColor(TRUE, *(color+11));                         
       writeColor(TRUE, *(color+12));                         
@@ -270,7 +452,6 @@ asm("nop");
 #else
 //   writeColor(0);
 #endif //COLOR_BARS || ROW_BUFFER
-
 /*      reg[17] = colorBuffer[rowNum][17];                         
       writeColor(reg[17]);                         
       ...
@@ -378,7 +559,11 @@ asm("nop");
 #if (ROW_COMPLETION_DELAY > 0)
 //      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
 //            - WRITE_COLOR_CYCS*COLORS_WRITTEN);
-      delay_cyc(ROW_COMPLETION_DELAY);
+
+
+		delay_cyc(ROW_COMPLETION_DELAY);
+
+		
 //      asm("nop;");
 //      asm("nop;");
 //      asm("nop;");
@@ -390,13 +575,15 @@ asm("nop");
       
 #else
 #warning "ROW_COMPLETION_DELAY <= 0"
+#define ROW_COMPLETION_DELAY 0
 #endif
 
 		//a/o v62: (Original notes removed)
 		//OCR1D controls RED... >=6 is full-red
 		// Setting this here indicates where the drawing has completed
 		// This is handy for determining timing, stretching, etc...
-		OCR1D = 6; //0;
+		//OCR1D = 6; //0;
+		fullRed();
 
       //DE->Nada transition expects fullBlue...
       //Also helps to show the edge of the DE timing...
@@ -426,8 +613,7 @@ asm("nop");
 
 
 
-
-
+#if(!defined(__AVR_AT90PWM161__))
 void writeColor(uint8_t includeDelay, uint8_t colorVal)
 {
 //#warning "I'm absolutely certain this'll need to be revised, probably asm"
@@ -469,6 +655,13 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
                                  //out OCRD, out DT, out OCRA
 
 #else //NOT ROW_BUFFER (FRAMEBUFFER)
+
+//a/o v67: I didn't make very clear notes here, but have been using it for
+//quite some time. As I recall, the purpose of moving this to asm, instead
+//of just using switch() statements, is in order to assure that regardless
+//of the color-value, the same number of instruction-cycles will be
+//executed... (otherwise, the color-value might affect the width of a
+//pixel)
 
 //   uint8_t redVal; // = colorVal & 0x03;
    uint8_t ocrd;
@@ -662,6 +855,7 @@ __asm__ __volatile__
 		//Attempt to stretch across the full screen...
 		delay_cyc(WRITE_COLOR_DELAY);
 }
+#endif //AT90PWM161
 //#endif //!ROW_SEG_BUFFER
 
 

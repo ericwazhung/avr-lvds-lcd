@@ -1,15 +1,10 @@
-/* mehPL:
- *    This is Open Source, but NOT GPL. I call it mehPL.
- *    I'm not too fond of long licenses at the top of the file.
- *    Please see the bottom.
- *    Enjoy!
- */
-
-
-//bitHandling 0.95-4
+//bitHandling 0.95-6
 //TODO: Don't Forget .94-18!
 //TODO: and .94_...-5!
 //
+//.95-6  I think it's time to remove the message about macros and () and {}
+//       and also setPORT___'s' being untested
+//.95-5  adding ZERO8_FN()
 //.95-4  adding ROUND_UP_TO()
 //.95-3  adding CLI_SAFE() -> SEI_RESTORE()
 //.95-2  Adding MAKEFLOAT()
@@ -152,6 +147,33 @@
 #define __BITHANDLING_H__
 
 #include <stdint.h>
+
+
+//developed for HEART_REMOVED a/o heartbeat1.30-7(?)
+// this is to replace a function which returns a uint8_t with 0
+// Done this way to handle multiple cases e.g.:
+// #if (! HEART_REMOVED)
+// uint8_t heartUpdate(void)
+// #else
+// #define heartUpdate()	ZERO8_FN()
+// #endif
+// 
+// And in main:
+//  heartUpdate();
+// OR
+//  if(heartUpdate())
+//   ...
+// see cTools/unusedMacroTest.c
+//  this avoids the warnings:
+//   "statment with no effect"
+//   "unused variable"
+//   "uninitialized variable"
+//   and doesn't choke if a return-value is necessary.
+//   And I'm pretty certain it should completely optimize out to nothing
+#define ZERO8_FN()	({uint8_t a=0; a;})
+
+
+
 
 #ifdef __AVR_ARCH__
 
@@ -499,8 +521,12 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 #define writepinPORT(Pxn, PORTx, value) \
 	   ((value) ? setpinPORT((Pxn),(PORTx)):clrpinPORT((Pxn),(PORTx)))
 
-#warning "TODO: (IMPORTANT?) Using this as a response to an if-statement closes the statement, due to the '};' so the associated else isn't associated! THIS COULD BE A PROBLEM IN MULTIPLE PLACES. WHICH IS WHY I HAVE THIS IN THE BITHANDLING HEADER TO REMIND ME"
+//Time to remove this message... It's useful, but it's also
+//deeply-ingrained in my brain, and the error it generates is obvious
+//and it doesn't seem to have any odd consequences in other cases.
+//#warning "TODO: (IMPORTANT?) Using this as a response to an if-statement closes the statement, due to the '};' so the associated else isn't associated! THIS COULD BE A PROBLEM IN MULTIPLE PLACES. WHICH IS WHY I HAVE THIS IN THE BITHANDLING HEADER TO REMIND ME"
 // SEE: cTools/bracketsInDefinesTest.c
+// also: cTools/unusedMacroTest.c
 
 #define setinpuPORT(Pxn, PORTx)		\
 ({									\
@@ -522,7 +548,8 @@ int32_t shiftRightI32(int32_t value, uint8_t shift)
 
 
 // For an entire port:
-#warning "setPORT___'s are untested..."
+//#warning "setPORT___'s are untested..."
+//I think these are pretty well verified by now...
 #define setPORTout(PORTx)		(DDR_FROM_PORT(PORTx) = 0xff)
 
 //NOTE: This does NOT affect the pull-up state (which is determined
@@ -660,67 +687,3 @@ void toBinString(char* stringOut, uint8_t length, int32_t value)
 
 
 #endif
-/* mehPL:
- *    I would love to believe in a world where licensing shouldn't be
- *    necessary; where people would respect others' work and wishes, 
- *    and give credit where it's due. 
- *    A world where those who find people's work useful would at least 
- *    send positive vibes--if not an email.
- *    A world where we wouldn't have to think about the potential
- *    legal-loopholes that others may take advantage of.
- *
- *    Until that world exists:
- *
- *    This software and associated hardware design is free to use,
- *    modify, and even redistribute, etc. with only a few exceptions
- *    I've thought-up as-yet (this list may be appended-to, hopefully it
- *    doesn't have to be):
- * 
- *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
- *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
- *         beer, a trinket, or cash is always handy as well.
- *         (Please be considerate. E.G. if you've reposted my work on a
- *          revenue-making (ad-based) website, please think of the
- *          years and years of hard work that went into this!)
- *    4) If you *intend* to profit from my work, you must get my
- *         permission, first. 
- *    5) No permission is given for my work to be used in Military, NSA,
- *         or other creepy-ass purposes. No exceptions. And if there's 
- *         any question in your mind as to whether your project qualifies
- *         under this category, you must get my explicit permission.
- *
- *    The open-sourced project this originated from is ~98% the work of
- *    the original author, except where otherwise noted.
- *    That includes the "commonCode" and makefiles.
- *    Thanks, of course, should be given to those who worked on the tools
- *    I've used: avr-dude, avr-gcc, gnu-make, vim, usb-tiny, and 
- *    I'm certain many others. 
- *    And, as well, to the countless coders who've taken time to post
- *    solutions to issues I couldn't solve, all over the internets.
- *
- *
- *    I'd love to hear of how this is being used, suggestions for
- *    improvements, etc!
- *         
- *    The creator of the original code and original hardware can be
- *    contacted at:
- *
- *        EricWazHung At Gmail Dotcom
- *
- *    This code's origin (and latest versions) can be found at:
- *
- *        https://code.google.com/u/ericwazhung/
- *
- *    The site associated with the original open-sourced project is at:
- *
- *        https://sites.google.com/site/geekattempts/
- *
- *    If any of that ever changes, I will be sure to note it here, 
- *    and add a link at the pages above.
- *
- *    (Wow, that's a lot longer than I'd hoped).
- *
- *    Enjoy!
- */

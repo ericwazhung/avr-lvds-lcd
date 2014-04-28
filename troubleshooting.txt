@@ -1,6 +1,6 @@
 delay_cyc isn't highly-accurate, and may work differently on different
 C compilers. TODO: I need to look into this.
-This is in delayCyc.c/h
+This is in delay_cyc.c/h
  Also affects delay_Dots()
 THESE AFFECT: display's timing-parameters aren't exact...
  And where called with a VARIABLE argument, 
@@ -23,7 +23,15 @@ First test (BLUE_TESTING + DE_BLUE) isn't showing *anything*?
  the ATtiny861 might not handle this...
  You might be able to get away with disabling PLL_SYSCLK and/or modifying
  LVDS_PRESCALER.
-	
+
+BLUE_BORDER only showing one blue bar, and one black (no second blue bar)
+OR
+BLUE_DIAG_BAR showing a tiny fraction of a blue triangle at the bottom,
+				  nowhere near filling half the display:
+ 	Probably a timing-thing...
+	e.g. PLL_SYSCLK may be enabled, but the fuses haven't been programmed
+	for it.
+
 
 
 

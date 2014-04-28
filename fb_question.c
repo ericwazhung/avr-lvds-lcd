@@ -85,7 +85,7 @@
 //#define STAY_ON_IT	TRUE
 
 //Automatically hit after a few loops in the "Q" box
-//#define AUTO_HIT	TRUE
+#define AUTO_HIT	TRUE
 
 //THESE DON'T BELONG HERE
 // AND they shouldn't be "Q" specific, at all.
@@ -198,7 +198,7 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
    // (wasn't filling up the entire row, due to rounding...
    //   result was the rows were carrying-over into the next)
    uint8_t qRow;// = (rowNum*Q_HEIGHT/(V_COUNT)); ///2));
-   uint8_t qCol;
+   //uint8_t qCol;
    
    //Guess white helps with sync...?
    // can't hurt.
@@ -306,7 +306,7 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 	//  lower the box... that way both are moving at the same time.
 	//
 	//       _____                               ___
-	//      |     |     _____         __        /___\
+	//      |     |     _____         __        /___\			//
 	//      |  ?  | -> |     |  ->  _/__\_  ->   |_|
 	//      |_____|    |  ?  |     |      |
 

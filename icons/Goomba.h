@@ -32,7 +32,7 @@
 #define GOOMBARF ROWPACK(0,0,0,0,3,3,3,2,3,3,3,3,3,3,0,0)
 
 
-static uint8_t pgm_imageGOOMBA[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageGOOMBA[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(GOOMBA);
    
    
@@ -52,7 +52,7 @@ static uint8_t pgm_imageGOOMBA[ICON_PACKED_BYTES] PROGMEM =
 #define rgb2(r,g,b) \
 		(r | (g<<2) | (b<<4))
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteGOOMBA[4*NUMPALETTES_GOOMBA] PROGMEM =
+const static uint8_t pgm_paletteGOOMBA[4*NUMPALETTES_GOOMBA] PROGMEM =
 {
 	//rgb8(141,157,255),	//First encounter with rgb8 not working as expected
 								//But I kinda like the badguy on a non-sky color

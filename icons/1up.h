@@ -34,7 +34,7 @@
 #define SHROOMRE ROWPACK(0,0,0,0,3,3,3,3,3,3,1,3,0,0,0,0)
 #define SHROOMRF ROWPACK(0,0,0,0,0,3,3,3,3,1,3,0,0,0,0,0)
 
-static uint8_t pgm_imageSHROOM[ICON_PACKED_BYTES] PROGMEM = 
+const static uint8_t pgm_imageSHROOM[ICON_PACKED_BYTES] PROGMEM = 
 	IMAGE_INIT(SHROOM);
 
 
@@ -48,7 +48,7 @@ static uint8_t pgm_imageSHROOM[ICON_PACKED_BYTES] PROGMEM =
 
 //1up Mapping: 0->37 (sky/mask) 1->7, 2->4 3->47
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_palette1UP[4*NUMPALETTES_1UP] PROGMEM = 
+const static uint8_t pgm_palette1UP[4*NUMPALETTES_1UP] PROGMEM = 
 	{ 37, 7, 4, 47 };
 
 static sprite_t sprite1UP = 

@@ -8,7 +8,7 @@
 
 //Moved Above
 //Called as: pgm_readImageByte(pgm_image1, row, col)
-//#define pgm_readImageByte(image, row, col)   \
+//#define pgm_readImageByte(image, row, col)   
 //   pgm_read_byte((uint8_t *)(&((image)[(row)*FB_WIDTH+(col)])))
 
 #if( !defined(COLOR_BAR_SCROLL) || !COLOR_BAR_SCROLL)
@@ -44,7 +44,7 @@
 #define Tr 0xC0   //Transparet
 */
 #if (TRUE || (!defined(LIFE) || !LIFE))
-uint8_t pgm_image1[256] PROGMEM =
+const uint8_t pgm_image1[256] PROGMEM =
 {
    Tr,Tr,Tr,Tr,Tr,_K,_K,_K,_K,_K,_K,Tr,Tr,Tr,Tr,Tr,
    Tr,Tr,Tr,_K,_K,_Y,_Y,_Y,_Y,_Y,_Y,_K,_K,Tr,Tr,Tr,
@@ -110,7 +110,7 @@ uint8_t pgm_image1[256] PROGMEM =
 #endif
 
 
-uint8_t pgm_image2[256] PROGMEM =
+const uint8_t pgm_image2[256] PROGMEM =
 {
    Tr,Tr,Tr,Tr,Tr,_K,_K,_K,_K,_K,_K,Tr,Tr,Tr,Tr,Tr,
    Tr,Tr,Tr,_K,_K,_Y,_Y,_Y,_Y,_Y,_Y,_K,_K,Tr,Tr,Tr,

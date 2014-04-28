@@ -32,7 +32,7 @@
 
 //37 (sky), 2, not-used, 0
 
-static uint8_t pgm_imageSOLID[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageSOLID[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(SOLID);
 
 
@@ -44,7 +44,7 @@ static uint8_t pgm_imageSOLID[ICON_PACKED_BYTES] PROGMEM =
 #define NUMPALETTES_SOLID 1
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
+const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
    { 37, 2, 0, 0}; 
 
 static sprite_t spriteSOLID =

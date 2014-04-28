@@ -513,7 +513,7 @@ uint8_t tetBrick_to_fb(uint8_t tetBrick)
 // worst-case scenario, each piece could be described by a 4x4 grid
 // (probably easiest, actually)... two bytes per orientation
 
-uint16_t pgm_tetPiece[NUM_PIECES][4] PROGMEM =
+const uint16_t pgm_tetPiece[NUM_PIECES][4] PROGMEM =
 {
 	{
 		bin4x4(0,0,0,0,

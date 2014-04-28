@@ -13,7 +13,7 @@
 	//If this isn't static, and inside a function, then it will load to the
 	// *data* section... rather than text...
 	// Interesting "feature" that it can be made static here and clear that
-	static uint8_t pgm_imageQ[Q_WIDTH*Q_HEIGHT] PROGMEM =
+	const static uint8_t pgm_imageQ[Q_WIDTH*Q_HEIGHT] PROGMEM =
 	{
 		2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,
 		2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,

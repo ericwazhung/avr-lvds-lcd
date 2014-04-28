@@ -89,16 +89,16 @@
 
 //37 (sky), 7, 47, 2
 
-static uint8_t pgm_imageCOIN[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageCOIN[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(COIN);
    
-static uint8_t pgm_imageCOIN1[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageCOIN1[ICON_PACKED_BYTES] PROGMEM =
 	IMAGE_INIT(COIN1);
 
-static uint8_t pgm_imageCOIN2[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageCOIN2[ICON_PACKED_BYTES] PROGMEM =
 	IMAGE_INIT(COIN2);
 
-static uint8_t pgm_imageCOIN3[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageCOIN3[ICON_PACKED_BYTES] PROGMEM =
 	IMAGE_INIT(COIN3);
 
 #define pgm_maskCOIN	NULL
@@ -109,7 +109,7 @@ static uint8_t pgm_imageCOIN3[ICON_PACKED_BYTES] PROGMEM =
 #define NUMPALETTES_COIN 1
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteCOIN[4*NUMPALETTES_COIN] PROGMEM =
+const static uint8_t pgm_paletteCOIN[4*NUMPALETTES_COIN] PROGMEM =
  //  { 37, 7, 47, 2};
 	{ 37, 2, 7, 47 };	//see Coin1.h for notes...
 // 0 -> 0
@@ -123,7 +123,7 @@ static sprite_t spriteCOIN =
 
 uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
 {
-	uint8_t * p_image;
+	const uint8_t * p_image;
 
 	//Is this better accomplished as a switch-statement or with math...?
 	switch(spritePhase%8)

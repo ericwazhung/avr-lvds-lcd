@@ -31,7 +31,7 @@
 #define DEADGOOMBARE ROWPACK(0,0,3,3,3,3,0,0,0,0,3,3,3,3,3,0)
 #define DEADGOOMBARF ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
-static uint8_t pgm_imageDEADGOOMBA[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageDEADGOOMBA[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(DEADGOOMBA);
 
 
@@ -43,7 +43,7 @@ static uint8_t pgm_imageDEADGOOMBA[ICON_PACKED_BYTES] PROGMEM =
 #define NUMPALETTES_DEADGOOMBA 1
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteDEADGOOMBA[4*NUMPALETTES_DEADGOOMBA] PROGMEM =
+const static uint8_t pgm_paletteDEADGOOMBA[4*NUMPALETTES_DEADGOOMBA] PROGMEM =
 {
 	//AGAIN: This is NOT a safe method, normally... (rgb8() here)
 	37,

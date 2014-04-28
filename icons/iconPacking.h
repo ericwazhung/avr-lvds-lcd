@@ -36,10 +36,10 @@
 
 typedef struct _BLAH_SHROOM_
 {
-	uint8_t * p_image;
-	uint8_t * p_mask;
-	uint8_t * p_palette;
-	uint8_t numPalettes;
+	const uint8_t * p_image;
+	const uint8_t * p_mask;
+	const uint8_t * p_palette;
+	const uint8_t numPalettes;
 }	sprite_t;
 
 /*
@@ -97,8 +97,8 @@ uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row,
 
 	//This is the value as-seen in the icon's .h file... (0-3)
 	uint8_t rawPixelVal = getRawPixelVal(sprite, row, col);
-//		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ \
-//					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
+//		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ 
+//					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))
 //		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
 
 

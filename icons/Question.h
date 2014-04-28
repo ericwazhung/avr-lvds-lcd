@@ -35,7 +35,7 @@
 //37, 2, 2, 0
 //37, 2, 1, 0
 
-static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
+const static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
    IMAGE_INIT(QUESTION);
 
 
@@ -47,7 +47,7 @@ static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
 #define NUMPALETTES_Q 3//5
 
 //gimpPixelValToLColor should probably be taken into account.
-static uint8_t pgm_paletteQ[4*NUMPALETTES_Q] PROGMEM =
+const static uint8_t pgm_paletteQ[4*NUMPALETTES_Q] PROGMEM =
    { 37, 2, 7, 0,   
 //	  37, 2, 7, 0,
 	  37, 2, 2, 0,  

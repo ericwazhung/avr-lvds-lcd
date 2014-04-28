@@ -87,7 +87,6 @@ void frameBufferInit(void)
 // just not ready to delete it completely
 void frameBufferUpdate(void)
 {
-         uint8_t *pimage = pgm_image1;
 
 			//Here's where it alternated pimage to point to alternate images
 			//This code worked alongside rowBuffer, via fb_to_rb, I guess
@@ -97,26 +96,49 @@ void frameBufferUpdate(void)
 
         #if 0
          tetUpdate();
+		  #endif
 
-         if(imageNum == 0)
-         {
-            imageNum = 1;
-            pimage = pgm_image1;
-            tetColorScheme = 1;
-         }
-         else
-         {
-            hexColor++;
-            hexColor&=0x3f;
-            imageNum = 0;
-            pimage = pgm_image2;
-            tetColorScheme = 0;
-         }
-        #endif //0
+#if(defined(FB_SMILEY) && FB_SMILEY)
+         static const uint8_t *pimage = pgm_image1;
+			static uint8_t imageNum = 0;
+			static uint16_t updateCount = 0;
+			static uint8_t colorShift = 0;
+
+			//colorShift++;
+
+			updateCount++;
+
+			if(updateCount % 32 == 0)
+				colorShift++;
+
+			if(updateCount == 64) //1000)
+			{
+				updateCount = 0;
+
+         	if(imageNum == 0)
+         	{
+         	   imageNum = 1;
+         	   pimage = pgm_image1;
+         	//   tetColorScheme = 1;
+         	}
+         	else
+         	{
+         	//   hexColor++;
+         	//   hexColor&=0x3f;
+         	   imageNum = 0;
+         	   pimage = pgm_image2;
+         	//   tetColorScheme = 0;
+         	}
+			}
+#else
+         const uint8_t *pimage = pgm_image1;
+			uint8_t colorShift=0;
+#endif
+//        #endif //0
 
 
 
-			uint8_t row, col, colorShift=0;
+			uint8_t row, col; //, colorShift=0;
 
          for(row=0; row<FB_HEIGHT; row++)
          for(col=0; col<FB_WIDTH; col++)
@@ -136,7 +158,7 @@ void frameBufferUpdate(void)
                r, c);
          */
          }
-         colorShift++;
+         //colorShift++;
 }
 #endif
 
