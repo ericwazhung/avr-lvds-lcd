@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 //fb_question is the good-ol' "Mario" Question-box, using a frameBuffer...
 //  It was created after seg_question, which was created after a
 //  frameBuffer-based method. Long convoluted story.
@@ -174,12 +178,19 @@ void fbQuestion_hitDetected(void)
 }
 
 //If a spriteRow is outside the icon's dimensions, draws the sky-color
-void drawSpriteRow(sprite_t *p_thisSprite, uint8_t spritePhase,
+//Returns TRUE if a pixel has changed
+// for redrawing...
+uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t spritePhase,
 													  int8_t spriteRow, 
 													  uint8_t rowToDrawAt);
 
-void fbQuestion_update(void) //uint8_t triggerDetected)
+
+
+//Returns TRUE if the image has changed...
+
+uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 {
+	uint8_t imageChanged = FALSE;
 	callCount++;
 		//This should be an init-thing, I guess... it's only a 2-cycle
       // instruction, so it doesn't hurt too much to have it in the loop
@@ -323,7 +334,8 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 			for(qRow=0; qRow<qCount; qRow++)
 			{
 				spriteRow = qRow - (16 - qCount);
-				drawSpriteRow(p_nextSprite, qCount, spriteRow, qRow);
+				if(drawSpriteRow(p_nextSprite, qCount, spriteRow, qRow))
+					imageChanged = TRUE;
 			}
 		
 			//This is kinda hokey, but should work...
@@ -335,7 +347,9 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 			spriteRow = 0;
 			for( ; qRow<Q_HEIGHT; qRow++)
 			{
-				drawSpriteRow(&spriteSOLID, qCount, spriteRow, qRow);
+				if(drawSpriteRow(&spriteSOLID, qCount, spriteRow, qRow))
+					imageChanged = TRUE;
+
 				spriteRow++;
 			}
 			
@@ -347,7 +361,9 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 
 			for(displayRow = 0; displayRow < (Q_HEIGHT-qCount); displayRow++)
 			{
-				drawSpriteRow(p_selectedSprite, qCount, spriteRow, displayRow);
+				if(drawSpriteRow(p_selectedSprite,qCount,spriteRow,displayRow))
+					imageChanged = TRUE;
+
 									//				displayRow+qCount, displayRow);
 				spriteRow++;
 			}
@@ -355,7 +371,9 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 			spriteRow = 0;
 			for( ; displayRow<Q_HEIGHT; displayRow++)
 			{
-				drawSpriteRow(p_nextSprite, qCount, spriteRow, displayRow);
+				if(drawSpriteRow(p_nextSprite, qCount, spriteRow, displayRow))
+					imageChanged = TRUE;
+
 					//				displayRow-(Q_HEIGHT-1-qCount), displayRow);
 
 				spriteRow++;
@@ -376,7 +394,10 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 		setSpriteSkyColorOverride(NULL);
 
 		for(qRow=0; qRow<Q_HEIGHT; qRow++)
-			drawSpriteRow(p_selectedSprite, qCount, qRow, qRow);
+		{
+			if(drawSpriteRow(p_selectedSprite, qCount, qRow, qRow))
+				imageChanged = TRUE;
+		}
 
 		qCount++;
 		//the only case where qCount should cycle is spriteQ...
@@ -386,6 +407,7 @@ void fbQuestion_update(void) //uint8_t triggerDetected)
 			qCount = 0;
 	}
 
+	return imageChanged;
 }
 
 uint8_t getSpritePalette(sprite_t *p_thisSprite, uint8_t spritePhase,
@@ -520,11 +542,12 @@ uint8_t getSpritePhase(sprite_t *p_thisSprite, uint8_t qCount, int8_t
 //spritePhase replaces qCount... for determining e.g. the color palette and
 //the motion of the goomba...
 // This does *NOT* handle COIN... use getRowPixelValCOIN() instead.
-void drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
+uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
 															//uint8_t spritePhase,
 													  int8_t spriteRow, 
 													  uint8_t rowToDrawAt)
 {
+	uint8_t rowChanged = FALSE;
 	uint8_t qCol;
 
 	uint8_t spritePhase;
@@ -591,8 +614,14 @@ void drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
 		
       data = gimpPixelValToLColor(data);
 
-		frameBuffer[rowToDrawAt][qCol] = data;
+		if(frameBuffer[rowToDrawAt][qCol] != data)
+		{
+			rowChanged = TRUE;
+			frameBuffer[rowToDrawAt][qCol] = data;
+		}
 	}
+
+	return rowChanged;
 }
 
 #if 0
@@ -648,9 +677,9 @@ void drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -690,6 +719,9 @@ void drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/fb_question.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

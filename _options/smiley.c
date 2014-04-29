@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 //Moved Above
 //Called as: pgm_readImageByte(pgm_image1, row, col)
 //#define pgm_readImageByte(image, row, col)   
@@ -194,6 +198,76 @@ uint8_t mainData[2][768>>5][IMAGE_WIDTH] =
 */
 
 
+//Call this often, and the framebuffer will alternate between two
+//smiley-faces. Also, it places a gradient in the background, which scrolls
+//over time.
+//Returns TRUE if there's a change to the frameBuffer image
+uint8_t smileyUpdate(void)
+{
+   uint8_t imageChanged = FALSE;
+
+   //Here's where it alternated pimage to point to alternate images
+   //This code worked alongside rowBuffer, via fb_to_rb, I guess
+   // since tetUpdate, and hexColor, etc. were displayed alongside
+   // at one point...
+   // Far too convoluted to piece together in my mind anymore
+
+  #if 0
+   tetUpdate();
+  #endif
+
+   static const uint8_t *pimage = pgm_image1;
+   static uint8_t imageNum = 0;
+   static uint16_t updateCount = 0;
+   static uint8_t colorShift = 0;
+
+   //colorShift++;
+
+   updateCount++;
+
+   if(updateCount % 32 == 0)
+      colorShift++;
+
+   if(updateCount == 64) //1000)
+   {
+      updateCount = 0;
+
+      if(imageNum == 0)
+      {
+         imageNum = 1;
+         pimage = pgm_image1;
+         //   tetColorScheme = 1;
+      }
+      else
+      {
+         //   hexColor++;
+         //   hexColor&=0x3f;
+         imageNum = 0;
+         pimage = pgm_image2;
+         //   tetColorScheme = 0;
+      }
+   }
+
+   uint8_t row, col; //, colorShift=0;
+
+   for(row=0; row<FB_HEIGHT; row++)
+      for(col=0; col<FB_WIDTH; col++)
+      {
+         uint8_t imagePixel=pgm_readImageByte(pimage, row, col);
+
+   
+         if(imagePixel == Tr)
+            frameBufferChange(&imageChanged, row, col,
+                                          colorShift+row+col);
+         else
+            frameBufferChange(&imageChanged, row, col, imagePixel);
+      }  
+
+	return imageChanged;
+}
+
+
+
 
 
 
@@ -214,9 +288,9 @@ uint8_t mainData[2][768>>5][IMAGE_WIDTH] =
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -256,6 +330,9 @@ uint8_t mainData[2][768>>5][IMAGE_WIDTH] =
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_options/smiley.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

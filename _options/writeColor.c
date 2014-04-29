@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 //writeColor() is a hokey method to draw individual pixels from a buffer,
 //either a row-buffer or a frame-buffer.
 // I say "hokey" because the associated drawPix() function has individual
@@ -130,7 +134,14 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
 	__attribute__((__always_inline__));
 
 #if(defined(__AVR_AT90PWM161__))
-
+//This is all the actual/uncommented writeColor() function, below, does...
+// the actual one uses assembly to align the color-changes' edges
+// and assures that each pixel is the same width (even though some
+// branching is necessary)
+// But you can actually use this one here for fun
+// (Actually, it's kinda cool, it makes the FB_QUESTION sprites look even
+//  more 3D)
+#if 0
  void writeColor(uint8_t includeDelay, uint8_t colorVal)
  {
 	uint8_t redVal = colorVal & 0x03;
@@ -145,7 +156,7 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
 		delay_cyc(WRITE_COLOR_DELAY);		
 
  }
-#if 0
+#endif
  void writeColor(uint8_t includeDelay, uint8_t colorVal)
  {
 
@@ -216,16 +227,22 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
 	 //     blueOCR_val=8;
 
 
+	 // This has been modified... was a struggle to realize that "0" is
+	 // necessary to avoid %0's being clobbered regardless of whether it was
+	 // written...
+	 // See lvds161.c -> setBlue4()
+	 // 
 	 //This is NOT AT ALL optimized:
 	 // But it is guaranteed to be exactly 3 cycles *in each branch*
 __asm__ __volatile__
 	(                                                        // cycles
 	 "cpi   %1, 3 ; \n\t"				// (blueVal == 3) ?     //    1
 	 "brne  nothingToDo_%= ; \n\t"	// N: skip next line    // N:2  Y:1
-	 "ldi   %0, 6 ; \n\t"            //   blueOCR_val=8      //   .    1
+	 "ldi   %0, 8 ; \n\t"            //   blueOCR_val=8      //   .    1
   "nothingToDo_%=: \n\t"            // just a jump-to label //   0    0
     : "=r" (blueOCR_val) //blueOCR_val is an output-value, "%0"
-	 : "r" (blueVal)		//blueVal is an input-value, "%1"
+	 : "r" (blueVal),		//blueVal is an input-value, "%1"
+	   "0" (blueOCR_val)
 	);
 
 	//Now all the OCR_val variables are set
@@ -267,7 +284,6 @@ __asm__ __volatile__
 	if(includeDelay)
 		delay_cyc(WRITE_COLOR_DELAY);
  }
-#endif
 
 
 
@@ -877,9 +893,9 @@ __asm__ __volatile__
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -919,6 +935,9 @@ __asm__ __volatile__
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_options/writeColor.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

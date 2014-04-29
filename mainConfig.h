@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 //a/o v66:
 //This file is used for configuring the project at a high-level...
 // Most configuration-options are simplified, here, by uncommenting various
@@ -363,7 +367,37 @@
 
 #elif (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
 
-//#include "_options/writeColor.c" //frameBuffer.c"
+
+
+//If FB_REFRESH_ON_CHANGE is TRUE, only refresh the LCD when there's a
+//change in the image... It works well, but on single-refresh changes, some
+//displays leave a ghost of the prior image. Thus, it's been designed to do
+//*two* refreshes upon each change, which is nice... but it's not
+//sophisticated enough to recognize when an image is about to change again,
+//in which case it shouldn't need to refresh-twice if, e.g. the image is
+//alternating (like the Star)
+// In other words, it's kinda seizure-inducing.
+// In another design, with only a seldom-changing image, it'd be sweet.
+//This is loosely derived from _unusedIdeas/frameCountToDelay.c
+//If it's NOT TRUE, then the LCD refreshes occur back-to-back regardless of
+//changes in the image
+//NOTE: If this is enabled, and you write your own code, you must keep in
+//mind that the TFT will eventually fade unless refreshed...
+// It's also not particularly smooth, not sure why exactly.
+// (e.g. sometimes it updates quicker than others... dms problem?)
+//NOTE 2: If an image is left for too long, apparently it sticks a bit...
+// e.g. running Smiley for a while, then running Question, the outline of
+// the smiley-face can be seen in solid-color images...
+// This might be hard on the pixels, I dunno.
+//THIS REQUIRES DMS_TIMER (as-implemented)
+// which is not available on ATTiny861, probably only due to
+// space-limitations... It could probably be re-added in the makefile...
+#if (defined(__AVR_AT90PWM161__))
+
+//COMMENT OR UNCOMMENT AS DESIRED:
+//#define FB_REFRESH_ON_CHANGE TRUE
+
+#endif
 
 //a/o v62:
 //Not sure why this isn't working in this case...
@@ -384,21 +418,19 @@
 
 
 //Loads a stationary smiley-face image into the frame-buffer and display it
-//#define FB_SMILEY	TRUE
+#define FB_SMILEY	TRUE
 
-//#if(defined(FB_SMILEY) && FB_SMILEY)
-// #define FB_DONT_USE_UPDATE FALSE
-//#endif
 
 //Loads the frameBuffer equivalent of SEG_QUESTION (see description, below)
 // Note there are several options for testing in fb_question.c
 // It's entirely plausible I might've left one enabled that shouldn't be...
 // e.g. "AUTO_HIT" or random-override...
-#define FB_QUESTION	TRUE
+//#define FB_QUESTION	TRUE
+
+
 
 
 #if(defined(FB_QUESTION) && FB_QUESTION)
- #define FB_DONT_USE_UPDATE TRUE
 #undef ALIGN_TIMER_WITH_PIXCLK
 #define ALIGN_TIMER_WITH_PIXCLK TRUE
 #endif
@@ -828,9 +860,9 @@
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -870,6 +902,9 @@
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/mainConfig.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

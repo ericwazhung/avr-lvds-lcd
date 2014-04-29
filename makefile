@@ -5,6 +5,10 @@
 # *    Enjoy!
 # */
 #
+#
+#
+#
+#
 
 # This makefile scheme is highly-dependent on the inclusion of various
 # other makefiles, including _commonCode.../_make/reallyCommon2.mk
@@ -47,7 +51,7 @@ TARGET = LCDdirectLVDS
 # avr-dude, avr-gcc, and more.
 #MCU = at_dneTest
 MCU = at90pwm161
-#attiny861
+#MCU = attiny861
 
 # This is the CPU frequency. Generally it's used for calculating BAUD
 # rates, and timer compare-match values. In C/H code, its value can be
@@ -171,6 +175,10 @@ CFLAGS += -D'HSYNC_TIMER_MAX=0xffff'
 #PWM161's Timer1 only has CLKDIV1... so if it doesn't fit, we're screwed.
 CFLAGS += -D'HSYNC_TIMER_CLKDIV=CLKDIV1'
 CFLAGS += -D'HSYNC_TIMER_INTERRUPT_VECT=TIMER1_CAPT_vect'
+else
+#Apparently it doesn't *quite* handle the atTiny861 by default anymore...
+CFLAGS += -D'HSYNC_TIMER_INTERRUPT_VECT=TIMER0_COMPA_vect'
+CFLAGS += -D'HSYNC_TIMER_MAX=0xff'
 endif
 
 
@@ -330,8 +338,22 @@ endif
 
 VER_HEARTBEAT = 1.30
 HEARTBEAT_LIB = $(COMDIR)/heartbeat/$(VER_HEARTBEAT)/heartbeat
+
+#Code-size was running-out on the ATTiny861, so don't include DMS_TIMER
+# if we're compiling on that chip.
+# Things're probably getting hokey, now, because I don't have an 861 to
+# continue development alongside.
+#DMS is used by FB_QUESTION to determine when to change the images... a/o
+# v68
+ifeq "$(MCU)" "at90pwm161"
+HEART_DMS = TRUE
+DMS_EXTERNALUPDATE = TRUE
+CFLAGS += -D'DMS_FRAC_UNUSED=TRUE'
+else
 HEART_DMS = FALSE
 #DMS_EXTERNALUPDATE = FALSE
+endif
+
 #override heartBeat's preferred 4s choice...
 #CFLAGS += -D'_WDTO_USER_=WDTO_1S'
 CFLAGS += -D'HEARTPIN_HARDCODED=TRUE'
@@ -438,6 +460,13 @@ CFLAGS += -D'_BITHANDLING_HEADER_="$(BITHANDLING_HDR)/bithandling.h"'
 COM_HEADERS += $(BITHANDLING_HDR)
 
 
+#piezoHitDetector is used by FB_QUESTION to detect physical hits to the
+# project-box
+# It uses the ADC and a piezo-element (and a tiny bit of circuitry)
+PIEZOHITDETECTOR := $(COMDIR)/piezoHitDetector/0.10ncf/piezoHitDetector.c
+COM_HEADERS += $(PIEZOHITDETECTOR)
+CFLAGS += -D'_PIEZOHITDETECTOR_CFILE_="$(PIEZOHITDETECTOR)"'
+
 #stringify is used by delayCyc (see below)
 # It handles creating strings, creating custom variable-names, etc. in
 # preprocessor definitions
@@ -474,6 +503,16 @@ COM_HEADERS += $(CHARBITMAP)
 CFLAGS += -D'_CHARBITMAP_HEADER_="$(CHARBITMAP)"'
 
 
+#This is a total hack...
+# For distribution-purposes, we need to have the makefile-snippet for the
+# non-selected MCU available, as well
+#COM_HEADERS is really nothing more than a list of specific files which
+# need to be copied-over to _commonCode_localized/
+ifeq "$(MCU)" "at90pwm161"
+COM_HEADERS += $(COMDIR)/_make/attiny861.mk
+else
+COM_HEADERS += $(COMDIR)/_make/at90pwm161.mk
+endif
 
 
 
@@ -546,9 +585,9 @@ include $(COMDIR)/_make/reallyCommon2.mk
 # *    doesn't have to be):
 # * 
 # *    1) Please do not change/remove this licensing info.
-# *    2) Please do not change/remove others' credit/licensing/copywrite 
+# *    2) Please do not change/remove others' credit/licensing/copyright 
 # *         info, where noted. 
-# *    3) If you find yourself profitting from my work, please send me a
+# *    3) If you find yourself profiting from my work, please send me a
 # *         beer, a trinket, or cash is always handy as well.
 # *         (Please be considerate. E.G. if you've reposted my work on a
 # *          revenue-making (ad-based) website, please think of the
@@ -588,6 +627,9 @@ include $(COMDIR)/_make/reallyCommon2.mk
 # *
 # *    If any of that ever changes, I will be sure to note it here, 
 # *    and add a link at the pages above.
+# *
+# * This license added to the original file located at:
+# * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/makefile
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

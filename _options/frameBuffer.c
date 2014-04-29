@@ -6,8 +6,16 @@
  */
 
 
+
+
+
+
 //Please see writeColor.c
 
+
+#if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
+extern volatile uint8_t updateFrame;
+#endif
 
 //drawPix from program memory
 //a/0 v60: Again, unused for its original purpose, but tightly intertwined
@@ -74,93 +82,95 @@ void frameBufferInit(void)
 
 }
 
-#if(defined(FB_SMILEY) && FB_SMILEY)
-#include "_options/smiley.c"
-#endif
 
 //#include "_options/smiley.c"
 
 
-#if(!defined(FB_DONT_USE_UPDATE) || !FB_DONT_USE_UPDATE)
+static __inline__
+void frameBufferChange(uint8_t *bufferChanged, 
+							uint8_t row, uint8_t col, uint8_t color)
+	__attribute__((__always_inline__));
+
+
+//This isn't especially necessary to write to the frameBuffer
+// ...since it's global, it could be done directly
+// but this allows for testing whether a change occurs
+// in case it's desired to only refresh when that happens.
+//Since it's always-inline, it should optimize-out a few things, e.g. the
+//NULL-test, and even the write to bufferChanged, if it is null.
+// so it should be pretty quick.
+// It does NOT have a return-value, instead it only modifies bufferChanged
+// IF there is a change, so e.g. it could be run in a for-loop
+// and the end-value of bufferChanged will either be FALSE if no change, or
+// TRUE if there was a change in any of the loops.
+void frameBufferChange(uint8_t *bufferChanged, 
+							uint8_t row, uint8_t col, uint8_t color)
+{
+	if(frameBuffer[(row)][(col)] != (color))
+	{
+		frameBuffer[(row)][(col)] = (color);
+		
+		if(bufferChanged != NULL)
+			*bufferChanged = TRUE;
+	}
+}
+
+#define frameBufferSet(row, col, color) \
+				frameBufferChange(NULL, (row), (col), (color))
+
+
+#if(defined(FB_SMILEY) && FB_SMILEY)
+#include "_options/smiley.c"
+#endif
+
 // This code was in main...
 // This isn't generalized enough to justify this function-name
 // just not ready to delete it completely
+// Returns TRUE if there's a change to the frameBuffer image
+// (so a refresh can be scheduled, if so desired)
+
 void frameBufferUpdate(void)
 {
+ #if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
+      static uint8_t lastUpdated = FALSE;
+      static dms4day_t fbLastUpdateTime = 0;
 
-			//Here's where it alternated pimage to point to alternate images
-			//This code worked alongside rowBuffer, via fb_to_rb, I guess
-			// since tetUpdate, and hexColor, etc. were displayed alongside
-			// at one point...
-			// Far too convoluted to piece together in my mind anymore
-
-        #if 0
-         tetUpdate();
-		  #endif
-
-#if(defined(FB_SMILEY) && FB_SMILEY)
-         static const uint8_t *pimage = pgm_image1;
-			static uint8_t imageNum = 0;
-			static uint16_t updateCount = 0;
-			static uint8_t colorShift = 0;
-
-			//colorShift++;
-
-			updateCount++;
-
-			if(updateCount % 32 == 0)
-				colorShift++;
-
-			if(updateCount == 64) //1000)
-			{
-				updateCount = 0;
-
-         	if(imageNum == 0)
-         	{
-         	   imageNum = 1;
-         	   pimage = pgm_image1;
-         	//   tetColorScheme = 1;
-         	}
-         	else
-         	{
-         	//   hexColor++;
-         	//   hexColor&=0x3f;
-         	   imageNum = 0;
-         	   pimage = pgm_image2;
-         	//   tetColorScheme = 0;
-         	}
-			}
-#else
-         const uint8_t *pimage = pgm_image1;
-			uint8_t colorShift=0;
-#endif
-//        #endif //0
-
-
-
-			uint8_t row, col; //, colorShift=0;
-
-         for(row=0; row<FB_HEIGHT; row++)
-         for(col=0; col<FB_WIDTH; col++)
+      //Because the dmsTimer is running somewhat arbitarily, this "200ms"
+      // isn't particularly accurate...
+      if(updateFrame)
+         fbLastUpdateTime = dmsGetTime();
+      else  //!updateFrame
+      {
+         if(dmsIsItTime(&fbLastUpdateTime, 100*DMS_MS))
          {
-            uint8_t imagePixel=pgm_readImageByte(pimage, row, col);
-
-
-            if(imagePixel == Tr)
-               frameBuffer[row][col] = colorShift+row+col;
-            else
-               frameBuffer[row][col] = imagePixel;
-         /*
-            setColor(
-               (getbit(RED_IMAGEVAL_BIT, imagePixel) ? 0x03 : 0),
-               (getbit(GREEN_IMAGEVAL_BIT, imagePixel) ? 0x0C : 0),
-               (getbit(BLUE_IMAGEVAL_BIT, imagePixel) ? 0x30 : 0),
-               r, c);
-         */
+            if(fb_updater())
+            {
+               updateFrame = TRUE;
+               lastUpdated = TRUE;
+            }
          }
-         //colorShift++;
-}
-#endif
+         //Attempt to get double-refresh on stationary images
+         // to overcome the previous image
+         else if(lastUpdated)
+         {
+            updateFrame = TRUE;
+            lastUpdated = FALSE;
+         }
+      }
+ #else
+      if(isNewFrame())
+      {
+         fb_updater();
+      }
+ #endif
+
+}	
+
+
+
+
+
+
 
 
 
@@ -185,9 +195,9 @@ void frameBufferUpdate(void)
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -227,6 +237,9 @@ void frameBufferUpdate(void)
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_options/frameBuffer.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

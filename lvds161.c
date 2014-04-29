@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 //TODO: Make note: RXclk is inverted, RXclk-/+ need to be swapped
 //
 
@@ -102,14 +106,47 @@
 // This should probably be done in assembly, so each branch is the same
 // number of cycles (see writeColor())
 // So this should be used somewhat sparingly.
+#define SETBLUE_ASM TRUE
 
+#if(!defined(SETBLUE_ASM) || !SETBLUE_ASM)
 #define setBlue4(val)	\
 	({ \
 		uint8_t ocrVal = ((val) == 3) ? 8 : (val) + 4 ; \
 		lockPSC2(); \
-		OCR2RA = ocrVal; \
+		OCR2RAL = ocrVal; \
 		unlockPSC2(); \
 	})
+
+#else
+
+//Doing the "if" statement in assembly assures that it takes the same
+//number of clock-cycles regardless of the branch taken
+// ("0" in the input-operands tells the assembler to use the same register
+//  for input as well as output, otherwise just having blueOCR_Val in the
+//  output-operand causes it to assume that its initial value doesn't
+//  matter. Annoying.
+#define setBlue4(val)	\
+	({ \
+		uint8_t blueOCR_Val; \
+		blueOCR_Val = (val) + 4; \
+		uint8_t sbblueVal; \
+		sbblueVal = (val); \
+		__asm__ __volatile__ \
+	   ( \
+    		"cpi   %1, 3 ; \n\t" \
+    		"brne  nothingToDo_%= ; \n\t" \
+    		"ldi   %0, 8 ; \n\t" \
+  		"nothingToDo_%=: \n\t" \
+    		: "=d" (blueOCR_Val) \
+    		: "d" (sbblueVal), \
+			  "0" (blueOCR_Val) \
+   	); \
+		lockPSC2(); \
+		OCR2RAL = blueOCR_Val; \
+		unlockPSC2(); \
+	})
+
+#endif
 
 // Green:
 // Still assuming green is the time-keeper (OCR0RB=6, never changes)
@@ -890,9 +927,9 @@ void lvds_timerInit(void)
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -932,6 +969,9 @@ void lvds_timerInit(void)
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/lvds161.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 1
 
 
    1               		.file	"sineTable.c"
@@ -7,7 +7,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
    4               	__SREG__ = 0x3f
    5               	__tmp_reg__ = 0
    6               	__zero_reg__ = 1
-   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/67-pwm161/",100,0,2,.Ltext0
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/",100,0,2,.Ltext0
    8               		.stabs	"_commonCode_localized/sineTable/0.99/sineTable.c",100,0,2,.Ltext0
    9               		.text
   10               	.Ltext0:
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,251 +118,261 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  112               		.stabs	"prog_int32_t:t(5,15)=(5,16)=(0,3)",128,0,356,0
  113               		.stabs	"prog_uint32_t:t(5,17)=(5,18)=(0,5)",128,0,357,0
  114               		.stabs	"prog_int64_t:t(5,19)=(5,20)=(0,6)",128,0,359,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 3
 
 
  115               		.stabs	"prog_uint64_t:t(5,21)=(5,22)=(0,7)",128,0,360,0
  116               		.stabn	162,0,0,0
- 117               		.stabs	"theta_t:t(1,1)=(4,3)",128,0,89,0
- 118               		.stabs	"sine_t:t(1,2)=(4,3)",128,0,116,0
- 119               		.stabs	"mult_t:t(1,3)=(4,5)",128,0,119,0
- 120               		.stabs	"axis_t:t(1,4)=(4,5)",128,0,136,0
+ 117               		.stabs	"theta_t:t(1,1)=(4,3)",128,0,99,0
+ 118               		.stabs	"sine_t:t(1,2)=(4,3)",128,0,126,0
+ 119               		.stabs	"mult_t:t(1,3)=(4,5)",128,0,129,0
+ 120               		.stabs	"axis_t:t(1,4)=(4,5)",128,0,146,0
  121               		.stabn	162,0,0,0
- 122               		.stabs	"quadrantizeTheta:F(1,1)",36,0,155,quadrantizeTheta
- 123               		.stabs	"theta:P(1,1)",64,0,155,24
+ 122               		.stabs	"quadrantizeTheta:F(1,1)",36,0,165,quadrantizeTheta
+ 123               		.stabs	"theta:P(1,1)",64,0,165,24
  124               	.global	quadrantizeTheta
  125               		.type	quadrantizeTheta, @function
  126               	quadrantizeTheta:
  127               		.stabd	46,0,0
-   1:_commonCode_localized/sineTable/0.99/sineTable.c **** //Should be in sineTable.h anyhow.
-   2:_commonCode_localized/sineTable/0.99/sineTable.c **** //#include <avr/pgmspace.h>
-   3:_commonCode_localized/sineTable/0.99/sineTable.c **** #include "sineTable.h"
-   4:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-   5:_commonCode_localized/sineTable/0.99/sineTable.c **** #if (_SINE_TYPE_ == 8)
-   6:_commonCode_localized/sineTable/0.99/sineTable.c **** const int8_t sineTable[129] PROGMEM = {
-   7:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, \
-   8:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2, 3, 5, 6, 8, \
-   9:_commonCode_localized/sineTable/0.99/sineTable.c **** 	9, 11, 12, 14, 16, \
-  10:_commonCode_localized/sineTable/0.99/sineTable.c **** 	17, 19, 20, 22, 23, \
-  11:_commonCode_localized/sineTable/0.99/sineTable.c **** 	25, 26, 28, 29, 31, \
-  12:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32, 34, 35, 37, 38, \
-  13:_commonCode_localized/sineTable/0.99/sineTable.c **** 	40, 41, 43, 44, 46, \
-  14:_commonCode_localized/sineTable/0.99/sineTable.c **** 	47, 49, 50, 51, 53, \
-  15:_commonCode_localized/sineTable/0.99/sineTable.c **** 	54, 56, 57, 58, 60, \
-  16:_commonCode_localized/sineTable/0.99/sineTable.c **** 	61, 63, 64, 65, 67, \
-  17:_commonCode_localized/sineTable/0.99/sineTable.c **** 	68, 69, 71, 72, 73, \
-  18:_commonCode_localized/sineTable/0.99/sineTable.c **** 	74, 76, 77, 78, 79, \
-  19:_commonCode_localized/sineTable/0.99/sineTable.c **** 	81, 82, 83, 84, 85, \
-  20:_commonCode_localized/sineTable/0.99/sineTable.c **** 	86, 88, 89, 90, 91, \
-  21:_commonCode_localized/sineTable/0.99/sineTable.c **** 	92, 93, 94, 95, 96, \
-  22:_commonCode_localized/sineTable/0.99/sineTable.c **** 	97, 98, 99, 100, 101, \
-  23:_commonCode_localized/sineTable/0.99/sineTable.c **** 	102, 103, 104, 105, 106, \
-  24:_commonCode_localized/sineTable/0.99/sineTable.c **** 	106, 107, 108, 109, 110, \
-  25:_commonCode_localized/sineTable/0.99/sineTable.c **** 	111, 111, 112, 113, 113, \
-  26:_commonCode_localized/sineTable/0.99/sineTable.c **** 	114, 115, 115, 116, 117, \
-  27:_commonCode_localized/sineTable/0.99/sineTable.c **** 	117, 118, 118, 119, 120, \
-  28:_commonCode_localized/sineTable/0.99/sineTable.c **** 	120, 121, 121, 122, 122, \
-  29:_commonCode_localized/sineTable/0.99/sineTable.c **** 	122, 123, 123, 124, 124, \
-  30:_commonCode_localized/sineTable/0.99/sineTable.c **** 	124, 125, 125, 125, 125, \
-  31:_commonCode_localized/sineTable/0.99/sineTable.c **** 	126, 126, 126, 126, 126, \
-  32:_commonCode_localized/sineTable/0.99/sineTable.c **** 	127, 127, 127, 127, 127, \
-  33:_commonCode_localized/sineTable/0.99/sineTable.c **** 	127, 127, 127
-  34:_commonCode_localized/sineTable/0.99/sineTable.c **** };
-  35:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-  36:_commonCode_localized/sineTable/0.99/sineTable.c **** #define pgm_read_sine8(variable) \
-  37:_commonCode_localized/sineTable/0.99/sineTable.c ****      ((int8_t)pgm_read_byte((int8_t *)(&(variable))))
-  38:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-  39:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-  40:_commonCode_localized/sineTable/0.99/sineTable.c **** #define SINE_DISABLE_SINERAW	TRUE
-  41:_commonCode_localized/sineTable/0.99/sineTable.c **** #define SINE_RAW8	TRUE
-  42:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-  43:_commonCode_localized/sineTable/0.99/sineTable.c **** #elif (_SINE_TYPE_ == 16)
-  44:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 4
+   1:_commonCode_localized/sineTable/0.99/sineTable.c **** /* mehPL:
+   2:_commonCode_localized/sineTable/0.99/sineTable.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:_commonCode_localized/sineTable/0.99/sineTable.c ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/sineTable/0.99/sineTable.c ****  *    Please see the bottom.
+   5:_commonCode_localized/sineTable/0.99/sineTable.c ****  *    Enjoy!
+   6:_commonCode_localized/sineTable/0.99/sineTable.c ****  */
+   7:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+   8:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+   9:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  10:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  11:_commonCode_localized/sineTable/0.99/sineTable.c **** //Should be in sineTable.h anyhow.
+  12:_commonCode_localized/sineTable/0.99/sineTable.c **** //#include <avr/pgmspace.h>
+  13:_commonCode_localized/sineTable/0.99/sineTable.c **** #include "sineTable.h"
+  14:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  15:_commonCode_localized/sineTable/0.99/sineTable.c **** #if (_SINE_TYPE_ == 8)
+  16:_commonCode_localized/sineTable/0.99/sineTable.c **** const int8_t sineTable[129] PROGMEM = {
+  17:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, \
+  18:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2, 3, 5, 6, 8, \
+  19:_commonCode_localized/sineTable/0.99/sineTable.c **** 	9, 11, 12, 14, 16, \
+  20:_commonCode_localized/sineTable/0.99/sineTable.c **** 	17, 19, 20, 22, 23, \
+  21:_commonCode_localized/sineTable/0.99/sineTable.c **** 	25, 26, 28, 29, 31, \
+  22:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32, 34, 35, 37, 38, \
+  23:_commonCode_localized/sineTable/0.99/sineTable.c **** 	40, 41, 43, 44, 46, \
+  24:_commonCode_localized/sineTable/0.99/sineTable.c **** 	47, 49, 50, 51, 53, \
+  25:_commonCode_localized/sineTable/0.99/sineTable.c **** 	54, 56, 57, 58, 60, \
+  26:_commonCode_localized/sineTable/0.99/sineTable.c **** 	61, 63, 64, 65, 67, \
+  27:_commonCode_localized/sineTable/0.99/sineTable.c **** 	68, 69, 71, 72, 73, \
+  28:_commonCode_localized/sineTable/0.99/sineTable.c **** 	74, 76, 77, 78, 79, \
+  29:_commonCode_localized/sineTable/0.99/sineTable.c **** 	81, 82, 83, 84, 85, \
+  30:_commonCode_localized/sineTable/0.99/sineTable.c **** 	86, 88, 89, 90, 91, \
+  31:_commonCode_localized/sineTable/0.99/sineTable.c **** 	92, 93, 94, 95, 96, \
+  32:_commonCode_localized/sineTable/0.99/sineTable.c **** 	97, 98, 99, 100, 101, \
+  33:_commonCode_localized/sineTable/0.99/sineTable.c **** 	102, 103, 104, 105, 106, \
+  34:_commonCode_localized/sineTable/0.99/sineTable.c **** 	106, 107, 108, 109, 110, \
+  35:_commonCode_localized/sineTable/0.99/sineTable.c **** 	111, 111, 112, 113, 113, \
+  36:_commonCode_localized/sineTable/0.99/sineTable.c **** 	114, 115, 115, 116, 117, \
+  37:_commonCode_localized/sineTable/0.99/sineTable.c **** 	117, 118, 118, 119, 120, \
+  38:_commonCode_localized/sineTable/0.99/sineTable.c **** 	120, 121, 121, 122, 122, \
+  39:_commonCode_localized/sineTable/0.99/sineTable.c **** 	122, 123, 123, 124, 124, \
+  40:_commonCode_localized/sineTable/0.99/sineTable.c **** 	124, 125, 125, 125, 125, \
+  41:_commonCode_localized/sineTable/0.99/sineTable.c **** 	126, 126, 126, 126, 126, \
+  42:_commonCode_localized/sineTable/0.99/sineTable.c **** 	127, 127, 127, 127, 127, \
+  43:_commonCode_localized/sineTable/0.99/sineTable.c **** 	127, 127, 127
+  44:_commonCode_localized/sineTable/0.99/sineTable.c **** };
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 4
 
 
-  45:_commonCode_localized/sineTable/0.99/sineTable.c **** // WHOOPS! ... actually the nearly exactly 256byte data section increase
-  46:_commonCode_localized/sineTable/0.99/sineTable.c **** //   was due to double in sineScaled... (?)
-  47:_commonCode_localized/sineTable/0.99/sineTable.c **** //   (then why is the .data section so small as to not include this table?)
-  48:_commonCode_localized/sineTable/0.99/sineTable.c **** // prog_int16_t sineTable[] = { 
-  49:_commonCode_localized/sineTable/0.99/sineTable.c **** const theta_t sineTable[129] PROGMEM = {
-  50:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 0, 402, 804, 1206, 1608, 2009, \
-  51:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 2410, 2811, 3212, 3612, 4011, \
-  52:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 4410, 4808, 5205, 5602, 5998, \
-  53:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 6393, 6786, 7179, 7571, 7962, \
-  54:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 8351, 8739, 9126, 9512, 9896, \
-  55:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 10278, 10659, 11039, 11417, 11793, \
-  56:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 12167, 12539, 12910, 13279, 13645, \
-  57:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 14010, 14372, 14732, 15090, 15446, \
-  58:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 15800, 16151, 16499, 16846, 17189, \
-  59:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 17530, 17869, 18204, 18537, 18868, \
-  60:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 19195, 19519, 19841, 20159, 20475, \
-  61:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 20787, 21096, 21403, 21705, 22005, \
-  62:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 22301, 22594, 22884, 23170, 23452, \
-  63:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 23731, 24007, 24279, 24547, 24811, \
-  64:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 25072, 25329, 25582, 25832, 26077, \
-  65:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 26319, 26556, 26790, 27019, 27245, \
-  66:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 27466, 27683, 27896, 28105, 28310, \
-  67:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 28510, 28706, 28898, 29085, 29268, \
-  68:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 29447, 29621, 29791, 29956, 30117, \
-  69:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 30273, 30424, 30571, 30714, 30852, \
-  70:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 30985, 31113, 31237, 31356, 31470, \
-  71:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 31580, 31685, 31785, 31880, 31971, \
-  72:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32057, 32137, 32213, 32285, 32351, \
-  73:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32412, 32469, 32521, 32567, 32609, \
-  74:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32646, 32678, 32705, 32728, 32745, \
-  75:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32757, 32765, 32767};
-  76:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-  77:_commonCode_localized/sineTable/0.99/sineTable.c **** /* NOT ROUNDED:
-  78:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, 402, 804, 1206, 1607, 2009, \
-  79:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2410, 2811, 3211, 3611, 4011, \
-  80:_commonCode_localized/sineTable/0.99/sineTable.c **** 	4409, 4807, 5205, 5601, 5997, \
-  81:_commonCode_localized/sineTable/0.99/sineTable.c **** 	6392, 6786, 7179, 7571, 7961, \
-  82:_commonCode_localized/sineTable/0.99/sineTable.c **** 	8351, 8739, 9126, 9511, 9895, \
-  83:_commonCode_localized/sineTable/0.99/sineTable.c **** 	10278, 10659, 11038, 11416, 11792, \
-  84:_commonCode_localized/sineTable/0.99/sineTable.c **** 	12166, 12539, 12909, 13278, 13645, \
-  85:_commonCode_localized/sineTable/0.99/sineTable.c **** 	14009, 14372, 14732, 15090, 15446, \
-  86:_commonCode_localized/sineTable/0.99/sineTable.c **** 	15799, 16150, 16499, 16845, 17189, \
-  87:_commonCode_localized/sineTable/0.99/sineTable.c **** 	17530, 17868, 18204, 18537, 18867, \
-  88:_commonCode_localized/sineTable/0.99/sineTable.c **** 	19194, 19519, 19840, 20159, 20474, \
-  89:_commonCode_localized/sineTable/0.99/sineTable.c **** 	20787, 21096, 21402, 21705, 22004, \
-  90:_commonCode_localized/sineTable/0.99/sineTable.c **** 	22301, 22594, 22883, 23169, 23452, \
-  91:_commonCode_localized/sineTable/0.99/sineTable.c **** 	23731, 24006, 24278, 24546, 24811, \
-  92:_commonCode_localized/sineTable/0.99/sineTable.c **** 	25072, 25329, 25582, 25831, 26077, \
-  93:_commonCode_localized/sineTable/0.99/sineTable.c **** 	26318, 26556, 26789, 27019, 27244, \
-  94:_commonCode_localized/sineTable/0.99/sineTable.c **** 	27466, 27683, 27896, 28105, 28309, \
-  95:_commonCode_localized/sineTable/0.99/sineTable.c **** 	28510, 28706, 28897, 29085, 29268, \
-  96:_commonCode_localized/sineTable/0.99/sineTable.c **** 	29446, 29621, 29790, 29955, 30116, \
-  97:_commonCode_localized/sineTable/0.99/sineTable.c **** 	30272, 30424, 30571, 30713, 30851, \
-  98:_commonCode_localized/sineTable/0.99/sineTable.c **** 	30984, 31113, 31236, 31356, 31470, \
-  99:_commonCode_localized/sineTable/0.99/sineTable.c **** 	31580, 31684, 31785, 31880, 31970, \
- 100:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32056, 32137, 32213, 32284, 32350, \
- 101:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32412, 32468, 32520, 32567, 32609, \
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 5
+  45:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  46:_commonCode_localized/sineTable/0.99/sineTable.c **** #define pgm_read_sine8(variable) \
+  47:_commonCode_localized/sineTable/0.99/sineTable.c ****      ((int8_t)pgm_read_byte((int8_t *)(&(variable))))
+  48:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  49:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  50:_commonCode_localized/sineTable/0.99/sineTable.c **** #define SINE_DISABLE_SINERAW	TRUE
+  51:_commonCode_localized/sineTable/0.99/sineTable.c **** #define SINE_RAW8	TRUE
+  52:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  53:_commonCode_localized/sineTable/0.99/sineTable.c **** #elif (_SINE_TYPE_ == 16)
+  54:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  55:_commonCode_localized/sineTable/0.99/sineTable.c **** // WHOOPS! ... actually the nearly exactly 256byte data section increase
+  56:_commonCode_localized/sineTable/0.99/sineTable.c **** //   was due to double in sineScaled... (?)
+  57:_commonCode_localized/sineTable/0.99/sineTable.c **** //   (then why is the .data section so small as to not include this table?)
+  58:_commonCode_localized/sineTable/0.99/sineTable.c **** // prog_int16_t sineTable[] = { 
+  59:_commonCode_localized/sineTable/0.99/sineTable.c **** const theta_t sineTable[129] PROGMEM = {
+  60:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 0, 402, 804, 1206, 1608, 2009, \
+  61:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 2410, 2811, 3212, 3612, 4011, \
+  62:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 4410, 4808, 5205, 5602, 5998, \
+  63:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 6393, 6786, 7179, 7571, 7962, \
+  64:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 8351, 8739, 9126, 9512, 9896, \
+  65:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 10278, 10659, 11039, 11417, 11793, \
+  66:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 12167, 12539, 12910, 13279, 13645, \
+  67:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 14010, 14372, 14732, 15090, 15446, \
+  68:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 15800, 16151, 16499, 16846, 17189, \
+  69:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 17530, 17869, 18204, 18537, 18868, \
+  70:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 19195, 19519, 19841, 20159, 20475, \
+  71:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 20787, 21096, 21403, 21705, 22005, \
+  72:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 22301, 22594, 22884, 23170, 23452, \
+  73:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 23731, 24007, 24279, 24547, 24811, \
+  74:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 25072, 25329, 25582, 25832, 26077, \
+  75:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 26319, 26556, 26790, 27019, 27245, \
+  76:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 27466, 27683, 27896, 28105, 28310, \
+  77:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 28510, 28706, 28898, 29085, 29268, \
+  78:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 29447, 29621, 29791, 29956, 30117, \
+  79:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 30273, 30424, 30571, 30714, 30852, \
+  80:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 30985, 31113, 31237, 31356, 31470, \
+  81:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 31580, 31685, 31785, 31880, 31971, \
+  82:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32057, 32137, 32213, 32285, 32351, \
+  83:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32412, 32469, 32521, 32567, 32609, \
+  84:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32646, 32678, 32705, 32728, 32745, \
+  85:_commonCode_localized/sineTable/0.99/sineTable.c **** 	 32757, 32765, 32767};
+  86:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+  87:_commonCode_localized/sineTable/0.99/sineTable.c **** /* NOT ROUNDED:
+  88:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, 402, 804, 1206, 1607, 2009, \
+  89:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2410, 2811, 3211, 3611, 4011, \
+  90:_commonCode_localized/sineTable/0.99/sineTable.c **** 	4409, 4807, 5205, 5601, 5997, \
+  91:_commonCode_localized/sineTable/0.99/sineTable.c **** 	6392, 6786, 7179, 7571, 7961, \
+  92:_commonCode_localized/sineTable/0.99/sineTable.c **** 	8351, 8739, 9126, 9511, 9895, \
+  93:_commonCode_localized/sineTable/0.99/sineTable.c **** 	10278, 10659, 11038, 11416, 11792, \
+  94:_commonCode_localized/sineTable/0.99/sineTable.c **** 	12166, 12539, 12909, 13278, 13645, \
+  95:_commonCode_localized/sineTable/0.99/sineTable.c **** 	14009, 14372, 14732, 15090, 15446, \
+  96:_commonCode_localized/sineTable/0.99/sineTable.c **** 	15799, 16150, 16499, 16845, 17189, \
+  97:_commonCode_localized/sineTable/0.99/sineTable.c **** 	17530, 17868, 18204, 18537, 18867, \
+  98:_commonCode_localized/sineTable/0.99/sineTable.c **** 	19194, 19519, 19840, 20159, 20474, \
+  99:_commonCode_localized/sineTable/0.99/sineTable.c **** 	20787, 21096, 21402, 21705, 22004, \
+ 100:_commonCode_localized/sineTable/0.99/sineTable.c **** 	22301, 22594, 22883, 23169, 23452, \
+ 101:_commonCode_localized/sineTable/0.99/sineTable.c **** 	23731, 24006, 24278, 24546, 24811, \
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 5
 
 
- 102:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32646, 32678, 32705, 32727, 32744, \
- 103:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32757, 32764, 32767};
- 104:_commonCode_localized/sineTable/0.99/sineTable.c **** */
- 105:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine(variable)	pgm_read_word(&(variable))
- 106:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 107:_commonCode_localized/sineTable/0.99/sineTable.c **** //Read the upper byte...
- 108:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine8(variable) \
- 109:_commonCode_localized/sineTable/0.99/sineTable.c **** 		((int8_t)pgm_read_byte((int8_t *)(&(variable))+1))
- 110:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 111:_commonCode_localized/sineTable/0.99/sineTable.c **** #elif (_SINE_TYPE_ == 32)
- 112:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 113:_commonCode_localized/sineTable/0.99/sineTable.c ****  //Should be 129 values... addresses 0-128
- 114:_commonCode_localized/sineTable/0.99/sineTable.c **** // prog_int32_t sineTable[] = { 
- 115:_commonCode_localized/sineTable/0.99/sineTable.c **** const int32_t sineTable[] PROGMEM = {
- 116:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, 26352927, 52701886, 79042909, 105372028, 131685278, \
- 117:_commonCode_localized/sineTable/0.99/sineTable.c **** 	157978697, 184248325, 210490205, 236700387, 262874923, \
- 118:_commonCode_localized/sineTable/0.99/sineTable.c **** 	289009870, 315101294, 341145265, 367137860, 393075166, \
- 119:_commonCode_localized/sineTable/0.99/sineTable.c **** 	418953276, 444768293, 470516330, 496193509, 521795962, \
- 120:_commonCode_localized/sineTable/0.99/sineTable.c **** 	547319836, 572761285, 598116478, 623381597, 648552837, \
- 121:_commonCode_localized/sineTable/0.99/sineTable.c **** 	673626407, 698598532, 723465451, 748223418, 772868705, \
- 122:_commonCode_localized/sineTable/0.99/sineTable.c **** 	797397601, 821806412, 846091463, 870249094, 894275670, \
- 123:_commonCode_localized/sineTable/0.99/sineTable.c **** 	918167571, 941921199, 965532977, 988999350, 1012316783, \
- 124:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1035481765, 1058490807, 1081340444, 1104027236, 1126547764, \
- 125:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1148898639, 1171076494, 1193077990, 1214899812, 1236538674, \
- 126:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1257991319, 1279254514, 1300325059, 1321199779, 1341875532, \
- 127:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1362349203, 1382617709, 1402677998, 1422527049, 1442161873, \
- 128:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1461579512, 1480777043, 1499751575, 1518500249, 1537020242, \
- 129:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1555308767, 1573363067, 1591180424, 1608758156, 1626093615, \
- 130:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1643184190, 1660027307, 1676620430, 1692961061, 1709046738, \
- 131:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1724875039, 1740443579, 1755750016, 1770792043, 1785567395, \
- 132:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1800073847, 1814309215, 1828271354, 1841958163, 1855367579, \
- 133:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1868497584, 1881346200, 1893911493, 1906191569, 1918184579, \
- 134:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1929888719, 1941302224, 1952423376, 1963250500, 1973781966, \
- 135:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1984016187, 1993951623, 2003586778, 2012920199, 2021950482, \
- 136:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2030676267, 2039096240, 2047209132, 2055013722, 2062508834, \
- 137:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2069693340, 2076566158, 2083126253, 2089372636, 2095304368, \
- 138:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2100920555, 2106220350, 2111202957, 2115867624, 2120213650, \
- 139:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2124240379, 2127947205, 2131333570, 2134398964, 2137142926, \
- 140:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2139565041, 2141664947, 2143442325, 2144896908, 2146028478, \
- 141:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2146836865, 2147321945, 2147483647};
- 142:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 143:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine(variable)	pgm_read_dword(&(variable))
- 144:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 145:_commonCode_localized/sineTable/0.99/sineTable.c **** #else
- 146:_commonCode_localized/sineTable/0.99/sineTable.c ****  #error "SINE_TYPE not defined or not handled"
- 147:_commonCode_localized/sineTable/0.99/sineTable.c **** #endif
- 148:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 149:_commonCode_localized/sineTable/0.99/sineTable.c **** #if (!defined(SINE_TABLE_ONLY) || !SINE_TABLE_ONLY)
- 150:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 151:_commonCode_localized/sineTable/0.99/sineTable.c **** //Takes theta of any value in theta_t's range, and returns a theta
- 152:_commonCode_localized/sineTable/0.99/sineTable.c **** // that fits in the first quadrant (for reading from the table)
- 153:_commonCode_localized/sineTable/0.99/sineTable.c **** // negative values returned here are to be absoluted, first
- 154:_commonCode_localized/sineTable/0.99/sineTable.c **** // but they indicate that the resulting sine value is to be negated
- 155:_commonCode_localized/sineTable/0.99/sineTable.c **** theta_t quadrantizeTheta(theta_t theta)
- 156:_commonCode_localized/sineTable/0.99/sineTable.c **** {
- 128               		.stabn	68,0,156,.LM0-.LFBB1
+ 102:_commonCode_localized/sineTable/0.99/sineTable.c **** 	25072, 25329, 25582, 25831, 26077, \
+ 103:_commonCode_localized/sineTable/0.99/sineTable.c **** 	26318, 26556, 26789, 27019, 27244, \
+ 104:_commonCode_localized/sineTable/0.99/sineTable.c **** 	27466, 27683, 27896, 28105, 28309, \
+ 105:_commonCode_localized/sineTable/0.99/sineTable.c **** 	28510, 28706, 28897, 29085, 29268, \
+ 106:_commonCode_localized/sineTable/0.99/sineTable.c **** 	29446, 29621, 29790, 29955, 30116, \
+ 107:_commonCode_localized/sineTable/0.99/sineTable.c **** 	30272, 30424, 30571, 30713, 30851, \
+ 108:_commonCode_localized/sineTable/0.99/sineTable.c **** 	30984, 31113, 31236, 31356, 31470, \
+ 109:_commonCode_localized/sineTable/0.99/sineTable.c **** 	31580, 31684, 31785, 31880, 31970, \
+ 110:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32056, 32137, 32213, 32284, 32350, \
+ 111:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32412, 32468, 32520, 32567, 32609, \
+ 112:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32646, 32678, 32705, 32727, 32744, \
+ 113:_commonCode_localized/sineTable/0.99/sineTable.c **** 	32757, 32764, 32767};
+ 114:_commonCode_localized/sineTable/0.99/sineTable.c **** */
+ 115:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine(variable)	pgm_read_word(&(variable))
+ 116:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 117:_commonCode_localized/sineTable/0.99/sineTable.c **** //Read the upper byte...
+ 118:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine8(variable) \
+ 119:_commonCode_localized/sineTable/0.99/sineTable.c **** 		((int8_t)pgm_read_byte((int8_t *)(&(variable))+1))
+ 120:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 121:_commonCode_localized/sineTable/0.99/sineTable.c **** #elif (_SINE_TYPE_ == 32)
+ 122:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 123:_commonCode_localized/sineTable/0.99/sineTable.c ****  //Should be 129 values... addresses 0-128
+ 124:_commonCode_localized/sineTable/0.99/sineTable.c **** // prog_int32_t sineTable[] = { 
+ 125:_commonCode_localized/sineTable/0.99/sineTable.c **** const int32_t sineTable[] PROGMEM = {
+ 126:_commonCode_localized/sineTable/0.99/sineTable.c **** 	0, 26352927, 52701886, 79042909, 105372028, 131685278, \
+ 127:_commonCode_localized/sineTable/0.99/sineTable.c **** 	157978697, 184248325, 210490205, 236700387, 262874923, \
+ 128:_commonCode_localized/sineTable/0.99/sineTable.c **** 	289009870, 315101294, 341145265, 367137860, 393075166, \
+ 129:_commonCode_localized/sineTable/0.99/sineTable.c **** 	418953276, 444768293, 470516330, 496193509, 521795962, \
+ 130:_commonCode_localized/sineTable/0.99/sineTable.c **** 	547319836, 572761285, 598116478, 623381597, 648552837, \
+ 131:_commonCode_localized/sineTable/0.99/sineTable.c **** 	673626407, 698598532, 723465451, 748223418, 772868705, \
+ 132:_commonCode_localized/sineTable/0.99/sineTable.c **** 	797397601, 821806412, 846091463, 870249094, 894275670, \
+ 133:_commonCode_localized/sineTable/0.99/sineTable.c **** 	918167571, 941921199, 965532977, 988999350, 1012316783, \
+ 134:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1035481765, 1058490807, 1081340444, 1104027236, 1126547764, \
+ 135:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1148898639, 1171076494, 1193077990, 1214899812, 1236538674, \
+ 136:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1257991319, 1279254514, 1300325059, 1321199779, 1341875532, \
+ 137:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1362349203, 1382617709, 1402677998, 1422527049, 1442161873, \
+ 138:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1461579512, 1480777043, 1499751575, 1518500249, 1537020242, \
+ 139:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1555308767, 1573363067, 1591180424, 1608758156, 1626093615, \
+ 140:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1643184190, 1660027307, 1676620430, 1692961061, 1709046738, \
+ 141:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1724875039, 1740443579, 1755750016, 1770792043, 1785567395, \
+ 142:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1800073847, 1814309215, 1828271354, 1841958163, 1855367579, \
+ 143:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1868497584, 1881346200, 1893911493, 1906191569, 1918184579, \
+ 144:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1929888719, 1941302224, 1952423376, 1963250500, 1973781966, \
+ 145:_commonCode_localized/sineTable/0.99/sineTable.c **** 	1984016187, 1993951623, 2003586778, 2012920199, 2021950482, \
+ 146:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2030676267, 2039096240, 2047209132, 2055013722, 2062508834, \
+ 147:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2069693340, 2076566158, 2083126253, 2089372636, 2095304368, \
+ 148:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2100920555, 2106220350, 2111202957, 2115867624, 2120213650, \
+ 149:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2124240379, 2127947205, 2131333570, 2134398964, 2137142926, \
+ 150:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2139565041, 2141664947, 2143442325, 2144896908, 2146028478, \
+ 151:_commonCode_localized/sineTable/0.99/sineTable.c **** 	2146836865, 2147321945, 2147483647};
+ 152:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 153:_commonCode_localized/sineTable/0.99/sineTable.c ****  #define pgm_read_sine(variable)	pgm_read_dword(&(variable))
+ 154:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 155:_commonCode_localized/sineTable/0.99/sineTable.c **** #else
+ 156:_commonCode_localized/sineTable/0.99/sineTable.c ****  #error "SINE_TYPE not defined or not handled"
+ 157:_commonCode_localized/sineTable/0.99/sineTable.c **** #endif
+ 158:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 6
+
+
+ 159:_commonCode_localized/sineTable/0.99/sineTable.c **** #if (!defined(SINE_TABLE_ONLY) || !SINE_TABLE_ONLY)
+ 160:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 161:_commonCode_localized/sineTable/0.99/sineTable.c **** //Takes theta of any value in theta_t's range, and returns a theta
+ 162:_commonCode_localized/sineTable/0.99/sineTable.c **** // that fits in the first quadrant (for reading from the table)
+ 163:_commonCode_localized/sineTable/0.99/sineTable.c **** // negative values returned here are to be absoluted, first
+ 164:_commonCode_localized/sineTable/0.99/sineTable.c **** // but they indicate that the resulting sine value is to be negated
+ 165:_commonCode_localized/sineTable/0.99/sineTable.c **** theta_t quadrantizeTheta(theta_t theta)
+ 166:_commonCode_localized/sineTable/0.99/sineTable.c **** {
+ 128               		.stabn	68,0,166,.LM0-.LFBB1
  129               	.LM0:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 6
-
-
  130               	.LFBB1:
  131               	/* prologue: function */
  132               	/* frame size = 0 */
  133               	/* stack size = 0 */
  134               	.L__stack_usage = 0
- 157:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 158:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
- 135               		.stabn	68,0,158,.LM1-.LFBB1
+ 167:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 168:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
+ 135               		.stabn	68,0,168,.LM1-.LFBB1
  136               	.LM1:
  137 0000 60E0      		ldi r22,0
  138 0002 72E0      		ldi r23,lo8(2)
  139 0004 0E94 0000 		call __divmodhi4
- 159:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 160:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
- 140               		.stabn	68,0,160,.LM2-.LFBB1
+ 169:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 170:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
+ 140               		.stabn	68,0,170,.LM2-.LFBB1
  141               	.LM2:
  142 0008 97FD      		sbrc r25,7
- 161:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
- 143               		.stabn	68,0,161,.LM3-.LFBB1
+ 171:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
+ 143               		.stabn	68,0,171,.LM3-.LFBB1
  144               	.LM3:
  145 000a 9E5F      		subi r25,-2
  146               	.L2:
- 162:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 163:_commonCode_localized/sineTable/0.99/sineTable.c **** //For more accurate realtimeishness, it might be worthwhile to reverse this order...
- 164:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
- 165:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the first quadrant, just take the sine value from the table
- 166:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1) //128)
- 147               		.stabn	68,0,166,.LM4-.LFBB1
+ 172:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 173:_commonCode_localized/sineTable/0.99/sineTable.c **** //For more accurate realtimeishness, it might be worthwhile to reverse this order...
+ 174:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
+ 175:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the first quadrant, just take the sine value from the table
+ 176:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1) //128)
+ 147               		.stabn	68,0,176,.LM4-.LFBB1
  148               	.LM4:
  149 000c 8038      		cpi r24,-128
  150 000e 9105      		cpc r25,__zero_reg__
  151 0010 04F0      		brlt .L3
- 167:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 168:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//theta=theta;
- 169:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}	
- 170:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the second quadrant, mirror theta and subtract the offset
- 171:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE2) //256)
- 152               		.stabn	68,0,171,.LM5-.LFBB1
+ 177:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 178:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//theta=theta;
+ 179:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}	
+ 180:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the second quadrant, mirror theta and subtract the offset
+ 181:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE2) //256)
+ 152               		.stabn	68,0,181,.LM5-.LFBB1
  153               	.LM5:
  154 0012 8F3F      		cpi r24,-1
  155 0014 9105      		cpc r25,__zero_reg__
  156 0016 01F0      		breq .L6
  157 0018 04F0      		brlt .L6
- 172:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 173:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE2-theta;
- 174:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
- 175:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 176:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the third quadrant, mirror the value and subtract the offset
- 177:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
- 158               		.stabn	68,0,177,.LM6-.LFBB1
+ 182:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 183:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE2-theta;
+ 184:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
+ 185:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 7
+
+
+ 186:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the third quadrant, mirror the value and subtract the offset
+ 187:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
+ 158               		.stabn	68,0,187,.LM6-.LFBB1
  159               	.LM6:
  160 001a 8038      		cpi r24,-128
  161 001c 51E0      		ldi r21,1
  162 001e 9507      		cpc r25,r21
  163 0020 04F4      		brge .L5
  164               	.L6:
- 178:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 7
-
-
- 179:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=-(theta-SINE_SIZE2);
- 165               		.stabn	68,0,179,.LM7-.LFBB1
+ 188:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 189:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=-(theta-SINE_SIZE2);
+ 165               		.stabn	68,0,189,.LM7-.LFBB1
  166               	.LM7:
  167 0022 20E0      		ldi r18,0
  168 0024 31E0      		ldi r19,lo8(1)
@@ -372,139 +382,139 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  172 002c CA01      		movw r24,r20
  173 002e 0895      		ret
  174               	.L5:
- 180:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//negative=TRUE;
- 181:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
- 182:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 183:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
- 184:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
- 185:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 186:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=-(SINE_SIZE4-theta);
- 175               		.stabn	68,0,186,.LM8-.LFBB1
+ 190:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//negative=TRUE;
+ 191:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
+ 192:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 193:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
+ 194:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
+ 195:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 196:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=-(SINE_SIZE4-theta);
+ 175               		.stabn	68,0,196,.LM8-.LFBB1
  176               	.LM8:
  177 0030 9250      		subi r25,2
  178               	.L3:
- 187:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//negative=TRUE;
- 188:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
- 189:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 190:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 191:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return theta;
- 192:_commonCode_localized/sineTable/0.99/sineTable.c **** }
- 179               		.stabn	68,0,192,.LM9-.LFBB1
+ 197:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//negative=TRUE;
+ 198:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
+ 199:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 200:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 201:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return theta;
+ 202:_commonCode_localized/sineTable/0.99/sineTable.c **** }
+ 179               		.stabn	68,0,202,.LM9-.LFBB1
  180               	.LM9:
  181 0032 0895      		ret
  182               		.size	quadrantizeTheta, .-quadrantizeTheta
  183               	.Lscope1:
  184               		.stabs	"",36,0,0,.Lscope1-.LFBB1
  185               		.stabd	78,0,0
- 186               		.stabs	"sineRaw:F(1,2)",36,0,207,sineRaw
- 187               		.stabs	"theta:P(1,1)",64,0,207,24
+ 186               		.stabs	"sineRaw:F(1,2)",36,0,217,sineRaw
+ 187               		.stabs	"theta:P(1,1)",64,0,217,24
  188               	.global	sineRaw
  189               		.type	sineRaw, @function
  190               	sineRaw:
  191               		.stabd	46,0,0
- 193:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 194:_commonCode_localized/sineTable/0.99/sineTable.c **** #if(!defined(SINE_DISABLE_SINERAW) || !SINE_DISABLE_SINERAW)
- 195:_commonCode_localized/sineTable/0.99/sineTable.c **** //Stores the scaled sine-values... so calculations can be executed initially
- 196:_commonCode_localized/sineTable/0.99/sineTable.c **** //  and retrieval can be quite quick...
- 197:_commonCode_localized/sineTable/0.99/sineTable.c **** //  These values are scaled to match the axes AND amplitude
- 198:_commonCode_localized/sineTable/0.99/sineTable.c **** //int32_t sineTable[129];
- 199:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 200:_commonCode_localized/sineTable/0.99/sineTable.c **** // [I think] Use pgm_read_dword(address_short) unless it's far... we'll have to determine that...
- 201:_commonCode_localized/sineTable/0.99/sineTable.c **** // probably OK since it's in the same file... who knows.. .data vs .text?
- 202:_commonCode_localized/sineTable/0.99/sineTable.c **** 
  203:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 204:_commonCode_localized/sineTable/0.99/sineTable.c **** //theta is a value between 0 and 511 (representing an angle of 0-359.som'n deg)
- 205:_commonCode_localized/sineTable/0.99/sineTable.c **** //   rollover/wraparound should work fine... (e.g. Sine(coord_t))
- 206:_commonCode_localized/sineTable/0.99/sineTable.c **** //output is a value between -INT32_MAX and INT32_MAX (representing sin values -1 to 1)
- 207:_commonCode_localized/sineTable/0.99/sineTable.c **** sine_t sineRaw(theta_t theta)
- 208:_commonCode_localized/sineTable/0.99/sineTable.c **** {
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 8
+ 204:_commonCode_localized/sineTable/0.99/sineTable.c **** #if(!defined(SINE_DISABLE_SINERAW) || !SINE_DISABLE_SINERAW)
+ 205:_commonCode_localized/sineTable/0.99/sineTable.c **** //Stores the scaled sine-values... so calculations can be executed initially
+ 206:_commonCode_localized/sineTable/0.99/sineTable.c **** //  and retrieval can be quite quick...
+ 207:_commonCode_localized/sineTable/0.99/sineTable.c **** //  These values are scaled to match the axes AND amplitude
+ 208:_commonCode_localized/sineTable/0.99/sineTable.c **** //int32_t sineTable[129];
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 8
 
 
- 192               		.stabn	68,0,208,.LM10-.LFBB2
+ 209:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 210:_commonCode_localized/sineTable/0.99/sineTable.c **** // [I think] Use pgm_read_dword(address_short) unless it's far... we'll have to determine that...
+ 211:_commonCode_localized/sineTable/0.99/sineTable.c **** // probably OK since it's in the same file... who knows.. .data vs .text?
+ 212:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 213:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 214:_commonCode_localized/sineTable/0.99/sineTable.c **** //theta is a value between 0 and 511 (representing an angle of 0-359.som'n deg)
+ 215:_commonCode_localized/sineTable/0.99/sineTable.c **** //   rollover/wraparound should work fine... (e.g. Sine(coord_t))
+ 216:_commonCode_localized/sineTable/0.99/sineTable.c **** //output is a value between -INT32_MAX and INT32_MAX (representing sin values -1 to 1)
+ 217:_commonCode_localized/sineTable/0.99/sineTable.c **** sine_t sineRaw(theta_t theta)
+ 218:_commonCode_localized/sineTable/0.99/sineTable.c **** {
+ 192               		.stabn	68,0,218,.LM10-.LFBB2
  193               	.LM10:
  194               	.LFBB2:
  195               	/* prologue: function */
  196               	/* frame size = 0 */
  197               	/* stack size = 0 */
  198               	.L__stack_usage = 0
- 209:_commonCode_localized/sineTable/0.99/sineTable.c **** 	uint8_t negative=FALSE;
- 210:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 211:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta = quadrantizeTheta(theta);
- 199               		.stabn	68,0,211,.LM11-.LFBB2
+ 219:_commonCode_localized/sineTable/0.99/sineTable.c **** 	uint8_t negative=FALSE;
+ 220:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 221:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta = quadrantizeTheta(theta);
+ 199               		.stabn	68,0,221,.LM11-.LFBB2
  200               	.LM11:
  201 0034 0E94 0000 		call quadrantizeTheta
- 212:_commonCode_localized/sineTable/0.99/sineTable.c **** /*
- 213:_commonCode_localized/sineTable/0.99/sineTable.c **** //	theta %= 512;
- 214:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
- 215:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 216:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
- 217:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
- 218:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 219:_commonCode_localized/sineTable/0.99/sineTable.c **** //For more accurate realtimeishness, it might be worthwhile to reverse this order...
- 220:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
- 221:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the first quadrant, just take the sine value from the table
- 222:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1) //128)
- 223:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 224:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//theta = theta;
- 225:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[theta]);
- 226:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}	
- 227:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the second quadrant, mirror theta and subtract the offset
- 228:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE2) //256)
- 229:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 230:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE2-theta;
- 231:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
- 232:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 233:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the third quadrant, mirror the value and subtract the offset
- 234:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
- 235:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 236:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=theta-SINE_SIZE2;
- 237:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
- 238:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
- 239:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 240:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
- 241:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
- 242:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 243:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE4-theta;
- 244:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
- 245:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
- 246:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 247:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 248:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//This reduced code-size from 3860 to 3838
- 249:_commonCode_localized/sineTable/0.99/sineTable.c **** */
- 250:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//adding quadrantizeTheta increased it to 3844
- 251:_commonCode_localized/sineTable/0.99/sineTable.c **** 	// but should be dramatic in combination with sineRaw8
- 252:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
- 202               		.stabn	68,0,252,.LM12-.LFBB2
+ 222:_commonCode_localized/sineTable/0.99/sineTable.c **** /*
+ 223:_commonCode_localized/sineTable/0.99/sineTable.c **** //	theta %= 512;
+ 224:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
+ 225:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 226:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
+ 227:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
+ 228:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 229:_commonCode_localized/sineTable/0.99/sineTable.c **** //For more accurate realtimeishness, it might be worthwhile to reverse this order...
+ 230:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
+ 231:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the first quadrant, just take the sine value from the table
+ 232:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1) //128)
+ 233:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 234:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//theta = theta;
+ 235:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[theta]);
+ 236:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}	
+ 237:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the second quadrant, mirror theta and subtract the offset
+ 238:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE2) //256)
+ 239:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 240:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE2-theta;
+ 241:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return pgm_read_sine(sineTable[SINE_SIZE2-theta]); //256-theta]);
+ 242:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 243:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the third quadrant, mirror the value and subtract the offset
+ 244:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
+ 245:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 246:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=theta-SINE_SIZE2;
+ 247:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
+ 248:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[theta-SINE_SIZE2]); //256]);
+ 249:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 250:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the fourth quadrant, mirror both theta and the value and subtract the offset...
+ 251:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
+ 252:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 253:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta=SINE_SIZE4-theta;
+ 254:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
+ 255:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 9
+
+
+ 256:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 257:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 258:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//This reduced code-size from 3860 to 3838
+ 259:_commonCode_localized/sineTable/0.99/sineTable.c **** */
+ 260:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//adding quadrantizeTheta increased it to 3844
+ 261:_commonCode_localized/sineTable/0.99/sineTable.c **** 	// but should be dramatic in combination with sineRaw8
+ 262:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
+ 202               		.stabn	68,0,262,.LM12-.LFBB2
  203               	.LM12:
  204 0038 97FF      		sbrs r25,7
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 9
-
-
  205 003a 00C0      		rjmp .L11
- 253:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
- 254:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = -theta;
- 206               		.stabn	68,0,254,.LM13-.LFBB2
+ 263:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 264:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = -theta;
+ 206               		.stabn	68,0,264,.LM13-.LFBB2
  207               	.LM13:
  208 003c 9195      		neg r25
  209 003e 8195      		neg r24
  210 0040 9109      		sbc r25,__zero_reg__
- 255:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
- 211               		.stabn	68,0,255,.LM14-.LFBB2
+ 265:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative=TRUE;
+ 211               		.stabn	68,0,265,.LM14-.LFBB2
  212               	.LM14:
  213 0042 21E0      		ldi r18,lo8(1)
  214 0044 00C0      		rjmp .L9
  215               	.L11:
- 209:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 216               		.stabn	68,0,209,.LM15-.LFBB2
+ 219:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 216               		.stabn	68,0,219,.LM15-.LFBB2
  217               	.LM15:
  218 0046 20E0      		ldi r18,0
  219               	.L9:
  220               	.LBB2:
- 256:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 257:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 258:_commonCode_localized/sineTable/0.99/sineTable.c **** 	sine_t sine=pgm_read_sine(sineTable[theta]);
- 221               		.stabn	68,0,258,.LM16-.LFBB2
+ 266:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 267:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 268:_commonCode_localized/sineTable/0.99/sineTable.c **** 	sine_t sine=pgm_read_sine(sineTable[theta]);
+ 221               		.stabn	68,0,268,.LM16-.LFBB2
  222               	.LM16:
  223 0048 FC01      		movw r30,r24
  224 004a EE0F      		lsl r30
@@ -513,116 +523,116 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  227 0050 F040      		sbci r31,hi8(-(sineTable))
  228               	.LBE2:
  229               	/* #APP */
- 230               	 ;  258 "_commonCode_localized/sineTable/0.99/sineTable.c" 1
+ 230               	 ;  268 "_commonCode_localized/sineTable/0.99/sineTable.c" 1
  231 0052 8591      		lpm r24, Z+
  232 0054 9491      		lpm r25, Z
  233               		
  234               	 ;  0 "" 2
- 259:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
- 260:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(negative)
- 235               		.stabn	68,0,260,.LM17-.LFBB2
+ 269:_commonCode_localized/sineTable/0.99/sineTable.c **** 	
+ 270:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(negative)
+ 235               		.stabn	68,0,270,.LM17-.LFBB2
  236               	.LM17:
  237               	/* #NOAPP */
  238 0056 2223      		tst r18
  239 0058 01F0      		breq .L10
- 261:_commonCode_localized/sineTable/0.99/sineTable.c **** 		sine = -sine;
- 240               		.stabn	68,0,261,.LM18-.LFBB2
+ 271:_commonCode_localized/sineTable/0.99/sineTable.c **** 		sine = -sine;
+ 240               		.stabn	68,0,271,.LM18-.LFBB2
  241               	.LM18:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 10
+
+
  242 005a 9195      		neg r25
  243 005c 8195      		neg r24
  244 005e 9109      		sbc r25,__zero_reg__
  245               	.L10:
- 262:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return sine;
- 263:_commonCode_localized/sineTable/0.99/sineTable.c **** }
- 246               		.stabn	68,0,263,.LM19-.LFBB2
+ 272:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return sine;
+ 273:_commonCode_localized/sineTable/0.99/sineTable.c **** }
+ 246               		.stabn	68,0,273,.LM19-.LFBB2
  247               	.LM19:
  248 0060 0895      		ret
  249               		.size	sineRaw, .-sineRaw
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 10
-
-
- 250               		.stabs	"negative:r(4,2)",64,0,209,18
- 251               		.stabs	"sine:r(1,2)",64,0,258,24
+ 250               		.stabs	"negative:r(4,2)",64,0,219,18
+ 251               		.stabs	"sine:r(1,2)",64,0,268,24
  252               		.stabn	192,0,0,.LFBB2-.LFBB2
- 253               		.stabs	"__addr16:r(4,4)",64,0,258,30
+ 253               		.stabs	"__addr16:r(4,4)",64,0,268,30
  254               		.stabn	192,0,0,.LBB2-.LFBB2
  255               		.stabn	224,0,0,.LBE2-.LFBB2
  256               		.stabn	224,0,0,.Lscope2-.LFBB2
  257               	.Lscope2:
  258               		.stabs	"",36,0,0,.Lscope2-.LFBB2
  259               		.stabd	78,0,0
- 260               		.stabs	"sineRaw8:F(4,1)",36,0,267,sineRaw8
- 261               		.stabs	"theta:P(1,1)",64,0,267,24
+ 260               		.stabs	"sineRaw8:F(4,1)",36,0,277,sineRaw8
+ 261               		.stabs	"theta:P(1,1)",64,0,277,24
  262               	.global	sineRaw8
  263               		.type	sineRaw8, @function
  264               	sineRaw8:
  265               		.stabd	46,0,0
- 264:_commonCode_localized/sineTable/0.99/sineTable.c **** #endif
- 265:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 266:_commonCode_localized/sineTable/0.99/sineTable.c **** #if ( defined(SINE_RAW8) && SINE_RAW8 )
- 267:_commonCode_localized/sineTable/0.99/sineTable.c **** int8_t sineRaw8(theta_t theta)
- 268:_commonCode_localized/sineTable/0.99/sineTable.c **** {
- 266               		.stabn	68,0,268,.LM20-.LFBB3
+ 274:_commonCode_localized/sineTable/0.99/sineTable.c **** #endif
+ 275:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 276:_commonCode_localized/sineTable/0.99/sineTable.c **** #if ( defined(SINE_RAW8) && SINE_RAW8 )
+ 277:_commonCode_localized/sineTable/0.99/sineTable.c **** int8_t sineRaw8(theta_t theta)
+ 278:_commonCode_localized/sineTable/0.99/sineTable.c **** {
+ 266               		.stabn	68,0,278,.LM20-.LFBB3
  267               	.LM20:
  268               	.LFBB3:
  269               	/* prologue: function */
  270               	/* frame size = 0 */
  271               	/* stack size = 0 */
  272               	.L__stack_usage = 0
- 269:_commonCode_localized/sineTable/0.99/sineTable.c **** 	/*
- 270:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
- 271:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 272:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
- 273:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
- 274:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 275:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1)
- 276:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return pgm_read_sine8(sineTable[theta]);
- 277:_commonCode_localized/sineTable/0.99/sineTable.c ****    else if(theta < SINE_SIZE2) //256)
- 278:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return pgm_read_sine8(sineTable[SINE_SIZE2-theta]); //256-theta]);
- 279:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
- 280:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return -(int8_t)pgm_read_sine8(sineTable[theta-SINE_SIZE2]); //256]);
- 281:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
- 282:_commonCode_localized/sineTable/0.99/sineTable.c **** 	   return -(int8_t)pgm_read_sine8(sineTable[SINE_SIZE4-theta]); 
- 283:_commonCode_localized/sineTable/0.99/sineTable.c **** 	*/
+ 279:_commonCode_localized/sineTable/0.99/sineTable.c **** 	/*
+ 280:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta %= SINE_2PI;
+ 281:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 282:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
+ 283:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = SINE_2PI + theta;
  284:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 285:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//And doing this here, reduced from 3844 to 3770
- 286:_commonCode_localized/sineTable/0.99/sineTable.c **** 	uint8_t negative = FALSE;
- 287:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta=quadrantizeTheta(theta);
- 273               		.stabn	68,0,287,.LM21-.LFBB3
+ 285:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < SINE_SIZE-1)
+ 286:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return pgm_read_sine8(sineTable[theta]);
+ 287:_commonCode_localized/sineTable/0.99/sineTable.c ****    else if(theta < SINE_SIZE2) //256)
+ 288:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return pgm_read_sine8(sineTable[SINE_SIZE2-theta]); //256-theta]);
+ 289:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
+ 290:_commonCode_localized/sineTable/0.99/sineTable.c **** 		return -(int8_t)pgm_read_sine8(sineTable[theta-SINE_SIZE2]); //256]);
+ 291:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else
+ 292:_commonCode_localized/sineTable/0.99/sineTable.c **** 	   return -(int8_t)pgm_read_sine8(sineTable[SINE_SIZE4-theta]); 
+ 293:_commonCode_localized/sineTable/0.99/sineTable.c **** 	*/
+ 294:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 295:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//And doing this here, reduced from 3844 to 3770
+ 296:_commonCode_localized/sineTable/0.99/sineTable.c **** 	uint8_t negative = FALSE;
+ 297:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta=quadrantizeTheta(theta);
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 11
+
+
+ 273               		.stabn	68,0,297,.LM21-.LFBB3
  274               	.LM21:
  275 0062 0E94 0000 		call quadrantizeTheta
- 288:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 289:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
- 276               		.stabn	68,0,289,.LM22-.LFBB3
+ 298:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 299:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(theta < 0)
+ 276               		.stabn	68,0,299,.LM22-.LFBB3
  277               	.LM22:
  278 0066 97FF      		sbrs r25,7
  279 0068 00C0      		rjmp .L19
- 290:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 11
-
-
- 291:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = -theta;
- 280               		.stabn	68,0,291,.LM23-.LFBB3
+ 300:_commonCode_localized/sineTable/0.99/sineTable.c **** 	{
+ 301:_commonCode_localized/sineTable/0.99/sineTable.c **** 		theta = -theta;
+ 280               		.stabn	68,0,301,.LM23-.LFBB3
  281               	.LM23:
  282 006a 9195      		neg r25
  283 006c 8195      		neg r24
  284 006e 9109      		sbc r25,__zero_reg__
- 292:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative = TRUE;
- 285               		.stabn	68,0,292,.LM24-.LFBB3
+ 302:_commonCode_localized/sineTable/0.99/sineTable.c **** 		negative = TRUE;
+ 285               		.stabn	68,0,302,.LM24-.LFBB3
  286               	.LM24:
  287 0070 21E0      		ldi r18,lo8(1)
  288 0072 00C0      		rjmp .L16
  289               	.L19:
- 286:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta=quadrantizeTheta(theta);
- 290               		.stabn	68,0,286,.LM25-.LFBB3
+ 296:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta=quadrantizeTheta(theta);
+ 290               		.stabn	68,0,296,.LM25-.LFBB3
  291               	.LM25:
  292 0074 20E0      		ldi r18,0
  293               	.L16:
  294               	.LBB3:
- 293:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
- 294:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 295:_commonCode_localized/sineTable/0.99/sineTable.c **** 	int8_t sine=pgm_read_sine8(sineTable[theta]);
- 295               		.stabn	68,0,295,.LM26-.LFBB3
+ 303:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
+ 304:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 305:_commonCode_localized/sineTable/0.99/sineTable.c **** 	int8_t sine=pgm_read_sine8(sineTable[theta]);
+ 295               		.stabn	68,0,305,.LM26-.LFBB3
  296               	.LM26:
  297 0076 FC01      		movw r30,r24
  298 0078 EE0F      		lsl r30
@@ -630,37 +640,37 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  300 007c E050      		subi r30,lo8(-(sineTable+1))
  301 007e F040      		sbci r31,hi8(-(sineTable+1))
  302               	/* #APP */
- 303               	 ;  295 "_commonCode_localized/sineTable/0.99/sineTable.c" 1
+ 303               	 ;  305 "_commonCode_localized/sineTable/0.99/sineTable.c" 1
  304 0080 8491      		lpm r24, Z
  305               		
  306               	 ;  0 "" 2
  307               	/* #NOAPP */
  308               	.LBE3:
- 296:_commonCode_localized/sineTable/0.99/sineTable.c **** 
- 297:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(negative)
- 309               		.stabn	68,0,297,.LM27-.LFBB3
+ 306:_commonCode_localized/sineTable/0.99/sineTable.c **** 
+ 307:_commonCode_localized/sineTable/0.99/sineTable.c **** 	if(negative)
+ 309               		.stabn	68,0,307,.LM27-.LFBB3
  310               	.LM27:
  311 0082 2111      		cpse r18,__zero_reg__
- 298:_commonCode_localized/sineTable/0.99/sineTable.c **** 		sine = -sine;
- 312               		.stabn	68,0,298,.LM28-.LFBB3
+ 308:_commonCode_localized/sineTable/0.99/sineTable.c **** 		sine = -sine;
+ 312               		.stabn	68,0,308,.LM28-.LFBB3
  313               	.LM28:
  314 0084 8195      		neg r24
  315               	.L18:
- 299:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return sine;
- 300:_commonCode_localized/sineTable/0.99/sineTable.c **** }
- 316               		.stabn	68,0,300,.LM29-.LFBB3
+ 309:_commonCode_localized/sineTable/0.99/sineTable.c **** 	return sine;
+ 310:_commonCode_localized/sineTable/0.99/sineTable.c **** }
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 12
+
+
+ 316               		.stabn	68,0,310,.LM29-.LFBB3
  317               	.LM29:
  318 0086 0895      		ret
  319               		.size	sineRaw8, .-sineRaw8
- 320               		.stabs	"negative:r(4,2)",64,0,286,18
- 321               		.stabs	"sine:r(4,1)",64,0,295,24
+ 320               		.stabs	"negative:r(4,2)",64,0,296,18
+ 321               		.stabs	"sine:r(4,1)",64,0,305,24
  322               		.stabn	192,0,0,.LFBB3-.LFBB3
  323               		.stabn	224,0,0,.Lscope3-.LFBB3
  324               	.Lscope3:
  325               		.stabs	"",36,0,0,.Lscope3-.LFBB3
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 12
-
-
  326               		.stabd	78,0,0
  327               	.global	sineTable
  328               		.section	.progmem.data,"a",@progbits
@@ -708,6 +718,9 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  370 004c 8C39      		.word	14732
  371 004e F23A      		.word	15090
  372 0050 563C      		.word	15446
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 13
+
+
  373 0052 B83D      		.word	15800
  374 0054 173F      		.word	16151
  375 0056 7340      		.word	16499
@@ -718,9 +731,6 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  380 0060 1C47      		.word	18204
  381 0062 6948      		.word	18537
  382 0064 B449      		.word	18868
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 13
-
-
  383 0066 FB4A      		.word	19195
  384 0068 3F4C      		.word	19519
  385 006a 814D      		.word	19841
@@ -768,6 +778,9 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  427 00be A575      		.word	30117
  428 00c0 4176      		.word	30273
  429 00c2 D876      		.word	30424
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 14
+
+
  430 00c4 6B77      		.word	30571
  431 00c6 FA77      		.word	30714
  432 00c8 8478      		.word	30852
@@ -778,9 +791,6 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  437 00d2 EE7A      		.word	31470
  438 00d4 5C7B      		.word	31580
  439 00d6 C57B      		.word	31685
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 14
-
-
  440 00d8 297C      		.word	31785
  441 00da 887C      		.word	31880
  442 00dc E37C      		.word	31971
@@ -802,25 +812,25 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			pag
  458 00fc F57F      		.word	32757
  459 00fe FD7F      		.word	32765
  460 0100 FF7F      		.word	32767
- 461               		.stabs	"sineTable:G(0,48)=ar(0,49)=r(0,49);0;0177777;;0;128;(0,50)=k(1,1)",32,0,49,0
+ 461               		.stabs	"sineTable:G(0,48)=ar(0,49)=r(0,49);0;0177777;;0;128;(0,50)=k(1,1)",32,0,59,0
  462               		.text
  463               		.stabs	"",100,0,0,.Letext0
  464               	.Letext0:
  465               		.ident	"GCC: (GNU) 4.8.2"
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 sineTable.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:126    .text:00000000 quadrantizeTheta
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:190    .text:00000034 sineRaw
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:331    .progmem.data:00000000 sineTable
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccGWPftp.s:264    .text:00000062 sineRaw8
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:126    .text:00000000 quadrantizeTheta
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:190    .text:00000034 sineRaw
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:331    .progmem.data:00000000 sineTable
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc0adYTL.s:264    .text:00000062 sineRaw8
 
 UNDEFINED SYMBOLS
 __divmodhi4

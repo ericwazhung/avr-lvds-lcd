@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 1
 
 
    1               		.file	"adc.c"
@@ -7,7 +7,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
    4               	__SREG__ = 0x3f
    5               	__tmp_reg__ = 0
    6               	__zero_reg__ = 1
-   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/67-pwm161/",100,0,2,.Ltext0
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/",100,0,2,.Ltext0
    8               		.stabs	"_commonCode_localized/adc/0.20/adc.c",100,0,2,.Ltext0
    9               		.text
   10               	.Ltext0:
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -107,112 +107,124 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  101               		.stabn	162,0,0,0
  102               		.stabn	162,0,0,0
  103               		.stabn	162,0,0,0
- 104               		.stabs	"adc_select:F(0,47)",36,0,75,adc_select
- 105               		.stabs	"adcNum:P(6,2)",64,0,75,24
+ 104               		.stabs	"adc_select:F(0,47)",36,0,87,adc_select
+ 105               		.stabs	"adcNum:P(6,2)",64,0,87,24
  106               	.global	adc_select
  107               		.type	adc_select, @function
  108               	adc_select:
  109               		.stabd	46,0,0
-   1:_commonCode_localized/adc/0.20/adc.c **** #include "adc.h"
-   2:_commonCode_localized/adc/0.20/adc.c **** 
-   3:_commonCode_localized/adc/0.20/adc.c **** #if(!(defined(ADC_SUM_REMOVED) && ADC_SUM_REMOVED))
-   4:_commonCode_localized/adc/0.20/adc.c **** uint32_t adcSum[NUMADCS];
-   5:_commonCode_localized/adc/0.20/adc.c **** #endif
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 3
+   1:_commonCode_localized/adc/0.20/adc.c **** /* mehPL:
+   2:_commonCode_localized/adc/0.20/adc.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:_commonCode_localized/adc/0.20/adc.c ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/adc/0.20/adc.c ****  *    Please see the bottom.
+   5:_commonCode_localized/adc/0.20/adc.c ****  *    Enjoy!
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 3
 
 
-   6:_commonCode_localized/adc/0.20/adc.c **** 
-   7:_commonCode_localized/adc/0.20/adc.c **** void adc_init(void)
-   8:_commonCode_localized/adc/0.20/adc.c **** {
-   9:_commonCode_localized/adc/0.20/adc.c **** 	//Initialize to external reference voltage on AREF
-  10:_commonCode_localized/adc/0.20/adc.c **** 	// Do NOT change this if AREF is connected to ANYTHING other than a capacitor
-  11:_commonCode_localized/adc/0.20/adc.c **** 	// (i.e. a 3.3V voltage regulator output)
-  12:_commonCode_localized/adc/0.20/adc.c **** 	//Technically, these values are reset-defaults, but just make sure
-  13:_commonCode_localized/adc/0.20/adc.c **** 	//!!!According to attiny861, these values set VCC as the voltage ref
-  14:_commonCode_localized/adc/0.20/adc.c **** 	//   NOT an external reference. So the above note seems odd...
-  15:_commonCode_localized/adc/0.20/adc.c **** 	// This IS what I want on the Tiny861 threePinIDer...
-  16:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS0, ADMUX);
-  17:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
-  18:_commonCode_localized/adc/0.20/adc.c **** 	
-  19:_commonCode_localized/adc/0.20/adc.c **** 	//Use right-adjusted output
-  20:_commonCode_localized/adc/0.20/adc.c **** 	// so values read from the 2-byte register are:
-  21:_commonCode_localized/adc/0.20/adc.c **** 	//	8-bits in the Low reg, and 2 in the High reg
-  22:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADLAR, ADMUX);
-  23:_commonCode_localized/adc/0.20/adc.c **** 
-  24:_commonCode_localized/adc/0.20/adc.c **** 	//Enable the ADC
-  25:_commonCode_localized/adc/0.20/adc.c **** 	// (see description for noise cancelling techniques)
-  26:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADEN, ADCSRA);
-  27:_commonCode_localized/adc/0.20/adc.c **** 	
-  28:_commonCode_localized/adc/0.20/adc.c **** 	//Don't use Auto Triggering
-  29:_commonCode_localized/adc/0.20/adc.c **** 	// (@@@ could use a timer, etc.)
-  30:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADATE, ADCSRA);
-  31:_commonCode_localized/adc/0.20/adc.c **** 	
-  32:_commonCode_localized/adc/0.20/adc.c **** 	//Clear the interrupt-flag to be used as a conversion-complete indicator
-  33:_commonCode_localized/adc/0.20/adc.c **** 	// (not currently using the interrupt)
-  34:_commonCode_localized/adc/0.20/adc.c **** 	// "This bit is set when an ADC conversion completes and the Data Registers are updated."
-  35:_commonCode_localized/adc/0.20/adc.c **** 	// "ADIF is cleared by writing a logical one to the flag."
-  36:_commonCode_localized/adc/0.20/adc.c **** 	// " BEWARE that if doing a Read-Modify-Write on ADCSRA, a pending interrupt can be disabled. "
-  37:_commonCode_localized/adc/0.20/adc.c **** 	//   because the flag may be 1 when read, and re-writing 1 clears it.
-  38:_commonCode_localized/adc/0.20/adc.c **** 	//   ???could get around this by using a special set/clrbit instruction which would always write 0
-  39:_commonCode_localized/adc/0.20/adc.c **** 	//   to this bit...
-  40:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADIF, ADCSRA);
-  41:_commonCode_localized/adc/0.20/adc.c **** 	
-  42:_commonCode_localized/adc/0.20/adc.c **** 	//make sure the interrupt is not enabled...
-  43:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADIE, ADCSRA);
-  44:_commonCode_localized/adc/0.20/adc.c **** 	
-  45:_commonCode_localized/adc/0.20/adc.c **** 	//Set the conversion clock prescaler
-  46:_commonCode_localized/adc/0.20/adc.c **** 	// "By default, the successive approximation circuitry requires an input
-  47:_commonCode_localized/adc/0.20/adc.c **** 	//  clock frequency between 50kHz and 200 kHz to get maximum resolution. 
-  48:_commonCode_localized/adc/0.20/adc.c **** 	//  If a lower resolution than 10 bits is needed, the input clock frequency 
-  49:_commonCode_localized/adc/0.20/adc.c **** 	//  to the ADC can be higher than 200 kHz to get a higher sample rate."
-  50:_commonCode_localized/adc/0.20/adc.c **** 	// For now, let's go for higher-precision... 
-  51:_commonCode_localized/adc/0.20/adc.c **** 	// 16MHz / 200kHz = 80
-  52:_commonCode_localized/adc/0.20/adc.c **** 	// our best-bet for precision is 128
-  53:_commonCode_localized/adc/0.20/adc.c **** 	adc_setPrescaler(ADPS_128);
-  54:_commonCode_localized/adc/0.20/adc.c **** 		
-  55:_commonCode_localized/adc/0.20/adc.c **** 	//Select GND as the first ADC source...
-  56:_commonCode_localized/adc/0.20/adc.c **** 	adc_select(ADC_SELECT_GND);
-  57:_commonCode_localized/adc/0.20/adc.c **** 	
-  58:_commonCode_localized/adc/0.20/adc.c **** 	//Start a conversion so it will be initialized for the next...
-  59:_commonCode_localized/adc/0.20/adc.c **** 	//"The first conversion after ADSC has been written 
-  60:_commonCode_localized/adc/0.20/adc.c **** 	// after the ADC has been enabled ... 
-  61:_commonCode_localized/adc/0.20/adc.c **** 	// will take 25 ADC clock cycles instead of the normal 13. 
-  62:_commonCode_localized/adc/0.20/adc.c **** 	// This first conversion performs initialization of the ADC. "
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 4
+   6:_commonCode_localized/adc/0.20/adc.c ****  */
+   7:_commonCode_localized/adc/0.20/adc.c **** 
+   8:_commonCode_localized/adc/0.20/adc.c **** 
+   9:_commonCode_localized/adc/0.20/adc.c **** 
+  10:_commonCode_localized/adc/0.20/adc.c **** 
+  11:_commonCode_localized/adc/0.20/adc.c **** 
+  12:_commonCode_localized/adc/0.20/adc.c **** 
+  13:_commonCode_localized/adc/0.20/adc.c **** #include "adc.h"
+  14:_commonCode_localized/adc/0.20/adc.c **** 
+  15:_commonCode_localized/adc/0.20/adc.c **** #if(!(defined(ADC_SUM_REMOVED) && ADC_SUM_REMOVED))
+  16:_commonCode_localized/adc/0.20/adc.c **** uint32_t adcSum[NUMADCS];
+  17:_commonCode_localized/adc/0.20/adc.c **** #endif
+  18:_commonCode_localized/adc/0.20/adc.c **** 
+  19:_commonCode_localized/adc/0.20/adc.c **** void adc_init(void)
+  20:_commonCode_localized/adc/0.20/adc.c **** {
+  21:_commonCode_localized/adc/0.20/adc.c **** 	//Initialize to external reference voltage on AREF
+  22:_commonCode_localized/adc/0.20/adc.c **** 	// Do NOT change this if AREF is connected to ANYTHING other than a capacitor
+  23:_commonCode_localized/adc/0.20/adc.c **** 	// (i.e. a 3.3V voltage regulator output)
+  24:_commonCode_localized/adc/0.20/adc.c **** 	//Technically, these values are reset-defaults, but just make sure
+  25:_commonCode_localized/adc/0.20/adc.c **** 	//!!!According to attiny861, these values set VCC as the voltage ref
+  26:_commonCode_localized/adc/0.20/adc.c **** 	//   NOT an external reference. So the above note seems odd...
+  27:_commonCode_localized/adc/0.20/adc.c **** 	// This IS what I want on the Tiny861 threePinIDer...
+  28:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS0, ADMUX);
+  29:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
+  30:_commonCode_localized/adc/0.20/adc.c **** 	
+  31:_commonCode_localized/adc/0.20/adc.c **** 	//Use right-adjusted output
+  32:_commonCode_localized/adc/0.20/adc.c **** 	// so values read from the 2-byte register are:
+  33:_commonCode_localized/adc/0.20/adc.c **** 	//	8-bits in the Low reg, and 2 in the High reg
+  34:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADLAR, ADMUX);
+  35:_commonCode_localized/adc/0.20/adc.c **** 
+  36:_commonCode_localized/adc/0.20/adc.c **** 	//Enable the ADC
+  37:_commonCode_localized/adc/0.20/adc.c **** 	// (see description for noise cancelling techniques)
+  38:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADEN, ADCSRA);
+  39:_commonCode_localized/adc/0.20/adc.c **** 	
+  40:_commonCode_localized/adc/0.20/adc.c **** 	//Don't use Auto Triggering
+  41:_commonCode_localized/adc/0.20/adc.c **** 	// (@@@ could use a timer, etc.)
+  42:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADATE, ADCSRA);
+  43:_commonCode_localized/adc/0.20/adc.c **** 	
+  44:_commonCode_localized/adc/0.20/adc.c **** 	//Clear the interrupt-flag to be used as a conversion-complete indicator
+  45:_commonCode_localized/adc/0.20/adc.c **** 	// (not currently using the interrupt)
+  46:_commonCode_localized/adc/0.20/adc.c **** 	// "This bit is set when an ADC conversion completes and the Data Registers are updated."
+  47:_commonCode_localized/adc/0.20/adc.c **** 	// "ADIF is cleared by writing a logical one to the flag."
+  48:_commonCode_localized/adc/0.20/adc.c **** 	// " BEWARE that if doing a Read-Modify-Write on ADCSRA, a pending interrupt can be disabled. "
+  49:_commonCode_localized/adc/0.20/adc.c **** 	//   because the flag may be 1 when read, and re-writing 1 clears it.
+  50:_commonCode_localized/adc/0.20/adc.c **** 	//   ???could get around this by using a special set/clrbit instruction which would always write 0
+  51:_commonCode_localized/adc/0.20/adc.c **** 	//   to this bit...
+  52:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADIF, ADCSRA);
+  53:_commonCode_localized/adc/0.20/adc.c **** 	
+  54:_commonCode_localized/adc/0.20/adc.c **** 	//make sure the interrupt is not enabled...
+  55:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(ADIE, ADCSRA);
+  56:_commonCode_localized/adc/0.20/adc.c **** 	
+  57:_commonCode_localized/adc/0.20/adc.c **** 	//Set the conversion clock prescaler
+  58:_commonCode_localized/adc/0.20/adc.c **** 	// "By default, the successive approximation circuitry requires an input
+  59:_commonCode_localized/adc/0.20/adc.c **** 	//  clock frequency between 50kHz and 200 kHz to get maximum resolution. 
+  60:_commonCode_localized/adc/0.20/adc.c **** 	//  If a lower resolution than 10 bits is needed, the input clock frequency 
+  61:_commonCode_localized/adc/0.20/adc.c **** 	//  to the ADC can be higher than 200 kHz to get a higher sample rate."
+  62:_commonCode_localized/adc/0.20/adc.c **** 	// For now, let's go for higher-precision... 
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 4
 
 
-  63:_commonCode_localized/adc/0.20/adc.c **** 	adc_startConversion();
-  64:_commonCode_localized/adc/0.20/adc.c **** 
-  65:_commonCode_localized/adc/0.20/adc.c **** 	//Wait for the initialization to complete for lockstepping...
-  66:_commonCode_localized/adc/0.20/adc.c **** 	while(adc_isBusy())
-  67:_commonCode_localized/adc/0.20/adc.c **** 	{}
-  68:_commonCode_localized/adc/0.20/adc.c **** }
-  69:_commonCode_localized/adc/0.20/adc.c **** 
-  70:_commonCode_localized/adc/0.20/adc.c **** 
-  71:_commonCode_localized/adc/0.20/adc.c **** //adcNum 0-7 directly selects an input. 
-  72:_commonCode_localized/adc/0.20/adc.c **** //	Other values are defined in Table 21-4 (old note, 644?)
-  73:_commonCode_localized/adc/0.20/adc.c **** //adcNum 0-10 directly selects an input on the TinyX61
-  74:_commonCode_localized/adc/0.20/adc.c **** //(This doesn't currently work with differential inputs...)
-  75:_commonCode_localized/adc/0.20/adc.c **** void adc_select(uint8_t adcNum)
-  76:_commonCode_localized/adc/0.20/adc.c **** {
- 110               		.stabn	68,0,76,.LM0-.LFBB1
+  63:_commonCode_localized/adc/0.20/adc.c **** 	// 16MHz / 200kHz = 80
+  64:_commonCode_localized/adc/0.20/adc.c **** 	// our best-bet for precision is 128
+  65:_commonCode_localized/adc/0.20/adc.c **** 	adc_setPrescaler(ADPS_128);
+  66:_commonCode_localized/adc/0.20/adc.c **** 		
+  67:_commonCode_localized/adc/0.20/adc.c **** 	//Select GND as the first ADC source...
+  68:_commonCode_localized/adc/0.20/adc.c **** 	adc_select(ADC_SELECT_GND);
+  69:_commonCode_localized/adc/0.20/adc.c **** 	
+  70:_commonCode_localized/adc/0.20/adc.c **** 	//Start a conversion so it will be initialized for the next...
+  71:_commonCode_localized/adc/0.20/adc.c **** 	//"The first conversion after ADSC has been written 
+  72:_commonCode_localized/adc/0.20/adc.c **** 	// after the ADC has been enabled ... 
+  73:_commonCode_localized/adc/0.20/adc.c **** 	// will take 25 ADC clock cycles instead of the normal 13. 
+  74:_commonCode_localized/adc/0.20/adc.c **** 	// This first conversion performs initialization of the ADC. "
+  75:_commonCode_localized/adc/0.20/adc.c **** 	adc_startConversion();
+  76:_commonCode_localized/adc/0.20/adc.c **** 
+  77:_commonCode_localized/adc/0.20/adc.c **** 	//Wait for the initialization to complete for lockstepping...
+  78:_commonCode_localized/adc/0.20/adc.c **** 	while(adc_isBusy())
+  79:_commonCode_localized/adc/0.20/adc.c **** 	{}
+  80:_commonCode_localized/adc/0.20/adc.c **** }
+  81:_commonCode_localized/adc/0.20/adc.c **** 
+  82:_commonCode_localized/adc/0.20/adc.c **** 
+  83:_commonCode_localized/adc/0.20/adc.c **** //adcNum 0-7 directly selects an input. 
+  84:_commonCode_localized/adc/0.20/adc.c **** //	Other values are defined in Table 21-4 (old note, 644?)
+  85:_commonCode_localized/adc/0.20/adc.c **** //adcNum 0-10 directly selects an input on the TinyX61
+  86:_commonCode_localized/adc/0.20/adc.c **** //(This doesn't currently work with differential inputs...)
+  87:_commonCode_localized/adc/0.20/adc.c **** void adc_select(uint8_t adcNum)
+  88:_commonCode_localized/adc/0.20/adc.c **** {
+ 110               		.stabn	68,0,88,.LM0-.LFBB1
  111               	.LM0:
  112               	.LFBB1:
  113               	/* prologue: function */
  114               	/* frame size = 0 */
  115               	/* stack size = 0 */
  116               	.L__stack_usage = 0
-  77:_commonCode_localized/adc/0.20/adc.c **** 	//"If a different data channel is selected while a conversion is in progress,
-  78:_commonCode_localized/adc/0.20/adc.c **** 	// the ADC will finish the current conversion before performing the channel change. "
-  79:_commonCode_localized/adc/0.20/adc.c **** 	//  though, it is not safe to do this immediately after a startConversion,
-  80:_commonCode_localized/adc/0.20/adc.c **** 	//  since the ADC clock is significantly slower than the uC
-  81:_commonCode_localized/adc/0.20/adc.c **** 	// see Figure 21.5
-  82:_commonCode_localized/adc/0.20/adc.c **** 	//"Note that the conversion starts on the following rising ADC clock edge after 
-  83:_commonCode_localized/adc/0.20/adc.c **** 	// ADSC is written. The user is thus advised not to write new channel or reference
-  84:_commonCode_localized/adc/0.20/adc.c **** 	// selection values to ADMUX until one ADC clock cycle after ADSC is written. 
-  85:_commonCode_localized/adc/0.20/adc.c **** 
-  86:_commonCode_localized/adc/0.20/adc.c **** 	writeMasked(adcNum, ADC_SELECT_MASK, ADMUX);
- 117               		.stabn	68,0,86,.LM1-.LFBB1
+  89:_commonCode_localized/adc/0.20/adc.c **** 	//"If a different data channel is selected while a conversion is in progress,
+  90:_commonCode_localized/adc/0.20/adc.c **** 	// the ADC will finish the current conversion before performing the channel change. "
+  91:_commonCode_localized/adc/0.20/adc.c **** 	//  though, it is not safe to do this immediately after a startConversion,
+  92:_commonCode_localized/adc/0.20/adc.c **** 	//  since the ADC clock is significantly slower than the uC
+  93:_commonCode_localized/adc/0.20/adc.c **** 	// see Figure 21.5
+  94:_commonCode_localized/adc/0.20/adc.c **** 	//"Note that the conversion starts on the following rising ADC clock edge after 
+  95:_commonCode_localized/adc/0.20/adc.c **** 	// ADSC is written. The user is thus advised not to write new channel or reference
+  96:_commonCode_localized/adc/0.20/adc.c **** 	// selection values to ADMUX until one ADC clock cycle after ADSC is written. 
+  97:_commonCode_localized/adc/0.20/adc.c **** 
+  98:_commonCode_localized/adc/0.20/adc.c **** 	writeMasked(adcNum, ADC_SELECT_MASK, ADMUX);
+ 117               		.stabn	68,0,98,.LM1-.LFBB1
  118               	.LM1:
  119 0000 98B1      		in r25,0x8
  120 0002 8F71      		andi r24,lo8(31)
@@ -224,100 +236,100 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  126               	.Lscope1:
  127               		.stabs	"",36,0,0,.Lscope1-.LFBB1
  128               		.stabd	78,0,0
- 129               		.stabs	"adc_getValue:F(6,4)",36,0,109,adc_getValue
+ 129               		.stabs	"adc_getValue:F(6,4)",36,0,121,adc_getValue
  130               	.global	adc_getValue
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 5
+
+
  131               		.type	adc_getValue, @function
  132               	adc_getValue:
  133               		.stabd	46,0,0
-  87:_commonCode_localized/adc/0.20/adc.c **** }
-  88:_commonCode_localized/adc/0.20/adc.c **** 
-  89:_commonCode_localized/adc/0.20/adc.c **** //Return TRUE on error (if there was a previous conversion in progress...)
-  90:_commonCode_localized/adc/0.20/adc.c **** uint8_t adc_startConversion(void)
-  91:_commonCode_localized/adc/0.20/adc.c **** {
-  92:_commonCode_localized/adc/0.20/adc.c **** 	//Check if a conversion is already in progress...
-  93:_commonCode_localized/adc/0.20/adc.c **** 	if(adc_isBusy())
-  94:_commonCode_localized/adc/0.20/adc.c **** 		return TRUE;
-  95:_commonCode_localized/adc/0.20/adc.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 5
-
-
-  96:_commonCode_localized/adc/0.20/adc.c **** 	//"The channel and reference selection is continuously updated 
-  97:_commonCode_localized/adc/0.20/adc.c **** 	// until a conversion is started. Once the conversion starts, the channel and 
-  98:_commonCode_localized/adc/0.20/adc.c **** 	// reference selection is locked to ensure a sufficient sampling time for the ADC."
-  99:_commonCode_localized/adc/0.20/adc.c **** 	
- 100:_commonCode_localized/adc/0.20/adc.c **** 	//"In Single Conversion mode, write this bit to one to start each conversion."
- 101:_commonCode_localized/adc/0.20/adc.c **** 	// BEWARE: calling this will CLEAR the conversion-complete indicator
- 102:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADSC, ADCSRA);
- 103:_commonCode_localized/adc/0.20/adc.c **** 	return FALSE;
- 104:_commonCode_localized/adc/0.20/adc.c **** }
- 105:_commonCode_localized/adc/0.20/adc.c **** 
- 106:_commonCode_localized/adc/0.20/adc.c **** //Return the last value read by the ADC
- 107:_commonCode_localized/adc/0.20/adc.c **** // check if adc_isBusy is true before reading, in lockstep...
- 108:_commonCode_localized/adc/0.20/adc.c **** // Since ADLAR is cleared, it will be the low ten bits 
- 109:_commonCode_localized/adc/0.20/adc.c **** uint16_t adc_getValue(void)
- 110:_commonCode_localized/adc/0.20/adc.c **** {
- 134               		.stabn	68,0,110,.LM2-.LFBB2
+  99:_commonCode_localized/adc/0.20/adc.c **** }
+ 100:_commonCode_localized/adc/0.20/adc.c **** 
+ 101:_commonCode_localized/adc/0.20/adc.c **** //Return TRUE on error (if there was a previous conversion in progress...)
+ 102:_commonCode_localized/adc/0.20/adc.c **** uint8_t adc_startConversion(void)
+ 103:_commonCode_localized/adc/0.20/adc.c **** {
+ 104:_commonCode_localized/adc/0.20/adc.c **** 	//Check if a conversion is already in progress...
+ 105:_commonCode_localized/adc/0.20/adc.c **** 	if(adc_isBusy())
+ 106:_commonCode_localized/adc/0.20/adc.c **** 		return TRUE;
+ 107:_commonCode_localized/adc/0.20/adc.c **** 
+ 108:_commonCode_localized/adc/0.20/adc.c **** 	//"The channel and reference selection is continuously updated 
+ 109:_commonCode_localized/adc/0.20/adc.c **** 	// until a conversion is started. Once the conversion starts, the channel and 
+ 110:_commonCode_localized/adc/0.20/adc.c **** 	// reference selection is locked to ensure a sufficient sampling time for the ADC."
+ 111:_commonCode_localized/adc/0.20/adc.c **** 	
+ 112:_commonCode_localized/adc/0.20/adc.c **** 	//"In Single Conversion mode, write this bit to one to start each conversion."
+ 113:_commonCode_localized/adc/0.20/adc.c **** 	// BEWARE: calling this will CLEAR the conversion-complete indicator
+ 114:_commonCode_localized/adc/0.20/adc.c **** 	setbit(ADSC, ADCSRA);
+ 115:_commonCode_localized/adc/0.20/adc.c **** 	return FALSE;
+ 116:_commonCode_localized/adc/0.20/adc.c **** }
+ 117:_commonCode_localized/adc/0.20/adc.c **** 
+ 118:_commonCode_localized/adc/0.20/adc.c **** //Return the last value read by the ADC
+ 119:_commonCode_localized/adc/0.20/adc.c **** // check if adc_isBusy is true before reading, in lockstep...
+ 120:_commonCode_localized/adc/0.20/adc.c **** // Since ADLAR is cleared, it will be the low ten bits 
+ 121:_commonCode_localized/adc/0.20/adc.c **** uint16_t adc_getValue(void)
+ 122:_commonCode_localized/adc/0.20/adc.c **** {
+ 134               		.stabn	68,0,122,.LM2-.LFBB2
  135               	.LM2:
  136               	.LFBB2:
  137               	/* prologue: function */
  138               	/* frame size = 0 */
  139               	/* stack size = 0 */
  140               	.L__stack_usage = 0
- 111:_commonCode_localized/adc/0.20/adc.c **** 	return ADC;
- 141               		.stabn	68,0,111,.LM3-.LFBB2
+ 123:_commonCode_localized/adc/0.20/adc.c **** 	return ADC;
+ 141               		.stabn	68,0,123,.LM3-.LFBB2
  142               	.LM3:
  143 000c 8CB5      		in r24,0x2c
  144 000e 9DB5      		in r25,0x2c+1
- 112:_commonCode_localized/adc/0.20/adc.c **** 	//Note that ADC is a SFR_MEM16 read to ADCH and ADCL, defined in iomxx4.h (not in the datasheet)
- 113:_commonCode_localized/adc/0.20/adc.c **** 	//reading both values takes longer and some other things mentioned in the manual
- 114:_commonCode_localized/adc/0.20/adc.c **** 	// (i.e. it might be more efficient to only read one byte if acceptable)
- 115:_commonCode_localized/adc/0.20/adc.c **** 	// unless only reading ADCH: "ADCL must be read first, then ADCH"
- 116:_commonCode_localized/adc/0.20/adc.c **** 	//!!! Might want to verify this occurs properly in the assembly code
- 117:_commonCode_localized/adc/0.20/adc.c **** 	
- 118:_commonCode_localized/adc/0.20/adc.c **** }
- 145               		.stabn	68,0,118,.LM4-.LFBB2
+ 124:_commonCode_localized/adc/0.20/adc.c **** 	//Note that ADC is a SFR_MEM16 read to ADCH and ADCL, defined in iomxx4.h (not in the datasheet)
+ 125:_commonCode_localized/adc/0.20/adc.c **** 	//reading both values takes longer and some other things mentioned in the manual
+ 126:_commonCode_localized/adc/0.20/adc.c **** 	// (i.e. it might be more efficient to only read one byte if acceptable)
+ 127:_commonCode_localized/adc/0.20/adc.c **** 	// unless only reading ADCH: "ADCL must be read first, then ADCH"
+ 128:_commonCode_localized/adc/0.20/adc.c **** 	//!!! Might want to verify this occurs properly in the assembly code
+ 129:_commonCode_localized/adc/0.20/adc.c **** 	
+ 130:_commonCode_localized/adc/0.20/adc.c **** }
+ 145               		.stabn	68,0,130,.LM4-.LFBB2
  146               	.LM4:
  147 0010 0895      		ret
  148               		.size	adc_getValue, .-adc_getValue
  149               	.Lscope2:
  150               		.stabs	"",36,0,0,.Lscope2-.LFBB2
  151               		.stabd	78,0,0
- 152               		.stabs	"adc_isBusy:F(6,2)",36,0,124,adc_isBusy
+ 152               		.stabs	"adc_isBusy:F(6,2)",36,0,136,adc_isBusy
  153               	.global	adc_isBusy
  154               		.type	adc_isBusy, @function
  155               	adc_isBusy:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 6
+
+
  156               		.stabd	46,0,0
- 119:_commonCode_localized/adc/0.20/adc.c **** 
- 120:_commonCode_localized/adc/0.20/adc.c **** 
- 121:_commonCode_localized/adc/0.20/adc.c **** //In free-running mode, this will always return TRUE
- 122:_commonCode_localized/adc/0.20/adc.c **** // so adc_getValue can be called at any time and used to grab the most recent conversion
- 123:_commonCode_localized/adc/0.20/adc.c **** // (which might be one behind if it's called right at the end of one)
- 124:_commonCode_localized/adc/0.20/adc.c **** uint8_t adc_isBusy(void)
- 125:_commonCode_localized/adc/0.20/adc.c **** {
- 157               		.stabn	68,0,125,.LM5-.LFBB3
+ 131:_commonCode_localized/adc/0.20/adc.c **** 
+ 132:_commonCode_localized/adc/0.20/adc.c **** 
+ 133:_commonCode_localized/adc/0.20/adc.c **** //In free-running mode, this will always return TRUE
+ 134:_commonCode_localized/adc/0.20/adc.c **** // so adc_getValue can be called at any time and used to grab the most recent conversion
+ 135:_commonCode_localized/adc/0.20/adc.c **** // (which might be one behind if it's called right at the end of one)
+ 136:_commonCode_localized/adc/0.20/adc.c **** uint8_t adc_isBusy(void)
+ 137:_commonCode_localized/adc/0.20/adc.c **** {
+ 157               		.stabn	68,0,137,.LM5-.LFBB3
  158               	.LM5:
  159               	.LFBB3:
  160               	/* prologue: function */
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 6
-
-
  161               	/* frame size = 0 */
  162               	/* stack size = 0 */
  163               	.L__stack_usage = 0
- 126:_commonCode_localized/adc/0.20/adc.c **** 	//"This bit stays high as long as the conversion is in progress and 
- 127:_commonCode_localized/adc/0.20/adc.c **** 	// will be cleared by hardware when the conversion is completed."
- 128:_commonCode_localized/adc/0.20/adc.c **** 	// "ADSC can also be used to determine if a conversion is in progress. 
- 129:_commonCode_localized/adc/0.20/adc.c **** 	//  The ADSC bit will be read as one during a conversion, 
- 130:_commonCode_localized/adc/0.20/adc.c **** 	//  independently of how the conversion was started."
- 131:_commonCode_localized/adc/0.20/adc.c **** 	//  actually, it would return true /always/ during free-running mode
- 132:_commonCode_localized/adc/0.20/adc.c **** 
- 133:_commonCode_localized/adc/0.20/adc.c **** 	//Check state-machine... might be better to use ADIF...?
- 134:_commonCode_localized/adc/0.20/adc.c **** 	return getbit(ADSC, ADCSRA);
- 164               		.stabn	68,0,134,.LM6-.LFBB3
+ 138:_commonCode_localized/adc/0.20/adc.c **** 	//"This bit stays high as long as the conversion is in progress and 
+ 139:_commonCode_localized/adc/0.20/adc.c **** 	// will be cleared by hardware when the conversion is completed."
+ 140:_commonCode_localized/adc/0.20/adc.c **** 	// "ADSC can also be used to determine if a conversion is in progress. 
+ 141:_commonCode_localized/adc/0.20/adc.c **** 	//  The ADSC bit will be read as one during a conversion, 
+ 142:_commonCode_localized/adc/0.20/adc.c **** 	//  independently of how the conversion was started."
+ 143:_commonCode_localized/adc/0.20/adc.c **** 	//  actually, it would return true /always/ during free-running mode
+ 144:_commonCode_localized/adc/0.20/adc.c **** 
+ 145:_commonCode_localized/adc/0.20/adc.c **** 	//Check state-machine... might be better to use ADIF...?
+ 146:_commonCode_localized/adc/0.20/adc.c **** 	return getbit(ADSC, ADCSRA);
+ 164               		.stabn	68,0,146,.LM6-.LFBB3
  165               	.LM6:
  166 0012 86B1      		in r24,0x6
- 135:_commonCode_localized/adc/0.20/adc.c **** }
- 167               		.stabn	68,0,135,.LM7-.LFBB3
+ 147:_commonCode_localized/adc/0.20/adc.c **** }
+ 167               		.stabn	68,0,147,.LM7-.LFBB3
  168               	.LM7:
  169 0014 86FB      		bst r24,6
  170 0016 8827      		clr r24
@@ -327,68 +339,68 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  174               	.Lscope3:
  175               		.stabs	"",36,0,0,.Lscope3-.LFBB3
  176               		.stabd	78,0,0
- 177               		.stabs	"adc_startConversion:F(6,2)",36,0,90,adc_startConversion
+ 177               		.stabs	"adc_startConversion:F(6,2)",36,0,102,adc_startConversion
  178               	.global	adc_startConversion
  179               		.type	adc_startConversion, @function
  180               	adc_startConversion:
  181               		.stabd	46,0,0
-  91:_commonCode_localized/adc/0.20/adc.c **** 	//Check if a conversion is already in progress...
- 182               		.stabn	68,0,91,.LM8-.LFBB4
+ 103:_commonCode_localized/adc/0.20/adc.c **** 	//Check if a conversion is already in progress...
+ 182               		.stabn	68,0,103,.LM8-.LFBB4
  183               	.LM8:
  184               	.LFBB4:
  185               	/* prologue: function */
  186               	/* frame size = 0 */
  187               	/* stack size = 0 */
  188               	.L__stack_usage = 0
-  93:_commonCode_localized/adc/0.20/adc.c **** 		return TRUE;
- 189               		.stabn	68,0,93,.LM9-.LFBB4
+ 105:_commonCode_localized/adc/0.20/adc.c **** 		return TRUE;
+ 189               		.stabn	68,0,105,.LM9-.LFBB4
  190               	.LM9:
  191 001c 0E94 0000 		call adc_isBusy
  192 0020 8111      		cpse r24,__zero_reg__
  193 0022 00C0      		rjmp .L6
- 102:_commonCode_localized/adc/0.20/adc.c **** 	return FALSE;
- 194               		.stabn	68,0,102,.LM10-.LFBB4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 7
+
+
+ 114:_commonCode_localized/adc/0.20/adc.c **** 	return FALSE;
+ 194               		.stabn	68,0,114,.LM10-.LFBB4
  195               	.LM10:
  196 0024 369A      		sbi 0x6,6
- 103:_commonCode_localized/adc/0.20/adc.c **** }
- 197               		.stabn	68,0,103,.LM11-.LFBB4
+ 115:_commonCode_localized/adc/0.20/adc.c **** }
+ 197               		.stabn	68,0,115,.LM11-.LFBB4
  198               	.LM11:
  199 0026 0895      		ret
  200               	.L6:
-  94:_commonCode_localized/adc/0.20/adc.c **** 
- 201               		.stabn	68,0,94,.LM12-.LFBB4
+ 106:_commonCode_localized/adc/0.20/adc.c **** 
+ 201               		.stabn	68,0,106,.LM12-.LFBB4
  202               	.LM12:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 7
-
-
  203 0028 81E0      		ldi r24,lo8(1)
- 104:_commonCode_localized/adc/0.20/adc.c **** 
- 204               		.stabn	68,0,104,.LM13-.LFBB4
+ 116:_commonCode_localized/adc/0.20/adc.c **** 
+ 204               		.stabn	68,0,116,.LM13-.LFBB4
  205               	.LM13:
  206 002a 0895      		ret
  207               		.size	adc_startConversion, .-adc_startConversion
  208               	.Lscope4:
  209               		.stabs	"",36,0,0,.Lscope4-.LFBB4
  210               		.stabd	78,0,0
- 211               		.stabs	"adc_setPrescaler:F(0,47)",36,0,137,adc_setPrescaler
- 212               		.stabs	"adps:P(6,2)",64,0,137,24
+ 211               		.stabs	"adc_setPrescaler:F(0,47)",36,0,149,adc_setPrescaler
+ 212               		.stabs	"adps:P(6,2)",64,0,149,24
  213               	.global	adc_setPrescaler
  214               		.type	adc_setPrescaler, @function
  215               	adc_setPrescaler:
  216               		.stabd	46,0,0
- 136:_commonCode_localized/adc/0.20/adc.c **** 
- 137:_commonCode_localized/adc/0.20/adc.c **** void adc_setPrescaler(uint8_t adps)
- 138:_commonCode_localized/adc/0.20/adc.c **** {
- 217               		.stabn	68,0,138,.LM14-.LFBB5
+ 148:_commonCode_localized/adc/0.20/adc.c **** 
+ 149:_commonCode_localized/adc/0.20/adc.c **** void adc_setPrescaler(uint8_t adps)
+ 150:_commonCode_localized/adc/0.20/adc.c **** {
+ 217               		.stabn	68,0,150,.LM14-.LFBB5
  218               	.LM14:
  219               	.LFBB5:
  220               	/* prologue: function */
  221               	/* frame size = 0 */
  222               	/* stack size = 0 */
  223               	.L__stack_usage = 0
- 139:_commonCode_localized/adc/0.20/adc.c **** 	//This will clear the conversion-complete flag!
- 140:_commonCode_localized/adc/0.20/adc.c **** 	writeMasked(adps, ADPS_MASK, ADCSRA);
- 224               		.stabn	68,0,140,.LM15-.LFBB5
+ 151:_commonCode_localized/adc/0.20/adc.c **** 	//This will clear the conversion-complete flag!
+ 152:_commonCode_localized/adc/0.20/adc.c **** 	writeMasked(adps, ADPS_MASK, ADCSRA);
+ 224               		.stabn	68,0,152,.LM15-.LFBB5
  225               	.LM15:
  226 002c 96B1      		in r25,0x6
  227 002e 8770      		andi r24,lo8(7)
@@ -400,132 +412,135 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  233               	.Lscope5:
  234               		.stabs	"",36,0,0,.Lscope5-.LFBB5
  235               		.stabd	78,0,0
- 236               		.stabs	"adc_init:F(0,47)",36,0,7,adc_init
+ 236               		.stabs	"adc_init:F(0,47)",36,0,19,adc_init
  237               	.global	adc_init
  238               		.type	adc_init, @function
  239               	adc_init:
  240               		.stabd	46,0,0
-   8:_commonCode_localized/adc/0.20/adc.c **** 	//Initialize to external reference voltage on AREF
- 241               		.stabn	68,0,8,.LM16-.LFBB6
+  20:_commonCode_localized/adc/0.20/adc.c **** 	//Initialize to external reference voltage on AREF
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 8
+
+
+ 241               		.stabn	68,0,20,.LM16-.LFBB6
  242               	.LM16:
  243               	.LFBB6:
  244               	/* prologue: function */
  245               	/* frame size = 0 */
  246               	/* stack size = 0 */
  247               	.L__stack_usage = 0
-  16:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
- 248               		.stabn	68,0,16,.LM17-.LFBB6
+  28:_commonCode_localized/adc/0.20/adc.c **** 	clrbit(REFS1, ADMUX);
+ 248               		.stabn	68,0,28,.LM17-.LFBB6
  249               	.LM17:
  250 0038 4698      		cbi 0x8,6
-  17:_commonCode_localized/adc/0.20/adc.c **** 	
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 8
-
-
- 251               		.stabn	68,0,17,.LM18-.LFBB6
+  29:_commonCode_localized/adc/0.20/adc.c **** 	
+ 251               		.stabn	68,0,29,.LM18-.LFBB6
  252               	.LM18:
  253 003a 4798      		cbi 0x8,7
-  22:_commonCode_localized/adc/0.20/adc.c **** 
- 254               		.stabn	68,0,22,.LM19-.LFBB6
+  34:_commonCode_localized/adc/0.20/adc.c **** 
+ 254               		.stabn	68,0,34,.LM19-.LFBB6
  255               	.LM19:
  256 003c 4598      		cbi 0x8,5
-  26:_commonCode_localized/adc/0.20/adc.c **** 	
- 257               		.stabn	68,0,26,.LM20-.LFBB6
+  38:_commonCode_localized/adc/0.20/adc.c **** 	
+ 257               		.stabn	68,0,38,.LM20-.LFBB6
  258               	.LM20:
  259 003e 379A      		sbi 0x6,7
-  30:_commonCode_localized/adc/0.20/adc.c **** 	
- 260               		.stabn	68,0,30,.LM21-.LFBB6
+  42:_commonCode_localized/adc/0.20/adc.c **** 	
+ 260               		.stabn	68,0,42,.LM21-.LFBB6
  261               	.LM21:
  262 0040 3598      		cbi 0x6,5
-  40:_commonCode_localized/adc/0.20/adc.c **** 	
- 263               		.stabn	68,0,40,.LM22-.LFBB6
+  52:_commonCode_localized/adc/0.20/adc.c **** 	
+ 263               		.stabn	68,0,52,.LM22-.LFBB6
  264               	.LM22:
  265 0042 349A      		sbi 0x6,4
-  43:_commonCode_localized/adc/0.20/adc.c **** 	
- 266               		.stabn	68,0,43,.LM23-.LFBB6
+  55:_commonCode_localized/adc/0.20/adc.c **** 	
+ 266               		.stabn	68,0,55,.LM23-.LFBB6
  267               	.LM23:
  268 0044 3398      		cbi 0x6,3
-  53:_commonCode_localized/adc/0.20/adc.c **** 		
- 269               		.stabn	68,0,53,.LM24-.LFBB6
+  65:_commonCode_localized/adc/0.20/adc.c **** 		
+ 269               		.stabn	68,0,65,.LM24-.LFBB6
  270               	.LM24:
  271 0046 87E0      		ldi r24,lo8(7)
  272 0048 0E94 0000 		call adc_setPrescaler
-  56:_commonCode_localized/adc/0.20/adc.c **** 	
- 273               		.stabn	68,0,56,.LM25-.LFBB6
+  68:_commonCode_localized/adc/0.20/adc.c **** 	
+ 273               		.stabn	68,0,68,.LM25-.LFBB6
  274               	.LM25:
  275 004c 8FE1      		ldi r24,lo8(31)
  276 004e 0E94 0000 		call adc_select
-  63:_commonCode_localized/adc/0.20/adc.c **** 
- 277               		.stabn	68,0,63,.LM26-.LFBB6
+  75:_commonCode_localized/adc/0.20/adc.c **** 
+ 277               		.stabn	68,0,75,.LM26-.LFBB6
  278               	.LM26:
  279 0052 0E94 0000 		call adc_startConversion
  280               	.L11:
-  66:_commonCode_localized/adc/0.20/adc.c **** 	{}
- 281               		.stabn	68,0,66,.LM27-.LFBB6
+  78:_commonCode_localized/adc/0.20/adc.c **** 	{}
+ 281               		.stabn	68,0,78,.LM27-.LFBB6
  282               	.LM27:
  283 0056 0E94 0000 		call adc_isBusy
  284 005a 8111      		cpse r24,__zero_reg__
  285 005c 00C0      		rjmp .L11
  286               	/* epilogue start */
-  68:_commonCode_localized/adc/0.20/adc.c **** 
- 287               		.stabn	68,0,68,.LM28-.LFBB6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 9
+
+
+  80:_commonCode_localized/adc/0.20/adc.c **** 
+ 287               		.stabn	68,0,80,.LM28-.LFBB6
  288               	.LM28:
  289 005e 0895      		ret
  290               		.size	adc_init, .-adc_init
  291               	.Lscope6:
  292               		.stabs	"",36,0,0,.Lscope6-.LFBB6
  293               		.stabd	78,0,0
- 294               		.stabs	"adc_takeInput:F(0,47)",36,0,144,adc_takeInput
- 295               		.stabs	"inputNum:P(6,2)",64,0,144,24
+ 294               		.stabs	"adc_takeInput:F(0,47)",36,0,156,adc_takeInput
+ 295               		.stabs	"inputNum:P(6,2)",64,0,156,24
  296               	.global	adc_takeInput
  297               		.type	adc_takeInput, @function
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 9
-
-
  298               	adc_takeInput:
  299               		.stabd	46,0,0
- 141:_commonCode_localized/adc/0.20/adc.c **** }
- 142:_commonCode_localized/adc/0.20/adc.c **** 
- 143:_commonCode_localized/adc/0.20/adc.c **** //Disable the digital input circuitry for the selected channel
- 144:_commonCode_localized/adc/0.20/adc.c **** void adc_takeInput(uint8_t inputNum)
- 145:_commonCode_localized/adc/0.20/adc.c **** {
- 300               		.stabn	68,0,145,.LM29-.LFBB7
+ 153:_commonCode_localized/adc/0.20/adc.c **** }
+ 154:_commonCode_localized/adc/0.20/adc.c **** 
+ 155:_commonCode_localized/adc/0.20/adc.c **** //Disable the digital input circuitry for the selected channel
+ 156:_commonCode_localized/adc/0.20/adc.c **** void adc_takeInput(uint8_t inputNum)
+ 157:_commonCode_localized/adc/0.20/adc.c **** {
+ 300               		.stabn	68,0,157,.LM29-.LFBB7
  301               	.LM29:
  302               	.LFBB7:
  303               	/* prologue: function */
  304               	/* frame size = 0 */
  305               	/* stack size = 0 */
  306               	.L__stack_usage = 0
- 146:_commonCode_localized/adc/0.20/adc.c **** 	//"The corresponding PIN Register bit will always read as zero when this bit is set"
- 147:_commonCode_localized/adc/0.20/adc.c **** 
- 148:_commonCode_localized/adc/0.20/adc.c **** 	uint8_t bitNum = inputNum;
- 149:_commonCode_localized/adc/0.20/adc.c **** 
- 150:_commonCode_localized/adc/0.20/adc.c **** #ifdef _AVR_IOTNx61_H_
- 151:_commonCode_localized/adc/0.20/adc.c **** 	//ATTINYx61's have AREFD at bit 3, rather than ADC3D
- 152:_commonCode_localized/adc/0.20/adc.c **** 	// the following ADC inputs are shifted 
- 153:_commonCode_localized/adc/0.20/adc.c **** 	if(inputNum > 2)
- 154:_commonCode_localized/adc/0.20/adc.c **** 		bitNum = inputNum + 1;
- 155:_commonCode_localized/adc/0.20/adc.c **** 
- 156:_commonCode_localized/adc/0.20/adc.c **** 	//Analog inputs 7-10 are selected in DIDR1 and shifted...
- 157:_commonCode_localized/adc/0.20/adc.c **** 	// 7 is bit 4, 10 is bit 7...
- 158:_commonCode_localized/adc/0.20/adc.c **** 	//CURRENTLY ONLY: channels 0-7 are usable in this version
- 159:_commonCode_localized/adc/0.20/adc.c **** 	// THIS NOTE SHOULD BE INVALID AS OF 0.19.
- 160:_commonCode_localized/adc/0.20/adc.c **** 	if(inputNum >= 7)
- 161:_commonCode_localized/adc/0.20/adc.c **** 	{
- 162:_commonCode_localized/adc/0.20/adc.c **** 		bitNum = inputNum - 3;
- 163:_commonCode_localized/adc/0.20/adc.c **** 		setbit(bitNum, DIDR1);
- 164:_commonCode_localized/adc/0.20/adc.c **** 		return;
- 165:_commonCode_localized/adc/0.20/adc.c **** 	}
- 166:_commonCode_localized/adc/0.20/adc.c **** #endif
+ 158:_commonCode_localized/adc/0.20/adc.c **** 	//"The corresponding PIN Register bit will always read as zero when this bit is set"
+ 159:_commonCode_localized/adc/0.20/adc.c **** 
+ 160:_commonCode_localized/adc/0.20/adc.c **** 	uint8_t bitNum = inputNum;
+ 161:_commonCode_localized/adc/0.20/adc.c **** 
+ 162:_commonCode_localized/adc/0.20/adc.c **** #ifdef _AVR_IOTNx61_H_
+ 163:_commonCode_localized/adc/0.20/adc.c **** 	//ATTINYx61's have AREFD at bit 3, rather than ADC3D
+ 164:_commonCode_localized/adc/0.20/adc.c **** 	// the following ADC inputs are shifted 
+ 165:_commonCode_localized/adc/0.20/adc.c **** 	if(inputNum > 2)
+ 166:_commonCode_localized/adc/0.20/adc.c **** 		bitNum = inputNum + 1;
  167:_commonCode_localized/adc/0.20/adc.c **** 
- 168:_commonCode_localized/adc/0.20/adc.c **** 	if(bitNum <= 7)
- 307               		.stabn	68,0,168,.LM30-.LFBB7
+ 168:_commonCode_localized/adc/0.20/adc.c **** 	//Analog inputs 7-10 are selected in DIDR1 and shifted...
+ 169:_commonCode_localized/adc/0.20/adc.c **** 	// 7 is bit 4, 10 is bit 7...
+ 170:_commonCode_localized/adc/0.20/adc.c **** 	//CURRENTLY ONLY: channels 0-7 are usable in this version
+ 171:_commonCode_localized/adc/0.20/adc.c **** 	// THIS NOTE SHOULD BE INVALID AS OF 0.19.
+ 172:_commonCode_localized/adc/0.20/adc.c **** 	if(inputNum >= 7)
+ 173:_commonCode_localized/adc/0.20/adc.c **** 	{
+ 174:_commonCode_localized/adc/0.20/adc.c **** 		bitNum = inputNum - 3;
+ 175:_commonCode_localized/adc/0.20/adc.c **** 		setbit(bitNum, DIDR1);
+ 176:_commonCode_localized/adc/0.20/adc.c **** 		return;
+ 177:_commonCode_localized/adc/0.20/adc.c **** 	}
+ 178:_commonCode_localized/adc/0.20/adc.c **** #endif
+ 179:_commonCode_localized/adc/0.20/adc.c **** 
+ 180:_commonCode_localized/adc/0.20/adc.c **** 	if(bitNum <= 7)
+ 307               		.stabn	68,0,180,.LM30-.LFBB7
  308               	.LM30:
  309 0060 8830      		cpi r24,lo8(8)
  310 0062 00F4      		brsh .L12
- 169:_commonCode_localized/adc/0.20/adc.c **** 		setbit(bitNum, DIDR0);
- 311               		.stabn	68,0,169,.LM31-.LFBB7
+ 181:_commonCode_localized/adc/0.20/adc.c **** 		setbit(bitNum, DIDR0);
+ 311               		.stabn	68,0,181,.LM31-.LFBB7
  312               	.LM31:
  313 0064 9091 7700 		lds r25,119
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 10
+
+
  314 0068 21E0      		ldi r18,lo8(1)
  315 006a 30E0      		ldi r19,0
  316 006c 082E      		mov r0,r24
@@ -538,9 +553,6 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  323 0076 922B      		or r25,r18
  324 0078 9093 7700 		sts 119,r25
  325               	.L12:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 10
-
-
  326 007c 0895      		ret
  327               		.size	adc_takeInput, .-adc_takeInput
  328               	.Lscope7:
@@ -549,22 +561,22 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			pag
  331               		.stabs	"",100,0,0,.Letext0
  332               	.Letext0:
  333               		.ident	"GCC: (GNU) 4.8.2"
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 adc.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:108    .text:00000000 adc_select
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:132    .text:0000000c adc_getValue
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:155    .text:00000012 adc_isBusy
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:180    .text:0000001c adc_startConversion
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:215    .text:0000002c adc_setPrescaler
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:239    .text:00000038 adc_init
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccNnfAYt.s:298    .text:00000060 adc_takeInput
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:108    .text:00000000 adc_select
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:132    .text:0000000c adc_getValue
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:155    .text:00000012 adc_isBusy
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:180    .text:0000001c adc_startConversion
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:215    .text:0000002c adc_setPrescaler
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:239    .text:00000038 adc_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc2MWxkQ.s:298    .text:00000060 adc_takeInput
 
 NO UNDEFINED SYMBOLS

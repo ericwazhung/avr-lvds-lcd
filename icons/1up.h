@@ -6,6 +6,10 @@
  */
 
 
+
+
+
+
 #ifndef __1UP_H__
 #define __1UP_H__
 
@@ -73,9 +77,9 @@ static sprite_t sprite1UP =
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -115,6 +119,9 @@ static sprite_t sprite1UP =
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/1up.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

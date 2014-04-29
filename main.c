@@ -6,6 +6,14 @@
  */
 
 
+
+
+
+
+
+
+
+
 // Please see mainConfig.h!
 
 
@@ -56,11 +64,13 @@
 #endif
 
 
-#if ( (defined(BLUE_ADC) && BLUE_ADC) \
-	|| (defined(FB_QUESTION) && FB_QUESTION))
+#if (defined(BLUE_ADC) && BLUE_ADC)
  #include _ADC_HEADER_
 #endif
 
+#if (defined(FB_QUESTION) && FB_QUESTION)
+ #include _PIEZOHITDETECTOR_CFILE_
+#endif
 
 #define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
 #include "delay_cyc.c"
@@ -73,12 +83,21 @@
  #include "lvds.c"
 #endif
 
+#if(defined(FB_SMILEY) && FB_SMILEY)
+ #define fb_updater()	smileyUpdate()
+#elif (defined(FB_QUESTION) && FB_QUESTION)
+ #include "fb_question.h"
+ #define fb_updater()	fbQuestion_update()
+#endif
+
+uint8_t isNewFrame(void);
+
 #if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
  #include "_options/writeColor.c"
 #endif
 
 #if (defined(FB_QUESTION) && FB_QUESTION)
-#include "fb_question.c"
+ #include "fb_question.c"
 #endif
 
 // a/o v59:
@@ -298,11 +317,23 @@ void loadRow(uint16_t rowNum) \
 #endif
 
 
+//The endOfFrameHandler() function might e.g. cause the timer-interrupt to
+//be disabled until it's time to redraw a new frame
+// Since we're working with TFT displays, there is inherent "memory" of the
+// last-written frame, so we needn't refresh at the maximum rate possible
+// For some displays (e.g. the LTN) the act of refreshing is visible, so
+// unless the image changes (or the pixels have faded) it would be best
+// *not* to refresh
+static __inline__
+void endOfFrameHandler(void)
+	__attribute__((__always_inline__));
+
 #if(!defined(PWM_TESTING) || !PWM_TESTING)
  #include _LCDSTUFF_CFILE_
  //#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
 
 
+ volatile uint8_t updateFrame = TRUE;
  volatile uint8_t frameCount = 0;
 
  //Nearly everything display-related happens in this interrupt
@@ -311,6 +342,12 @@ void loadRow(uint16_t rowNum) \
  // So basically, the entire project is running via timer-interrupt.
  SIGNAL(HSYNC_TIMER_INTERRUPT_VECT) //TIMER0_COMPA_vect)
  {
+#if(defined(_DMS_EXTERNALUPDATE_) && _DMS_EXTERNALUPDATE_)
+	 dms_update();
+#endif
+
+	 if(!updateFrame)
+		 return;
  //	static uint8_t frameCount = 0;
 
 	//Could insert a delay of sorts for scopability...
@@ -338,6 +375,8 @@ void loadRow(uint16_t rowNum) \
 		//updateLCD() returns TRUE when the frame is complete
 		// which can be used for whatever purposes 
 		// (e.g. FRAME_COUNT_TO_DELAY)
+
+		endOfFrameHandler();
 	}
 
  #if(defined(LOADROW) && LOADROW)
@@ -908,6 +947,41 @@ void drawPix(uint16_t rowNum)
 #endif
 
 
+uint8_t isNewFrame(void)
+{
+	uint8_t newFrame = FALSE;
+
+	static uint8_t lastFrameCount = 0;
+#define FRAME_COUNT_LIMIT 0x03
+	uint8_t thisFrameCount = frameCount&FRAME_COUNT_LIMIT;
+
+//		if(( (thisFrameCount==0) && (lastFrameCount==FRAME_COUNT_LIMIT) ))
+	if(thisFrameCount != lastFrameCount)
+		newFrame = TRUE;
+
+	lastFrameCount = thisFrameCount;
+
+	return newFrame;
+}
+
+
+
+#if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
+//For FB_QUESTION, FB_SMILEY, etc. it might be nice to only refresh when 
+// the actual image changes...
+// This is revisited from _unusedIdeas/frameCountToDelay.c
+void endOfFrameHandler(void)
+{
+	//The original plan was to stop the timer, but now that is used by
+	//dmsTimer... so instead:
+	updateFrame = FALSE;
+}
+#else
+//See the declaration, above...
+void endOfFrameHandler(void)
+{
+}
+#endif
 
 
 
@@ -919,26 +993,45 @@ int main(void)
 	racer_init();
 #endif
 
-#if ( (defined(BLUE_ADC) && BLUE_ADC) \
-		|| (defined(FB_QUESTION) && FB_QUESTION) )
+#if (defined(BLUE_ADC) && BLUE_ADC)
 	adc_takeInput(6);
 	adc_init();
 	adc_select(6);
 #endif
 
+
+#if (defined(FB_QUESTION) && FB_QUESTION)
+	//This is identical to the BLUE_ADC case, above, but the adc is used
+	//differently... and I'm trying to do some cleanup, which is more messy
+	//here, because of it. Wee!
+
+	//Actually, it runs adc_startConversion() at the end, so it's no longer
+	//*identical*
+	phd_init();
+#endif
+
 #if(defined(SEG_TET) && SEG_TET)
 	tetInit(3);
 #endif
-	
+
+#if(defined(_DMS_EXTERNALUPDATE_) && _DMS_EXTERNALUPDATE_)
+	//These values could probably be calculated...
+	// (as long as OSCCAL_VAL isn't changed)
+	// But I'm going on the fact, it's refreshing about 8Hz
+	// and there's roughly 768 rows (HSYNC interrupts)
+	// (of course, there's vsync rows, too)
+	// so... that's about .000125s per HSYNC interrupt
+	// or 8000 interrupts per second
+	// Which is roughly 1dms per interrupt...
+	init_dmsExternalUpdate(1,1);
+#endif
+
+
+
 #if(!defined(PWM_TESTING) || !PWM_TESTING)
 	init_hsyncTimer();
 #endif
 
-#if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
-#if(!defined(FB_DONT_USE_UPDATE) || !FB_DONT_USE_UPDATE)
-	frameBufferUpdate();
-#endif
-#endif
 	//This starts pretty late... watch out for WDT
 	init_heartBeat();
 
@@ -947,96 +1040,22 @@ int main(void)
 	lvds_timerInit();
 
 
-	// MUCH Of this is outside the screen...
-
-
-#if(defined(FB_QUESTION) && FB_QUESTION)
-	adc_startConversion();
-#endif
 
 	while(1)
 	{
-//#if(defined(FB_SMILEY) && FB_SMILEY)
-//		frameBufferUpdate();
-//#endif
-
 #if(defined(FB_QUESTION) && FB_QUESTION)
-		static int32_t adcAvg = 0;
-		static uint16_t adcVal;
-		static uint8_t avgCount = 100;
-		if(!adc_isBusy())
-		{
-			adcVal = adc_getValue();
-			
-			adc_startConversion();
-
-
-			if(avgCount > 1)
-				avgCount--;
-			else if(avgCount == 1)
-			{
-				avgCount=0;
-				adcAvg += adcVal;
-			}
-			else if(avgCount == 0)
-			{
-				//After the first case, the average should be somewhere
-				//'round the ADC Val... then after subtracting the current
-				//adcVal, we should be close to zero...
-				adcAvg -= adcVal;
-				{
-					int32_t absDiff = adcAvg;
-					if(absDiff < 0)
-						absDiff = -absDiff;
-
-					// At this point, absDiff is essentially the derivative
-					// of the ADC measurements... (absoluted)
-					// If there's no change, it will be near-zero
-					// If there's a lot of change, it will be positive...
-					// the ADC is ten-bits, so 3.3V/1024 = .003V per LSB
-					// Of course, a spike isn't instantaneous...
-					// .2V is measurable on the 'scope, currently...
-#define ADC_DETECTION_THRESHOLD	15 //20 //38 //(1024*125/3300)
-					if(absDiff > ADC_DETECTION_THRESHOLD)
-						fbQuestion_hitDetected();
-				}
-				adcAvg = 0;
-				avgCount=1;
-			}
-
-		}
-
+		if(phd_update())				
+			fbQuestion_hitDetected();
 #endif
 
-#if((defined(FB_QUESTION) && FB_QUESTION) \
-		|| (defined(FB_SMILEY) && FB_SMILEY) )
 
-		//static uint32_t count = 0;
-		static uint8_t lastFrameCount = 0;
-#define FRAME_COUNT_LIMIT 0x03
-		uint8_t thisFrameCount = frameCount&FRAME_COUNT_LIMIT;
-
-//		if(( (thisFrameCount==0) && (lastFrameCount==FRAME_COUNT_LIMIT) ))
-		if(thisFrameCount != lastFrameCount)
-		{
-
-#if(defined(FB_QUESTION) && FB_QUESTION)
-			fbQuestion_update();
-#elif (defined(FB_SMILEY) && FB_SMILEY)
-			frameBufferUpdate();
+//#if( (defined(FB_QUESTION) && FB_QUESTION) \
+//	  ||	(defined(FB_SMILEY) && FB_SMILEY) )
+#if( defined(FRAMEBUFFER_TESTING) && (FRAMEBUFFER_TESTING))
+		frameBufferUpdate();
 #endif
-		}
 
-		lastFrameCount = thisFrameCount;
-#endif
-		//see cTools/unusedMacroTest.c
-		//({0;});	no warning (anymore), I'm sure it did before...
-		//(0);	"statement with no effect"
 		heartUpdate();
-/*	Testing HEART_REMOVED for warnings...
-		if(heartUpdate())
-			heartUpdate();
-*/
 	}
 
 }
@@ -1060,9 +1079,9 @@ int main(void)
  *    doesn't have to be):
  * 
  *    1) Please do not change/remove this licensing info.
- *    2) Please do not change/remove others' credit/licensing/copywrite 
+ *    2) Please do not change/remove others' credit/licensing/copyright 
  *         info, where noted. 
- *    3) If you find yourself profitting from my work, please send me a
+ *    3) If you find yourself profiting from my work, please send me a
  *         beer, a trinket, or cash is always handy as well.
  *         (Please be considerate. E.G. if you've reposted my work on a
  *          revenue-making (ad-based) website, please think of the
@@ -1102,6 +1121,9 @@ int main(void)
  *
  *    If any of that ever changes, I will be sure to note it here, 
  *    and add a link at the pages above.
+ *
+ * This license added to the original file located at:
+ * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/main.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

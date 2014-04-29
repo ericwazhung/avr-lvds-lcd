@@ -1,0 +1,529 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 1
+
+
+   1               		.file	"dmsTimer.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/",100,0,2,.Ltext0
+   8               		.stabs	"_commonCode_localized/dmsTimer/1.13/dmsTimer.c",100,0,2,.Ltext0
+   9               		.text
+  10               	.Ltext0:
+  11               		.stabs	"gcc2_compiled.",60,0,0,0
+  12               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,0,0
+  13               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,0,0
+  14               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,0,0
+  15               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,0,0
+  16               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,0,0
+  17               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,0,
+  18               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,0,0
+  19               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,0,0
+  20               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,0,0
+  21               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,0,0
+  22               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,0,0
+  23               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,0,0
+  24               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,0,0
+  25               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,0,0
+  26               		.stabs	"short _Fract:t(0,15)=r(0,1);1;0;",128,0,0,0
+  27               		.stabs	"_Fract:t(0,16)=r(0,1);2;0;",128,0,0,0
+  28               		.stabs	"long _Fract:t(0,17)=r(0,1);4;0;",128,0,0,0
+  29               		.stabs	"long long _Fract:t(0,18)=r(0,1);8;0;",128,0,0,0
+  30               		.stabs	"unsigned short _Fract:t(0,19)=r(0,1);1;0;",128,0,0,0
+  31               		.stabs	"unsigned _Fract:t(0,20)=r(0,1);2;0;",128,0,0,0
+  32               		.stabs	"unsigned long _Fract:t(0,21)=r(0,1);4;0;",128,0,0,0
+  33               		.stabs	"unsigned long long _Fract:t(0,22)=r(0,1);8;0;",128,0,0,0
+  34               		.stabs	"_Sat short _Fract:t(0,23)=r(0,1);1;0;",128,0,0,0
+  35               		.stabs	"_Sat _Fract:t(0,24)=r(0,1);2;0;",128,0,0,0
+  36               		.stabs	"_Sat long _Fract:t(0,25)=r(0,1);4;0;",128,0,0,0
+  37               		.stabs	"_Sat long long _Fract:t(0,26)=r(0,1);8;0;",128,0,0,0
+  38               		.stabs	"_Sat unsigned short _Fract:t(0,27)=r(0,1);1;0;",128,0,0,0
+  39               		.stabs	"_Sat unsigned _Fract:t(0,28)=r(0,1);2;0;",128,0,0,0
+  40               		.stabs	"_Sat unsigned long _Fract:t(0,29)=r(0,1);4;0;",128,0,0,0
+  41               		.stabs	"_Sat unsigned long long _Fract:t(0,30)=r(0,1);8;0;",128,0,0,0
+  42               		.stabs	"short _Accum:t(0,31)=r(0,1);2;0;",128,0,0,0
+  43               		.stabs	"_Accum:t(0,32)=r(0,1);4;0;",128,0,0,0
+  44               		.stabs	"long _Accum:t(0,33)=r(0,1);8;0;",128,0,0,0
+  45               		.stabs	"long long _Accum:t(0,34)=r(0,1);8;0;",128,0,0,0
+  46               		.stabs	"unsigned short _Accum:t(0,35)=r(0,1);2;0;",128,0,0,0
+  47               		.stabs	"unsigned _Accum:t(0,36)=r(0,1);4;0;",128,0,0,0
+  48               		.stabs	"unsigned long _Accum:t(0,37)=r(0,1);8;0;",128,0,0,0
+  49               		.stabs	"unsigned long long _Accum:t(0,38)=r(0,1);8;0;",128,0,0,0
+  50               		.stabs	"_Sat short _Accum:t(0,39)=r(0,1);2;0;",128,0,0,0
+  51               		.stabs	"_Sat _Accum:t(0,40)=r(0,1);4;0;",128,0,0,0
+  52               		.stabs	"_Sat long _Accum:t(0,41)=r(0,1);8;0;",128,0,0,0
+  53               		.stabs	"_Sat long long _Accum:t(0,42)=r(0,1);8;0;",128,0,0,0
+  54               		.stabs	"_Sat unsigned short _Accum:t(0,43)=r(0,1);2;0;",128,0,0,0
+  55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
+  56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
+  57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 2
+
+
+  58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
+  59               		.stabs	"_commonCode_localized/dmsTimer/1.13/dmsTimer.h",130,0,0,0
+  60               		.stabs	"/opt/local/avr/include/inttypes.h",130,0,0,0
+  61               		.stabs	"/opt/local/lib/gcc/avr/4.8.2/include/stdint.h",130,0,0,0
+  62               		.stabs	"/opt/local/avr/include/stdint.h",130,0,0,0
+  63               		.stabs	"int8_t:t(4,1)=(0,10)",128,0,121,0
+  64               		.stabs	"uint8_t:t(4,2)=(0,11)",128,0,122,0
+  65               		.stabs	"int16_t:t(4,3)=(0,1)",128,0,123,0
+  66               		.stabs	"uint16_t:t(4,4)=(0,4)",128,0,124,0
+  67               		.stabs	"int32_t:t(4,5)=(0,3)",128,0,125,0
+  68               		.stabs	"uint32_t:t(4,6)=(0,5)",128,0,126,0
+  69               		.stabs	"int64_t:t(4,7)=(0,6)",128,0,128,0
+  70               		.stabs	"uint64_t:t(4,8)=(0,7)",128,0,129,0
+  71               		.stabs	"intptr_t:t(4,9)=(4,3)",128,0,142,0
+  72               		.stabs	"uintptr_t:t(4,10)=(4,4)",128,0,147,0
+  73               		.stabs	"int_least8_t:t(4,11)=(4,1)",128,0,159,0
+  74               		.stabs	"uint_least8_t:t(4,12)=(4,2)",128,0,164,0
+  75               		.stabs	"int_least16_t:t(4,13)=(4,3)",128,0,169,0
+  76               		.stabs	"uint_least16_t:t(4,14)=(4,4)",128,0,174,0
+  77               		.stabs	"int_least32_t:t(4,15)=(4,5)",128,0,179,0
+  78               		.stabs	"uint_least32_t:t(4,16)=(4,6)",128,0,184,0
+  79               		.stabs	"int_least64_t:t(4,17)=(4,7)",128,0,192,0
+  80               		.stabs	"uint_least64_t:t(4,18)=(4,8)",128,0,199,0
+  81               		.stabs	"int_fast8_t:t(4,19)=(4,1)",128,0,213,0
+  82               		.stabs	"uint_fast8_t:t(4,20)=(4,2)",128,0,218,0
+  83               		.stabs	"int_fast16_t:t(4,21)=(4,3)",128,0,223,0
+  84               		.stabs	"uint_fast16_t:t(4,22)=(4,4)",128,0,228,0
+  85               		.stabs	"int_fast32_t:t(4,23)=(4,5)",128,0,233,0
+  86               		.stabs	"uint_fast32_t:t(4,24)=(4,6)",128,0,238,0
+  87               		.stabs	"int_fast64_t:t(4,25)=(4,7)",128,0,246,0
+  88               		.stabs	"uint_fast64_t:t(4,26)=(4,8)",128,0,253,0
+  89               		.stabs	"intmax_t:t(4,27)=(4,7)",128,0,273,0
+  90               		.stabs	"uintmax_t:t(4,28)=(4,8)",128,0,278,0
+  91               		.stabn	162,0,0,0
+  92               		.stabn	162,0,0,0
+  93               		.stabs	"int_farptr_t:t(2,1)=(4,5)",128,0,77,0
+  94               		.stabs	"uint_farptr_t:t(2,2)=(4,6)",128,0,81,0
+  95               		.stabn	162,0,0,0
+  96               		.stabs	"./_commonCode_localized/xyTracker/3.05/xyTracker.h",130,0,0,0
+  97               		.stabs	"./_commonCode_localized/coordStuff/0.90/coordStuff.h",130,0,0,0
+  98               		.stabs	"coord_t:t(6,1)=(4,5)",128,0,31,0
+  99               		.stabs	"ucoord_t:t(6,2)=(4,6)",128,0,38,0
+ 100               		.stabn	162,0,0,0
+ 101               		.stabs	"_XYTSTRUCTRECORD:T(5,1)=s21runningSum:(6,2),0,32;incrementBase:(6,1),32,32;rise:(6,2),64,3
+ 102               		.stabs	"xyt_t:t(5,2)=(5,3)=B(5,1)",128,0,171,0
+ 103               		.stabn	162,0,0,0
+ 104               		.stabs	"dms6sec_t:t(1,1)=(4,4)",128,0,111,0
+ 105               		.stabs	"dms4day_t:t(1,2)=(4,6)",128,0,113,0
+ 106               		.stabs	"dmsMax_t:t(1,3)=(4,6)",128,0,114,0
+ 107               		.stabn	162,0,0,0
+ 108               		.stabs	"dmsWaitFn:F(0,47)",36,0,113,dmsWaitFn
+ 109               		.stabs	"time:P(4,6)",64,0,113,22
+ 110               		.stabs	"p_waitFn:P(0,48)=*(0,49)=f(0,47)",64,0,113,16
+ 111               	.global	dmsWaitFn
+ 112               		.type	dmsWaitFn, @function
+ 113               	dmsWaitFn:
+ 114               		.stabd	46,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 3
+
+
+   1:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** /* mehPL:
+   2:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  *    Please see the bottom.
+   5:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  *    Enjoy!
+   6:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  */
+   7:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+   8:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+   9:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  10:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  11:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #include "dmsTimer.h"
+  12:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  13:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //#if (defined(__COMPILING_AVR_LIBC__) || (_DMS_EXTERNALUPDATE_))
+  14:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (defined(__AVR_ARCH__) || (_DMS_EXTERNALUPDATE_))
+  15:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** volatile uint32_t dmsCount	= 0;	//deci-milliseconds
+  16:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #endif
+  17:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  18:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  19:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  20:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //These WERE specific to externalUpdate, 
+  21:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // however they can also be used for dmsFrac with timer0 interrupt
+  22:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // (Along with dmsFrac, below)
+  23:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // Also with nonAVR code, where us is read directly...
+  24:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //   these defaults are changed in init functions
+  25:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //   (defaults correspond to us-reading)
+  26:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  27:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** uint8_t dmsNumUpdates = 100; 
+  28:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** uint8_t dmsIncrementSize = 1;
+  29:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #endif
+  30:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  31:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  32:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //Fractional part of the last-read dmsTime...
+  33:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // This'll likely be handled differently in different cases
+  34:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // for now it's only implemented in NON-AVR code or AVR code based on
+  35:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // timer interrupt 0 (untested)
+  36:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** volatile uint8_t dmsFrac = 0;
+  37:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #endif
+  38:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  39:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //DMS timer is updated spurradically by an externally-defined source...
+  40:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (_DMS_EXTERNALUPDATE_)	
+  41:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // MOST externalUpdate-specific code is now in dmsExternal.c
+  42:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // SEE dmsTimer.h for its -> inclusion <-
+  43:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** xyt_t dmsLine;
+  44:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  45:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // #if !defined(__COMPILING_AVR_LIBC__)
+  46:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //  #error "External update for DMS is not implemented for this system"
+  47:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // #endif
+  48:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  49:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  50:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //Otherwise, if we're using an AVR, Timer0 is DMS-specific...
+  51:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //#elif defined(__COMPILING_AVR_LIBC__)
+  52:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #elif defined(__AVR_ARCH__)
+  53:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  54:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //#if defined(__AVR_ATmega644__)
+  55:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #if defined(SIG_OUTPUT_COMPARE0A)
+  56:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** SIGNAL(SIG_OUTPUT_COMPARE0A) 
+  57:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #elif defined(SIG_OUTPUT_COMPARE0)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 4
+
+
+  58:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** SIGNAL(SIG_OUTPUT_COMPARE0)
+  59:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #elif defined(TIMER0_COMPA_vect)
+  60:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** SIGNAL(TIMER0_COMPA_vect)
+  61:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #else
+  62:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****   #error "this MCU's Timer0 interrupt is not supported (or nonexistent)"
+  63:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #endif
+  64:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** {
+  65:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	dmsCount++;
+  66:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** }
+  67:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  68:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** void init_dmsTimer(void)
+  69:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** {
+  70:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  71:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	dmsNumUpdates = _DMS_OCR_VAL_;
+  72:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		 // = (uint8_t)((uint32_t)F_CPU / 
+  73:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		 //        (uint32_t)(1<<_DMS_CLKDIV_)/(uint32_t)10000);
+  74:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	dmsIncrementSize = 1;
+  75:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #endif
+  76:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  77:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//Init_timer0Int(CLKDIV64);
+  78:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//t0_setOverflowFreq(10000);	//deci-milliseconds
+  79:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #if (F_CPU != 16000000)
+  80:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****   #warning "this clock frequency isn't guaranteed to give accurate DMS timing..."
+  81:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #endif
+  82:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//Init_timer0CompareInt(_DMS_CLKDIV_, 10000);
+  83:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #if defined(OCR0)
+  84:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	OCR0 = _DMS_OCR_VAL_; //dmsNumUpdates;
+  85:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//OCR0 = (uint8_t)((uint32_t)F_CPU/(uint32_t)(1<<_DMS_CLKDIV_)/(uint32_t)10000);
+  86:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #elif defined(OCR0A)
+  87:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	OCR0A = _DMS_OCR_VAL_; //dmsNumUpdates;
+  88:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//OCR0A = (uint8_t)((uint32_t)F_CPU/(uint32_t)(1<<_DMS_CLKDIV_)/(uint32_t)10000);
+  89:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #else
+  90:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****   #error "DMS doesn't yet support this processor with dedicated Timer0, try DMS_EXTERNAL_UPDATE"
+  91:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****  #endif
+  92:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  93:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	timer_setWGM(0, WGM_CLR_ON_COMPARE);
+  94:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	timer_selectDivisor(0, _DMS_CLKDIV_);
+  95:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	timer_compareMatchIntEnable(0, OUT_CHANNELA);
+  96:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	//@@@#warning "timerCommon doesn't yet support frequency-setting!" (handled above, manually)
+  97:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** }
+  98:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+  99:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #endif
+ 100:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 101:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // 2.3 assign an address to the function pointer
+ 102:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //     Note: Although you may ommit the address operator on most compilers
+ 103:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //     you should always use the correct way in order to write portable code.
+ 104:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 105:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** // C
+ 106:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //int DoIt  (float a, char b, char c){ printf("DoIt\n");   return a+b+c; }
+ 107:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //int DoMore(float a, char b, char c)const{ printf("DoMore\n"); return a-b+c; }
+ 108:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 109:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //pt2Function = DoIt;      // short form
+ 110:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** //pt2Function = &DoMore;   // correct assignment using address operator
+ 111:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 112:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** #if (!defined(DMS_WAITFN_UNUSED) || !DMS_WAITFN_UNUSED)
+ 113:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** void dmsWaitFn(uint32_t time, void (*p_waitFn)(void))		//Wait time deci-milliseconds
+ 114:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** {
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 5
+
+
+ 115               		.stabn	68,0,114,.LM0-.LFBB1
+ 116               	.LM0:
+ 117               	.LFBB1:
+ 118 0000 8F92      		push r8
+ 119 0002 9F92      		push r9
+ 120 0004 AF92      		push r10
+ 121 0006 BF92      		push r11
+ 122 0008 CF92      		push r12
+ 123 000a DF92      		push r13
+ 124 000c EF92      		push r14
+ 125 000e FF92      		push r15
+ 126 0010 0F93      		push r16
+ 127 0012 1F93      		push r17
+ 128 0014 CF93      		push r28
+ 129 0016 DF93      		push r29
+ 130 0018 00D0      		rcall .
+ 131 001a 00D0      		rcall .
+ 132 001c CDB7      		in r28,__SP_L__
+ 133 001e DEB7      		in r29,__SP_H__
+ 134               	/* prologue: function */
+ 135               	/* frame size = 4 */
+ 136               	/* stack size = 16 */
+ 137               	.L__stack_usage = 16
+ 138 0020 8A01      		movw r16,r20
+ 139               	.LBB6:
+ 140               	.LBB7:
+ 141               		.stabs	"_commonCode_localized/dmsTimer/1.13/dmsExternal.h",132,0,0,.Ltext1
+ 142               	.Ltext1:
+   1:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** /* mehPL:
+   2:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****  *    Please see the bottom.
+   5:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****  *    Enjoy!
+   6:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****  */
+   7:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+   8:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+   9:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  10:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  11:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #ifndef __DMS_EXTERNAL_H__
+  12:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #define __DMS_EXTERNAL_H__
+  13:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** extern volatile uint32_t dmsCount;	//deci-milliseconds
+  14:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  15:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  16:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** extern volatile uint8_t dmsFrac;
+  17:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #endif
+  18:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  19:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //These WERE specific to externalUpdate, 
+  20:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // however they can also be used for dmsFrac with timer0 interrupt
+  21:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // (Along with dmsFrac, below)
+  22:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // Also with nonAVR code, where us is read directly...
+  23:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //   these defaults are changed in init functions
+  24:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //   (defaults correspond to us-reading)
+  25:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // a/o 1.12: Apparently these were a remnant of pre-xyt times...
+  26:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //           Though, as stated above, they are usable by dmsFrac
+  27:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //           So remove them if dmsFrac is disabled!
+  28:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  29:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** extern uint8_t dmsNumUpdates; 
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 6
+
+
+  30:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** extern uint8_t dmsIncrementSize;
+  31:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #endif
+  32:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  33:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //Fractional part of the last-read dmsTime...
+  34:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // This'll likely be handled differently in different cases
+  35:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // for now it's only implemented in NON-AVR code or AVR code based on
+  36:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // timer interrupt 0 (untested)
+  37:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //volatile uint8_t dmsFrac = 0;
+  38:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  39:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  40:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //DMS timer is updated spurradically by an externally-defined source...
+  41:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** extern xyt_t dmsLine;
+  42:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  43:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //__inline__ prefix might be unnecessary since the prototype includes it
+  44:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** __inline__ \
+  45:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** void init_dmsExternalUpdate(uint32_t numUpdates, uint32_t incrementSize)
+  46:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** {
+  47:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  48:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  49:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //This is the result of 1.12-1:
+  50:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // which was developed with FRAC_UNUSED...
+  51:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // an easy option would be to step back to 1.12
+  52:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // OR replace dmsNumUpdates and dmsIncrementSize with uint32_t's.
+  53:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** // Alternatively (memory limited?) do some divisions here...
+  54:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #error "DMS_FRAC was unused a/o the creation of this version"
+  55:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #error "numUpdates and/or incrementSize > UINT8_MAX will be destroyed!"
+  56:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #error "It's an easy fix, see notes in this file"
+  57:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  58:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	dmsIncrementSize = incrementSize;
+  59:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//one less than the actual count since it counts from 0...
+  60:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	dmsNumUpdates = numUpdates;
+  61:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** #endif
+  62:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  63:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //#warning "xyt requires incrementSize < numUpdates!"
+  64:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	xyt_init(&dmsLine, incrementSize, numUpdates);
+  65:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** }
+  66:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  67:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //__inline__ prefix might be unnecessary since the prototype includes it
+  68:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** __inline__ \
+  69:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** void dms_update(void)
+  70:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** {
+  71:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //	static uint8_t counter = 0;
+  72:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //	static dms4day_t lastTime;
+  73:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  74:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //	lastTime = dmsCount;
+  75:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  76:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	dmsCount=xyt_nextOutput(&dmsLine);	
+  77:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****   #if (!defined(DMS_FRAC_UNUSED) || !DMS_FRAC_UNUSED)
+  78:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	dmsFrac =xyt_remainder(&dmsLine);
+  79:_commonCode_localized/dmsTimer/1.13/dmsExternal.h ****   #endif
+  80:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //	if(dmsCount != lastTime)
+  81:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //		dmsFrac=0;
+  82:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//???What happens with odd fractions...
+  83:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	// e.g. 2/5, would give frac=1,2 in one case, and just 1 in the next
+  84:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //	else
+  85:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** //		dmsFrac++;
+  86:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** /*
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 7
+
+
+  87:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//counter++;
+  88:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+  89:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	// '>' Just in case update is called before init...
+  90:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//@@@ Could use an xyT here?
+  91:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//    e.g. numUpdates=4, incSize=3
+  92:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	//    would work better with dmsGetFrac...
+  93:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	if(counter >= dmsNumUpdates)
+  94:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	{
+  95:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 		counter = 0;
+  96:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 		dmsCount+=dmsIncrementSize;
+  97:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	}
+  98:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	else
+  99:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 		counter++;
+ 100:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+ 101:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	dmsFrac = counter;
+ 102:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** */
+ 103:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** }
+ 104:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 
+ 105:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** __inline__ \
+ 106:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** dms4day_t dmsGetTime(void)
+ 107:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** {
+ 108:_commonCode_localized/dmsTimer/1.13/dmsExternal.h **** 	return dmsCount;
+ 143               		.stabn	68,0,108,.LM1-.LFBB1
+ 144               	.LM1:
+ 145 0022 C090 0000 		lds r12,dmsCount
+ 146 0026 D090 0000 		lds r13,dmsCount+1
+ 147 002a E090 0000 		lds r14,dmsCount+2
+ 148 002e F090 0000 		lds r15,dmsCount+3
+ 149               	.L4:
+ 150               	.LBE7:
+ 151               	.LBE6:
+ 152               	.LBB8:
+ 153               	.LBB9:
+ 154               		.stabn	68,0,108,.LM2-.LFBB1
+ 155               	.LM2:
+ 156 0032 8090 0000 		lds r8,dmsCount
+ 157 0036 9090 0000 		lds r9,dmsCount+1
+ 158 003a A090 0000 		lds r10,dmsCount+2
+ 159 003e B090 0000 		lds r11,dmsCount+3
+ 160               	.LBE9:
+ 161               	.LBE8:
+ 162               		.stabs	"_commonCode_localized/dmsTimer/1.13/dmsTimer.c",132,0,0,.Ltext2
+ 163               	.Ltext2:
+ 115:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	uint32_t startTime;
+ 116:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	
+ 117:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	startTime = dmsGetTime();
+ 118:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	
+ 119:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	while(dmsGetTime() - startTime < time)
+ 164               		.stabn	68,0,119,.LM3-.LFBB1
+ 165               	.LM3:
+ 166 0042 8C18      		sub r8,r12
+ 167 0044 9D08      		sbc r9,r13
+ 168 0046 AE08      		sbc r10,r14
+ 169 0048 BF08      		sbc r11,r15
+ 170 004a 8616      		cp r8,r22
+ 171 004c 9706      		cpc r9,r23
+ 172 004e A806      		cpc r10,r24
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 8
+
+
+ 173 0050 B906      		cpc r11,r25
+ 174 0052 00F4      		brsh .L7
+ 120:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	{
+ 121:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//http://www.newty.de/fpt/fpt.html#callconv
+ 122:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		// 2.4 comparing function pointers
+ 123:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//if(pt2Function >0){                           // check if initialized
+ 124:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//  if(pt2Function == &DoIt)
+ 125:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//      printf("Pointer points to DoIt\n"); }
+ 126:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//else
+ 127:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//   printf("Pointer not initialized!!\n");
+ 128:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 129:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		//WTF was I thinking?
+ 130:_commonCode_localized/dmsTimer/1.13/dmsTimer.c ****       //if(*waitFn != 0)
+ 131:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		if(p_waitFn != 0)
+ 175               		.stabn	68,0,131,.LM4-.LFBB1
+ 176               	.LM4:
+ 177 0054 0115      		cp r16,__zero_reg__
+ 178 0056 1105      		cpc r17,__zero_reg__
+ 179 0058 01F0      		breq .L4
+ 132:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		{
+ 133:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			//2.5  Calling a Function using a Function Pointer
+ 134:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			//In C you call a function using a function pointer by explicitly dereferencing it using the * o
+ 135:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			// Alternatively you may also just use the function pointer's instead of the funtion's name. 
+ 136:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 137:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			// 2.5 calling a function using a function pointer
+ 138:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			//int result1 = pt2Function    (12, 'a', 'b');          // C short way
+ 139:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			//int result2 = (*pt2Function) (12, 'a', 'b');          // C
+ 140:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			
+ 141:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			//waitFn();
+ 142:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 			(*p_waitFn)();
+ 180               		.stabn	68,0,142,.LM5-.LFBB1
+ 181               	.LM5:
+ 182 005a 6983      		std Y+1,r22
+ 183 005c 7A83      		std Y+2,r23
+ 184 005e 8B83      		std Y+3,r24
+ 185 0060 9C83      		std Y+4,r25
+ 186 0062 F801      		movw r30,r16
+ 187 0064 0995      		icall
+ 188 0066 9C81      		ldd r25,Y+4
+ 189 0068 8B81      		ldd r24,Y+3
+ 190 006a 7A81      		ldd r23,Y+2
+ 191 006c 6981      		ldd r22,Y+1
+ 192 006e 00C0      		rjmp .L4
+ 193               	.L7:
+ 194               	/* epilogue start */
+ 143:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 		}
+ 144:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 145:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 	}
+ 146:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** 
+ 147:_commonCode_localized/dmsTimer/1.13/dmsTimer.c **** }
+ 195               		.stabn	68,0,147,.LM6-.LFBB1
+ 196               	.LM6:
+ 197 0070 0F90      		pop __tmp_reg__
+ 198 0072 0F90      		pop __tmp_reg__
+ 199 0074 0F90      		pop __tmp_reg__
+ 200 0076 0F90      		pop __tmp_reg__
+ 201 0078 DF91      		pop r29
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 9
+
+
+ 202 007a CF91      		pop r28
+ 203 007c 1F91      		pop r17
+ 204 007e 0F91      		pop r16
+ 205 0080 FF90      		pop r15
+ 206 0082 EF90      		pop r14
+ 207 0084 DF90      		pop r13
+ 208 0086 CF90      		pop r12
+ 209 0088 BF90      		pop r11
+ 210 008a AF90      		pop r10
+ 211 008c 9F90      		pop r9
+ 212 008e 8F90      		pop r8
+ 213 0090 0895      		ret
+ 214               		.size	dmsWaitFn, .-dmsWaitFn
+ 215               	.Lscope1:
+ 216               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 217               		.stabd	78,0,0
+ 218               		.comm	dmsLine,21,1
+ 219               	.global	dmsCount
+ 220               		.section .bss
+ 221               		.type	dmsCount, @object
+ 222               		.size	dmsCount, 4
+ 223               	dmsCount:
+ 224 0000 0000 0000 		.zero	4
+ 225               		.stabs	"dmsCount:G(0,50)=B(4,6)",32,0,15,0
+ 226               		.stabs	"dmsLine:G(5,2)",32,0,43,0
+ 227               		.text
+ 228               		.stabs	"",100,0,0,.Letext0
+ 229               	.Letext0:
+ 230               		.ident	"GCC: (GNU) 4.8.2"
+ 231               	.global __do_clear_bss
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 dmsTimer.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:113    .text:00000000 dmsWaitFn
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccOaDtgM.s:223    .bss:00000000 dmsCount
+                            *COM*:00000015 dmsLine
+
+UNDEFINED SYMBOLS
+__do_clear_bss
