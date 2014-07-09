@@ -784,10 +784,11 @@ static __inline__ void nonRSB_drawPix(uint16_t rowNum)
 		//Because includeDelay is FALSE, above, do it here...
 		// The intention being to get enableGreen as soon after the
 		// register-settings as possible.
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
-		delay_cyc(WRITE_COLOR_DELAY);
-#else
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
+#else
+		delay_cyc(WRITE_COLOR_DELAY);
 #endif
 
       //Moving this here not only removes (most of) the green bar
@@ -1038,7 +1039,8 @@ asm("nop");
 // -90 has been found to be right at the edge of the screen, now...
 // ish. maybe it's not accurate since delay_loop_2 is four instructions per
 // loop...?
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
+#if (!defined(LCDINTERFACE_BITBANGED_DOTCLOCK) || \
+		!LCDINTERFACE_BITBANGED_DOTCLOCK)
  #define ROW_COMPLETION_DELAY \
       (DOTS_TO_CYC(DE_ACTIVE_DOTS) - 90  \
        - (WRITE_COLOR_CYCS + WRITE_COLOR_DELAY) * COLORS_WRITTEN)
@@ -1051,25 +1053,11 @@ asm("nop");
  #if (ROW_COMPLETION_DELAY > 0)
 //      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
 //            - WRITE_COLOR_CYCS*COLORS_WRITTEN);
-
-
 		delay_cyc(ROW_COMPLETION_DELAY);
-
-		
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-      
  #else
   #warning "ROW_COMPLETION_DELAY <= 0, so not used."
-//#define ROW_COMPLETION_DELAY 0
  #endif
-#else //LCDSTUFF_INCLUDE_NON_DE (Bitbanged MCK, usually)
+#else //LCDINTERFACE_BITBANGED_DOTCLOCK (Bitbanged MCK, usually)
  #define ROW_COMPLETION_DOTS \
 		(DE_ACTIVE_DOTS - ((WRITE_COLOR_DOT_DELAY+1) * COLORS_WRITTEN))
 

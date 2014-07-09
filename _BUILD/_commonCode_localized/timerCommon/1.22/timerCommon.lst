@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 1
 
 
    1               		.file	"timerCommon.c"
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,7 +118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  112               		.stabd	46,0,0
    1:_commonCode_localized/timerCommon/1.22/timerCommon.c **** /* mehPL:
    2:_commonCode_localized/timerCommon/1.22/timerCommon.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 3
 
 
    3:_commonCode_localized/timerCommon/1.22/timerCommon.c ****  *    I'm not too fond of long licenses at the top of the file.
@@ -178,7 +178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
   57:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 
   58:_commonCode_localized/timerCommon/1.22/timerCommon.c **** #define CSTYP_DIV8		0x02
   59:_commonCode_localized/timerCommon/1.22/timerCommon.c **** #define CSTYP_DIV64		0x03
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 4
 
 
   60:_commonCode_localized/timerCommon/1.22/timerCommon.c **** #define CSTYP_DIV256	0x04
@@ -238,7 +238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  114:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	//Combine the timer number and channel into a single variable...
  115:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	//The high nibble contains the timer number, 
  116:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	// the low contains the channel numbers as a mask (A=0x1,B=0x2,C=0x3...)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 5
 
 
  117:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	channelNums = (timerNum<<4) | outputChannels;
@@ -298,7 +298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  171:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				writeMasked((outputMode<<COMD_SHIFT), COMD_MASK, T1_COMDReg);
  172:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				break;
  173:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			#endif
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 6
 
 
  174:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 		  #endif
@@ -358,7 +358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  115               	.LFBB1:
  116               	/* prologue: function */
  117               	/* frame size = 0 */
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 7
 
 
  118               	/* stack size = 0 */
@@ -418,7 +418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  253:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				csbits = CSTYP_DIV64;	
  254:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				break;
  255:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			case CLKDIV256:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 8
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 8
 
 
  256:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				csbits = CSTYP_DIV256;	
@@ -478,7 +478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  283:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 		switch(clockDiv)	
  284:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 		{
  285:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			case CLKDIV1:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 9
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 9
 
 
  286:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				csbits = CSALT_DIV1;
@@ -538,7 +538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  184 0040 8FBD      		out 0x2f,r24
  185               	.L14:
  323:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			break;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 10
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 10
 
 
  324:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 		//From here, only compile for timers that exist as expected...
@@ -598,7 +598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  349:_commonCode_localized/timerCommon/1.22/timerCommon.c **** // Returns 0 if no error
  350:_commonCode_localized/timerCommon/1.22/timerCommon.c **** #if(!defined(TIMER_SETWGM_UNUSED) || !TIMER_SETWGM_UNUSED)
  351:_commonCode_localized/timerCommon/1.22/timerCommon.c **** uint8_t timer_setWGM(uint8_t timerNum, uint8_t wgm)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 11
 
 
  352:_commonCode_localized/timerCommon/1.22/timerCommon.c **** {
@@ -658,7 +658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  236               		.stabn	68,0,355,.LM22-.LFBB2
  237               	.LM22:
  238 005c 6695      		lsr r22
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 12
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 12
 
 
  382:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 				return 1;
@@ -718,7 +718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  423:_commonCode_localized/timerCommon/1.22/timerCommon.c **** //			if(wgm == WGM_PHASE_PWM)
  424:_commonCode_localized/timerCommon/1.22/timerCommon.c **** //				wgmLb = 0xff;
  425:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 13
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 13
 
 
  426:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			switch(wgm)
@@ -778,7 +778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  460:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			return 1;
  461:_commonCode_localized/timerCommon/1.22/timerCommon.c **** #else
  462:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			//The "Universal" WGM settings for Timer1 are set here...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 14
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 14
 
 
  463:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			writebit(WGM10, TCCR1A, wgmLb);
@@ -838,7 +838,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  294               	.LM31:
  295               	.LFBB3:
  296 0086 CF93      		push r28
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 15
 
 
  297 0088 DF93      		push r29
@@ -898,7 +898,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  345               		.stabs	"err_val:r(7,2)",64,0,93,24
  346               		.stabn	192,0,0,.LBB3-.LFBB3
  347               		.stabn	224,0,0,.LBE3-.LFBB3
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 16
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 16
 
 
  348               	.Lscope3:
@@ -958,7 +958,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  364               	/* stack size = 0 */
  365               	.L__stack_usage = 0
  531:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	uint8_t channelNum;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 17
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 17
 
 
  532:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 
@@ -1018,7 +1018,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  399               	.L40:
  553:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	
  554:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	switch(channelNum)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 18
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 18
 
 
  400               		.stabn	68,0,554,.LM45-.LFBB4
@@ -1078,7 +1078,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  577:_commonCode_localized/timerCommon/1.22/timerCommon.c **** //			setbit(OCIE0B, T0_TIMSK);
  578:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			writebit(OCIE0B, T0_TIMSK, enable);
  432               		.stabn	68,0,578,.LM50-.LFBB4
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 19
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 19
 
 
  433               	.LM50:
@@ -1138,7 +1138,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  469               	.LM57:
  470 0116 88B7      		in r24,0x38
  471 0118 8064      		ori r24,lo8(64)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 20
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 20
 
 
  472 011a 00C0      		rjmp .L68
@@ -1198,7 +1198,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  626:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			setbit(OCF2B, T2_TIFR);
  627:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 			break;
  628:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	   #endif
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 21
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 21
 
 
  629:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 	  #endif
@@ -1258,7 +1258,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  515 013a 91E0      		ldi r25,lo8(1)
  516 013c 00C0      		rjmp .L38
  517               	.L55:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 22
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 22
 
 
  537:_commonCode_localized/timerCommon/1.22/timerCommon.c **** 
@@ -1287,19 +1287,19 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			pag
  538               		.stabs	"",100,0,0,.Letext0
  539               	.Letext0:
  540               		.ident	"GCC: (GNU) 4.8.2"
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s 			page 23
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s 			page 23
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 timerCommon.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:111    .text:00000000 timer_selectDivisor
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:211    .text:0000004a timer_setWGM
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:291    .text:00000086 timer_init
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cc9MLD3i.s:357    .text:000000b0 timer_compareMatchIntSetup
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:111    .text:00000000 timer_selectDivisor
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:211    .text:0000004a timer_setWGM
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:291    .text:00000086 timer_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccZ5XPNQ.s:357    .text:000000b0 timer_compareMatchIntSetup
 
 NO UNDEFINED SYMBOLS

@@ -11,6 +11,51 @@
 #ifndef __SONY_ACX705AKM_H__
 #define __SONY_ACX705AKM_H__
 
+//This is an attempt at moving calculations *before* Hsync, so as to work
+//with a non-DE display... had a *minor* effect...
+#define WC_SETUP TRUE
+//This is pretty much exclusively for bit-banged MCK on the 6bitParallel
+//interface...
+// bit-banged seems to have fixed the hsync-shift problem, but now the
+// display flickers...
+#define LCDINTERFACE_BITBANGED_DOTCLOCK   TRUE
+
+
+//This attempts to prevent the REFRESH_ON_CHANGE issue where alternating
+//rows seem to be not-displayed... (originally NOGO)...
+//The idea was to continue running the dot-clock via PWM whenever the
+//display isn't being refreshed.
+//SO FAR: FB_REFRESH_ON_CHANGE TRUE, _COUNT=1:
+// _DELAY=10ms is OK, but 100ms causes the lines to alternate and the
+// screen to flicker...
+//FB_REFRESH_ON_CHANGE FALSE displays perfectly, but causes there to be no
+//CPU power for other processes (like updating the image)
+//a/o v90: This has been used for some time, now...
+//THIS IS DIFFERENT than LCDSTUFF_INCLUDE_NON_DE...
+// Whereas, in this case, that indicates to lcdStuff to continue to
+// bitbanging the pixel-clock even when there's no *visible* pixel-data
+// (during V-blanks)
+// THIS indicates to switch over to PWM-pixel-clocking when there is no
+// data to be sent... (especially between refreshes)
+// That could be considered an extended v-blank, but it's different in that
+// this form of v-blank is somewhat unpredictable in duration
+// lcdStuff's v-blank is highly precise to the specs supplied...
+// In other words, this *continues* to send pixel-clocks even when
+// lcdStuff's lcdUpdate() is disabled... and does-so by means of switching
+// over the pixel-clock from bit-banging to PWM...
+// I believe the importance lies in that this PWM mode is actually during 
+// the V-Front-Porch (?) whereas LCDSTUFF_INCLUDE_NON_DE assures a specific
+// number of pixel-clocks *during and after* the vsync, *immediately
+// before* data is actually drawn.
+// TODO? Since this seems to be a somewhat common thing to do, maybe it'd
+// make sense to use *one* method (either bitbanging or pwm) and tell
+// lcdUpdate() to run in "extended-VFP" mode...?
+// OTOH, bitbanging eats up CPU time, and it's nice to be able to free that
+// for other purposes...
+#define LCDINTERFACE_BITBANGED_DOTCLOCK_PWM  TRUE
+
+
+
 //a/o LCDdirectLVDS80:
 // This file will likely replace lcdDefines.h when this display is used
 // since lcdDefines.h contains quite a bit of LVDS-specific stuff...
@@ -302,12 +347,13 @@
 // -> DEblue_fromNada()...
 // Seems this should all be under 16 clock cycles, *certainly* under 16*4,
 // since dot-clock is 1/4th the CPU clock!
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
-	#define H_LOW_DOTS	2//9//16
-	#define HD_DOTS	0//(16 - H_LOW_DOTS)
-#else
+#if(defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	#define H_LOW_DOTS	9
 	#define HD_DOTS	(16 - H_LOW_DOTS)
+#else
+   #define H_LOW_DOTS	2//9//16
+	#define HD_DOTS	0//(16 - H_LOW_DOTS)
 #endif
 
 //Reducing this to 0 didn't shift the image at all, but caused frames to be
@@ -365,6 +411,18 @@
 // _interfaces/6bitParallel.c
 // bit-banged MCK seems fine, and relieves the above timing problems
 // dramatically.
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif
 

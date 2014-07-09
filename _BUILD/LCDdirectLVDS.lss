@@ -387,8 +387,8 @@ Disassembly of section .text:
 
 00000739 <header>:
      739:	4c 43 44 64 69 72 65 63 74 4c 56 44 53 39 30 20     LCDdirectLVDS90 
-     749:	32 30 31 34 2d 30 37 2d 30 39 20 30 35 3a 35 38     2014-07-09 05:58
-     759:	3a 35 32 00 00                                      :52..
+     749:	32 30 31 34 2d 30 37 2d 30 39 20 30 38 3a 31 35     2014-07-09 08:15
+     759:	3a 32 36 00 00                                      :26..
 
 0000075e <__ctors_end>:
      75e:	11 24       	eor	r1, r1
@@ -3543,7 +3543,7 @@ int16_t lcd_update(void)
     1538:	80 81       	ld	r24, Z
     153a:	80 6c       	ori	r24, 0xC0	; 192
     153c:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3588,11 +3588,11 @@ int16_t lcd_update(void)
     156e:	00 97       	sbiw	r24, 0x00	; 0
     1570:	c9 f7       	brne	.-14     	; 0x1564 <lcd_update+0xa2>
     1572:	db cf       	rjmp	.-74     	; 0x152a <lcd_update+0x68>
+		//Because includeDelay is FALSE, above, do it here...
 		// The intention being to get enableGreen as soon after the
 		// register-settings as possible.
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
-		delay_cyc(WRITE_COLOR_DELAY);
-#else
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
     1574:	00 00       	nop
     1576:	c3 98       	cbi	0x18, 3	; 24
@@ -3610,7 +3610,7 @@ int16_t lcd_update(void)
     1582:	81 81       	ldd	r24, Z+1	; 0x01
     1584:	80 6c       	ori	r24, 0xC0	; 192
     1586:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3625,9 +3625,9 @@ int16_t lcd_update(void)
     158e:	c3 9a       	sbi	0x18, 3	; 24
     1590:	8d e0       	ldi	r24, 0x0D	; 13
     1592:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3647,7 +3647,7 @@ int16_t lcd_update(void)
     15a2:	82 81       	ldd	r24, Z+2	; 0x02
     15a4:	80 6c       	ori	r24, 0xC0	; 192
     15a6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3662,9 +3662,9 @@ int16_t lcd_update(void)
     15ae:	c3 9a       	sbi	0x18, 3	; 24
     15b0:	8d e0       	ldi	r24, 0x0D	; 13
     15b2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3684,7 +3684,7 @@ int16_t lcd_update(void)
     15c2:	83 81       	ldd	r24, Z+3	; 0x03
     15c4:	80 6c       	ori	r24, 0xC0	; 192
     15c6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3699,9 +3699,9 @@ int16_t lcd_update(void)
     15ce:	c3 9a       	sbi	0x18, 3	; 24
     15d0:	8d e0       	ldi	r24, 0x0D	; 13
     15d2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3721,7 +3721,7 @@ int16_t lcd_update(void)
     15e2:	84 81       	ldd	r24, Z+4	; 0x04
     15e4:	80 6c       	ori	r24, 0xC0	; 192
     15e6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3736,9 +3736,9 @@ int16_t lcd_update(void)
     15ee:	c3 9a       	sbi	0x18, 3	; 24
     15f0:	8d e0       	ldi	r24, 0x0D	; 13
     15f2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3758,7 +3758,7 @@ int16_t lcd_update(void)
     1602:	85 81       	ldd	r24, Z+5	; 0x05
     1604:	80 6c       	ori	r24, 0xC0	; 192
     1606:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3773,9 +3773,9 @@ int16_t lcd_update(void)
     160e:	c3 9a       	sbi	0x18, 3	; 24
     1610:	8d e0       	ldi	r24, 0x0D	; 13
     1612:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3795,7 +3795,7 @@ int16_t lcd_update(void)
     1622:	86 81       	ldd	r24, Z+6	; 0x06
     1624:	80 6c       	ori	r24, 0xC0	; 192
     1626:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3810,9 +3810,9 @@ int16_t lcd_update(void)
     162e:	c3 9a       	sbi	0x18, 3	; 24
     1630:	8d e0       	ldi	r24, 0x0D	; 13
     1632:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3832,7 +3832,7 @@ int16_t lcd_update(void)
     1642:	87 81       	ldd	r24, Z+7	; 0x07
     1644:	80 6c       	ori	r24, 0xC0	; 192
     1646:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3847,9 +3847,9 @@ int16_t lcd_update(void)
     164e:	c3 9a       	sbi	0x18, 3	; 24
     1650:	8d e0       	ldi	r24, 0x0D	; 13
     1652:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3869,7 +3869,7 @@ int16_t lcd_update(void)
     1662:	80 85       	ldd	r24, Z+8	; 0x08
     1664:	80 6c       	ori	r24, 0xC0	; 192
     1666:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3884,9 +3884,9 @@ int16_t lcd_update(void)
     166e:	c3 9a       	sbi	0x18, 3	; 24
     1670:	8d e0       	ldi	r24, 0x0D	; 13
     1672:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3906,7 +3906,7 @@ int16_t lcd_update(void)
     1682:	81 85       	ldd	r24, Z+9	; 0x09
     1684:	80 6c       	ori	r24, 0xC0	; 192
     1686:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3921,9 +3921,9 @@ int16_t lcd_update(void)
     168e:	c3 9a       	sbi	0x18, 3	; 24
     1690:	8d e0       	ldi	r24, 0x0D	; 13
     1692:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3943,7 +3943,7 @@ int16_t lcd_update(void)
     16a2:	82 85       	ldd	r24, Z+10	; 0x0a
     16a4:	80 6c       	ori	r24, 0xC0	; 192
     16a6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3958,9 +3958,9 @@ int16_t lcd_update(void)
     16ae:	c3 9a       	sbi	0x18, 3	; 24
     16b0:	8d e0       	ldi	r24, 0x0D	; 13
     16b2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -3980,7 +3980,7 @@ int16_t lcd_update(void)
     16c2:	83 85       	ldd	r24, Z+11	; 0x0b
     16c4:	80 6c       	ori	r24, 0xC0	; 192
     16c6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -3995,9 +3995,9 @@ int16_t lcd_update(void)
     16ce:	c3 9a       	sbi	0x18, 3	; 24
     16d0:	8d e0       	ldi	r24, 0x0D	; 13
     16d2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -4017,7 +4017,7 @@ int16_t lcd_update(void)
     16e2:	84 85       	ldd	r24, Z+12	; 0x0c
     16e4:	80 6c       	ori	r24, 0xC0	; 192
     16e6:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -4032,9 +4032,9 @@ int16_t lcd_update(void)
     16ee:	c3 9a       	sbi	0x18, 3	; 24
     16f0:	8d e0       	ldi	r24, 0x0D	; 13
     16f2:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -4054,7 +4054,7 @@ int16_t lcd_update(void)
     1702:	85 85       	ldd	r24, Z+13	; 0x0d
     1704:	80 6c       	ori	r24, 0xC0	; 192
     1706:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -4069,9 +4069,9 @@ int16_t lcd_update(void)
     170e:	c3 9a       	sbi	0x18, 3	; 24
     1710:	8d e0       	ldi	r24, 0x0D	; 13
     1712:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -4091,7 +4091,7 @@ int16_t lcd_update(void)
     1722:	86 85       	ldd	r24, Z+14	; 0x0e
     1724:	80 6c       	ori	r24, 0xC0	; 192
     1726:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -4106,9 +4106,9 @@ int16_t lcd_update(void)
     172e:	c3 9a       	sbi	0x18, 3	; 24
     1730:	8d e0       	ldi	r24, 0x0D	; 13
     1732:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -4128,7 +4128,7 @@ int16_t lcd_update(void)
     1742:	87 85       	ldd	r24, Z+15	; 0x0f
     1744:	80 6c       	ori	r24, 0xC0	; 192
     1746:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -4143,9 +4143,9 @@ int16_t lcd_update(void)
     174e:	c3 9a       	sbi	0x18, 3	; 24
     1750:	8d e0       	ldi	r24, 0x0D	; 13
     1752:	90 e0       	ldi	r25, 0x00	; 0
-	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
@@ -4165,7 +4165,7 @@ int16_t lcd_update(void)
     1762:	80 89       	ldd	r24, Z+16	; 0x10
     1764:	80 6c       	ori	r24, 0xC0	; 192
     1766:	8b bb       	out	0x1b, r24	; 27
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -4180,7 +4180,7 @@ int16_t lcd_update(void)
     176e:	c3 9a       	sbi	0x18, 3	; 24
     1770:	80 e1       	ldi	r24, 0x10	; 16
     1772:	90 e0       	ldi	r25, 0x00	; 0
-#else //LCDSTUFF_INCLUDE_NON_DE (Bitbanged MCK, usually)
+#else //LCDINTERFACE_BITBANGED_DOTCLOCK (Bitbanged MCK, usually)
  #define ROW_COMPLETION_DOTS \
 		(DE_ACTIVE_DOTS - ((WRITE_COLOR_DOT_DELAY+1) * COLORS_WRITTEN))
 
@@ -4772,9 +4772,9 @@ int main(void)
 	setHeartRate(0);
     19c8:	80 e0       	ldi	r24, 0x00	; 0
     19ca:	af d7       	rcall	.+3934   	; 0x292a <__data_load_end+0xe42>
-  #else
-	#warning "LCDSTUFF_INCLUDE_NON_DE has been used to indicate that we're	bit-banging MCK... MOST refrences to this should be changed to something like BITBANGED_MCK"
-  #endif //NOT: LCDSTUFF_INCLUDE_NON_DE (e.g. use PWM for MCK)
+		  !LCDINTERFACE_BITBANGED_DOTCLOCK)
+	lcdInterface_pwmDotClockInit(TRUE);
+  #endif //NOT: LCDINTERFACE_BITBANGED_DOTCLOCK (e.g. use PWM for MCK)
  //Otherwise we're bit-banging MCK
 
 	setoutPORT(MCK_PIN, MCK_PORT); //+OC1B Clock (OC1B, not inverted)

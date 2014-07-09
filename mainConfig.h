@@ -28,50 +28,37 @@
 #define SONY_TESTING TRUE
 
 #if(defined(SONY_TESTING) && SONY_TESTING)
-//EARLY TESTING>>>>>
 
-//So far, this is only implemented with the Sony parallel-LCD
-// It should be *really easy* to implement with other displays/interfaces
-// Just grep this.
-// If the display is partially covered by display-housing, then we'd like
-// to fit the frame-buffer into the *visible* portion
-// This'll likely be something *near* but *smaller than* DE_ACTIVE_DOTS
-#define VISIBLE_ROW_DOTS	225
+ //So far, this is only implemented with the Sony parallel-LCD
+ // It should be *really easy* to implement with other displays/interfaces
+ // Just grep this.
+ // If the display is partially covered by display-housing, then we'd like
+ // to fit the frame-buffer into the *visible* portion
+ // This'll likely be something *near* but *smaller than* DE_ACTIVE_DOTS
+ //(This assumes the covered-up portion is at the right of the display)
+ #define VISIBLE_ROW_DOTS	225
 
-//Override the default WHITE at the end of the row with BLACK...
-#define FB_END_OF_ROW_COLOR	_K
+ //Override the default WHITE at the end of each row with BLACK...
+ #define FB_END_OF_ROW_COLOR	_K
 
-//This is an attempt at moving calculations *before* Hsync, so as to work
-//with a non-DE display... had a *minor* effect...
-#define WC_SETUP TRUE
-//This is pretty much exclusively for bit-banged MCK on the 6bitParallel
-//interface...
-// bit-banged seems to have fixed the hsync-shift problem, but now the
-// display flickers...
-#define LCDINTERFACE_BITBANGED_DOTCLOCK	TRUE
+ //Later, maybe, _LCD_INTERFACE_CFILE should be handled in
+ // _displays/sonyACX705AKM.h?
+ // (Though, technically, the display *could* be interfaced via an FPD-Link
+ //  receiver chip, using _interfaces/lvds.c... Unlikely, but maybe useful
+ //  to keep these things separate for future displays/interfaces?)
+ #define _LCD_SPECIFIC_HEADER_ "_displays/sonyACX705AKM.h"
+ #define _LCD_INTERFACE_CFILE_ "_interfaces/6bitParallel.c"
 
-//This attempts to prevent the REFRESH_ON_CHANGE issue where alternating
-//rows seem to be not-displayed... NOGO...
-//The idea was to continue running the dot-clock via PWM whenever the
-//display isn't being refreshed.
-//SO FAR: FB_REFRESH_ON_CHANGE TRUE, _COUNT=1:
-// _DELAY=10ms is OK, but 100ms causes the lines to alternate and the
-// screen to flicker...
-//FB_REFRESH_ON_CHANGE FALSE displays perfectly, but causes there to be no
-//CPU power for other processes (like updating the image)
-#define LCDINTERFACE_BITBANGED_DOTCLOCK_PWM	TRUE
+ //Since the MISO pin is available for the heart, it's used instead of the
+ //default assigned by the makefile
+ #define _HEART_PINNUM_	PB1
+ #define _HEART_PINPORT_	PORTB
+#endif	//SONY_TESTING
 
 
 
-#if(defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
-		LCDINTERFACE_BITBANGED_DOTCLOCK)
- #define LCDSTUFF_INCLUDE_NON_DE TRUE
-#endif
 
 
-#if(defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
- #warning "LCDSTUFF_INCLUDE_NON_DE is used almost exclusively, currently, for indicating LCD_INTERFACE_BITBANGED_DOTCLOCK. Most references to INCLUDE_NON_DE should probably be replaced..."
-#endif
 
 
 //_LCD_SPECIFIC_HEADER_ is the header for the particular display being used
@@ -93,36 +80,10 @@
 // This is #included in main.c
 
 //GENERALLY:
-// The above two can be left undefined, as defaults are fine for most
+// These can be left undefined, as defaults are fine for most
 // displays I've worked with... see the DEFAULTS, below.
-
-//For the Sony ACX705AKM (parallel-interface LCD):
-//These FOUR go together (and should all be either commented or
-//uncommented, together)
-//Later, maybe, _LCD_INTERFACE_CFILE should be handled in
-// _displays/sonyACX705AKM.h?
-// (Though, technically, the display *could* be interfaced via an FPD-Link
-//  receiver chip, using _interfaces/lvds.c... Unlikely, but maybe useful
-//  to keep these things separate for future displays/interfaces?)
-//#######################
-//COMMENT OR UNCOMMENT THESE FOUR TOGETHER.
-#define _LCD_SPECIFIC_HEADER_ "_displays/sonyACX705AKM.h"
-#define _LCD_INTERFACE_CFILE_ "_interfaces/6bitParallel.c"
-//Since the MISO pin is available for the heart, it's used instead of the
-//default assigned by the makefile
-#define _HEART_PINNUM_	PB1
-#define _HEART_PINPORT_	PORTB
-//####   TO HERE   ######
-//
-// END OF EARLY (Sony/Parallel) TESTING
-//################################################
-#endif
-
-
-
-
-
-
+// Though, if you need to change testDisplay.h for your own timings, it'd
+// be better to copy it and #define _LCD_SPECIFIC_HEADER_ as appropriate...
 
 //THESE ARE THE DEFAULTS FOR:
 // 1024x768 display via LVDS/FPD-Link Interface
@@ -140,8 +101,6 @@
 #endif //_LCD_INTERFACE_CFILE_ not previously defined
 
 
-//a/o v82: This is for FB_QUESTION... TODO: This should be moved.
-#define BUMP_SWITCH	TRUE
 
 
 //a/o v66:
@@ -248,6 +207,7 @@
 
 
 // Latest Version is v66... 
+// (HAH, now we're at v90!)
 
 // Various notes exist from previous versions, and may be outdated...
 // This file (like all, here) could stand to be reorganized.
@@ -261,7 +221,10 @@
 //      labelled "a/o v59"
 
 
-
+//THIS IS OLD... Actually RSB hasn't been implemented for a while...
+// I've gone back to frame-buffer for most new development, as it works on
+// nearly all displays without a hitch.
+//THIS IS OLD:
 //The current state is such that basically ONLY the row-segment-buffer
 // display-method has been tested for quite some time. Some of the other 
 // code remains, but I can't promise it still works. Most of it has been
@@ -632,8 +595,7 @@
 
 //Number of screen refreshes to perform whenever the framebuffer changes
 // (1 usually leaves some ghosting, 2 usually clears that up)
-#if(!defined(LCDINTERFACE_BITBANGED_DOTCLOCK) || \
-		!LCDINTERFACE_BITBANGED_DOTCLOCK)
+#if(!defined(SONY_TESTING) || !SONY_TESTING)
  #define FB_REFRESH_ON_CHANGE_COUNT	2
 #else
 //Experiments for the sony parallel-bitbanged LCD...
@@ -727,22 +689,34 @@
 // e.g. "AUTO_HIT" or random-override...
 #define FB_QUESTION	TRUE
 
-//AUTO_HIT is mostly for debugging, but also makes it useful when there's
-//no button...
-//#define AUTO_HIT TRUE
 
 #if(defined(FB_QUESTION) && FB_QUESTION)
-#undef ALIGN_TIMER_WITH_PIXCLK
-#define ALIGN_TIMER_WITH_PIXCLK TRUE
-#endif
+ #undef ALIGN_TIMER_WITH_PIXCLK
+ #define ALIGN_TIMER_WITH_PIXCLK TRUE
 
-#if(defined(FB_QUESTION) && FB_QUESTION)
-//If you're using a piezo-element for a hit-detector, then uncomment this:
-//(Hasn't been fully reimplemented, it may or may not work)
-//#define PIEZO_HIT_DETECTION TRUE
-#if(defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
-#define USE_ADC TRUE
-#endif
+ //If you're using a piezo-element for a hit-detector, then uncomment this:
+ //(Hasn't been fully reimplemented, it may or may not work)
+ //#define PIEZO_HIT_DETECTION TRUE
+ #if(defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
+ #define USE_ADC TRUE
+ #endif
+ 
+ //BUMP_SWITCH was a method for detecting a bump via, literally, a
+ //conductive-ball inside a cage made up of conductive pins... the ball
+ //would rest shorting out two contacts, then when bumped the ball would
+ //momentarily break contact. The idea's sound, but the conductivity was
+ //hokey. The end-result is that instead of detecting whether a pin is
+ //pulled-low or released-from-being-pulled-low, it would detect whether
+ //there was *any change* (in case, for instance, the ball somehow landed
+ //where it *didn't* make contact, but bumping it caused it to do so 
+ //briefly)... The end-result is that this same code can be used with a
+ //regular switch just as easily, and might well become the default rather
+ //than just detecting for a low.
+ #define BUMP_SWITCH	TRUE
+
+ //AUTO_HIT is mostly for debugging, but also makes it useful when there's
+ //no button...
+ //#define AUTO_HIT TRUE
 #endif
 
 //a/o v69:

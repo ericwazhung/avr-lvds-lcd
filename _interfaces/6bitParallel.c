@@ -72,9 +72,18 @@
 #error "This currently only works with the ATTiny861... It's mostly just a pinout issue... of NYIishness"
 #endif
 
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
-#include "delay_cyc.h"
+#if (!defined(LCDINTERFACE_BITBANGED_DOTCLOCK) || \
+		!LCDINTERFACE_BITBANGED_DOTCLOCK)
+ #include "delay_cyc.h"
+#else //LCDINTERFACE_BITBANGED_DOTCLOCK. Use delayDots instead of delayCyc
+ //Indicate to lcdStuff that it needs to include dot-delays DURING
+ //v-blanking in order to write the pixel-clock
+ // (as opposed to its being handled via PWM cycling between the HSync 
+ //  timer interrupts)
+ #define LCDSTUFF_INCLUDE_NON_DE TRUE
 #endif
+
+
 
 // TODO: Figure out: Is there a particular interface that would be best for
 // handling the unused LSB of each color...? 
@@ -358,11 +367,10 @@ void lcdInterface_init(void)
 
 
   //Use PWM for MCK...
-  #if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
+  #if (!defined(LCDINTERFACE_BITBANGED_DOTCLOCK) || \
+		  !LCDINTERFACE_BITBANGED_DOTCLOCK)
 	lcdInterface_pwmDotClockInit(TRUE);
-  #else
-	#warning "LCDSTUFF_INCLUDE_NON_DE has been used to indicate that we're	bit-banging MCK... MOST refrences to this should be changed to something like BITBANGED_MCK"
-  #endif //NOT: LCDSTUFF_INCLUDE_NON_DE (e.g. use PWM for MCK)
+  #endif //NOT: LCDINTERFACE_BITBANGED_DOTCLOCK (e.g. use PWM for MCK)
  //Otherwise we're bit-banging MCK
 
 	setoutPORT(MCK_PIN, MCK_PORT); //+OC1B Clock (OC1B, not inverted)
@@ -400,14 +408,17 @@ void lcdInterface_init(void)
 
 
 
-#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
+#if (!defined(LCDINTERFACE_BITBANGED_DOTCLOCK) || \
+		!LCDINTERFACE_BITBANGED_DOTCLOCK)
  //parallelLCD_writeColor() uses only one instruction when not bit-banged
  // (PORT=color)
  #define WRITE_COLOR_CYCS 1
 
  //Calculate WRITE_COLOR_DELAY...
  #include "_options/writeColorDelay.h"
-#else
+
+#else //LCDINTERFACE_BITBANGED_DOTCLOCK
+
  //parallelLCD_writeColor() uses four instructions when bit-banged, for now
  // The idea is write the port-value with MCK high, bring MCK low, bring it
  // high. There's probably no reason it has to be four cycles, except to
@@ -494,7 +505,8 @@ void parallelLCD_writeColor(uint8_t includeDEinit, uint8_t includeDelay,
 	RGB_PORT = colorVal;
 #endif
 
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
 	//THIS ASSUMES: F_CPU <= 16Mhz -> F_MCK <= 4MHz
 	// This probably isn't particularly accurate...
 	// e.g. it's 5 cycles, actually, since MCK and Data can't be written at
@@ -508,7 +520,8 @@ void parallelLCD_writeColor(uint8_t includeDEinit, uint8_t includeDelay,
 	//For stretching across the display...
 	if(includeDelay)
 	{
-#if (defined(LCDSTUFF_INCLUDE_NON_DE) && LCDSTUFF_INCLUDE_NON_DE)
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		LCDINTERFACE_BITBANGED_DOTCLOCK)
  //#error "Wait, we need delay_dots!"
 		//One dot has been written, with clrpinPORT, above...
 		delay_Dots(WRITE_COLOR_DOT_DELAY);
