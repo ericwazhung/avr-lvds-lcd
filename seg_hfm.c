@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //seg_hfm.c (uses the rowSegBuffer):
 //Uses "High-Frequency Modulation" to display an interesting pattern...
 // HFM is kinda like PWM. The idea is to have an output ON for
@@ -137,7 +141,7 @@ void segHFM_loadRow(uint16_t rowNum) {
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/seg_hfm.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/seg_hfm.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

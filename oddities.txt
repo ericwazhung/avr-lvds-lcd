@@ -1,0 +1,57 @@
+avr-objdump -j .data -t  _BUILD/LCDdirectLVDS.elf:
+SYMBOL TABLE:
+00800060 l    d  .data	00000000 .data
+008000d4 l     O .data	0000000c CSWTCH.86
+008000c4 l     O .data	00000010 spriteQ
+00800064 l     O .data	00000010 spriteLEAF
+00800084 l     O .data	00000010 spriteGOOMBA
+008000a4 l     O .data	00000010 spriteDEADGOOMBA
+008000b4 l     O .data	00000010 spriteSOLID
+00800094 l     O .data	00000010 spriteFLOWER
+00800074 l     O .data	00000010 spriteCOIN
+008000e0 g     O .data	00000006 LeafCamMotion
+008000e6 g     O .data	00000006 LeafMotion
+00800062 g     O .data	00000002 p_nowSprite
+008000f2 g     O .data	00000006 DefaultMotion
+00800060 g     O .data	00000001 updateFrame
+008000fe g       .data	00000000 __data_end
+008000ec g     O .data	00000006 DefaultCamMotion
+00800061 g     O .data	00000001 nowIsReward
+008000f8 g     O .data	00000006 NadaMotion
+008000fe g       .data	00000000 _edata
+00800060 g       .data	00000000 __data_start
+
+
+What about Biggie, and 1up?!
+
+
+was static sprite_t
+now const __flash sprite_t
+
+Changing *only* (Biggie, 1up, and) Question
+No errors while building
+Though not functional (Q)
+
+
+Moving to const __flash increases codesize by roughly the same amount as
+the decrease in memory requirement (?!)
+Odd, no? Since, if it's a loaded-value in memory, then wouldn't it require
+code-space to store the value to load?
+
+Run into this before... duh. It is in flash, either way, but not listed in
+.text since flash-usage is the sum of .data and .text
+
+BUT
+Changing over remaining (three) sprites should've had no effect on
+flash-usage, yet it jumped from 6260 to 6322 or 62 bytes...
+while .data decreased from 100 to 52 or 48 bytes...
+
+Changing *one* sprite inbetween seemed to be +16B and -16B respectively
+But changing one *earlier* seemed to be +18 and -16...
+
+Dunno.
+
+
+Moved motion_t's to flash:
+Now 6340Bytes burnt, only 18B increase (!?)
+.data decreased from 52 to 22 or 30B, as expected

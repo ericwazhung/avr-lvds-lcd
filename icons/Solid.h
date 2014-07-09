@@ -10,7 +10,12 @@
 
 
 
+
+
+
+
 #include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -36,8 +41,8 @@
 
 //37 (sky), 2, not-used, 0
 
-const static uint8_t pgm_imageSOLID[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(SOLID);
+const static uint8_t pgm_imageSOLID[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(SOLID) };
 
 
 #define pgm_maskSOLID	NULL
@@ -51,8 +56,20 @@ const static uint8_t pgm_imageSOLID[ICON_PACKED_BYTES] PROGMEM =
 const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
    { 37, 2, 0, 0}; 
 
-static sprite_t spriteSOLID =
-      {pgm_imageSOLID, pgm_maskSOLID, pgm_paletteSOLID, NUMPALETTES_SOLID};
+const __flash sprite_t spriteSOLID =
+      {
+			pgm_imageSOLID, 
+			pgm_maskSOLID, 
+			pgm_paletteSOLID, 
+			NUMPALETTES_SOLID,
+			8,
+			NadaFlip,
+			NadaMotion,
+			NadaLayer,
+			NadaCamMotion,
+			NULL,
+			1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -115,7 +132,7 @@ static sprite_t spriteSOLID =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/Solid.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Solid.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

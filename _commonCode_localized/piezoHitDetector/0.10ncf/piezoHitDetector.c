@@ -6,8 +6,6 @@
  */
 
 
-
-
 //piezoHitDetector.c 0.10ncf
 
 //Use a piezo-element connected to an ADC to detect physical hits on a
@@ -182,7 +180,7 @@ uint8_t phd_update(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/piezoHitDetector/0.10ncf/piezoHitDetector.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/piezoHitDetector/0.10ncf/piezoHitDetector.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

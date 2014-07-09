@@ -6,8 +6,6 @@
  */
 
 
-
-
 #ifndef __DELAYCYC_H__
 #define __DELAYCYC_H__
 
@@ -629,7 +627,7 @@ re: void *jumpTo=&&goto_label;
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/delayCyc/0.20ncf/delayCyc.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/delayCyc/0.20ncf/delayCyc.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

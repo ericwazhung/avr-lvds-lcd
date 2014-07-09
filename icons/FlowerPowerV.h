@@ -9,8 +9,13 @@
 
 
 
+#ifndef __FLOWER_POWER_V_H__
+#define __FLOWER_POWER_V_H__
+
+
 
 #include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -40,8 +45,8 @@
 //37 (sky), 23 (outter Ring), 2 (inner ring), 0 middle
 //37, 7, 5, 2
 
-const static uint8_t pgm_imageFLOWER[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(FLOWER);
+const static uint8_t pgm_imageFLOWER[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(FLOWER) };
    
 
 //Original plan was to use a mask, then that fourth color could be in the
@@ -62,13 +67,43 @@ const static uint8_t pgm_imageFLOWER[ICON_PACKED_BYTES] PROGMEM =
 //gimpPixelValToLColor should probably be taken into account.
 const static uint8_t pgm_paletteFLOWER[4*NUMPALETTES_FLOWER] PROGMEM =
    { 
-	  37,  4, 0, 0,
 	  37, 47, 7, 4,
      37, 23, 2, 0,
-     37,  7, 5, 2 };
+     37,  7, 5, 2,
+	  37,  4, 0, 0 //a/o v86, THIS is now the stem...
+	};
 
-static sprite_t spriteFLOWER =
-      { pgm_imageFLOWER, pgm_maskFLOWER, pgm_paletteFLOWER, NUMPALETTES_FLOWER};
+
+const uint8_t FlowerPA[PA_BYTES(DEFAULT_MOTIONS)] PROGMEM =
+{
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1)
+};
+
+
+
+const __flash sprite_t spriteFLOWER =
+      { 
+			pgm_imageFLOWER, 
+			pgm_maskFLOWER, 
+			pgm_paletteFLOWER, 
+			(NUMPALETTES_FLOWER-1),
+			DEFAULT_MOTIONS,
+				//This should probably be some multiple of 3 (palettes)
+			NadaFlip,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
+			FlowerPA,
+			1
+		};
+
+#endif
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -131,7 +166,7 @@ static sprite_t spriteFLOWER =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/FlowerPowerV.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/FlowerPowerV.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -6,10 +6,6 @@
  */
 
 
-
-
-
-
 #include "adc.h"
 
 #if(!(defined(ADC_SUM_REMOVED) && ADC_SUM_REMOVED))
@@ -346,7 +342,7 @@ uint8_t adc_sumUpdate(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/adc/0.20/adc.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/adc/0.20/adc.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

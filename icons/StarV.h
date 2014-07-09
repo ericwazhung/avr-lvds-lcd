@@ -10,7 +10,13 @@
 
 
 
+
+
+
+
 #include "iconPacking.h"
+#include "defaultMotion.c"
+#include "FlowerPowerV.h"	//For FlowerPA, since it's the same.
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -39,8 +45,8 @@
 //37, 7, 2, not used
 //37, 2, 0, not used
 
-const static uint8_t pgm_imageSTAR[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(STAR);
+const static uint8_t pgm_imageSTAR[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(STAR) };
 
 
 #define pgm_maskSTAR	NULL
@@ -55,8 +61,37 @@ const static uint8_t pgm_paletteSTAR[4*NUMPALETTES_STAR] PROGMEM =
    { 37, 7, 2, 0,
      37, 2, 0, 0 };
 
-static sprite_t spriteSTAR =
-      { pgm_imageSTAR, pgm_maskSTAR, pgm_paletteSTAR, NUMPALETTES_STAR};
+
+#define StarPA FlowerPA
+/*const uint8_t StarPA[PA_BYTES(DEFAULT_MOTIONS)] PROGMEM =
+{
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1),
+	PACK_PA_BYTE(1,1,1,1,1,1,1,1)
+};
+*/
+
+
+#warning "WTF... These should be PROGMEM!!!!"
+const __flash sprite_t spriteSTAR =
+      { 
+			pgm_imageSTAR, 
+			pgm_maskSTAR, 
+			pgm_paletteSTAR, 
+			NUMPALETTES_STAR,
+			DEFAULT_MOTIONS,
+			NadaFlip,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
+			//.p_paletteAdvance = 
+			StarPA,
+			1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -119,7 +154,7 @@ static sprite_t spriteSTAR =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/StarV.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/StarV.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

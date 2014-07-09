@@ -9,6 +9,10 @@
 
 
 
+
+
+
+
 //seg_sine.c (uses rowSegBuffer):
 //
 //A very nice test-pattern... shows a sine-wave, the under-side of which
@@ -234,7 +238,7 @@ void segSine_loadRow(uint16_t rowNum)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/seg_sine.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/seg_sine.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

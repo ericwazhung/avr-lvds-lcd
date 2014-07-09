@@ -1,0 +1,1673 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 1
+
+
+   1               		.file	"heartbeat.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/",100,0,2,.Ltext0
+   8               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.c",100,0,2,.Ltext0
+   9               		.text
+  10               	.Ltext0:
+  11               		.stabs	"gcc2_compiled.",60,0,0,0
+  12               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,0,0
+  13               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,0,0
+  14               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,0,0
+  15               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,0,0
+  16               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,0,0
+  17               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,0,
+  18               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,0,0
+  19               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,0,0
+  20               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,0,0
+  21               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,0,0
+  22               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,0,0
+  23               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,0,0
+  24               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,0,0
+  25               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,0,0
+  26               		.stabs	"short _Fract:t(0,15)=r(0,1);1;0;",128,0,0,0
+  27               		.stabs	"_Fract:t(0,16)=r(0,1);2;0;",128,0,0,0
+  28               		.stabs	"long _Fract:t(0,17)=r(0,1);4;0;",128,0,0,0
+  29               		.stabs	"long long _Fract:t(0,18)=r(0,1);8;0;",128,0,0,0
+  30               		.stabs	"unsigned short _Fract:t(0,19)=r(0,1);1;0;",128,0,0,0
+  31               		.stabs	"unsigned _Fract:t(0,20)=r(0,1);2;0;",128,0,0,0
+  32               		.stabs	"unsigned long _Fract:t(0,21)=r(0,1);4;0;",128,0,0,0
+  33               		.stabs	"unsigned long long _Fract:t(0,22)=r(0,1);8;0;",128,0,0,0
+  34               		.stabs	"_Sat short _Fract:t(0,23)=r(0,1);1;0;",128,0,0,0
+  35               		.stabs	"_Sat _Fract:t(0,24)=r(0,1);2;0;",128,0,0,0
+  36               		.stabs	"_Sat long _Fract:t(0,25)=r(0,1);4;0;",128,0,0,0
+  37               		.stabs	"_Sat long long _Fract:t(0,26)=r(0,1);8;0;",128,0,0,0
+  38               		.stabs	"_Sat unsigned short _Fract:t(0,27)=r(0,1);1;0;",128,0,0,0
+  39               		.stabs	"_Sat unsigned _Fract:t(0,28)=r(0,1);2;0;",128,0,0,0
+  40               		.stabs	"_Sat unsigned long _Fract:t(0,29)=r(0,1);4;0;",128,0,0,0
+  41               		.stabs	"_Sat unsigned long long _Fract:t(0,30)=r(0,1);8;0;",128,0,0,0
+  42               		.stabs	"short _Accum:t(0,31)=r(0,1);2;0;",128,0,0,0
+  43               		.stabs	"_Accum:t(0,32)=r(0,1);4;0;",128,0,0,0
+  44               		.stabs	"long _Accum:t(0,33)=r(0,1);8;0;",128,0,0,0
+  45               		.stabs	"long long _Accum:t(0,34)=r(0,1);8;0;",128,0,0,0
+  46               		.stabs	"unsigned short _Accum:t(0,35)=r(0,1);2;0;",128,0,0,0
+  47               		.stabs	"unsigned _Accum:t(0,36)=r(0,1);4;0;",128,0,0,0
+  48               		.stabs	"unsigned long _Accum:t(0,37)=r(0,1);8;0;",128,0,0,0
+  49               		.stabs	"unsigned long long _Accum:t(0,38)=r(0,1);8;0;",128,0,0,0
+  50               		.stabs	"_Sat short _Accum:t(0,39)=r(0,1);2;0;",128,0,0,0
+  51               		.stabs	"_Sat _Accum:t(0,40)=r(0,1);4;0;",128,0,0,0
+  52               		.stabs	"_Sat long _Accum:t(0,41)=r(0,1);8;0;",128,0,0,0
+  53               		.stabs	"_Sat long long _Accum:t(0,42)=r(0,1);8;0;",128,0,0,0
+  54               		.stabs	"_Sat unsigned short _Accum:t(0,43)=r(0,1);2;0;",128,0,0,0
+  55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
+  56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
+  57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 2
+
+
+  58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
+  59               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.h",130,0,0,0
+  60               		.stabs	"/opt/local/avr/include/avr/io.h",130,0,0,0
+  61               		.stabs	"/opt/local/avr/include/avr/sfr_defs.h",130,0,0,0
+  62               		.stabs	"/opt/local/avr/include/inttypes.h",130,0,0,0
+  63               		.stabs	"/opt/local/lib/gcc/avr/4.8.2/include/stdint.h",130,0,0,0
+  64               		.stabs	"/opt/local/avr/include/stdint.h",130,0,0,0
+  65               		.stabs	"int8_t:t(6,1)=(0,10)",128,0,121,0
+  66               		.stabs	"uint8_t:t(6,2)=(0,11)",128,0,122,0
+  67               		.stabs	"int16_t:t(6,3)=(0,1)",128,0,123,0
+  68               		.stabs	"uint16_t:t(6,4)=(0,4)",128,0,124,0
+  69               		.stabs	"int32_t:t(6,5)=(0,3)",128,0,125,0
+  70               		.stabs	"uint32_t:t(6,6)=(0,5)",128,0,126,0
+  71               		.stabs	"int64_t:t(6,7)=(0,6)",128,0,128,0
+  72               		.stabs	"uint64_t:t(6,8)=(0,7)",128,0,129,0
+  73               		.stabs	"intptr_t:t(6,9)=(6,3)",128,0,142,0
+  74               		.stabs	"uintptr_t:t(6,10)=(6,4)",128,0,147,0
+  75               		.stabs	"int_least8_t:t(6,11)=(6,1)",128,0,159,0
+  76               		.stabs	"uint_least8_t:t(6,12)=(6,2)",128,0,164,0
+  77               		.stabs	"int_least16_t:t(6,13)=(6,3)",128,0,169,0
+  78               		.stabs	"uint_least16_t:t(6,14)=(6,4)",128,0,174,0
+  79               		.stabs	"int_least32_t:t(6,15)=(6,5)",128,0,179,0
+  80               		.stabs	"uint_least32_t:t(6,16)=(6,6)",128,0,184,0
+  81               		.stabs	"int_least64_t:t(6,17)=(6,7)",128,0,192,0
+  82               		.stabs	"uint_least64_t:t(6,18)=(6,8)",128,0,199,0
+  83               		.stabs	"int_fast8_t:t(6,19)=(6,1)",128,0,213,0
+  84               		.stabs	"uint_fast8_t:t(6,20)=(6,2)",128,0,218,0
+  85               		.stabs	"int_fast16_t:t(6,21)=(6,3)",128,0,223,0
+  86               		.stabs	"uint_fast16_t:t(6,22)=(6,4)",128,0,228,0
+  87               		.stabs	"int_fast32_t:t(6,23)=(6,5)",128,0,233,0
+  88               		.stabs	"uint_fast32_t:t(6,24)=(6,6)",128,0,238,0
+  89               		.stabs	"int_fast64_t:t(6,25)=(6,7)",128,0,246,0
+  90               		.stabs	"uint_fast64_t:t(6,26)=(6,8)",128,0,253,0
+  91               		.stabs	"intmax_t:t(6,27)=(6,7)",128,0,273,0
+  92               		.stabs	"uintmax_t:t(6,28)=(6,8)",128,0,278,0
+  93               		.stabn	162,0,0,0
+  94               		.stabn	162,0,0,0
+  95               		.stabs	"int_farptr_t:t(4,1)=(6,5)",128,0,77,0
+  96               		.stabs	"uint_farptr_t:t(4,2)=(6,6)",128,0,81,0
+  97               		.stabn	162,0,0,0
+  98               		.stabn	162,0,0,0
+  99               		.stabs	"/opt/local/avr/include/avr/fuse.h",130,0,0,0
+ 100               		.stabs	"__fuse_t:t(7,1)=(7,2)=s3low:(0,11),0,8;high:(0,11),8,8;extended:(0,11),16,8;;",128,0,244,0
+ 101               		.stabn	162,0,0,0
+ 102               		.stabn	162,0,0,0
+ 103               		.stabs	"./_commonCode_localized/hfModulation/1.00/hfModulation.h",130,0,0,0
+ 104               		.stabs	"hfm_t:t(8,1)=(8,2)=B(8,3)=s4desiredSum:(6,3),0,16;maxPower:(6,2),16,8;power:(6,2),24,8;;",
+ 105               		.stabn	162,0,0,0
+ 106               		.stabn	162,0,0,0
+ 107               		.stabs	"setHeartRate:F(0,47)",36,0,99,setHeartRate
+ 108               		.stabs	"rate:P(6,2)",64,0,99,24
+ 109               	.global	setHeartRate
+ 110               		.type	setHeartRate, @function
+ 111               	setHeartRate:
+ 112               		.stabd	46,0,0
+   1:_commonCode_localized/heartbeat/1.50/heartbeat.c **** /* mehPL:
+   2:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 3
+
+
+   3:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    Please see the bottom.
+   5:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    Enjoy!
+   6:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  */
+   7:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+   8:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+   9:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //heartbeat 1.20
+  10:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #include "heartbeat.h"
+  11:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  12:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  13:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //So far this is only used with HEART_DMS to disallow cumulative-error in
+  14:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //heart-updates... 
+  15:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This should also be used with HEART_TCNTER, soon (if not already)
+  16:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  17:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //It shouldn't be necessary to be TRUE in the vast-majority of cases
+  18:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // Setting this true bumped the test program from 1550 to 1572 bytes...
+  19:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #define HEART_PRECISE   FALSE
+  20:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  21:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if(_HEART_TCNTER_)
+  22:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  23:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #include _TCNTER_HEADER_
+  24:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  25:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // Now defined in tcnter.h
+  26:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // #ifndef TCNTER_MS
+  27:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //  #warning "TCNTER_MS is completely arbitrary"
+  28:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //  #define TCNTER_MS 100
+  29:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // #endif
+  30:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  31:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //HEART_TCNTER_UPDATES_AND_INIT can be CFLAG +='d...
+  32:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // But if it's not, we're going to default to TRUE
+  33:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // If your project uses tcnter_update() in the main-while loop, then set
+  34:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // this FALSE (don't forget tcnter_init() in main)
+  35:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // e.g. if tcnter is used by multiple things, like polled_uar/t
+  36:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // (It could be left for heartUpdate() to handle, still... but as it
+  37:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // stands, HEART_REMOVED would destroy that.)
+  38:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #ifndef HEART_TCNTER_UPDATES_AND_INIT
+  39:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #define HEART_TCNTER_UPDATES_AND_INIT TRUE
+  40:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+  41:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  42:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //100% = 255, 0% = 0...
+  43:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //volatile uint8_t  newDesired = 0;
+  44:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  45:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Could be uint8 for dms and uint16 for nondms
+  46:_commonCode_localized/heartbeat/1.50/heartbeat.c **** tcnter_t heartStepTime = HEARTSTEPTIME;
+  47:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+  48:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint16_t heartStepTime = HEARTSTEPTIME;
+  49:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+  50:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  51:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //volatile uint8_t  heartSet = HEARTDONTSET;
+  52:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  53:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEARTPIN_HARDCODED) || !HEARTPIN_HARDCODED)
+  54:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#define LED_DIRECT_HIGH
+  55:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#define LED_INVERTED
+  56:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t ledConnection;
+  57:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  58:_commonCode_localized/heartbeat/1.50/heartbeat.c **** volatile uint8_t*	heartPIN;
+  59:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t heartBeatPin;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 4
+
+
+  60:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+  61:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  62:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //shift the update-period by heartRate to increase the rate
+  63:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // this is a right-shift for calculation efficiency
+  64:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // so rates are 0, 1, 2, 3 -> PERIOD, PERIOD/2, PERIOD/4, PERIOD/8...
+  65:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //uint8_t heartRate = 0;
+  66:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  67:_commonCode_localized/heartbeat/1.50/heartbeat.c **** hfm_t heartModulator;
+  68:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  69:_commonCode_localized/heartbeat/1.50/heartbeat.c **** /*
+  70:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void heartMode(uint8_t mode)
+  71:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+  72:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	switch(mode)
+  73:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+  74:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		case HEART_2X:
+  75:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			heartRate = 1;
+  76:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			break;
+  77:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		case HEART_4X:
+  78:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			heartRate 
+  79:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+  80:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+  81:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	heartSet = mode;
+  82:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+  83:_commonCode_localized/heartbeat/1.50/heartbeat.c **** */
+  84:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  85:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if((defined(_HEART_DMS_) && _HEART_DMS_))
+  86:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #warning "Relevant Everywhere: dms6sec_t used in heartbeat, yet a full cycle is 8 seconds, and neve
+  87:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+  88:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  89:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  90:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if((defined(_HEART_DMS_) && _HEART_DMS_) || \
+  91:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	 (defined(_HEART_TCNTER_) && _HEART_TCNTER_))
+  92:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	#define HEART_USES_TIMER	TRUE
+  93:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+  94:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	#define HEART_USES_TIMER	FALSE
+  95:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	#define HEARTSTEPTIME	(HEART_ITERATIONCOUNT)
+  96:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+  97:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  98:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+  99:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void setHeartRate(uint8_t rate)
+ 100:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 113               		.stabn	68,0,100,.LM0-.LFBB1
+ 114               	.LM0:
+ 115               	.LFBB1:
+ 116               	/* prologue: function */
+ 117               	/* frame size = 0 */
+ 118               	/* stack size = 0 */
+ 119               	.L__stack_usage = 0
+ 101:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	heartRate = rate;
+ 102:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 103:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(rate == 0)
+ 120               		.stabn	68,0,103,.LM1-.LFBB1
+ 121               	.LM1:
+ 122 0000 8111      		cpse r24,__zero_reg__
+ 123 0002 00C0      		rjmp .L2
+ 104:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		rate = 1;
+ 124               		.stabn	68,0,104,.LM2-.LFBB1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 5
+
+
+ 125               	.LM2:
+ 126 0004 81E0      		ldi r24,lo8(1)
+ 127               	.L2:
+ 105:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		
+ 106:_commonCode_localized/heartbeat/1.50/heartbeat.c ****     heartStepTime = (HEARTSTEPTIME/rate);
+ 128               		.stabn	68,0,106,.LM3-.LFBB1
+ 129               	.LM3:
+ 130 0006 282F      		mov r18,r24
+ 131 0008 30E0      		ldi r19,0
+ 132 000a 40E0      		ldi r20,0
+ 133 000c 50E0      		ldi r21,0
+ 134 000e 60EE      		ldi r22,lo8(-32)
+ 135 0010 79E7      		ldi r23,lo8(121)
+ 136 0012 80E0      		ldi r24,0
+ 137 0014 90E0      		ldi r25,0
+ 138 0016 00D0      		rcall __udivmodsi4
+ 139 0018 2093 0000 		sts heartStepTime,r18
+ 140 001c 3093 0000 		sts heartStepTime+1,r19
+ 141 0020 4093 0000 		sts heartStepTime+2,r20
+ 142 0024 5093 0000 		sts heartStepTime+3,r21
+ 143 0028 0895      		ret
+ 144               		.size	setHeartRate, .-setHeartRate
+ 145               	.Lscope1:
+ 146               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 147               		.stabd	78,0,0
+ 148               		.stabs	"getHeartRate:F(6,2)",36,0,111,getHeartRate
+ 149               	.global	getHeartRate
+ 150               		.type	getHeartRate, @function
+ 151               	getHeartRate:
+ 152               		.stabd	46,0,0
+ 107:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 108:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 109:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEART_GETRATE_UNUSED) || !HEART_GETRATE_UNUSED)
+ 110:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //This function takes about 20 bytes
+ 111:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t getHeartRate(void)
+ 112:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 153               		.stabn	68,0,112,.LM4-.LFBB2
+ 154               	.LM4:
+ 155               	.LFBB2:
+ 156               	/* prologue: function */
+ 157               	/* frame size = 0 */
+ 158               	/* stack size = 0 */
+ 159               	.L__stack_usage = 0
+ 113:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	 return (uint8_t)(HEARTSTEPTIME/heartStepTime);
+ 160               		.stabn	68,0,113,.LM5-.LFBB2
+ 161               	.LM5:
+ 162 002a 2091 0000 		lds r18,heartStepTime
+ 163 002e 3091 0000 		lds r19,heartStepTime+1
+ 164 0032 4091 0000 		lds r20,heartStepTime+2
+ 165 0036 5091 0000 		lds r21,heartStepTime+3
+ 166 003a 60EE      		ldi r22,lo8(-32)
+ 167 003c 79E7      		ldi r23,lo8(121)
+ 168 003e 80E0      		ldi r24,0
+ 169 0040 90E0      		ldi r25,0
+ 170 0042 00D0      		rcall __udivmodsi4
+ 171 0044 822F      		mov r24,r18
+ 114:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 6
+
+
+ 172               		.stabn	68,0,114,.LM6-.LFBB2
+ 173               	.LM6:
+ 174 0046 0895      		ret
+ 175               		.size	getHeartRate, .-getHeartRate
+ 176               	.Lscope2:
+ 177               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 178               		.stabd	78,0,0
+ 179               		.stabs	"heartClear:F(0,47)",36,0,127,heartClear
+ 180               	.global	heartClear
+ 181               		.type	heartClear, @function
+ 182               	heartClear:
+ 183               		.stabd	46,0,0
+ 115:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 116:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 117:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if(defined(_HEART_DMS_) && _HEART_DMS_)
+ 118:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (!defined(DMS_WAITFN_UNUSED) || !DMS_WAITFN_UNUSED)
+ 119:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This only saves 4 bytes...
+ 120:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void heartupdate(void)
+ 121:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 122:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	heartUpdate();
+ 123:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 124:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 125:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 126:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 127:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void heartClear(void)
+ 128:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 184               		.stabn	68,0,128,.LM7-.LFBB3
+ 185               	.LM7:
+ 186               	.LFBB3:
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189               	/* stack size = 0 */
+ 190               	.L__stack_usage = 0
+ 129:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	hfm_setPower(&heartModulator, 0);
+ 191               		.stabn	68,0,129,.LM8-.LFBB3
+ 192               	.LM8:
+ 193 0048 60E0      		ldi r22,0
+ 194 004a 80E0      		ldi r24,lo8(heartModulator)
+ 195 004c 90E0      		ldi r25,hi8(heartModulator)
+ 196 004e 00C0      		rjmp hfm_setPower
+ 197               		.size	heartClear, .-heartClear
+ 198               	.Lscope3:
+ 199               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 200               		.stabd	78,0,0
+ 201               		.stabs	"init_heartBeat:F(0,47)",36,0,153,init_heartBeat
+ 202               	.global	init_heartBeat
+ 203               		.type	init_heartBeat, @function
+ 204               	init_heartBeat:
+ 205               		.stabd	46,0,0
+ 130:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 131:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 132:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 133:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEARTPIN_HARDCODED) || !HEARTPIN_HARDCODED)
+ 134:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //THIS USES THE WDT NOW!
+ 135:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // AFTER init_heartBeat, the wdt must be reset often enough!!! this can be accomplished via heartUp
+ 136:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void init_heartBeat(volatile uint8_t* pin, uint8_t pinName, uint8_t ledConnectionType)
+ 137:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 7
+
+
+ 138:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	heartDDR = ddr;
+ 139:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	heartPIN = pin;
+ 140:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	heartBeatPin = pinName;
+ 141:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	ledConnection = ledConnectionType;
+ 142:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 143:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	setoutVar(heartBeatPin, heartPIN);
+ 144:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	setout(PD6, DDRD);
+ 145:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 146:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Set the port first, so there's not a short 
+ 147:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//(there may be an instant of floating on the input of an inverter)
+ 148:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//PORT = L
+ 149:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	clrpinVar(heartBeatPin, heartPIN);
+ 150:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//DDR = H,out
+ 151:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setoutVar(heartBeatPin, heartPIN);
+ 152:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 153:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void init_heartBeat(void)
+ 154:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 206               		.stabn	68,0,154,.LM9-.LFBB4
+ 207               	.LM9:
+ 208               	.LFBB4:
+ 209               	/* prologue: function */
+ 210               	/* frame size = 0 */
+ 211               	/* stack size = 0 */
+ 212               	.L__stack_usage = 0
+ 155:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	clrpinPORT(HEART_PINNUM, HEART_PINPORT);
+ 213               		.stabn	68,0,155,.LM10-.LFBB4
+ 214               	.LM10:
+ 215 0050 C198      		cbi 0x18,1
+ 156:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setoutPORT(HEART_PINNUM, HEART_PINPORT);
+ 216               		.stabn	68,0,156,.LM11-.LFBB4
+ 217               	.LM11:
+ 218 0052 B99A      		sbi 0x17,1
+ 157:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 158:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 159:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 160:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 161:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	hfm_setPower(&heartModulator, 0);
+ 162:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	hfm_setup(&heartModulator, 0, HEART_MAXBRIGHT);
+ 219               		.stabn	68,0,162,.LM12-.LFBB4
+ 220               	.LM12:
+ 221 0054 4FEF      		ldi r20,lo8(-1)
+ 222 0056 60E0      		ldi r22,0
+ 223 0058 80E0      		ldi r24,lo8(heartModulator)
+ 224 005a 90E0      		ldi r25,hi8(heartModulator)
+ 225 005c 00D0      		rcall hfm_setup
+ 226               	.LBB6:
+ 227               	.LBB7:
+ 106:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 228               		.stabn	68,0,106,.LM13-.LFBB4
+ 229               	.LM13:
+ 230 005e 80EE      		ldi r24,lo8(-32)
+ 231 0060 99E7      		ldi r25,lo8(121)
+ 232 0062 A0E0      		ldi r26,0
+ 233 0064 B0E0      		ldi r27,0
+ 234 0066 8093 0000 		sts heartStepTime,r24
+ 235 006a 9093 0000 		sts heartStepTime+1,r25
+ 236 006e A093 0000 		sts heartStepTime+2,r26
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 8
+
+
+ 237 0072 B093 0000 		sts heartStepTime+3,r27
+ 238               	.LBE7:
+ 239               	.LBE6:
+ 163:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 164:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setHeartRate(0);
+ 165:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 166:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (_HEART_DMS_)
+ 167:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (defined(_DMS_EXTERNALUPDATE_) && _DMS_EXTERNALUPDATE_)
+ 168:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//dmsTimer should be initialized elsewhere based on the rate of dmsUpdate calls...
+ 169:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else 
+ 170:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	init_dmsTimer();
+ 171:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 172:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 173:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #elif(defined(HEART_TCNTER_UPDATES_AND_INIT) && \
+ 174:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		HEART_TCNTER_UPDATES_AND_INIT)
+ 175:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	tcnter_init();
+ 240               		.stabn	68,0,175,.LM14-.LFBB4
+ 241               	.LM14:
+ 242 0076 00C0      		rjmp tcnter_init
+ 243               		.size	init_heartBeat, .-init_heartBeat
+ 244               	.Lscope4:
+ 245               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 246               		.stabd	78,0,0
+ 247               		.stabs	"set_heartBlink:F(0,47)",36,0,290,set_heartBlink
+ 248               		.stabs	"count:P(6,2)",64,0,290,24
+ 249               	.global	set_heartBlink
+ 250               		.type	set_heartBlink, @function
+ 251               	set_heartBlink:
+ 252               		.stabd	46,0,0
+ 176:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 177:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 178:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 179:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(_WDT_DISABLE_) || !_WDT_DISABLE_)
+ 180:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// IF the reset occurred, the WDTimer is reset to 16ms!
+ 181:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// IF wdt_reset() isn't called before then, it will get stuck resetting!
+ 182:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//!!!! This can happen even if the WDT is NEVER ENABLED
+ 183:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// esp. if the bit is set during a brown-out...
+ 184:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_reset();
+ 185:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// So also disable it (and reenable it if we want it)
+ 186:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_disable();
+ 187:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 188:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Check if there was a watchdog reset...
+ 189:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// IF the reset occurred, the WDTimer is reset to 16ms!
+ 190:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// IF wdt_reset() isn't called before then, it will get stuck resetting!
+ 191:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//!!!! This can happen even if the WDT is NEVER ENABLED
+ 192:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// esp. if the bit is set during a brown-out...
+ 193:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Could also check ! Power-On, and/or brownout... 
+ 194:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(getbit(WDRF, MCUStatReg))
+ 195:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 196:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setHeartRate(32);
+ 197:_commonCode_localized/heartbeat/1.50/heartbeat.c **** /*
+ 198:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		
+ 199:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//HALT HERE FOR DEBUGGING!!!
+ 200:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		// INDICATE it on the HeartBeat!
+ 201:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #warning "watchdog should NOT hang the system when distributed... this is DEBUGGING ONLY"
+ 202:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		while(1)
+ 203:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 9
+
+
+ 204:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			heartUpdate();
+ 205:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		}
+ 206:_commonCode_localized/heartbeat/1.50/heartbeat.c **** */
+ 207:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 208:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(!getbit(PORF, MCUStatReg))
+ 209:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 210:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//It seems unusual that a brown-out wouldn't occur on power-up... takes time to charge caps, etc.
+ 211:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//only check this if PowerOnReset was already cleared from a previous run
+ 212:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		if(getbit(BORF, MCUStatReg))
+ 213:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
+ 214:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			setHeartRate(16);
+ 215:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		}
+ 216:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 217:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Clear the reset flags so we can see next time...
+ 218:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	MCUSR = 0x0f;
+ 219:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	MCUStatReg = 0;
+ 220:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 221:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//It's kinda handy to have the WDT run for a while so we can tell it crashed...
+ 222:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if defined(_WDTO_USER_)
+ 223:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_enable(_WDTO_USER_);
+ 224:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else
+ 225:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #if defined(WDTO_4S)
+ 226:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_enable(WDTO_4S);
+ 227:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #else
+ 228:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_enable(WDTO_1S);
+ 229:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #endif
+ 230:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 231:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 232:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #warning "WDT DISABLED"
+ 233:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 234:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 235:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 236:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Increment or decrement the heart brightness as appropriate
+ 237:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // this is called periodically by heartUpdate...
+ 238:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This function takes about 32 bytes
+ 239:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // and inlining it saved 6, wee!
+ 240:_commonCode_localized/heartbeat/1.50/heartbeat.c **** static __inline__ uint8_t getNextDesired(void)
+ 241:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 242:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Don't set abs(direction) > 1 or we'll have wraparound errors!
+ 243:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static int8_t direction = +1;
+ 244:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	int16_t desired;
+ 245:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 246:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 247:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Somehow it seems the program gets stuck with the heartbeat at half-brightness...
+ 248:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //So main is still running, but the heart isn't incrementing!
+ 249:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // So do the watchdog reset here...
+ 250:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 251:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //!!! Check This with WDT...
+ 252:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#warning "at what heart_reset() rate will getNextDesired never be called?"
+ 253:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(_WDT_DISABLE_) || !_WDT_DISABLE_)
+ 254:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Woot! Saved two bytes!
+ 255:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	wdt_reset();
+ 256:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 257:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 258:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	desired = (uint8_t)(heartModulator.power);
+ 259:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 260:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	desired += direction;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 10
+
+
+ 261:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 262:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Slightly slower not to have these internal to above, but also safer...
+ 263:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 264:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(desired >= HEART_MAXBRIGHT)
+ 265:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 266:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		desired = HEART_MAXBRIGHT;
+ 267:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		direction = -1;
+ 268:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}	
+ 269:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 270:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(desired <= 0)
+ 271:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 272:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		desired = 0;
+ 273:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		direction = +1;
+ 274:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 275:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 276:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	return (uint8_t)desired;
+ 277:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 278:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 279:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEART_BLINK_UNUSED) || !HEART_BLINK_UNUSED)
+ 280:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Used for error-indication...
+ 281:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // when 0, the heart fades as usual
+ 282:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // when non-zero the heart blinks as follows:
+ 283:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //  say heartBlink is 0xXY, it will blink Y times first, then X times
+ 284:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //  then repeat...
+ 285:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // (actually, I think that's backwards, a remnant of times past... I think
+ 286:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // it's now X times first, then Y...)
+ 287:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t heartBlink = 0;
+ 288:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#define TOGGLETIME	(250*DMS_MS)
+ 289:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 290:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void set_heartBlink(uint8_t count)
+ 291:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 253               		.stabn	68,0,291,.LM15-.LFBB5
+ 254               	.LM15:
+ 255               	.LFBB5:
+ 256               	/* prologue: function */
+ 257               	/* frame size = 0 */
+ 258               	/* stack size = 0 */
+ 259               	.L__stack_usage = 0
+ 292:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	heartBlink = count;
+ 260               		.stabn	68,0,292,.LM16-.LFBB5
+ 261               	.LM16:
+ 262 0078 8093 0000 		sts heartBlink,r24
+ 263 007c 0895      		ret
+ 264               		.size	set_heartBlink, .-set_heartBlink
+ 265               	.Lscope5:
+ 266               		.stabs	"",36,0,0,.Lscope5-.LFBB5
+ 267               		.stabd	78,0,0
+ 268               		.stabs	"heartUpdate:F(6,2)",36,0,400,heartUpdate
+ 269               	.global	heartUpdate
+ 270               		.type	heartUpdate, @function
+ 271               	heartUpdate:
+ 272               		.stabd	46,0,0
+ 293:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 294:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 295:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Called by heartUpdate... used internally, only
+ 296:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (_HEART_DMS_)
+ 297:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define heart_isItTime(a,b,c)	dmsIsItTime6secV2((a),(b),(c))
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 11
+
+
+ 298:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define TOGGLETIME   (250*DMS_MS)
+ 299:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //This function takes about 288 bytes
+ 300:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #warning "This may get cut, if the blink-rate is longer than 6sec!"
+ 301:_commonCode_localized/heartbeat/1.50/heartbeat.c **** static __inline__
+ 302:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t blinkHeart(void)
+ 303:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		__attribute__((__always_inline__));
+ 304:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 305:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t blinkHeart(void) 
+ 306:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 307:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static dms6sec_t lastToggleTime = 0;
+ 308:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 309:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #elif (defined(_HEART_TCNTER_) && _HEART_TCNTER_)
+ 310:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define heart_isItTime(a,b,c)	tcnter_isItTimeV2((a),(b),(c))
+ 311:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define TOGGLETIME (250*TCNTER_MS)
+ 312:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 313:_commonCode_localized/heartbeat/1.50/heartbeat.c **** static __inline__
+ 314:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t blinkHeart(void)
+ 315:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		__attribute__((__always_inline__));
+ 316:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 317:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t blinkHeart(void)
+ 318:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 319:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static myTcnter_t lastToggleTime = 0;
+ 320:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 321:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define TOGGLETIME   (2500)
+ 322:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 323:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t blinkHeart(uint32_t currentTime)
+ 324:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 325:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint32_t lastToggleTime = 0;
+ 326:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 327:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 328:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint8_t toggleCount = 0;
+ 329:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 330:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//This is not THE high nibble
+ 331:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// This is True or False depending on 
+ 332:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//  whether thisNibble is the high nibble
+ 333:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint8_t highNibble = 0;
+ 334:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 335:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 336:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	uint8_t thisNibble = heartBlink;
+ 337:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 338:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//If both nibbles are filled, process them as specified
+ 339:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if((heartBlink & 0xf0) && (heartBlink & 0x0f))
+ 340:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{	//Fall through and toggle...
+ 341:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 342:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Otherwise just process the one that's filled
+ 343:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// to avoid long delays and hopefully make it easier to determine which
+ 344:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// nibble is filled...
+ 345:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else if(heartBlink & 0x0f)
+ 346:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = 0;
+ 347:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else if(heartBlink & 0xf0)
+ 348:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = 1;
+ 349:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 350:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Fill the appropriate nibble for blinking...
+ 351:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(highNibble)
+ 352:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		thisNibble = (thisNibble & 0xf0) >> 4;
+ 353:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else
+ 354:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		thisNibble = (thisNibble & 0x0f);
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 12
+
+
+ 355:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 356:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if(HEART_USES_TIMER)
+ 357:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Blink the proper number of times
+ 358:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if((toggleCount>>1) < thisNibble)
+ 359:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 360:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		if(heart_isItTime(&lastToggleTime, TOGGLETIME, HEART_PRECISE))
+ 361:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			toggleCount++;
+ 362:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 363:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else if(heart_isItTime(&lastToggleTime, 
+ 364:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 						((((uint32_t)TOGGLETIME) * 8)<<(highNibble)),
+ 365:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 						HEART_PRECISE))
+ 366:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 367:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		toggleCount = 0;
+ 368:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//Only valid if both nibbles are filled (see above)
+ 369:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = !highNibble;
+ 370:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 371:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 372:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Blink the proper number of times
+ 373:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if((toggleCount>>1) < thisNibble)
+ 374:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 375:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		if(currentTime - lastToggleTime > TOGGLETIME)
+ 376:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
+ 377:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			lastToggleTime = currentTime;
+ 378:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			toggleCount++;
+ 379:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		}
+ 380:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 381:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Wait for a while
+ 382:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Has been working for quite some time, so removing this warning...
+ 383:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#warning "There may be some integer promotion issues here..."
+ 384:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else if(currentTime - lastToggleTime > 
+ 385:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 						(((uint32_t)(TOGGLETIME * 8))<<(highNibble)))
+ 386:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 387:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		toggleCount = 0;
+ 388:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		lastToggleTime = currentTime;
+ 389:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//Only valid if both nibbles are filled (see above)
+ 390:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = !highNibble;
+ 391:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 392:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 393:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//(actually, the new value, at this point... but will be the last soon)
+ 394:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	return !getbit(0, toggleCount);
+ 395:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 396:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 397:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 398:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //This function takes about 186 bytes
+ 399:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // Really?! Or is hfm not compiled if it's not used?
+ 400:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t heartUpdate(void)
+ 401:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {	
+ 273               		.stabn	68,0,401,.LM17-.LFBB6
+ 274               	.LM17:
+ 275               	.LFBB6:
+ 276 007e 0F93      		push r16
+ 277 0080 1F93      		push r17
+ 278               	/* prologue: function */
+ 279               	/* frame size = 0 */
+ 280               	/* stack size = 2 */
+ 281               	.L__stack_usage = 2
+ 402:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	static uint32_t lastTime = 0;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 13
+
+
+ 403:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (	HEART_USES_TIMER )
+ 404:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (_HEART_DMS_)
+ 405:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static dms6sec_t lastTime = 0;
+ 406:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #elif ( _HEART_TCNTER_ )
+ 407:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static myTcnter_t lastTime = 0;
+ 408:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 409:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #if (HEART_TCNTER_UPDATES_AND_INIT)
+ 410:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	tcnter_update();
+ 282               		.stabn	68,0,410,.LM18-.LFBB6
+ 283               	.LM18:
+ 284 0082 00D0      		rcall tcnter_update
+ 285               	.LBB18:
+ 286               	.LBB19:
+ 287               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",132,0,0,.Ltext1
+ 288               	.Ltext1:
+   1:./_commonCode_localized/tcnter/0.30/tcnter.h **** /* mehPL:
+   2:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    I'm not too fond of long licenses at the top of the file.
+   4:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    Please see the bottom.
+   5:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    Enjoy!
+   6:./_commonCode_localized/tcnter/0.30/tcnter.h ****  */
+   7:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+   8:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+   9:./_commonCode_localized/tcnter/0.30/tcnter.h **** //tcnter 0.30-6
+  10:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Similar functionality to dmsTimer
+  11:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   Doesn't require interrupts
+  12:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   MUCH higher resolution-potential (e.g. for bit-rate generation)
+  13:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      limited only by the tcnter_update() call rate(?)
+  14:./_commonCode_localized/tcnter/0.30/tcnter.h **** // TODO: Make some, if not all, functions inline.
+  15:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       CONSIDER: if timing is highly critical, it may make sense
+  16:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 to call update() with every get()
+  17:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 THOUGH: this would add a lot of calculations...
+  18:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       CONSIDER2: could myTcnter_t be smaller, and use wraparound math?
+  19:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 e.g.  if(get() >= next) NOGO ? next=3, get=254
+  20:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 e.g.2 if(get() - next >= 0) ... same
+  21:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  wasn't there a way to do this?
+  22:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                       if(get() - last >= next - last) ?
+  23:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                             next=3, get=254, last=253
+  24:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                          get()-last = 254-253 = 1
+  25:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                          next-last = 3-253 = 6
+  26:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  Promotion issues may occur, watch casts.
+  27:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  See cTools/unsignedSubtraction.c
+  28:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                             next=5, get=7, last=6
+  29:./_commonCode_localized/tcnter/0.30/tcnter.h **** //					Create "wrappableTimeCompare()" macro?
+  30:./_commonCode_localized/tcnter/0.30/tcnter.h **** //             Also usable in dms, etc...
+  31:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-6 adding TCNT_UPDATE_ONCE_PER_OVERFLOW:
+  32:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			and tcnter_overflowUpdate()
+  33:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       ...
+  34:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       LCDdirectLVDS77 attempts to call tcnter_update() only once per
+  35:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			timer-overflow (in the interrupt)
+  36:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       So it's quite likely that each tcnter_update() occurs at or around
+  37:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       the same TCNT value. (which might explain why the heart isn't
+  38:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       fading).
+  39:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-5 Checking if TCNTER_MS is <= 0
+  40:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-4 TCNTER_INITS_TIMER is configured by default IF timerCommon is not
+  41:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			included in the makefile before tcnter is...
+  42:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       This is a bit hokey... (what if timerCommon is included *after*?)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 14
+
+
+  43:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       TODO: Figure this out.
+  44:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-3 PWM161 wasn't handled...
+  45:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-2 8V2, not V28
+  46:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Adding tcnter_wait(tcnts)
+  47:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-1 moving TCNTER_AVRTIMER_CLKDIV to tcnter.h so it can be used by
+  48:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			e.g. heartbeat to calculate timings...
+  49:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30  tcnter on an AVR will most-likely use a timer, e.g. timer0
+  50:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      so should set some defaults, not have to explicitly include
+  51:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      timerCommon in the project's makefile, etc.
+  52:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.21  per dmsTimer1.14, a/o heartbeat1.50...
+  53:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      isItTime functions have an option to NOT worry about
+  54:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      cumulative-error...
+  55:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      Also, they've been made inline, so now included in the header-file
+  56:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-10 Replacing tests' makefiles with those that refer to tcnter
+  57:./_commonCode_localized/tcnter/0.30/tcnter.h **** //        properly... a/o/ala anaButtons 0.50
+  58:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-9 adding this TODO: Apparently math doesn't work with
+  59:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			tcnter_source_t = uint16_t???
+  60:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       And looking into it...
+  61:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-8 a/o polled_uar/0.40/avrTest...
+  62:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       adding some Usage notes...
+  63:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-7 adding isItTime (non 8-bit)
+  64:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-6 adding to COM_HEADERS when INLINED
+  65:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-5 Renaming Globals to tcnter_*... nastiness
+  66:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       see puar notes...
+  67:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-4 tcnter8_t -> tcnter_isItTime8(startTime, delta)
+  68:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       HANDY: When inlined, if(tcnter_isItTime()) results in
+  69:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       an if statement from inside tcnter_isItTime, which is used
+  70:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       *in place of* the if surrounding tcnter_isItTime()
+  71:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Inlining optimization is great!
+  72:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-3 myTcnter_t is stupid -> tcnter_t
+  73:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-2 adding _SPECIALHEADER_FOR_TCNTER_
+  74:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       e.g. TCNTER OVERFLOW VAL = _DMS_OCR_VAL_ requires dmsTimer.h
+  75:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       so CFLAGS+=-D'_SPECIALHEADER_FOR_TCNTER_=_DMSTIMER_HEADER_'
+  76:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-1 inlining...
+  77:./_commonCode_localized/tcnter/0.30/tcnter.h **** //				SEE NOTES in .c before using inlining
+  78:./_commonCode_localized/tcnter/0.30/tcnter.h **** //          and experiment and stuff
+  79:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20 TCNTER_SOURCE_MAX renamed to TCNTER_SOURCE_OVERFLOW_VAL
+  80:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-3 fixing names in test (to match 0.10-1 changes)
+  81:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       experimenting with test
+  82:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-2 Need <avr/io.h> when TCNT, etc. is used...
+  83:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-1 (forgot to backup first version?)
+  84:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       renaming all tcnt and whatnot to tcnter
+  85:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10 First version, stolen and modified from polled_uar 0.10-6
+  86:./_commonCode_localized/tcnter/0.30/tcnter.h **** //
+  87:./_commonCode_localized/tcnter/0.30/tcnter.h **** //---------
+  88:./_commonCode_localized/tcnter/0.30/tcnter.h **** //polled_uar 0.10-6:
+  89:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   Doesn't use interrupts (no lag-times, etc.)
+  90:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-4 
+  91:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Looking into running-tcnt
+  92:./_commonCode_localized/tcnter/0.30/tcnter.h **** //				myTcnter and nextTcnter now implemented
+  93:./_commonCode_localized/tcnter/0.30/tcnter.h **** //          Fixes potential issues with multi-TCNTs per update
+  94:./_commonCode_localized/tcnter/0.30/tcnter.h **** //            Aiding cumulative-error fixing
+  95:./_commonCode_localized/tcnter/0.30/tcnter.h **** //            (Next time was dependent on the time of the current update)
+  96:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-3 test app using makefile...
+  97:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			cleanup
+  98:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-1 More mods, test app
+  99:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10 First Version stolen and modified heavily from usi_uart 0.22-3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 15
+
+
+ 100:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 101:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef __TCNTER_H__
+ 102:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define __TCNTER_H__
+ 103:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This shouldn't be necessary... (or its necessity removed soon)
+ 104:./_commonCode_localized/tcnter/0.30/tcnter.h **** //#include <avr/io.h>
+ 105:./_commonCode_localized/tcnter/0.30/tcnter.h **** #include <stdint.h>
+ 106:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 107:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifdef __AVR_ARCH__
+ 108:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //This is only necessary if TCNT0 (etc.) is used
+ 109:./_commonCode_localized/tcnter/0.30/tcnter.h ****  // according to the project makefile
+ 110:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include <avr/io.h>
+ 111:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 112:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 113:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This is for, e.g. where TCNTER_SOURCE_OVERFLOW_VAL = _DMS_OCR_VAL_
+ 114:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Then tcnter needs to be aware of the definition of _DMS_OCR_VAL_
+ 115:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifdef _SPECIALHEADER_FOR_TCNTER_
+ 116:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include _SPECIALHEADER_FOR_TCNTER_
+ 117:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 118:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 119:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 120:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if (defined(TCNTER_INITS_TIMER) && TCNTER_INITS_TIMER)
+ 121:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include _TIMERCOMMON_HEADER_
+ 122:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 123:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //Moved here so it can be referenced elsewhere for determining timings...
+ 124:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifndef TCNTER_AVRTIMER_CLKDIV
+ 125:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #ifdef __AVR_AT90PWM161__
+ 126:./_commonCode_localized/tcnter/0.30/tcnter.h **** 	// This is the only option on the PWM161
+ 127:./_commonCode_localized/tcnter/0.30/tcnter.h ****    #define TCNTER_AVRTIMER_CLKDIV CLKDIV1
+ 128:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #else
+ 129:./_commonCode_localized/tcnter/0.30/tcnter.h ****    //This choice is arbitrary...
+ 130:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // According to timerCommon, it exists in most typical systems
+ 131:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // The only exception I've run into so far is AT90PWM161, which ONLY has
+ 132:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // CLKDIV1, which wouldn't work too well since tcnter_update() would
+ 133:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // have to run every 255 clock cycles (or 65535?)
+ 134:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // LCDdirectLVDS69 uses the timer for dms... so it must work, ish.
+ 135:./_commonCode_localized/tcnter/0.30/tcnter.h ****    #define TCNTER_AVRTIMER_CLKDIV CLKDIV64
+ 136:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #endif
+ 137:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 138:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 139:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //These can be used by other code...
+ 140:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTS_PER_SECOND  (F_CPU/(1<<TCNTER_AVRTIMER_CLKDIV))
+ 141:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //At FCPU = 16MHz, TCNTER_MS is 250...
+ 142:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 143:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTER_INITS_TIMER is NOT TRUE. This can happen a number of ways, the weirdest being tha
+ 144:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "If you get weird errors, did you check that TCNTER_SEC, etc. have been set for your proj
+ 145:./_commonCode_localized/tcnter/0.30/tcnter.h **** #warning "Check: TCNTER_SOURCE_VAR, TCNTER_SOURCE_OVERFLOW_VAL, and TCNTS_PER_SECOND, also _SPECIAL
+ 146:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 147:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 148:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 149:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if((TCNTS_PER_SECOND/1000) > 0)
+ 150:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTS_PER_MS		(TCNTS_PER_SECOND/1000)
+ 151:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTER_MS			(TCNTS_PER_MS)
+ 152:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 153:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTS_PER_MS <= 0, so TCNTER_MS is disabled"
+ 154:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 155:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 156:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define TCNTER_SEC			(TCNTS_PER_SECOND)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 16
+
+
+ 157:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 158:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if((TCNTS_PER_SECOND/10000) > 0)
+ 159:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTER_DMS			(TCNTS_PER_SECOND/10000)
+ 160:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 161:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTER_DMS <= 0, so disabled"
+ 162:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 163:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 164:./_commonCode_localized/tcnter/0.30/tcnter.h **** /*
+ 165:./_commonCode_localized/tcnter/0.30/tcnter.h **** // This'd be nice to change...
+ 166:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if (!defined(PU_PC_DEBUG) || !PU_PC_DEBUG)
+ 167:./_commonCode_localized/tcnter/0.30/tcnter.h **** // #include "../../bithandling/0.94/bithandling.h"
+ 168:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 169:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include <stdio.h>
+ 170:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 171:./_commonCode_localized/tcnter/0.30/tcnter.h **** */
+ 172:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 173:./_commonCode_localized/tcnter/0.30/tcnter.h **** //DON'T CHANGE THIS WITHOUT CHANGING both!
+ 174:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if ( (!defined(tcnter_source_t) && defined(tcnter_compare_t)) \
+ 175:./_commonCode_localized/tcnter/0.30/tcnter.h ****     ||(!defined(tcnter_compare_t) && defined(tcnter_source_t)) )
+ 176:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #error "tcnter_source_t and tcnter_compare_t must *both* be overridden"
+ 177:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 178:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 179:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef tcnter_source_t
+ 180:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifdef __AVR_AT90PWM161__
+ 181:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_source_t	uint16_t
+ 182:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #else
+ 183:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_source_t   uint8_t
+ 184:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 185:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 186:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 187:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef tcnter_compare_t
+ 188:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifdef __AVR_AT90PWM161__
+ 189:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_compare_t  int32_t
+ 190:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #else
+ 191:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_compare_t  int16_t
+ 192:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 193:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 194:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 195:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This is a stupid name...
+ 196:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define myTcnter_t  uint32_t
+ 197:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This makes more sense...
+ 198:./_commonCode_localized/tcnter/0.30/tcnter.h **** // But I think I did it that way because I might later want to make this
+ 199:./_commonCode_localized/tcnter/0.30/tcnter.h **** // an internal structure, in case I want multiple tcnters...
+ 200:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (e.g. like xyt, or hfm, etc...)
+ 201:./_commonCode_localized/tcnter/0.30/tcnter.h **** // seems less likely in this case...
+ 202:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define tcnter_t uint32_t
+ 203:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define tcnter8_t uint8_t
+ 204:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 205:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 206:./_commonCode_localized/tcnter/0.30/tcnter.h **** //********** TCNTER Prototypes **********//
+ 207:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 208:./_commonCode_localized/tcnter/0.30/tcnter.h **** //These are the functions that are used in main code...
+ 209:./_commonCode_localized/tcnter/0.30/tcnter.h **** // General initialization...
+ 210:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_init(void);
+ 211:./_commonCode_localized/tcnter/0.30/tcnter.h **** // To be called in the main loop...
+ 212:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (Handles reading the TCNT deltas and adding to myTcnter, etc)
+ 213:./_commonCode_localized/tcnter/0.30/tcnter.h **** // this should be called MORE OFTEN than overflows
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 17
+
+
+ 214:./_commonCode_localized/tcnter/0.30/tcnter.h **** // If using an overflow-interrupt as the only reliable source of updates
+ 215:./_commonCode_localized/tcnter/0.30/tcnter.h **** // then use tcnter_overflowUpdate() (other tcnter_updates can also be
+ 216:./_commonCode_localized/tcnter/0.30/tcnter.h **** // called)
+ 217:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_update(void);
+ 218:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 219:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if(defined(TCNT_UPDATE_ONCE_PER_OVERFLOW) && \
+ 220:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		      TCNT_UPDATE_ONCE_PER_OVERFLOW)
+ 221:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_overflowUpdate(void);
+ 222:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 223:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 224:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Get the current value of myTcnter
+ 225:./_commonCode_localized/tcnter/0.30/tcnter.h **** tcnter_t tcnter_get(void);
+ 226:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 227:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_wait(myTcnter_t tcnts);
+ 228:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 229:./_commonCode_localized/tcnter/0.30/tcnter.h **** //Of course, this is only safe if it's called often enough...
+ 230:./_commonCode_localized/tcnter/0.30/tcnter.h **** // and deltaTime is small enough...
+ 231:./_commonCode_localized/tcnter/0.30/tcnter.h **** // and tcnterUpdate is called often enough, as well (?)
+ 232:./_commonCode_localized/tcnter/0.30/tcnter.h **** //uint8_t tcnter_isItTime8(tcnter8_t *startTime, tcnter8_t deltaTime);
+ 233:./_commonCode_localized/tcnter/0.30/tcnter.h **** //uint8_t tcnter_isItTime(tcnter_t *startTime, tcnter_t deltaTime);
+ 234:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 235:./_commonCode_localized/tcnter/0.30/tcnter.h **** // dmsTimer has these inlined, and lists them in the header file
+ 236:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (I guess it makes sense, they're small enough to always inline, and that
+ 237:./_commonCode_localized/tcnter/0.30/tcnter.h **** // won't happen if they're in the C file...)
+ 238:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 239:./_commonCode_localized/tcnter/0.30/tcnter.h **** // For now, the notes are still in the C file.
+ 240:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 241:./_commonCode_localized/tcnter/0.30/tcnter.h **** // a/o V2: dontAllowCumulation should optimize-out into a smaller function
+ 242:./_commonCode_localized/tcnter/0.30/tcnter.h **** //         (if FALSE)
+ 243:./_commonCode_localized/tcnter/0.30/tcnter.h **** extern volatile tcnter_t tcnter_myTcnter;
+ 244:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 245:./_commonCode_localized/tcnter/0.30/tcnter.h **** static __inline__
+ 246:./_commonCode_localized/tcnter/0.30/tcnter.h **** uint8_t tcnter_isItTime8V2(tcnter8_t *startTime, tcnter8_t deltaTime,
+ 247:./_commonCode_localized/tcnter/0.30/tcnter.h **** 										uint8_t dontAllowCumulation)
+ 248:./_commonCode_localized/tcnter/0.30/tcnter.h **** {
+ 249:./_commonCode_localized/tcnter/0.30/tcnter.h ****    tcnter8_t thisDelta = (uint8_t)tcnter_myTcnter - (uint8_t)(*startTime);
+ 250:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 251:./_commonCode_localized/tcnter/0.30/tcnter.h ****    if(thisDelta >= deltaTime)
+ 252:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 253:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		if(dontAllowCumulation)
+ 254:./_commonCode_localized/tcnter/0.30/tcnter.h ****       	*startTime = (uint8_t)tcnter_myTcnter - (thisDelta - deltaTime);
+ 255:./_commonCode_localized/tcnter/0.30/tcnter.h ****       else
+ 256:./_commonCode_localized/tcnter/0.30/tcnter.h **** 			*startTime = (uint8_t)tcnter_myTcnter;
+ 257:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		return TRUE;
+ 258:./_commonCode_localized/tcnter/0.30/tcnter.h ****    }
+ 259:./_commonCode_localized/tcnter/0.30/tcnter.h ****    else
+ 260:./_commonCode_localized/tcnter/0.30/tcnter.h ****       return FALSE;
+ 261:./_commonCode_localized/tcnter/0.30/tcnter.h **** }
+ 262:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 263:./_commonCode_localized/tcnter/0.30/tcnter.h **** static __inline__
+ 264:./_commonCode_localized/tcnter/0.30/tcnter.h **** uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+ 265:./_commonCode_localized/tcnter/0.30/tcnter.h **** 										uint8_t dontAllowCumulation)
+ 266:./_commonCode_localized/tcnter/0.30/tcnter.h **** {
+ 267:./_commonCode_localized/tcnter/0.30/tcnter.h ****    tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+ 289               		.stabn	68,0,267,.LM19-.LFBB6
+ 290               	.LM19:
+ 291 0084 8091 0000 		lds r24,tcnter_myTcnter
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 18
+
+
+ 292 0088 9091 0000 		lds r25,tcnter_myTcnter+1
+ 293 008c A091 0000 		lds r26,tcnter_myTcnter+2
+ 294 0090 B091 0000 		lds r27,tcnter_myTcnter+3
+ 295 0094 4091 0000 		lds r20,lastTime.1603
+ 296 0098 5091 0000 		lds r21,lastTime.1603+1
+ 297 009c 6091 0000 		lds r22,lastTime.1603+2
+ 298 00a0 7091 0000 		lds r23,lastTime.1603+3
+ 299 00a4 841B      		sub r24,r20
+ 300 00a6 950B      		sbc r25,r21
+ 301 00a8 A60B      		sbc r26,r22
+ 302 00aa B70B      		sbc r27,r23
+ 268:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 269:./_commonCode_localized/tcnter/0.30/tcnter.h ****    if(thisDelta >= deltaTime)
+ 303               		.stabn	68,0,269,.LM20-.LFBB6
+ 304               	.LM20:
+ 305 00ac 4091 0000 		lds r20,heartStepTime
+ 306 00b0 5091 0000 		lds r21,heartStepTime+1
+ 307 00b4 6091 0000 		lds r22,heartStepTime+2
+ 308 00b8 7091 0000 		lds r23,heartStepTime+3
+ 309 00bc 8417      		cp r24,r20
+ 310 00be 9507      		cpc r25,r21
+ 311 00c0 A607      		cpc r26,r22
+ 312 00c2 B707      		cpc r27,r23
+ 313 00c4 00F0      		brlo .L10
+ 270:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 271:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		if(dontAllowCumulation)
+ 272:./_commonCode_localized/tcnter/0.30/tcnter.h ****       	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+ 273:./_commonCode_localized/tcnter/0.30/tcnter.h ****       else
+ 274:./_commonCode_localized/tcnter/0.30/tcnter.h **** 			*startTime = tcnter_myTcnter;
+ 314               		.stabn	68,0,274,.LM21-.LFBB6
+ 315               	.LM21:
+ 316 00c6 8091 0000 		lds r24,tcnter_myTcnter
+ 317 00ca 9091 0000 		lds r25,tcnter_myTcnter+1
+ 318 00ce A091 0000 		lds r26,tcnter_myTcnter+2
+ 319 00d2 B091 0000 		lds r27,tcnter_myTcnter+3
+ 320 00d6 8093 0000 		sts lastTime.1603,r24
+ 321 00da 9093 0000 		sts lastTime.1603+1,r25
+ 322 00de A093 0000 		sts lastTime.1603+2,r26
+ 323 00e2 B093 0000 		sts lastTime.1603+3,r27
+ 324               	.LBE19:
+ 325               	.LBE18:
+ 326               	.LBB20:
+ 327               	.LBB21:
+ 328               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.c",132,0,0,.Ltext2
+ 329               	.Ltext2:
+ 258:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 330               		.stabn	68,0,258,.LM22-.LFBB6
+ 331               	.LM22:
+ 332 00e6 8091 0000 		lds r24,heartModulator+3
+ 260:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 333               		.stabn	68,0,260,.LM23-.LFBB6
+ 334               	.LM23:
+ 335 00ea 6091 0000 		lds r22,direction.1585
+ 336 00ee 7727      		clr r23
+ 337 00f0 67FD      		sbrc r22,7
+ 338 00f2 7095      		com r23
+ 339 00f4 680F      		add r22,r24
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 19
+
+
+ 340 00f6 711D      		adc r23,__zero_reg__
+ 264:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 341               		.stabn	68,0,264,.LM24-.LFBB6
+ 342               	.LM24:
+ 343 00f8 6F3F      		cpi r22,-1
+ 344 00fa 7105      		cpc r23,__zero_reg__
+ 345 00fc 04F0      		brlt .L11
+ 267:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}	
+ 346               		.stabn	68,0,267,.LM25-.LFBB6
+ 347               	.LM25:
+ 348 00fe 8FEF      		ldi r24,lo8(-1)
+ 349 0100 8093 0000 		sts direction.1585,r24
+ 266:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		direction = -1;
+ 350               		.stabn	68,0,266,.LM26-.LFBB6
+ 351               	.LM26:
+ 352 0104 6FEF      		ldi r22,lo8(-1)
+ 353 0106 70E0      		ldi r23,0
+ 354 0108 00C0      		rjmp .L12
+ 355               	.L11:
+ 270:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 356               		.stabn	68,0,270,.LM27-.LFBB6
+ 357               	.LM27:
+ 358 010a 1616      		cp __zero_reg__,r22
+ 359 010c 1706      		cpc __zero_reg__,r23
+ 360 010e 04F0      		brlt .L12
+ 273:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 361               		.stabn	68,0,273,.LM28-.LFBB6
+ 362               	.LM28:
+ 363 0110 81E0      		ldi r24,lo8(1)
+ 364 0112 8093 0000 		sts direction.1585,r24
+ 272:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		direction = +1;
+ 365               		.stabn	68,0,272,.LM29-.LFBB6
+ 366               	.LM29:
+ 367 0116 60E0      		ldi r22,0
+ 368 0118 70E0      		ldi r23,0
+ 369               	.L12:
+ 370               	.LBE21:
+ 371               	.LBE20:
+ 411:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #endif
+ 412:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else
+ 413:_commonCode_localized/heartbeat/1.50/heartbeat.c ****   #error "NYI"
+ 414:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 415:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	dms6sec_t currentTime;
+ 416:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 417:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	currentTime = dmsGetTime();
+ 418:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 419:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(heart_isItTime(&lastTime, heartStepTime, HEART_PRECISE))
+ 420:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		hfm_setPower(&heartModulator, getNextDesired());
+ 372               		.stabn	68,0,420,.LM30-.LFBB6
+ 373               	.LM30:
+ 374 011a 80E0      		ldi r24,lo8(heartModulator)
+ 375 011c 90E0      		ldi r25,hi8(heartModulator)
+ 376 011e 00D0      		rcall hfm_setPower
+ 377               	.L10:
+ 421:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 422:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//HEARTSTEPTIME isn't 100% accurate, especially if this isn't accessed often enough...
+ 423:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 20
+
+
+ 424:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint32_t lastTime = 0;
+ 425:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 426:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint32_t currentTime = 0;
+ 427:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	currentTime++;
+ 428:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 429:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	if(currentTime - lastTime > (HEART_ITERATIONCOUNT>>heartRate))
+ 430:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//heartStepTime is number of updates, no corelation with actual seconds..
+ 431:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //#warning "heartStepTime without dms is untested"
+ 432:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 433:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if((currentTime - lastTime) > heartStepTime)
+ 434:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 435:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		lastTime = currentTime;
+ 436:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 437:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		hfm_setPower(&heartModulator, getNextDesired());
+ 438:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 439:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 440:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 441:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //		Without inverter, LED tied high:
+ 442:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //			LED-ON		(DDR = H-out,	PORT = L)
+ 443:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //			LED-OFF/IN	(DDR = L-in,	PORT = H-pull-up)
+ 444:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //				(If IN is tied LOW, the LED will be ON)
+ 445:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //		With inverter, LED tied high, no resistors:
+ 446:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //			LED-OFF		(DDR = H-out,	PORT = L)
+ 447:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //			LED-ON/IN	(DDR = L-in,	PORT = H-pull-up)
+ 448:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //				(If IN is tied LOW, the LED will be OFF)
+ 449:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//determine whether the LED should be on or off based on the HFM
+ 450:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// return TRUE if the pin is available as an input
+ 451:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	uint8_t ledVal;
+ 452:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 453:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEART_BLINK_UNUSED) || !HEART_BLINK_UNUSED)
+ 454:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(heartBlink)
+ 378               		.stabn	68,0,454,.LM31-.LFBB6
+ 379               	.LM31:
+ 380 0120 8091 0000 		lds r24,heartBlink
+ 381 0124 8823      		tst r24
+ 382 0126 01F4      		brne .+2
+ 383 0128 00C0      		rjmp .L13
+ 384 012a 982F      		mov r25,r24
+ 385 012c 9F70      		andi r25,lo8(15)
+ 386               	.LBB22:
+ 387               	.LBB23:
+ 339:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{	//Fall through and toggle...
+ 388               		.stabn	68,0,339,.LM32-.LFBB6
+ 389               	.LM32:
+ 390 012e 282F      		mov r18,r24
+ 391 0130 207F      		andi r18,lo8(-16)
+ 392 0132 01F0      		breq .L14
+ 393 0134 9111      		cpse r25,__zero_reg__
+ 394 0136 00C0      		rjmp .L15
+ 348:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 395               		.stabn	68,0,348,.LM33-.LFBB6
+ 396               	.LM33:
+ 397 0138 21E0      		ldi r18,lo8(1)
+ 398 013a 2093 0000 		sts highNibble.1598,r18
+ 399 013e 00C0      		rjmp .L15
+ 400               	.L14:
+ 345:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = 0;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 21
+
+
+ 401               		.stabn	68,0,345,.LM34-.LFBB6
+ 402               	.LM34:
+ 403 0140 9111      		cpse r25,__zero_reg__
+ 346:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else if(heartBlink & 0xf0)
+ 404               		.stabn	68,0,346,.LM35-.LFBB6
+ 405               	.LM35:
+ 406 0142 1092 0000 		sts highNibble.1598,__zero_reg__
+ 407               	.L15:
+ 351:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		thisNibble = (thisNibble & 0xf0) >> 4;
+ 408               		.stabn	68,0,351,.LM36-.LFBB6
+ 409               	.LM36:
+ 410 0146 E091 0000 		lds r30,highNibble.1598
+ 411 014a EE23      		tst r30
+ 412 014c 01F0      		breq .L17
+ 352:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else
+ 413               		.stabn	68,0,352,.LM37-.LFBB6
+ 414               	.LM37:
+ 415 014e 8295      		swap r24
+ 416 0150 8F70      		andi r24,lo8(15)
+ 417 0152 00C0      		rjmp .L18
+ 418               	.L17:
+ 354:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 419               		.stabn	68,0,354,.LM38-.LFBB6
+ 420               	.LM38:
+ 421 0154 892F      		mov r24,r25
+ 422               	.L18:
+ 358:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 423               		.stabn	68,0,358,.LM39-.LFBB6
+ 424               	.LM39:
+ 425 0156 4091 0000 		lds r20,toggleCount.1597
+ 426 015a 942F      		mov r25,r20
+ 427 015c 9695      		lsr r25
+ 428 015e 0091 0000 		lds r16,lastToggleTime.1596
+ 429 0162 1091 0000 		lds r17,lastToggleTime.1596+1
+ 430 0166 2091 0000 		lds r18,lastToggleTime.1596+2
+ 431 016a 3091 0000 		lds r19,lastToggleTime.1596+3
+ 432 016e 9817      		cp r25,r24
+ 433 0170 00F4      		brsh .L19
+ 434               	.LBB24:
+ 435               	.LBB25:
+ 436               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",132,0,0,.Ltext3
+ 437               	.Ltext3:
+ 267:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 438               		.stabn	68,0,267,.LM40-.LFBB6
+ 439               	.LM40:
+ 440 0172 8091 0000 		lds r24,tcnter_myTcnter
+ 441 0176 9091 0000 		lds r25,tcnter_myTcnter+1
+ 442 017a A091 0000 		lds r26,tcnter_myTcnter+2
+ 443 017e B091 0000 		lds r27,tcnter_myTcnter+3
+ 444 0182 801B      		sub r24,r16
+ 445 0184 910B      		sbc r25,r17
+ 446 0186 A20B      		sbc r26,r18
+ 447 0188 B30B      		sbc r27,r19
+ 269:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 448               		.stabn	68,0,269,.LM41-.LFBB6
+ 449               	.LM41:
+ 450 018a 8032      		cpi r24,32
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 22
+
+
+ 451 018c 914A      		sbci r25,-95
+ 452 018e A740      		sbci r26,7
+ 453 0190 B105      		cpc r27,__zero_reg__
+ 454 0192 00F4      		brsh .+2
+ 455 0194 00C0      		rjmp .L20
+ 456               		.stabn	68,0,274,.LM42-.LFBB6
+ 457               	.LM42:
+ 458 0196 8091 0000 		lds r24,tcnter_myTcnter
+ 459 019a 9091 0000 		lds r25,tcnter_myTcnter+1
+ 460 019e A091 0000 		lds r26,tcnter_myTcnter+2
+ 461 01a2 B091 0000 		lds r27,tcnter_myTcnter+3
+ 462 01a6 8093 0000 		sts lastToggleTime.1596,r24
+ 463 01aa 9093 0000 		sts lastToggleTime.1596+1,r25
+ 464 01ae A093 0000 		sts lastToggleTime.1596+2,r26
+ 465 01b2 B093 0000 		sts lastToggleTime.1596+3,r27
+ 466               	.LBE25:
+ 467               	.LBE24:
+ 468               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.c",132,0,0,.Ltext4
+ 469               	.Ltext4:
+ 361:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 470               		.stabn	68,0,361,.LM43-.LFBB6
+ 471               	.LM43:
+ 472 01b6 4F5F      		subi r20,lo8(-(1))
+ 473 01b8 4093 0000 		sts toggleCount.1597,r20
+ 474 01bc 00C0      		rjmp .L20
+ 475               	.L19:
+ 476               	.LBB26:
+ 477               	.LBB27:
+ 478               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",132,0,0,.Ltext5
+ 479               	.Ltext5:
+ 267:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 480               		.stabn	68,0,267,.LM44-.LFBB6
+ 481               	.LM44:
+ 482 01be 4091 0000 		lds r20,tcnter_myTcnter
+ 483 01c2 5091 0000 		lds r21,tcnter_myTcnter+1
+ 484 01c6 6091 0000 		lds r22,tcnter_myTcnter+2
+ 485 01ca 7091 0000 		lds r23,tcnter_myTcnter+3
+ 486 01ce 401B      		sub r20,r16
+ 487 01d0 510B      		sbc r21,r17
+ 488 01d2 620B      		sbc r22,r18
+ 489 01d4 730B      		sbc r23,r19
+ 490               	.LBE27:
+ 491               	.LBE26:
+ 492               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.c",132,0,0,.Ltext6
+ 493               	.Ltext6:
+ 363:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 						((((uint32_t)TOGGLETIME) * 8)<<(highNibble)),
+ 494               		.stabn	68,0,363,.LM45-.LFBB6
+ 495               	.LM45:
+ 496 01d6 80E0      		ldi r24,0
+ 497 01d8 99E0      		ldi r25,lo8(9)
+ 498 01da ADE3      		ldi r26,lo8(61)
+ 499 01dc B0E0      		ldi r27,0
+ 500 01de 0E2E      		mov r0,r30
+ 501 01e0 00C0      		rjmp 2f
+ 502               		1:
+ 503 01e2 880F      		lsl r24
+ 504 01e4 991F      		rol r25
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 23
+
+
+ 505 01e6 AA1F      		rol r26
+ 506 01e8 BB1F      		rol r27
+ 507               		2:
+ 508 01ea 0A94      		dec r0
+ 509 01ec 02F4      		brpl 1b
+ 510               	.LBB29:
+ 511               	.LBB28:
+ 512               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",132,0,0,.Ltext7
+ 513               	.Ltext7:
+ 269:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 514               		.stabn	68,0,269,.LM46-.LFBB6
+ 515               	.LM46:
+ 516 01ee 4817      		cp r20,r24
+ 517 01f0 5907      		cpc r21,r25
+ 518 01f2 6A07      		cpc r22,r26
+ 519 01f4 7B07      		cpc r23,r27
+ 520 01f6 00F0      		brlo .L20
+ 521               		.stabn	68,0,274,.LM47-.LFBB6
+ 522               	.LM47:
+ 523 01f8 8091 0000 		lds r24,tcnter_myTcnter
+ 524 01fc 9091 0000 		lds r25,tcnter_myTcnter+1
+ 525 0200 A091 0000 		lds r26,tcnter_myTcnter+2
+ 526 0204 B091 0000 		lds r27,tcnter_myTcnter+3
+ 527 0208 8093 0000 		sts lastToggleTime.1596,r24
+ 528 020c 9093 0000 		sts lastToggleTime.1596+1,r25
+ 529 0210 A093 0000 		sts lastToggleTime.1596+2,r26
+ 530 0214 B093 0000 		sts lastToggleTime.1596+3,r27
+ 531               	.LBE28:
+ 532               	.LBE29:
+ 533               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.c",132,0,0,.Ltext8
+ 534               	.Ltext8:
+ 367:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//Only valid if both nibbles are filled (see above)
+ 535               		.stabn	68,0,367,.LM48-.LFBB6
+ 536               	.LM48:
+ 537 0218 1092 0000 		sts toggleCount.1597,__zero_reg__
+ 369:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 538               		.stabn	68,0,369,.LM49-.LFBB6
+ 539               	.LM49:
+ 540 021c 81E0      		ldi r24,lo8(1)
+ 541 021e E111      		cpse r30,__zero_reg__
+ 542 0220 80E0      		ldi r24,0
+ 543               	.L21:
+ 544 0222 8093 0000 		sts highNibble.1598,r24
+ 545               	.L20:
+ 394:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 546               		.stabn	68,0,394,.LM50-.LFBB6
+ 547               	.LM50:
+ 548 0226 8091 0000 		lds r24,toggleCount.1597
+ 549 022a 8095      		com r24
+ 550 022c 8170      		andi r24,lo8(1)
+ 551               	.LBE23:
+ 552               	.LBE22:
+ 553 022e 00C0      		rjmp .L22
+ 554               	.L13:
+ 455:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 456:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (HEART_USES_TIMER)
+ 457:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		ledVal = blinkHeart();
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 24
+
+
+ 458:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else
+ 459:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		ledVal = blinkHeart(currentTime);
+ 460:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 461:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//ledVal = blinkHeart((dms6sec_t)currentTime);
+ 462:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 463:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else
+ 464:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 465:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		ledVal = hfm_nextOutput(&heartModulator);
+ 555               		.stabn	68,0,465,.LM51-.LFBB6
+ 556               	.LM51:
+ 557 0230 80E0      		ldi r24,lo8(heartModulator)
+ 558 0232 90E0      		ldi r25,hi8(heartModulator)
+ 559 0234 00D0      		rcall hfm_nextOutput
+ 560               	.L22:
+ 466:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 467:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	if(ledVal)
+ 561               		.stabn	68,0,467,.LM52-.LFBB6
+ 562               	.LM52:
+ 563 0236 8823      		tst r24
+ 564 0238 01F0      		breq .L23
+ 468:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 469:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEARTPIN_HARDCODED) || !HEARTPIN_HARDCODED)
+ 470:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		if(ledConnection == LED_DIRECT_HIGH)
+ 471:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
+ 472:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			//Set the direction first, so there's not a short short with the input switch
+ 473:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			//DDR = L,in
+ 474:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			setinVar(heartBeatPin, heartPIN);
+ 475:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			//PORT = H,pull-up
+ 476:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			setpuVar(heartBeatPin, heartPIN);
+ 477:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		}
+ 478:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		else if(ledConnection == LED_INVERTED)
+ 479:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
+ 480:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			//Shouldn't be necessary, but might as well...
+ 481:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			setoutVar(heartBeatPin, heartPIN);
+ 482:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			setpinVar(heartBeatPin, heartPIN);
+ 483:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		}
+ 484:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 485:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (HEART_LEDCONNECTION == LED_DIRECT_HIGH)
+ 486:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setinPORT(HEART_PINNUM, HEART_PINPORT);
+ 565               		.stabn	68,0,486,.LM53-.LFBB6
+ 566               	.LM53:
+ 567 023a B998      		cbi 0x17,1
+ 487:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setpuPORT(HEART_PINNUM, HEART_PINPORT);
+ 568               		.stabn	68,0,487,.LM54-.LFBB6
+ 569               	.LM54:
+ 570 023c C19A      		sbi 0x18,1
+ 488:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #elif (HEART_LEDCONNECTION == LED_INVERTED)
+ 489:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setoutPORT(HEART_PINNUM, HEART_PINPORT);
+ 490:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setpinPORT(HEART_PINNUM, HEART_PINPORT);
+ 491:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else
+ 492:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	#error "Not Handled..."
+ 493:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #endif
+ 494:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 495:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		return TRUE;
+ 571               		.stabn	68,0,495,.LM55-.LFBB6
+ 572               	.LM55:
+ 573 023e 81E0      		ldi r24,lo8(1)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 25
+
+
+ 574 0240 00C0      		rjmp .L24
+ 575               	.L23:
+ 496:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 497:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else
+ 498:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 499:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEARTPIN_HARDCODED) || !HEARTPIN_HARDCODED)
+ 500:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//This should be the same for either case...
+ 501:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		
+ 502:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//Set the port first, so there's not a short 
+ 503:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//(there may be an instant of floating on the input of an inverter)
+ 504:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//PORT = L
+ 505:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		clrpinVar(heartBeatPin, heartPIN);
+ 506:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//DDR = H,out
+ 507:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setoutVar(heartBeatPin, heartPIN);
+ 508:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 509:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		clrpinPORT(HEART_PINNUM, HEART_PINPORT);
+ 576               		.stabn	68,0,509,.LM56-.LFBB6
+ 577               	.LM56:
+ 578 0242 C198      		cbi 0x18,1
+ 510:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		setoutPORT(HEART_PINNUM, HEART_PINPORT);
+ 579               		.stabn	68,0,510,.LM57-.LFBB6
+ 580               	.LM57:
+ 581 0244 B99A      		sbi 0x17,1
+ 511:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 512:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		return FALSE;
+ 582               		.stabn	68,0,512,.LM58-.LFBB6
+ 583               	.LM58:
+ 584 0246 80E0      		ldi r24,0
+ 585               	.L24:
+ 586               	/* epilogue start */
+ 513:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 514:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 587               		.stabn	68,0,514,.LM59-.LFBB6
+ 588               	.LM59:
+ 589 0248 1F91      		pop r17
+ 590 024a 0F91      		pop r16
+ 591 024c 0895      		ret
+ 592               		.size	heartUpdate, .-heartUpdate
+ 593               		.stabs	"lastTime:V(6,6)",38,0,407,lastTime.1603
+ 594               		.stabs	"ledVal:r(6,2)",64,0,451,24
+ 595               		.stabn	192,0,0,.LFBB6-.LFBB6
+ 596               		.stabs	"thisNibble:r(6,2)",64,0,336,24
+ 597               		.stabn	192,0,0,.LBB23-.LFBB6
+ 598               		.stabn	224,0,0,.LBE23-.LFBB6
+ 599               		.stabn	224,0,0,.Lscope6-.LFBB6
+ 600               	.Lscope6:
+ 601               		.stabs	"",36,0,0,.Lscope6-.LFBB6
+ 602               		.stabd	78,0,0
+ 603               		.stabs	"heartPinInputPoll:F(6,2)",36,0,527,heartPinInputPoll
+ 604               	.global	heartPinInputPoll
+ 605               		.type	heartPinInputPoll, @function
+ 606               	heartPinInputPoll:
+ 607               		.stabd	46,0,0
+ 515:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 516:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEART_INPUTPOLLING_UNUSED) || !HEART_INPUTPOLLING_UNUSED)
+ 517:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This value's arbitrary... works with tabletBluetoother 3...
+ 518:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This function takes about 20 bytes
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 26
+
+
+ 519:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // HEART_PULLUP_DELAY was originally 3, but doesn't seem to be enough for
+ 520:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // the pwm161 running with CLKDIV8 disabled.
+ 521:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #ifndef HEART_PULLUP_DELAY
+ 522:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #define HEART_PULLUP_DELAY 255
+ 523:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #warning "HEART_PULLUP_DELAY is unset, defaulting to a large value"
+ 524:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #warning " You can add CFLAGS += -D'HEART_PULLUP_DELAY=<value>' to your makefile"
+ 525:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 526:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 527:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t heartPinInputPoll(void)
+ 528:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
+ 608               		.stabn	68,0,528,.LM60-.LFBB7
+ 609               	.LM60:
+ 610               	.LFBB7:
+ 611               	/* prologue: function */
+ 612               	/* frame size = 0 */
+ 613               	/* stack size = 0 */
+ 614               	.L__stack_usage = 0
+ 529:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	uint8_t pinState;
+ 530:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
+ 531:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEARTPIN_HARDCODED) || !HEARTPIN_HARDCODED)
+ 532:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Make the pin an input, pulled-up
+ 533:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//OLD:Set the pullup first so it doesn't take so long to raise...
+ 534:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Set input first so we don't short the output (PORT=H,pu) to ground
+ 535:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setinVar(heartBeatPin, heartPIN);
+ 536:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//PORT = H, pull-up
+ 537:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setpuVar(heartBeatPin, heartPIN);
+ 538:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 539:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Insert a delay to allow the pull-up to rise...
+ 540:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	uint8_t delay; 
+ 541:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	for(delay = 0; delay < HEART_PULLUP_DELAY; delay++)
+ 542:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{  
+ 543:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	   //Necessary or this'll be optimised-out
+ 544:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	   asm("nop;");
+ 545:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 546:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 547:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	pinState = getpinVar(heartBeatPin, heartPIN);
+ 548:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
+ 549:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setinPORT(HEART_PINNUM, HEART_PINPORT);
+ 615               		.stabn	68,0,549,.LM61-.LFBB7
+ 616               	.LM61:
+ 617 024e B998      		cbi 0x17,1
+ 550:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	setpuPORT(HEART_PINNUM, HEART_PINPORT);
+ 618               		.stabn	68,0,550,.LM62-.LFBB7
+ 619               	.LM62:
+ 620 0250 C19A      		sbi 0x18,1
+ 621 0252 8FEF      		ldi r24,lo8(-1)
+ 622               	.L37:
+ 551:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 552:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Insert a delay to allow the pull-up to rise...
+ 553:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	uint8_t delay;
+ 554:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	for(delay = 0; delay < HEART_PULLUP_DELAY; delay++)
+ 555:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 556:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		//Necessary or this'll be optimised-out
+ 557:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		asm("nop;");
+ 623               		.stabn	68,0,557,.LM63-.LFBB7
+ 624               	.LM63:
+ 625               	/* #APP */
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 27
+
+
+ 626               	 ;  557 "_commonCode_localized/heartbeat/1.50/heartbeat.c" 1
+ 627 0254 0000      		nop;
+ 628               	 ;  0 "" 2
+ 629               	/* #NOAPP */
+ 630 0256 8150      		subi r24,lo8(-(-1))
+ 554:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
+ 631               		.stabn	68,0,554,.LM64-.LFBB7
+ 632               	.LM64:
+ 633 0258 01F4      		brne .L37
+ 558:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	}
+ 559:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 560:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	pinState = getpinPORT(HEART_PINNUM, HEART_PINPORT);
+ 634               		.stabn	68,0,560,.LM65-.LFBB7
+ 635               	.LM65:
+ 636 025a 86B3      		in r24,0x16
+ 561:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
+ 562:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 563:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Leave the pinstate to be updated with next heartUpdate
+ 564:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	// to assure valid/safe values of PORT and DDR...
+ 565:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//Return the pin to the heartbeat
+ 566:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	setoutVar(heartBeatPin, heartPIN);
+ 567:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
+ 568:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	return pinState;
+ 569:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
+ 637               		.stabn	68,0,569,.LM66-.LFBB7
+ 638               	.LM66:
+ 639 025c 8695      		lsr r24
+ 640 025e 8170      		andi r24,1
+ 641 0260 0895      		ret
+ 642               		.size	heartPinInputPoll, .-heartPinInputPoll
+ 643               	.Lscope7:
+ 644               		.stabs	"",36,0,0,.Lscope7-.LFBB7
+ 645               		.stabd	78,0,0
+ 646               		.local	lastToggleTime.1596
+ 647               		.comm	lastToggleTime.1596,4,1
+ 648               		.local	toggleCount.1597
+ 649               		.comm	toggleCount.1597,1,1
+ 650               		.local	highNibble.1598
+ 651               		.comm	highNibble.1598,1,1
+ 652               		.data
+ 653               		.type	direction.1585, @object
+ 654               		.size	direction.1585, 1
+ 655               	direction.1585:
+ 656 0000 01        		.byte	1
+ 657               		.local	lastTime.1603
+ 658               		.comm	lastTime.1603,4,1
+ 659               	.global	heartBlink
+ 660               		.section .bss
+ 661               		.type	heartBlink, @object
+ 662               		.size	heartBlink, 1
+ 663               	heartBlink:
+ 664 0000 00        		.zero	1
+ 665               		.comm	heartModulator,4,1
+ 666               	.global	heartStepTime
+ 667               		.data
+ 668               		.type	heartStepTime, @object
+ 669               		.size	heartStepTime, 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 28
+
+
+ 670               	heartStepTime:
+ 671 0001 E0        		.byte	-32
+ 672 0002 79        		.byte	121
+ 673 0003 00        		.byte	0
+ 674 0004 00        		.byte	0
+ 675               		.stabs	"heartStepTime:G(6,6)",32,0,46,0
+ 676               		.stabs	"heartModulator:G(8,1)",32,0,67,0
+ 677               		.stabs	"heartBlink:G(6,2)",32,0,287,0
+ 678               		.text
+ 679               		.stabs	"",100,0,0,.Letext0
+ 680               	.Letext0:
+ 681               		.ident	"GCC: (GNU) 4.8.2"
+ 682               	.global __do_copy_data
+ 683               	.global __do_clear_bss
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s 			page 29
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 heartbeat.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:111    .text:00000000 setHeartRate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:670    .data:00000001 heartStepTime
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:151    .text:0000002a getHeartRate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:182    .text:00000048 heartClear
+                            *COM*:00000004 heartModulator
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:204    .text:00000050 init_heartBeat
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:251    .text:00000078 set_heartBlink
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:663    .bss:00000000 heartBlink
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:271    .text:0000007e heartUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:651    .bss:00000007 lastTime.1603
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:655    .data:00000000 direction.1585
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:649    .bss:00000006 highNibble.1598
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:647    .bss:00000005 toggleCount.1597
+                             .bss:00000001 lastToggleTime.1596
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccP0HCmP.s:606    .text:0000024e heartPinInputPoll
+
+UNDEFINED SYMBOLS
+__udivmodsi4
+hfm_setPower
+hfm_setup
+tcnter_init
+tcnter_update
+tcnter_myTcnter
+hfm_nextOutput
+__do_copy_data
+__do_clear_bss

@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 // Huh, I thought there was a pinout file already... I guess this isn't
 // actually used as a header file, but might be soon.
 //
@@ -101,12 +105,17 @@
 //Programming Header SIP (yours may vary)
 // 1  GND
 // 2  V+
-// 3  SCK   PB2   
-// 4  MOSI  PB0   
-// 5  /RST
-// 6  MISO  PB1   (Usually Heart)
+// 3  SCK   PB2  Green                 (Usually polled_uar: Rx0)
+// 4  MOSI  PB0  "Button" which...?    (Usually polled_uat: Tx0)
+// 5  /RST  
+// 6  MISO  PB1  DVH/Blue              (Usually Heart)
 
+// A/O v80: THIS IS NO LONGER ALWAYS THE RELEVENT PINOUT
+//          e.g. if using the parallel Sony LCD, check
+//          _interfaces/6bitParallel.c for the pinout.
 
+// Also, why are there two "Button" inputs?
+//
 //  TO LCD Buffers
 //   |                       ATtiny861
 //   V                       ____________________
@@ -117,14 +126,19 @@
 // Clock   (OC1B)  --------|  4 PB3      PA3 17 |-- 
 //                   VCC --|  5 VCC     AGND 16 |-- GND
 //                   GND --|  6 GND     AVCC 15 |-- VCC
-//                       --|  7 PB4      PA4 14 |--       VCC
-//   Red   (OC1D)  ----- --|  8 PB5      PA5 13 |--        |
-//                       --|  9 PB6      PA6 12 |--        \  Potentiometer
-//                /Reset --| 10 PB7      PA7 11 |-- <----->/  5k
-//                         |____________________|          \  for "Racer"
+//                       --|  7 PB4      PA4 14 |--      
+//   Red   (OC1D)  ----- --|  8 PB5      PA5 13 |--        
+//                       --|  9 PB6      PA6 12 |-- ---- Heartbeat/Button
+//                /Reset --| 10 PB7      PA7 11 |-- <--.
+//                         |____________________|      |
+//                                                     |  VCC
+//                                                     |   |
+//                                                     |   \  Potentiometer
+//                                                     '-->/  5k
+//                                                         \  for "Racer"
 //                                                         |  control
 //                                                        GND
-//
+//     Wired differently depending on the purpose:
 //                    PA7 = ADC6/AIN1... used for the bump-sensor in 
 //                                       FB_QUESTION...
 //                                       Unfortunately, it's probably not
@@ -226,7 +240,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/pinout.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/pinout.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

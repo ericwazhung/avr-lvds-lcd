@@ -10,9 +10,14 @@
 
 
 
+
+
+
+
 #include "iconPacking.h"
 
 #include "1up.h" //has SHROOM in it...
+
 
 // Biggie is the same as 1up with a different color-palette
 
@@ -27,8 +32,20 @@
 const static uint8_t pgm_paletteBIG[4*NUMPALETTES_BIG] PROGMEM =
    { 37, 7, 2, 47 };
 
-static sprite_t spriteBIG =
-      { pgm_imageSHROOM, pgm_maskSHROOM, pgm_paletteBIG, NUMPALETTES_BIG};
+const __flash sprite_t spriteBIG =
+      { 
+			pgm_imageSHROOM, 
+			pgm_maskSHROOM, 
+			pgm_paletteBIG, 
+			NUMPALETTES_BIG,
+			DEFAULT_MOTIONS,
+			NadaFlip,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
+			NULL,
+			1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -91,7 +108,7 @@ static sprite_t spriteBIG =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/Biggie.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Biggie.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //fbColors refers to the color-values stored in, e.g. the frameBuffer
 //        (if used). 
 //        Basically, it's just 4-shades for each of R, G, and B.
@@ -162,7 +166,7 @@ uint8_t rgbGradient(uint8_t value)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/fbColors.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/fbColors.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

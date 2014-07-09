@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //These are only used in drawPix...
 //This probably has no purpose outside of COLOR_BAR_SCROLL below
 // Actually, it's kinda funny watcching the top of the smiley's
@@ -112,7 +116,7 @@ void pixelScroll_main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_unusedIdeas/pixelScroll.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_unusedIdeas/pixelScroll.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

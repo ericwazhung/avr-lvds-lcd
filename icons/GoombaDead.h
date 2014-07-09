@@ -10,8 +10,12 @@
 
 
 
-#include "iconPacking.h"
 
+
+
+
+#include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -35,8 +39,8 @@
 #define DEADGOOMBARE ROWPACK(0,0,3,3,3,3,0,0,0,0,3,3,3,3,3,0)
 #define DEADGOOMBARF ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
-const static uint8_t pgm_imageDEADGOOMBA[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(DEADGOOMBA);
+const static uint8_t pgm_imageDEADGOOMBA[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(DEADGOOMBA) };
 
 
 #define pgm_maskDEADGOOMBA NULL
@@ -57,9 +61,49 @@ const static uint8_t pgm_paletteDEADGOOMBA[4*NUMPALETTES_DEADGOOMBA] PROGMEM =
 	rgb8(  0, 24, 60)
 };
 
-static sprite_t spriteDEADGOOMBA =
-      {pgm_imageDEADGOOMBA, pgm_maskDEADGOOMBA, pgm_paletteDEADGOOMBA, 
-			NUMPALETTES_DEADGOOMBA};
+#define DG_MOTIONS	20
+/*const uint8_t DeadGoombaY[MOTION_BYTES(DG_MOTIONS)] MOTION_MEM =
+{
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0)
+};
+*/
+
+
+const __flash motion_t DeadGoombaMotion[2] = { {0, NULL}, {16, NULL} };
+
+const uint8_t DeadGoombaCamY[MOTION_BYTES(DG_MOTIONS)] MOTION_MEM =
+{
+	//Show it stationary for a sec...
+	PACK_MOTION_BYTE(DIR_TOGGLE, 0, 0, 0),
+
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1)
+};
+
+const __flash motion_t DeadGoombaCamMotion[2] = 
+		{ {0, NULL}, {16, DeadGoombaCamY} };
+
+const __flash sprite_t spriteDEADGOOMBA =
+      {
+			pgm_imageDEADGOOMBA, 
+			pgm_maskDEADGOOMBA, 
+			pgm_paletteDEADGOOMBA, 
+			NUMPALETTES_DEADGOOMBA,
+			DG_MOTIONS,
+			NadaFlip,
+			DeadGoombaMotion,
+			NadaLayer,
+			DeadGoombaCamMotion,
+			NULL,
+			1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -122,7 +166,7 @@ static sprite_t spriteDEADGOOMBA =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/GoombaDead.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/GoombaDead.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

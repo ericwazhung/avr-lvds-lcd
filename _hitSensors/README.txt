@@ -1,0 +1,3 @@
+The _hitSensors/ directory is new a/o v82...
+Many of the older hit-sensor implementations are in _commonCode/ already
+And This may get moved there, as well.

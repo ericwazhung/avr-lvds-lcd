@@ -10,11 +10,15 @@
 
 
 
+
+
+
+
 #ifndef __1UP_H__
 #define __1UP_H__
 
 #include "iconPacking.h"
-
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -38,8 +42,8 @@
 #define SHROOMRE ROWPACK(0,0,0,0,3,3,3,3,3,3,1,3,0,0,0,0)
 #define SHROOMRF ROWPACK(0,0,0,0,0,3,3,3,3,1,3,0,0,0,0,0)
 
-const static uint8_t pgm_imageSHROOM[ICON_PACKED_BYTES] PROGMEM = 
-	IMAGE_INIT(SHROOM);
+const static uint8_t pgm_imageSHROOM[1][ICON_PACKED_BYTES] PROGMEM = 
+	{ IMAGE_INIT(SHROOM) };
 
 
 
@@ -55,8 +59,20 @@ const static uint8_t pgm_imageSHROOM[ICON_PACKED_BYTES] PROGMEM =
 const static uint8_t pgm_palette1UP[4*NUMPALETTES_1UP] PROGMEM = 
 	{ 37, 7, 4, 47 };
 
-static sprite_t sprite1UP = 
-		{ pgm_imageSHROOM, pgm_maskSHROOM, pgm_palette1UP, NUMPALETTES_1UP};
+const __flash sprite_t sprite1UP = 
+		{ 
+			pgm_imageSHROOM, 
+			pgm_maskSHROOM, 
+			pgm_palette1UP, 
+			NUMPALETTES_1UP,
+			DEFAULT_MOTIONS,
+			NadaFlip,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
+			NULL,
+			1
+		};
 
 #endif
 
@@ -121,7 +137,7 @@ static sprite_t sprite1UP =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/1up.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/1up.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

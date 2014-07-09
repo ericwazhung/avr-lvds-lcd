@@ -6,8 +6,6 @@
  */
 
 
-
-
 //timerCommon 1.20-1
 #include "timerCommon.h"
 
@@ -771,7 +769,7 @@ uint8_t timer_overflowIntEnable(uint8_t timerNum)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/timerCommon/1.22/timerCommon.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/timerCommon/1.22/timerCommon.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

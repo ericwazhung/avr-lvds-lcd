@@ -6,8 +6,6 @@
  */
 
 
-
-
 //timerCommon 1.22
 //1.22 a/o at90pwm161 (a/o LCDdirectLVDS67, a/o heartbeat/testPWM161+..DMS)
 //     at90pwm161 has only one timer, and it's funky.
@@ -573,7 +571,7 @@ uint8_t timer_setOutputModes(uint8_t timerNum, uint8_t outputChannelMask,
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/timerCommon/1.22/timerCommon.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/timerCommon/1.22/timerCommon.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -9,6 +9,10 @@
 
 
 
+
+
+
+
 // This file contains tools for packing an icon/sprite into the least
 // memory possible, while allowing the image-data itself to be somewhat
 // viewable in the sprites' header files.
@@ -24,6 +28,43 @@
 #define __ICONPACKING_H__
 
 #include "gPixelVal.h"
+//#include "spriteMotion.h" //Needed for motion_t, etc...
+									// Also see below...
+
+
+
+typedef struct _BLAH_MOTION_
+{
+	const uint8_t startPosition;
+	const uint8_t *motion;
+} motion_t;
+
+
+
+#define rgb2(r,g,b) \
+	      (r | (g<<2) | (b<<4))
+
+
+//Actually, this probably won't work right...
+// because the rgb values aren't exact like that, right?
+// e.g. black = 0,0,0 but it shows as 0,0,60 ish...
+// then again, going in reverse like this might work fine...
+// due to rounding (seems OK with this color-scheme)
+// The idea wasn't so much to be able to input an 8-bit RGB value to get
+// a close match (would probably want rounding up for that, not that it'd
+// be even close)
+// but to be able to read color-values from GIMP when using the 
+//  LCDdirectLVDS color-palette... which isn't especially necessary since
+//  now the colors are named with 3-based colors.
+// (Except that it's somewhat difficult to determine which color is used
+//  when indexed... it kinda has to be chosen manually... in Gimp)
+// E.G. rgb8(141,157,255) is the sky-color, but not right AT ALL.
+//      (comes through as dark green?!)
+#define rgb8(r,g,b) \
+	      rgb((((r)*3)/255), (((g)*3)/255), (((b)*3)/255))
+
+
+
 
 #define ICON_WIDTH	16
 #define ICON_HEIGHT	16
@@ -38,12 +79,20 @@
 
 #define PACKED_BITS_PER_PIXEL	(8/PIXELS_PER_PACKAGE)
 
-typedef struct _BLAH_SHROOM_
+typedef struct _BLAH_SPRITE_
 {
-	const uint8_t * p_image;
+	//const uint8_t * p_image[ICON_PACKED_BYTES];
+	const uint8_t (*p_image)[ICON_PACKED_BYTES];
 	const uint8_t * p_mask;
 	const uint8_t * p_palette;
 	const uint8_t numPalettes;
+	const uint8_t totalCount;	//Number of qCounts and/or steps per cycle
+	const uint8_t * p_hFlip;
+	const __flash motion_t * p_motion;
+	const uint8_t * p_layer;
+	const __flash motion_t * p_camMotion;
+	const uint8_t * p_paletteAdvance;
+	const uint8_t numImages;
 }	sprite_t;
 
 /*
@@ -62,27 +111,28 @@ typedef struct _BLAH_SHROOM_
 */
 
 
-sprite_t *skyOverrideSprite = NULL;
+const __flash sprite_t *skyOverrideSprite = NULL;
 //uint8_t skyOverridePalette;
 
-void setSpriteSkyColorOverride(sprite_t *sprite) //, uint8_t palette)
+void setSpriteSkyColorOverride(const __flash sprite_t *sprite) //, uint8_t palette)
 {
 	skyOverrideSprite = sprite;
 //	skyOverridePalette = palette;
 }
 
 
-uint8_t getRawPixelVal(sprite_t *sprite, uint8_t row, uint8_t col)
+uint8_t getRawPixelVal(const __flash sprite_t *sprite, uint8_t row, 
+														uint8_t col, uint8_t imageNum)
 {
 
 	return
-		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ \
+		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[imageNum][ \
 					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
 		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
 }
 
 
-uint8_t rawPixValToGimpColorVal(uint8_t rawPixelVal, sprite_t *sprite, 
+uint8_t rawPixValToGimpColorVal(uint8_t rawPixelVal, const __flash sprite_t *sprite, 
 																			uint8_t palette)
 {
 	return 
@@ -90,17 +140,18 @@ uint8_t rawPixValToGimpColorVal(uint8_t rawPixelVal, sprite_t *sprite,
 			(uint8_t *)(&(sprite->p_palette[ (palette)*4 + rawPixelVal ])));
 }
 
-
+/*
 //This doesn't exactly work as expected... see drawSpriteRow for a better
 //implementation
-uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row, 
+uint8_t getGimpColorVal(const __flash sprite_t *sprite, uint8_t palette, uint8_t row, 
 																			 	uint8_t col)
 {
 	//No shit, this entire function was a single "line" of code, at one
 	//point... (broken up a/o v63)
 
 	//This is the value as-seen in the icon's .h file... (0-3)
-	uint8_t rawPixelVal = getRawPixelVal(sprite, row, col);
+#warning "DEFAULTING TO FIRST IMAGE FOR NOW!"
+	uint8_t rawPixelVal = getRawPixelVal(sprite, row, col, 0);
 //		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[ 
 //					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))
 //		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
@@ -119,7 +170,7 @@ uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row,
 //	pgm_read_byte(
 //			(uint8_t *)(&(sprite->p_palette[ (palette)*4 + rawPixelVal ])));
 }
-
+*/
 
 
 //Number of pixels that can be packed into a single byte
@@ -205,6 +256,10 @@ uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row,
 }
 
 
+#include "spriteMotion.h"
+#include "spriteMotion.c"
+
+
 #endif
 
 /* mehPL:
@@ -268,7 +323,7 @@ uint8_t getGimpColorVal(sprite_t *sprite, uint8_t palette, uint8_t row,
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/iconPacking.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/iconPacking.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

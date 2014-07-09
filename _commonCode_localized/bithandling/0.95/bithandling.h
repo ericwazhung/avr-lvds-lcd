@@ -6,10 +6,6 @@
  */
 
 
-
-
-
-
 //bitHandling 0.95-6
 //TODO: Don't Forget .94-18!
 //TODO: and .94_...-5!
@@ -760,7 +756,7 @@ void toBinString(char* stringOut, uint8_t length, int32_t value)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/bithandling/0.95/bithandling.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/bithandling/0.95/bithandling.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

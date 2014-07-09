@@ -9,6 +9,10 @@
 
 
 
+
+
+
+
 #if(defined(__AVR_AT90PWM161__))
 //PWM161 notes:
 // The PWM161 has a PLL Multiplication-Factor which can be adjusted
@@ -144,7 +148,7 @@ void pll_enable(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/pll.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/pll.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

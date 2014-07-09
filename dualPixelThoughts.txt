@@ -1,0 +1,62 @@
+ATxmega16D4:
+	Minimum pulse-width is 1 CPU-cyc.
+
+
+
+
+
+The AT90PWM316:
+	has three PSC's, each with 2 complementary outputs
+	(PSC2 has 4 outputs, but multiplexed)
+	(no PSCR)
+	(Also has two timers, which can NOT run off the PLL.)
+
+	That's 6 LVDS signals available.
+	FPD-Link (dual-pixel) requires 7
+		(8 signals, but the clock is doubled)
+		
+	SIMPLE implementation:
+		duplicate even and odd pixels (use the same channels, could use the
+				old design with even the ATtiny861)
+		Benefit: Fewer horizontal pixels to worry about than single-pixel
+			Actually, won't this *reduce* resolution since there's less time
+			for CPU calcs during a horizontal frame?
+			Faster Refresh...
+	Dual-Pixel:
+		The only benefits I can think of are increased colors via high-res
+		dithering.
+
+		Color-dithering:
+			Could improve color-dithering... e.g. alternate col-colors at full
+			resolution (even = red, odd = brown, average = reddish-brown)
+		Alpha Channel!
+			Two separte frame-buffers, overlapping...
+				(This could be implemented currently via row-alternating.
+				 Row + Col control = 4 values = 2bit...)
+			A) Background + alpha-image. e.g.:
+                     Alpha  (B=Background Color, I=Image Color)
+					E O   0     1     2     3      4???
+			row0	# #   B B   B B   I B   I I    I I
+			row1	# #   B B   B I   B I   I B    I I
+
+			B) Background + two alpha-images?
+				Alpha:	0,0   0,1   1,1   1,2  2,2
+							B B   B B   2 B   2 1  2 1
+							B B   B 1   B 1   B 2  1 2
+			(Not really sure how actual "alpha channels" work... what happens
+			 when two images both have 100% opacity...? One must be "on top"?)
+
+	Realistically:
+		dual-pixel via PWM316 may not have any other benefits...
+
+
+???
+	PLL can be synced at 7x?
+		Then 8-bit Timer-Counter could be used for pix-clk...?
+
+
+
+Random:
+	dual-pixel LVDS-receivers may be even more likely to sync at these
+	extraordinarily low bit-rates, since they inherently sync at lower rates
+	anyhow normally... (by design)

@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 #warning "PLL_SYSCLK is defined in the makefile... shouldn't be handled here explicitly"
 #define PLL_SYSCLK	1
 
@@ -385,7 +389,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_tools/timer0Calculator.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_tools/timer0Calculator.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

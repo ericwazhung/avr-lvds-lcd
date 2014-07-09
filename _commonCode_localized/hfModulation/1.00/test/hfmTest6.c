@@ -6,8 +6,6 @@
  */
 
 
-
-
 #include <stdio.h>
 #define TRUE 1
 #define FALSE 0
@@ -124,7 +122,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/hfModulation/1.00/test/hfmTest6.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/hfModulation/1.00/test/hfmTest6.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

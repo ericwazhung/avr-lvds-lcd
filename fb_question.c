@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //fb_question is the good-ol' "Mario" Question-box, using a frameBuffer...
 //  It was created after seg_question, which was created after a
 //  frameBuffer-based method. Long convoluted story.
@@ -36,30 +40,12 @@
 
 
 
-
 	//Start at brown, to match the SOLID color
 #define Q_QSTART	7 //3
-#define GOOMBA_QCOUNT	(24*2)
-//#define GOOMBA_QCOUNTSPERPHASE	3
-//#define GOOMBA_KILLABLE_QCOUNT	(GOOMBA_QCOUNT-2)
 
 //a/o v62-21:
 // this is stolen from seg_question.c and modified for the framebuffer...
 
-
-//Actually, this probably won't work right...
-// because the rgb values aren't exact like that, right?
-// e.g. black = 0,0,0 but it shows as 0,0,60 ish...
-// then again, going in reverse like this might work fine...
-// due to rounding (seems OK with this color-scheme)
-// The idea wasn't so much to be able to input an 8-bit RGB value to get
-// a close match (would probably want rounding up for that, not that it'd
-// be even close)
-// but to be able to read color-values from GIMP when using the 
-//  LCDdirectLVDS color-palette... which isn't especially necessary since
-//  now the colors are named with 3-based colors.
-#define rgb8(r,g,b) \
-      rgb((((r)*3)/255), (((g)*3)/255), (((b)*3)/255))
 
 
 //These are not included in NUM_ICONS
@@ -74,22 +60,34 @@
    #include "icons/FlowerPowerV.h"
    #include "icons/Goomba.h"
    #include "icons/Coin.h"
-
-   //Excluding Solid and Question, etc...
-//   #define NUM_ICONS 6
+	#include "icons/Leaf.h"
+	#include "icons/Cloud.h"
+	#include "icons/Mario.h"
+	#include "icons/Luigi.h"
+	#include "icons/MarioRuns.h"
+	#include "icons/LuigiRuns.h"
+//a/o v77
+//APPARENTLY NUM_ICONS is no longer used.
+//Excluding Solid and Question, etc...
+//#define NUM_ICONS 6
 
 
 //Allow the user to choose another winnings when the question-box is
 //scrolling down to reveal it... for testing
 //#define IMMEDIATE TRUE
 
-//#define RANDOM_OVERRIDE 4 //8 //0 //4
+//This is just a hack for testing BIGGIE with the Leaf tester, which was a
+//hack in the first place.
+//#define MOTION_BIGGIE TRUE	//RANDOM_OVERRIDE's gotta be 2
+//These are from hitDetected()
+//#define RANDOM_OVERRIDE 8//32//2//Biggie //5//Leaf  //4 //8 //0 //4
 
 //Stalls at the first sprite (initilized in p_selectedSprite, below)
 //#define STAY_ON_IT	TRUE
 
 //Automatically hit after a few loops in the "Q" box
-#define AUTO_HIT	TRUE
+//#define AUTO_HIT	TRUE
+//#define AUTO_KILL_GOOMBA	TRUE
 
 //THESE DON'T BELONG HERE
 // AND they shouldn't be "Q" specific, at all.
@@ -103,54 +101,94 @@
 uint8_t callCount = 0;
 
 uint8_t qCount = 0;
-sprite_t *p_selectedSprite = &spriteCOIN; //GOOMBA; //FLOWER; //&spriteQ;
-sprite_t *p_nextSprite = NULL;
+//sprite_t *p_selectedSprite = &spriteLEAF; //COIN; //GOOMBA; //FLOWER; //&spriteQ;
+
+//a/o v84: nextSprite is hokily used as selectedSprite...
+// This needs to be changed.
+//sprite_t *p_nextSprite = &spriteLEAF; //NULL;
+const __flash sprite_t *p_nowSprite = &spriteLEAF; //NULL;
+//This indicates whether we're in a "Reward"
+// e.g. to draw SOLID in the background
+uint8_t nowIsReward = TRUE;
+
+
+void initSpriteStates(const __flash sprite_t *newSprite);
+
 
 void fbQuestion_hitDetected(void)
 {
-	if( (p_selectedSprite == &spriteQ)
-#if (!defined(IMMEDIATE) || !IMMEDIATE)
-	    && (p_nextSprite == NULL)
-#endif
+
+	if( (p_nowSprite == &spriteQ)
+//#if (!defined(IMMEDIATE) || !IMMEDIATE)
+//	    && (p_nextSprite == NULL)
+//#endif
 	  )
 	{
-		qCount = 0;
-#ifndef RANDOM_OVERRIDE
+		uint8_t hitReward;
 		//Just trying to get some randomness up in hea
-		switch(((adc_getValue()*3+callCount+qCount))%8)
+#if (defined(RANDOM_OVERRIDE))
+		hitReward = RANDOM_OVERRIDE;
+#elif (defined(HSYNC_TIMER_TCNT))
+		static uint8_t lastReward;
+		
+		do
+		{
+			hitReward = (HSYNC_TIMER_TCNT + callCount + qCount)%12;
+			//Don't allow double-goombas
+		} while ((lastReward == 4) && (hitReward == 4));
+
+		lastReward = hitReward;
 #else
-		switch(RANDOM_OVERRIDE)
+ #error "HSYNC_TIMER_TCNT should be available for randomness..."
+#if 0
+		//These guys don't have enough randomness to avoid call-count...
+ #if (defined(__ADC_H__))
+		hitReward = ((adc_getValue()*3+callCount+qCount))%8;
+ #else
+		hitReward = (callCount+qCount)%8;
+ #endif
 #endif
+#endif
+
+		switch(hitReward)
 		{
 			case 0:
-				p_nextSprite = &spriteFLOWER;
+				p_nowSprite = &spriteFLOWER;
 				break;
 			case 1:
-				p_nextSprite = &sprite1UP;
+				p_nowSprite = &sprite1UP;
 				break;
 			case 2:
-				p_nextSprite = &spriteBIG;
+				p_nowSprite = &spriteBIG;
 				break;
 			case 3:
-				p_nextSprite = &spriteSTAR;
+				p_nowSprite = &spriteSTAR;
 				break;
 			case 4:
-				p_nextSprite = &spriteGOOMBA;
+				p_nowSprite = &spriteGOOMBA;
 				break;
-			//The remaining are just for testing...
-/*			case 5:
-				p_selectedSprite = &spriteDEADGOOMBA;
+			case 5:
+				p_nowSprite = &spriteLEAF;
 				break;
 			case 6:
-				p_selectedSprite = &spriteQ;
+				p_nowSprite = &spriteCLOUD;
 				break;
 			case 7:
-				p_selectedSprite = &spriteSOLID;
+				p_nowSprite = &spriteMARIO;
 				break;
-*/			default:
-				p_nextSprite = &spriteCOIN;
+			case 8:
+				p_nowSprite = &spriteLUIGI;
+				break;
+//			case 9:
+//				p_nowSprite = &spriteMARIORUNS;
+				break;
+			default:
+				p_nowSprite = &spriteCOIN;
 				break;
 		}
+		//qCount = 0;
+		nowIsReward = TRUE;
+		initSpriteStates(p_nowSprite);
 	}
 /* This was nice with the old scroll-up method, but with the new method,
  * it's too hokey... (can smash it before it's visible)
@@ -166,13 +204,16 @@ void fbQuestion_hitDetected(void)
 	// since it can't be killed when it's scrolling.
 	// There's probably a tiny fraction of a second window where it is
 	// possible to hit it when it's blue, and kill it... but it's TINY.
-	else if( (p_selectedSprite == &spriteGOOMBA)
-				&& (p_nextSprite == NULL) )
+	else if((p_nowSprite == &spriteGOOMBA)
+				&& ((qCount > 16) && (qCount < 62)))
+//				&& (p_nextSprite == NULL) )
 //			   && ((qCount > 0) && (qCount < 16)) )
 //			   && (qCount < GOOMBA_KILLABLE_QCOUNT) )
 	{
-		qCount = 0;
-		p_selectedSprite = &spriteDEADGOOMBA;
+		//qCount = 0;
+		nowIsReward = TRUE;
+		p_nowSprite = &spriteDEADGOOMBA;
+		initSpriteStates(p_nowSprite);
 	}
 
 }
@@ -180,153 +221,347 @@ void fbQuestion_hitDetected(void)
 //If a spriteRow is outside the icon's dimensions, draws the sky-color
 //Returns TRUE if a pixel has changed
 // for redrawing...
-uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t spritePhase,
+uint8_t drawSpriteRow(const __flash sprite_t *p_thisSprite, uint8_t spritePhase,
 													  int8_t spriteRow, 
 													  uint8_t rowToDrawAt);
 
 
 
-//Returns TRUE if the image has changed...
-
-uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
+#if(defined(STAY_ON_IT) && STAY_ON_IT)
+//Check for completion of one sprite, and setup the next...
+void prepNextSprite(void)
 {
-	uint8_t imageChanged = FALSE;
+}
+#else
+void prepNextSprite(void)
+{
+	//a/o v84:
+	// The new plan is to have a defined path...
+	// Q -> Hit -> "Reward" -> Solid -> Q
+		
+	// CURRENTLY: "Hit" is NYI so:
+	// Q -> "Reward" -> Solid -> Q
+
+	// ALSO: Goomba/GoombaDead needs to be reimplemented
+
+	// Also, we've been using p_nextSprite as the current sprite for some
+	// time. It should probably be renamed to selectedSprite, and the old
+	// p_selectedSprite should probably be removed entirely.
+	// IOW: There's no need for "nextSprite" in the new method.
+
+	// Q Loops...
+	if(p_nowSprite == &spriteQ)
+	{
+		//Do nothing for Q... until a hit arrives
+		// qCount is reset by the caller, so it just loops
+		// nowIsReward should already be FALSE
+		
+		// If AUTO_HIT is true, then "after" Question-box "completes"
+		// act like a hit was detected...
+	  #if(defined(AUTO_HIT) && AUTO_HIT)
+		fbQuestion_hitDetected();
+	  #else
+		return;
+     #endif
+	}
+	// Mario -> MarioRuns
+	else if(p_nowSprite == &spriteMARIO)
+	{
+		nowIsReward = TRUE;
+		p_nowSprite = &spriteMARIORUNS;
+	}
+	// Luigi -> LuigiRuns
+	else if(p_nowSprite == &spriteLUIGI)
+	{
+		nowIsReward = TRUE;
+		p_nowSprite = &spriteLUIGIRUNS;
+	}
+	// Solid -> Q
+	else if(p_nowSprite == &spriteSOLID)
+	{
+		nowIsReward = FALSE;
+		p_nowSprite = &spriteQ;
+	}
+	// "Reward" -> Solid
+	else
+	{
+		nowIsReward = FALSE;
+		p_nowSprite = &spriteSOLID;
+	}	
+
+	initSpriteStates(p_nowSprite);
+}
+
+void initSpriteStates(const __flash sprite_t *newSprite)
+{
+	qCount = 0;
+	//.count is handled by qCount... but let's init it anyhow.
+	
+	p_nowSprite = newSprite;
+	
+	
+	
+	
+	nowSpriteState.sprite = p_nowSprite;
+	nowSpriteState.count = 0;
+	nowSpriteState.hFlip = p_nowSprite->p_hFlip;
+	nowSpriteState.motion = p_nowSprite->p_motion;
+	//Origin is lower-left, but nextSpritePosition is upper-left...
+	nowSpriteState.position[0] = -(nowSpriteState.motion[0].startPosition);
+	nowSpriteState.position[1] = nowSpriteState.motion[1].startPosition;
+	nowSpriteState.dir[0] = 1;
+	nowSpriteState.dir[1] = 1;
+
+	nowSpriteState.layer = p_nowSprite->p_layer;
+	nowSpriteState.paletteNum = 0;
+
+
+	//No sprite associated with the camera...
+	cameraState.sprite = NULL;
+	cameraState.count = 0;
+	cameraState.hFlip = NadaFlip;
+	cameraState.motion = p_nowSprite->p_camMotion;
+	cameraState.position[0] = -(cameraState.motion[0].startPosition);
+	cameraState.position[1] = cameraState.motion[1].startPosition;
+	cameraState.dir[0] = 1;
+	cameraState.dir[1] = 1;
+
+	cameraState.layer = NadaLayer;
+	cameraState.paletteNum = 0;
+
+
+	//This is only used by the SOLID in the background for Reward...
+	// So probably never changes...
+	//otherSpriteState.hFlip = NadaFlip;
+	//otherSpriteState.motion = NadaMotion;
+
+#if 0
+		//DEADGOOMBA -> Question-Box (directly)
+		if(p_selectedSprite == &spriteDEADGOOMBA)
+		{
+			if(qCount >= 16)
+			{
+				qCount = Q_QSTART; //0;
+				p_nextSprite = &spriteQ;
+			}
+		}
+		//GOOMBA -> SOLID
+		else if(p_selectedSprite == &spriteGOOMBA)
+		{
+			if(qCount >= GOOMBA_QCOUNT)
+			{
+				qCount = 0;
+				p_nextSprite = &spriteSOLID;
+			}
+		}
+		//COIN -> SOLID
+		else if(p_selectedSprite == &spriteCOIN)
+		{
+			if(qCount >= 8)
+			{
+				qCount = 0;
+				p_nextSprite = &spriteSOLID;
+			}
+		}
+		//SOLID -> Question-Box
+		else if(p_selectedSprite == &spriteSOLID)
+		{
+			if(qCount >= 8)
+			{
+				qCount = Q_QSTART; //0;
+				p_selectedSprite = &spriteQ;
+			}
+		}
+		//**OTHERS** (NOT Question-Box) -> SOLID
+		else if(p_selectedSprite != &spriteQ)
+		{
+			if(qCount >= 16)
+			{
+				qCount = 0;
+				//if(p_selectedSprite != &spriteSOLID)
+				p_nextSprite = &spriteSOLID;
+				//else
+				//   p_selectedSprite = &spriteQ;
+			}
+		}
+#endif //0
+}
+#endif //!STAY_ON_IT
+
+
+
+// NEW MOTION-HANDLING...
+
+
+
+
+
+
+//This is sort-of Motion-Handling, as well...
+//Usually the sky...
+void fbQ_drawBackground(spriteState_t *state)
+{
+	//I can't recall how this used to work...
+	//uint8_t paletteForColor = getSpritePalette(&spriteLEAF, 0, 0);
+	uint8_t paletteForColor = state->paletteNum;
+
+
+
+	//probably should look into skyOverride
+	// for now, use the sky-color of the leaf, which is at (0,0)
+	//Fill the background with the sky-color...
+//#define FBQ_SKYCOLOR_OVERRIDE _R
+#if(defined(FBQ_SKYCOLOR_OVERRIDE))
+	uint8_t skyColorData = FBQ_SKYCOLOR_OVERRIDE;
+#else
+	//uint8_t skyColorData = getRawPixelVal(, 0, 0);
+
+	uint8_t skyColorData = rawPixValToGimpColorVal(0, 
+														state->sprite,
+														paletteForColor);
+	skyColorData = gimpPixelValToLColor(skyColorData);
+#endif
+
+
+	int8_t camRow, camCol;
+
+	for(camRow = 0; camRow<FB_HEIGHT; camRow++)
+	{
+		for(camCol = 0; camCol<FB_WIDTH; camCol++)
+		{
+#if(defined(FBQ_RAINBOW_SKY) && FBQ_RAINBOW_SKY)
+			frameBuffer[camRow][camCol] = (camRow+camCol)&0x3f;//skyColorData;
+#else
+			frameBuffer[camRow][camCol] = skyColorData;
+#endif
+
+			//Should look into framebuffer-changed stuff, here...
+		}
+	}
+}
+
+
+
+//Returns the last image-row that has changed...
+// (for refresh-on-change and/or partial-refresh)
+// otherwise -1 if no change.
+int8_t fbQuestion_update(void) //uint8_t triggerDetected)
+{
+	//last row that was changed...
+	int8_t imageChangedTillRow = -1;
+
+	//This is just used for helping to throw in some randomness for the next
+	//sprite after a hit...
 	callCount++;
-		//This should be an init-thing, I guess... it's only a 2-cycle
-      // instruction, so it doesn't hurt too much to have it in the loop
-      // BUT it does have to occur a while before the first getpinPORT
-      // to allow time for the pull-ups to do their job
-//      setinpuPORT(PB0, PORTB);
 
-
-//	if(triggerDetected)
-//		qCount++;
-
-//   segClear();
-   //Not sure why this is stretched without /2...
-   // I think I ran into this elsewhere as well.
-   //!!! INSTEAD: filled the rest of the row properly...
-   // (wasn't filling up the entire row, due to rounding...
-   //   result was the rows were carrying-over into the next)
-   uint8_t qRow;// = (rowNum*Q_HEIGHT/(V_COUNT)); ///2));
-   //uint8_t qCol;
-   
-   //Guess white helps with sync...?
-   // can't hurt.
-   //addSegfb(3, _W);
-   // Looks like some white is already being inserted (or syncing on end-
-   // white?) about 3pixels wide.
-
-   // 1024/3/32 = 10.67... so for every 3 segments, add 2
-//#define Q_STRETCHTOP   1//0//28//2
-//#define Q_STRETCHDIV 5//30//3
-//   hfm_t colincrementer_hfm;
-//   hfm_setup(&colincrementer_hfm, Q_STRETCHTOP, Q_STRETCHDIV);
-
+//   uint8_t qRow;
+	
+	//Check if it's time to select the next sprite, and do-so according to
+	//which sprite we're on and which should follow it.
+	//Most of the time, a sprite is followed by SOLID, but there are
+	//exceptions...
+/*
 	if(p_nextSprite == NULL)
 	{
-#if(!defined(STAY_ON_IT) || !STAY_ON_IT)
-	if(p_selectedSprite == &spriteDEADGOOMBA)
-	{
-		if(qCount >= 16)
-		{
-			qCount = Q_QSTART; //0;
-			p_nextSprite = &spriteQ;
-		}
+		prepNextSprite();
 	}
-	else if(p_selectedSprite == &spriteGOOMBA)
-	{
-		if(qCount >= GOOMBA_QCOUNT)
-		{
-			qCount = 0;
-			p_nextSprite = &spriteSOLID;
-		}
-	}
-	else if(p_selectedSprite == &spriteCOIN)
-	{
-		if(qCount >= 8)
-		{
-			qCount = 0;
-			p_nextSprite = &spriteSOLID;
-		}
-	}
-	else if(p_selectedSprite == &spriteSOLID)
-	{
-		if(qCount >= 8)
-		{
-			qCount = Q_QSTART; //0;
-			p_selectedSprite = &spriteQ;
-		}
-	}
-	else if(p_selectedSprite != &spriteQ)
-	{
-		if(qCount >= 16)
-		{
-			qCount = 0;
-			//if(p_selectedSprite != &spriteSOLID)
-				p_nextSprite = &spriteSOLID;
-			//else
-			//   p_selectedSprite = &spriteQ;
-		}
-	}
-	//else is handled in the trigger-handler...
-#if(defined(AUTO_HIT) && AUTO_HIT)
-	else //spriteQ
-	{
-		if(qCount >= (12*5))
-			fbQuestion_hitDetected();
-	}
-#endif
-#endif //STAY_ON_IT
-	}
-	//There're two scrolling-cases
-	// selected == Q && next == other
-	// selected == other && (next == Q || next == SOLID)
-	//
-	//The first case shows the next sprite's top above the Q-box
-	// the "window" is on the next sprite, but the Q box overlaps it
-	// and the Q-box scrolls downward
-	//      _________
-	//  ^  |   ___   | \  <--Next
-   //  |  |  /   \  |  | next sprite appears to scroll up
-	//  |  ||¯¯¯¯¯¯¯||  | but really the overlapping selected-sprite scrolls
-	//     || *   * || /  down...
-	//      |   ?   |
-	//      | *   * | <--Selected
-	//       ¯¯¯¯¯¯¯
-	//
-	//The second case shows the two sprites atop each other
-	// the "window" scrolls down the two
-	//      _________
-	//     |   ___   | <--Selected
-	//   ..|../___\..|.. 
-	// | : |   |_|   | : \  The window scrolls down, but the two sprites
-	// | : |_________| :  | do not change position relative to each other
-	// V : |         | : /
-	//   ..|.*.....*.|..
-	//     |    ?    |
-	//     | *     * | <--Next
-	//      ¯¯¯¯¯¯¯¯¯
+*/
 
-
-	// NEW:
-	//  The first case is kinda boring... it looks like the question-box is
-	//  being pulled-away to reveal the item, rather than that the item is
-	//  coming out of the question-box
-	//  Instead, raise the item from the bottom (in the background) and
-	//  lower the box... that way both are moving at the same time.
-	//
-	//       _____                               ___
-	//      |     |     _____         __        /___\			//
-	//      |  ?  | -> |     |  ->  _/__\_  ->   |_|
-	//      |_____|    |  ?  |     |      |
-
+/*
 	if(p_nextSprite != NULL)
 	{
+*/
+		//a/o v84:
+		//Is this necessary with motion handling, since the sky is drawn
+		//separately???
+		setSpriteSkyColorOverride(p_nowSprite);
 
-		setSpriteSkyColorOverride(p_selectedSprite);
+		//This isn't right, doesn't transition at all
+		// it's just for testing the motion-scheme
+		//Testing the new transition-scheme...
+/*
+#if(defined(MOTION_BIGGIE) && MOTION_BIGGIE)
+		if(p_nextSprite == &spriteBIG)
+#else
+		if(p_nextSprite == &spriteLEAF)
+#endif
+*/
+		//if(p_selectedSprite == &spriteLEAF) //NoGo
+		{
+#if(defined(AUTO_KILL_GOOMBA) && AUTO_KILL_GOOMBA)
+			if( (p_nowSprite == &spriteGOOMBA)
+				 && (qCount >= 60) )
+				fbQuestion_hitDetected();
+#endif
 
-		if(p_selectedSprite == &spriteQ) 
+
+
+			nowSpriteState.count = qCount;
+			cameraState.count = qCount;
+			//Override for now...
+			//otherSpriteState.count=0;
+
+			fbQ_drawBackground(&nowSpriteState);
+
+			fbQ_repositionSprite(&nowSpriteState);
+			fbQ_repositionSprite(&cameraState);
+			// "otherSpriteState" needn't be repositioned, it's always
+			// SOLID (if used, only during a Reward)
+
+			if(nowIsReward)
+			{
+				//0 is foreground, so it should be drawn last
+				if(!GET_LAYER(nowSpriteState.layer, nowSpriteState.count))
+				{
+					//imageChangedTillRow =
+					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
+					fbQ_overlaySprite(&spriteSOLID, NULL); //&otherSpriteState);
+
+					imageChangedTillRow =
+						fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+				}
+				else
+				{
+					imageChangedTillRow =
+						fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+				
+					//imageChangedTillRow =
+					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
+					fbQ_overlaySprite(&spriteSOLID, NULL); //&otherSpriteState);
+
+				}
+			}
+			else //Not a reward, so only one sprite is drawn...
+			{
+				imageChangedTillRow =
+					fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+			}
+
+			qCount++;
+			//Could, e.g., test for a hard-coded value...
+/*#if(defined(MOTION_BIGGIE) && MOTION_BIGGIE)
+			if(qCount >= (sizeof(DefaultY)*4))
+#else
+			if(qCount >= (sizeof(LeafX)*4))
+#endif
+*/
+			if(qCount >= p_nowSprite->totalCount)
+			{
+				qCount = 0;
+				prepNextSprite();
+/*
+#define LEAF_REPEAT	TRUE
+#if(!defined(LEAF_REPEAT) || !LEAF_REPEAT)
+				p_selectedSprite = p_nextSprite;
+				p_nextSprite = NULL;
+#endif
+*/
+			}
+			return imageChangedTillRow; 
+		}
+/*
+		//Transitioning from the Question-box to the next sprite
+		else if(p_selectedSprite == &spriteQ) 
 		{
 			uint8_t spriteRow;
 
@@ -335,7 +570,7 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			{
 				spriteRow = qRow - (16 - qCount);
 				if(drawSpriteRow(p_nextSprite, qCount, spriteRow, qRow))
-					imageChanged = TRUE;
+					imageChangedTillRow = qRow;
 			}
 		
 			//This is kinda hokey, but should work...
@@ -348,12 +583,13 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			for( ; qRow<Q_HEIGHT; qRow++)
 			{
 				if(drawSpriteRow(&spriteSOLID, qCount, spriteRow, qRow))
-					imageChanged = TRUE;
+					imageChangedTillRow = qRow;
 
 				spriteRow++;
 			}
 			
 		}
+		//Transitioning back from a sprite to the question-box/solid
 		else
 		{
 			uint8_t displayRow;
@@ -362,7 +598,7 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			for(displayRow = 0; displayRow < (Q_HEIGHT-qCount); displayRow++)
 			{
 				if(drawSpriteRow(p_selectedSprite,qCount,spriteRow,displayRow))
-					imageChanged = TRUE;
+					imageChangedTillRow = displayRow;
 
 									//				displayRow+qCount, displayRow);
 				spriteRow++;
@@ -372,7 +608,7 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			for( ; displayRow<Q_HEIGHT; displayRow++)
 			{
 				if(drawSpriteRow(p_nextSprite, qCount, spriteRow, displayRow))
-					imageChanged = TRUE;
+					imageChangedTillRow = displayRow;
 
 					//				displayRow-(Q_HEIGHT-1-qCount), displayRow);
 
@@ -380,6 +616,7 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			}
 		}
 
+		//a/o v84: This bit's avoided with motionHandling due to return...
 		qCount++;
 		if(qCount >= Q_HEIGHT)
 		{
@@ -396,7 +633,7 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 		for(qRow=0; qRow<Q_HEIGHT; qRow++)
 		{
 			if(drawSpriteRow(p_selectedSprite, qCount, qRow, qRow))
-				imageChanged = TRUE;
+				imageChangedTillRow = qRow; //TRUE;
 		}
 
 		qCount++;
@@ -406,11 +643,11 @@ uint8_t fbQuestion_update(void) //uint8_t triggerDetected)
 		if(qCount >= ((255 / 12) * 12))
 			qCount = 0;
 	}
-
-	return imageChanged;
+*/
+	return imageChangedTillRow;
 }
 
-uint8_t getSpritePalette(sprite_t *p_thisSprite, uint8_t spritePhase,
+uint8_t getSpritePalette(const __flash sprite_t *p_thisSprite, uint8_t spritePhase,
 																	uint8_t spriteRow)
 {
 
@@ -488,7 +725,7 @@ uint8_t getSpritePalette(sprite_t *p_thisSprite, uint8_t spritePhase,
 // vOffset is whether the sprite is above the frame-buffer or below...
 // centered = 0
 // so, e.g. vOffset = spriteRow - rowToDrawAt
-uint8_t getSpritePhase(sprite_t *p_thisSprite, uint8_t qCount, int8_t
+uint8_t getSpritePhase(const __flash sprite_t *p_thisSprite, uint8_t qCount, int8_t
 		vOffset)
 {
 	uint8_t spritePhase = qCount;
@@ -538,11 +775,11 @@ uint8_t getSpritePhase(sprite_t *p_thisSprite, uint8_t qCount, int8_t
 
 }
 
-
+/*
 //spritePhase replaces qCount... for determining e.g. the color palette and
 //the motion of the goomba...
 // This does *NOT* handle COIN... use getRowPixelValCOIN() instead.
-uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
+uint8_t drawSpriteRow(const __flash sprite_t *p_thisSprite, uint8_t qCount,
 															//uint8_t spritePhase,
 													  int8_t spriteRow, 
 													  uint8_t rowToDrawAt)
@@ -566,7 +803,7 @@ uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
       //uint8_t data=
       //  pgm_read_byte((uint8_t *)(&((p_image)[(qRow)*Q_WIDTH+(qCol)])));
       uint8_t data;
-		uint8_t theCol = qCol;
+		int8_t theCol = qCol;
 
 
 		if(p_thisSprite == &spriteGOOMBA)
@@ -577,11 +814,19 @@ uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
 				theCol = 15-qCol;
 		}
 
+		//Early test, just slide across the screen
+		if(p_thisSprite == &spriteLEAF)
+		{
+			theCol = qCol-spritePhase;
+		}
 
 
+		//If rawPixVal == 0, then draw the sky-color...
 		uint8_t rawPixVal;
 
-		if((spriteRow < 0) || (spriteRow >= Q_HEIGHT))
+		if((theCol >= FB_WIDTH) || (theCol < 0))
+			rawPixVal = 0; 
+		else if((spriteRow < 0) || (spriteRow >= Q_HEIGHT))
 			rawPixVal = 0;
 		else if(p_thisSprite == &spriteCOIN)
 			rawPixVal = getRawPixelValCOIN(spritePhase, spriteRow, theCol);
@@ -589,7 +834,7 @@ uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
 			rawPixVal = getRawPixelVal(p_thisSprite, spriteRow, theCol);
 
 
-		sprite_t *p_spriteForColor = p_thisSprite;
+		const __flash sprite_t *p_spriteForColor = p_thisSprite;
 		uint8_t paletteForColor = thePalette;
 
 		if( (rawPixVal == 0) && (skyOverrideSprite != NULL) )
@@ -623,6 +868,7 @@ uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
 
 	return rowChanged;
 }
+*/
 
 #if 0
    //Wow, is it really so smart as to recognize that rowNum is never >=
@@ -721,7 +967,7 @@ uint8_t drawSpriteRow(sprite_t *p_thisSprite, uint8_t qCount,
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/fb_question.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/fb_question.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

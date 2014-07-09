@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //delay_cyc intends to create "functions" that cause delays of a specific
 //number of CPU cycles. This isn't by any means highly accurate...
 
@@ -346,7 +350,7 @@ void delay_cyc(int32_t numCyc)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/delay_cyc.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/delay_cyc.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

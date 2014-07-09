@@ -6,8 +6,6 @@
  */
 
 
-
-
 //high frequency modulation 1.00-5
 //1.00-5 a/o LCDrevisited2012-28:
 //       v1.00 uses 40Bytes less space than 0.93
@@ -253,7 +251,7 @@ uint8_t hfm_nextOutput(hfm_t *modulator);
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/hfModulation/1.00/hfModulation.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/hfModulation/1.00/hfModulation.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

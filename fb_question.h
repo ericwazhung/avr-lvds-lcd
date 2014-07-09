@@ -8,10 +8,25 @@
 
 
 
+
+
+
+
 #ifndef __FB_QUESTION_H__
 #define __FB_QUESTION_H__
 
-uint8_t fbQuestion_update(void);
+//#include "icons/iconPacking.h" //necessary here for sprite_t
+
+int8_t fbQuestion_update(void);
+
+void fbQuestion_hitDetected(void);
+
+
+//Putting this here causes some inclusion-loop difficulties
+//uint8_t getSpritePalette(sprite_t *p_thisSprite, uint8_t spritePhase,
+//		                                           uint8_t	spriteRow);
+
+
 
 #endif
 /* mehPL:
@@ -75,7 +90,7 @@ uint8_t fbQuestion_update(void);
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/fb_question.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/fb_question.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

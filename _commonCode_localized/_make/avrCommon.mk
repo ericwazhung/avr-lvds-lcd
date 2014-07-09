@@ -6,8 +6,6 @@
 # */
 #
 #
-#
-#
 # Stuff specific to AVRs but not specific to a particular AVR...
 
 #Include this in the tarball...
@@ -264,17 +262,64 @@ terminal:
 # Yet...
 .PHONY: flash
 flash:
-	$(AVRDUDE) -U flash:w:$(TARGET).hex:i
-	@shopt -s extglob ; \
-		sizes="`avr-size $(TARGET).eep`" ; \
-			 s1="$${sizes%+([[:blank:]])"$(TARGET).eep"}" ; \
-			 s2="$${s1#*$$'\n'}" ; \
-			 s3="$${s2##+([[:blank:]])}" ; \
-			 s4="$${s3##+([[:digit:]])+([[:blank:]])}" ; \
-			 s5="$${s4%%+([[:blank:]])*}" ; \
-			 if [ "$$s5" != "0" ] ; \
-	  			then $(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
-	 		 fi
+	@echo "################################################################################"
+	@echo "#### 'make flash' is deprecated... use 'make flashOnly' or 'make run'       ####"
+	@echo "################################################################################"
+#	$(AVRDUDE) -U flash:w:$(TARGET).hex:i
+#	@shopt -s extglob ; \
+#		sizes="`avr-size $(TARGET).eep`" ; \
+#			 s1="$${sizes%+([[:blank:]])"$(TARGET).eep"}" ; \
+#			 s2="$${s1#*$$'\n'}" ; \
+#			 s3="$${s2##+([[:blank:]])}" ; \
+#			 s4="$${s3##+([[:digit:]])+([[:blank:]])}" ; \
+#			 s5="$${s4%%+([[:blank:]])*}" ; \
+#			 if [ "$$s5" != "0" ] ; \
+#	  			then $(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
+#	 		 fi
+#	@echo "################################################################################"
+#	@echo "#### 'make flash' is deprecated... use 'make flashOnly' or 'make run'       ####"
+#	@echo "################################################################################"
+
+
+# runBackup is the counterpart to 'make backup'
+# It writes the backup files to flash/eeprom
+# It's a bit hokey, because the backups must be in the main project
+# directory, but 'make backup' and 'make runBackup' should work
+# hand-in-hand if you don't move the backup files/dirs
+# Since loading is slow, and apparently eeprom loading is somewhat flakey
+# this is a bit verbose and has a lot of prompts.
+.PHONY: runBackup
+runBackup:
+	@echo "Backups:" ; \
+	i=0 ; \
+	for backupDir in ./backup_* ; \
+	do \
+		backup[$$i]="$$backupDir" ;\
+		i=$$(( i+1 )) ; \
+	done ; \
+	for (( j=0 ; j<i ; j++ )) ; \
+	do \
+		echo "$$j: $${backup[$$j]}" ; \
+	done ; \
+	read -p "Select a backup [ 0-$$(( i - 1 )) ]: " i ; \
+	if [ -e "$${backup[$$i]}/flash.hex" ] ; \
+	then \
+		read -p "Found a flash backup. Load it? [y/n]: " yn ;\
+		if [ "$$yn" == "y" ] ; \
+		then \
+			$(AVRDUDE) -U flash:w:$${backup[$$i]}/flash.hex:i ; \
+		fi ; \
+	fi ; \
+	if [ -e "$${backup[$$i]}/eeprom.hex" ] ; \
+	then \
+		read -p "Found an eeprom backup. Load it? [y/n]: " yn ;\
+		if [ "$$yn" == "y" ] ; \
+		then \
+			$(AVRDUDE) -U eeprom:w:$${backup[$$i]}/eeprom.hex:i ; \
+		fi ; \
+	fi
+
+
 # Works!
 #	@echo "****************************************************************"
 #	@echo "* EEPROM WRITING HASN'T BEEN TESTED SINCE EMPTY-TESTING        *"
@@ -283,6 +328,92 @@ flash:
 #	@echo "****************************************************************"
 #	@echo ""
 
+.PHONY: flashOnly
+flashOnly: $(TARGETS)
+	$(AVRDUDE) -U flash:w:$(TARGET).hex:i
+	
+
+#Writing 256 bytes of eeprom is taking nearly a minute (!?)
+# So if working on a project that loads to the EEPROM, use the EESAVE bit
+# in the fuses.
+# Then 'make eepromOnly' will first verify the data in the eeprom
+# If it doesn't match *then* it will write it
+# (This only happens if the .eep file contains data, see above)
+.PHONY: eepromOnly
+eepromOnly:
+	@shopt -s extglob ; \
+		sizes="`avr-size $(TARGET).eep`" ; \
+			 s1="$${sizes%+([[:blank:]])"$(TARGET).eep"}" ; \
+			 s2="$${s1#*$$'\n'}" ; \
+			 s3="$${s2##+([[:blank:]])}" ; \
+			 s4="$${s3##+([[:digit:]])+([[:blank:]])}" ; \
+			 s5="$${s4%%+([[:blank:]])*}" ; \
+			 if [ "$$s5" != "0" ] ; \
+	  		 then \
+echo "################################################################################" ; \
+echo "#### Checking whether we need to write the EEPROM                           ####" ; \
+echo "################################################################################" ; \
+				$(AVRDUDE) -U eeprom:v:$(TARGET).eep:i ; \
+				if [ "$${?}" != "0" ] ; \
+				then \
+echo "################################################################################" ; \
+echo "#### ...EEPROM needs to be written.                                         ####" ; \
+echo "################################################################################" ; \
+					$(AVRDUDE) -U eeprom:w:$(TARGET).eep:i ; \
+				else \
+echo "################################################################################" ; \
+echo "#### ...EEPROM doesn't need to be written.                                  ####" ; \
+echo "################################################################################" ; \
+				fi ; \
+	 		 fi
+
+
+
+# This runs a verify operation on the data in $(TARGET).eep and that in the
+# actual eeprom.
+# HOWEVER: It ONLY verifies the corresponding bytes
+# In other words, if the eep file is empty, the verify will come through
+# as verified.
+# (Actually, this might be a handy way to clean up the tests, in
+# make flash?)
+# If the verify passes, it returns 0, otherwise 2(?)
+#Dunno how to use this within a rule to optionally write... so see 
+# eepromOnly, instead.
+#But this could be handy, anyhow... so I'll leave it.
+.PHONY: verifyEeprom
+verifyEeprom:
+	$(AVRDUDE) -U eeprom:v:$(TARGET).eep:i
+
+
+
+
+.PHONY: verify
+verify:
+	$(AVRDUDE) -U flash:v:$(TARGET).hex:i
+	@echo "'make verify' currently only verifies the FLASH, not the EEPROM"
+
+#.PHONY: echoTest
+#echoTest:
+#	echo "OK"
+
+# So, when verifyEeprom fails, echoTest is not run...
+#.PHONY: eepTest
+#eepTest: verifyEeprom echoTest
+
+
+####################
+# This is now the main target to load the chip... as opposed to the old 
+# 'make flash'
+#
+#
+# It can be called specifically, but reallyCommon2.mk calls it when you run
+# 'make run'
+####################
+.PHONY: loadChip
+loadChip: flashOnly eepromOnly
+
+
+.PHONY: 
 # Could this be IFed for different MCUs?
 .PHONY: fuse
 fuse:
@@ -454,7 +585,7 @@ coff: $(TARGET).cof end
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/_make/avrCommon.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/avrCommon.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

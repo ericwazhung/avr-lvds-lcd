@@ -66,10 +66,45 @@ endif
 #        +-------------------- CKDIV8 (Don't divide)
 
 
-# Could this be IFed for different MCUs?
-#.PHONY: fuse
-#fuse:
-#	$(AVRDUDE) -U lfuse:w:$(FUSEL):m -U efuse:w:$(FUSEX):m -U hfuse:w:$(FUSEH):m
+
+# My programming-header and its muxed defaults:
+# (Your pin-numbers may vary)
+#
+#             Pin Name         Default Use
+# 1 GND
+# 2 V+
+# 3 SCK       PB2              Rx0 (polled_uar)
+# 4 MOSI      PB0              Tx0 (polled_uat)
+# 5 /RST
+# 6 MISO      PB1              HEARTBEAT
+
+
+# THIS IS NYI
+#These can be overridden in your project's makefile...
+# (And, if your project doesn't have puar/t or heartbeat, these don't
+#  matter)
+
+# E.G. LCDdirectLVDS cannot use the defaults
+#  as the programming-MOSI == OC1A, which is in use, so cannot be used for
+#   polled_uat's Tx0
+#   Similar for the other pins.
+#  So the project makefile should name these as appropriate
+#  (A/O LCDdirectLVDS70, it has yet to be implemented in this way)
+#ifndef HEARTBEAT_PIN_NAME
+#HEARTBEAT_PIN_NAME = PB1
+#HEARTBEAT_PIN_PORT = PORTB
+#endif
+
+#ifndef PUAR_RX0_PIN_NAME
+#PUAR_RX0_PIN_NAME = PB2
+#PUAR_RX0_PIN_PORT = PORTB
+#endif
+
+#ifndef PUAT_TX0_PIN_NAME
+#PUAT_TX0_PIN_NAME = PB0
+#PUAT_TX0_PIN_PORT = PORTB
+#endif
+
 #/* mehPL:
 # *    I would love to believe in a world where licensing shouldn't be
 # *    necessary; where people would respect others' work and wishes, 
@@ -131,7 +166,7 @@ endif
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized.mehPLed/_make/attiny861.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/attiny861.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

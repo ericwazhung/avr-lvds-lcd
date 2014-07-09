@@ -10,8 +10,12 @@
 
 
 
-#include "iconPacking.h"
 
+
+
+
+#include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -39,8 +43,8 @@
 //37, 2, 2, 0
 //37, 2, 1, 0
 
-const static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(QUESTION);
+const static uint8_t pgm_imageQ[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(QUESTION) };
 
 
 #define pgm_maskQ	NULL
@@ -48,18 +52,84 @@ const static uint8_t pgm_imageQ[ICON_PACKED_BYTES] PROGMEM =
 //	 MASK_INIT(GETNAMED(QUESTION));
 
 
-#define NUMPALETTES_Q 3//5
+#define NUMPALETTES_Q 4 //3//5
 
 //gimpPixelValToLColor should probably be taken into account.
 const static uint8_t pgm_paletteQ[4*NUMPALETTES_Q] PROGMEM =
    { 37, 2, 7, 0,   
 //	  37, 2, 7, 0,
 	  37, 2, 2, 0,  
-	  37, 2, 1, 0 };
+	  37, 2, 1, 0,
+     37, 2, 2, 0	};
 //  	  37, 2, 2, 0	};
 
-static sprite_t spriteQ =
-      { pgm_imageQ, pgm_maskQ, pgm_paletteQ, NUMPALETTES_Q};
+
+
+/* From fb_question.c:getSpritePhase()
+	switch(spritePhase%12)
+	case 0:
+	case 1:
+	case 2:
+	case 9:
+	case 10:
+	case 11:
+	   spritePhase = 0; //yellow background
+		break;
+	case 3:
+	case 4:
+	case 7:
+	case 8:
+		spritePhase = 1; //red background
+		break;
+	case 5:
+	case 6:
+	default:
+		spritePhase = 2; //brown background
+		break;
+
+		Then we have: 0 1 2 3 4 5 6 7 8 9 10 11
+		              0 0 0 1 1 2 2 1 1 0 0  0
+
+		PaletteAdvance only allows for advancing and wrapping...
+		So Palette 1 is repeated as Palette 3
+
+		Then we have: 0 1 2 3 4 5 6 7 8 9 10 11
+		              0 0 0 1 1 2 2 1 1 0 0  0
+						  0 0 0 1 1 2 2 3 3 0 0  0
+		Advance:      0 0 0 1 0 1 0 1 0 1 0  0
+*/
+
+#define Q_TOTALCOUNT	(12*5)
+const uint8_t QPaletteAdvance[PA_BYTES(Q_TOTALCOUNT)] FLIP_MEM =//PROGMEM =
+{
+	PACK_PA_BYTE(0,0,0,1,0,1,0,1),
+	PACK_PA_BYTE(0,1,0,0,  0,0,0,1), //Cycle 5 times...
+	PACK_PA_BYTE(0,1,0,1,0,1,0,0),   //(Should probably figure out a better
+	                                 // method...)
+	PACK_PA_BYTE(0,0,0,1,0,1,0,1),
+	PACK_PA_BYTE(0,1,0,0,  0,0,0,1),
+	PACK_PA_BYTE(0,1,0,1,0,1,0,0),
+
+	PACK_PA_BYTE(0,0,0,1,0,1,0,1),
+	PACK_PA_BYTE(0,1,0,0,  
+							0,0,0,0) //The last four are unused.
+};
+
+const __flash sprite_t spriteQ =
+      { 
+			.p_image 			= pgm_imageQ, 
+			.p_mask 				= pgm_maskQ, 
+			.p_palette 			= pgm_paletteQ, 
+			.numPalettes 		= NUMPALETTES_Q,
+			.totalCount 		= Q_TOTALCOUNT, //(12*5), 
+														//stolen from prepNextSprite()
+			.p_hFlip 			= NadaFlip,
+			.p_motion 			= NadaMotion,
+			.p_layer 			= NadaLayer,
+			.p_camMotion 		= NadaMotion,
+			.p_paletteAdvance = QPaletteAdvance,
+			.numImages			= 1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -122,7 +192,7 @@ static sprite_t spriteQ =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/Question.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Question.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

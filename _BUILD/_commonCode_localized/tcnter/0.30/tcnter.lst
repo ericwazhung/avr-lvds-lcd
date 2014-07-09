@@ -1,0 +1,1064 @@
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 1
+
+
+   1               		.file	"tcnter.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/",100,0,2,.Ltext0
+   8               		.stabs	"_commonCode_localized/tcnter/0.30/tcnter.c",100,0,2,.Ltext0
+   9               		.text
+  10               	.Ltext0:
+  11               		.stabs	"gcc2_compiled.",60,0,0,0
+  12               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,0,0
+  13               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,0,0
+  14               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,0,0
+  15               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,0,0
+  16               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,0,0
+  17               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,0,
+  18               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,0,0
+  19               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,0,0
+  20               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,0,0
+  21               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,0,0
+  22               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,0,0
+  23               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,0,0
+  24               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,0,0
+  25               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,0,0
+  26               		.stabs	"short _Fract:t(0,15)=r(0,1);1;0;",128,0,0,0
+  27               		.stabs	"_Fract:t(0,16)=r(0,1);2;0;",128,0,0,0
+  28               		.stabs	"long _Fract:t(0,17)=r(0,1);4;0;",128,0,0,0
+  29               		.stabs	"long long _Fract:t(0,18)=r(0,1);8;0;",128,0,0,0
+  30               		.stabs	"unsigned short _Fract:t(0,19)=r(0,1);1;0;",128,0,0,0
+  31               		.stabs	"unsigned _Fract:t(0,20)=r(0,1);2;0;",128,0,0,0
+  32               		.stabs	"unsigned long _Fract:t(0,21)=r(0,1);4;0;",128,0,0,0
+  33               		.stabs	"unsigned long long _Fract:t(0,22)=r(0,1);8;0;",128,0,0,0
+  34               		.stabs	"_Sat short _Fract:t(0,23)=r(0,1);1;0;",128,0,0,0
+  35               		.stabs	"_Sat _Fract:t(0,24)=r(0,1);2;0;",128,0,0,0
+  36               		.stabs	"_Sat long _Fract:t(0,25)=r(0,1);4;0;",128,0,0,0
+  37               		.stabs	"_Sat long long _Fract:t(0,26)=r(0,1);8;0;",128,0,0,0
+  38               		.stabs	"_Sat unsigned short _Fract:t(0,27)=r(0,1);1;0;",128,0,0,0
+  39               		.stabs	"_Sat unsigned _Fract:t(0,28)=r(0,1);2;0;",128,0,0,0
+  40               		.stabs	"_Sat unsigned long _Fract:t(0,29)=r(0,1);4;0;",128,0,0,0
+  41               		.stabs	"_Sat unsigned long long _Fract:t(0,30)=r(0,1);8;0;",128,0,0,0
+  42               		.stabs	"short _Accum:t(0,31)=r(0,1);2;0;",128,0,0,0
+  43               		.stabs	"_Accum:t(0,32)=r(0,1);4;0;",128,0,0,0
+  44               		.stabs	"long _Accum:t(0,33)=r(0,1);8;0;",128,0,0,0
+  45               		.stabs	"long long _Accum:t(0,34)=r(0,1);8;0;",128,0,0,0
+  46               		.stabs	"unsigned short _Accum:t(0,35)=r(0,1);2;0;",128,0,0,0
+  47               		.stabs	"unsigned _Accum:t(0,36)=r(0,1);4;0;",128,0,0,0
+  48               		.stabs	"unsigned long _Accum:t(0,37)=r(0,1);8;0;",128,0,0,0
+  49               		.stabs	"unsigned long long _Accum:t(0,38)=r(0,1);8;0;",128,0,0,0
+  50               		.stabs	"_Sat short _Accum:t(0,39)=r(0,1);2;0;",128,0,0,0
+  51               		.stabs	"_Sat _Accum:t(0,40)=r(0,1);4;0;",128,0,0,0
+  52               		.stabs	"_Sat long _Accum:t(0,41)=r(0,1);8;0;",128,0,0,0
+  53               		.stabs	"_Sat long long _Accum:t(0,42)=r(0,1);8;0;",128,0,0,0
+  54               		.stabs	"_Sat unsigned short _Accum:t(0,43)=r(0,1);2;0;",128,0,0,0
+  55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
+  56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
+  57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 2
+
+
+  58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
+  59               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",130,0,0,0
+  60               		.stabs	"/opt/local/lib/gcc/avr/4.8.2/include/stdint.h",130,0,0,0
+  61               		.stabs	"/opt/local/avr/include/stdint.h",130,0,0,0
+  62               		.stabs	"int8_t:t(3,1)=(0,10)",128,0,121,0
+  63               		.stabs	"uint8_t:t(3,2)=(0,11)",128,0,122,0
+  64               		.stabs	"int16_t:t(3,3)=(0,1)",128,0,123,0
+  65               		.stabs	"uint16_t:t(3,4)=(0,4)",128,0,124,0
+  66               		.stabs	"int32_t:t(3,5)=(0,3)",128,0,125,0
+  67               		.stabs	"uint32_t:t(3,6)=(0,5)",128,0,126,0
+  68               		.stabs	"int64_t:t(3,7)=(0,6)",128,0,128,0
+  69               		.stabs	"uint64_t:t(3,8)=(0,7)",128,0,129,0
+  70               		.stabs	"intptr_t:t(3,9)=(3,3)",128,0,142,0
+  71               		.stabs	"uintptr_t:t(3,10)=(3,4)",128,0,147,0
+  72               		.stabs	"int_least8_t:t(3,11)=(3,1)",128,0,159,0
+  73               		.stabs	"uint_least8_t:t(3,12)=(3,2)",128,0,164,0
+  74               		.stabs	"int_least16_t:t(3,13)=(3,3)",128,0,169,0
+  75               		.stabs	"uint_least16_t:t(3,14)=(3,4)",128,0,174,0
+  76               		.stabs	"int_least32_t:t(3,15)=(3,5)",128,0,179,0
+  77               		.stabs	"uint_least32_t:t(3,16)=(3,6)",128,0,184,0
+  78               		.stabs	"int_least64_t:t(3,17)=(3,7)",128,0,192,0
+  79               		.stabs	"uint_least64_t:t(3,18)=(3,8)",128,0,199,0
+  80               		.stabs	"int_fast8_t:t(3,19)=(3,1)",128,0,213,0
+  81               		.stabs	"uint_fast8_t:t(3,20)=(3,2)",128,0,218,0
+  82               		.stabs	"int_fast16_t:t(3,21)=(3,3)",128,0,223,0
+  83               		.stabs	"uint_fast16_t:t(3,22)=(3,4)",128,0,228,0
+  84               		.stabs	"int_fast32_t:t(3,23)=(3,5)",128,0,233,0
+  85               		.stabs	"uint_fast32_t:t(3,24)=(3,6)",128,0,238,0
+  86               		.stabs	"int_fast64_t:t(3,25)=(3,7)",128,0,246,0
+  87               		.stabs	"uint_fast64_t:t(3,26)=(3,8)",128,0,253,0
+  88               		.stabs	"intmax_t:t(3,27)=(3,7)",128,0,273,0
+  89               		.stabs	"uintmax_t:t(3,28)=(3,8)",128,0,278,0
+  90               		.stabn	162,0,0,0
+  91               		.stabn	162,0,0,0
+  92               		.stabs	"/opt/local/avr/include/avr/io.h",130,0,0,0
+  93               		.stabs	"/opt/local/avr/include/avr/sfr_defs.h",130,0,0,0
+  94               		.stabs	"/opt/local/avr/include/inttypes.h",130,0,0,0
+  95               		.stabs	"int_farptr_t:t(6,1)=(3,5)",128,0,77,0
+  96               		.stabs	"uint_farptr_t:t(6,2)=(3,6)",128,0,81,0
+  97               		.stabn	162,0,0,0
+  98               		.stabn	162,0,0,0
+  99               		.stabs	"/opt/local/avr/include/avr/fuse.h",130,0,0,0
+ 100               		.stabs	"__fuse_t:t(7,1)=(7,2)=s3low:(0,11),0,8;high:(0,11),8,8;extended:(0,11),16,8;;",128,0,244,0
+ 101               		.stabn	162,0,0,0
+ 102               		.stabn	162,0,0,0
+ 103               		.stabn	162,0,0,0
+ 104               		.stabs	"tcnter_init:F(0,47)",36,0,89,tcnter_init
+ 105               	.global	tcnter_init
+ 106               		.type	tcnter_init, @function
+ 107               	tcnter_init:
+ 108               		.stabd	46,0,0
+   1:_commonCode_localized/tcnter/0.30/tcnter.c **** /* mehPL:
+   2:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    I'm not too fond of long licenses at the top of the file.
+   4:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    Please see the bottom.
+   5:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    Enjoy!
+   6:_commonCode_localized/tcnter/0.30/tcnter.c ****  */
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 3
+
+
+   7:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+   8:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+   9:_commonCode_localized/tcnter/0.30/tcnter.c **** //tcnter 0.10
+  10:_commonCode_localized/tcnter/0.30/tcnter.c **** #ifdef _TCNTER_HEADER_
+  11:_commonCode_localized/tcnter/0.30/tcnter.c ****  #include _TCNTER_HEADER_
+  12:_commonCode_localized/tcnter/0.30/tcnter.c **** #else
+  13:_commonCode_localized/tcnter/0.30/tcnter.c ****  #include "tcnter.h"
+  14:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+  15:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  16:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  17:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  18:_commonCode_localized/tcnter/0.30/tcnter.c **** #if (defined(PU_PC_DEBUG) && PU_PC_DEBUG)
+  19:_commonCode_localized/tcnter/0.30/tcnter.c **** 	#include <stdio.h>
+  20:_commonCode_localized/tcnter/0.30/tcnter.c **** 	#define DPRINT	printf
+  21:_commonCode_localized/tcnter/0.30/tcnter.c **** #else
+  22:_commonCode_localized/tcnter/0.30/tcnter.c **** 	#define DPRINT(...) {}
+  23:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+  24:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  25:_commonCode_localized/tcnter/0.30/tcnter.c **** #if (defined(TCNTER_SOURCE_EXTERNED) && TCNTER_SOURCE_EXTERNED)
+  26:_commonCode_localized/tcnter/0.30/tcnter.c **** 	extern tcnter_source_t	TCNTER_SOURCE_VAR;
+  27:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+  28:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  29:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  30:_commonCode_localized/tcnter/0.30/tcnter.c **** #if (defined(TCNTER_INITS_TIMER) && TCNTER_INITS_TIMER)
+  31:_commonCode_localized/tcnter/0.30/tcnter.c ****  #ifndef TCNTER_SOURCE_VAR
+  32:_commonCode_localized/tcnter/0.30/tcnter.c ****   #ifdef __AVR_AT90PWM161__
+  33:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_SOURCE_VAR	TCNT1
+  34:_commonCode_localized/tcnter/0.30/tcnter.c ****   #elif (defined(TCNT0))
+  35:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_SOURCE_VAR	TCNT0
+  36:_commonCode_localized/tcnter/0.30/tcnter.c ****   #elif(defined(TCNT0L))
+  37:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_SOURCE_VAR	TCNT0L
+  38:_commonCode_localized/tcnter/0.30/tcnter.c ****   #else
+  39:_commonCode_localized/tcnter/0.30/tcnter.c ****    #error "Gonna have to set TCNTER_SOURCE_VAR explicitly"
+  40:_commonCode_localized/tcnter/0.30/tcnter.c ****   #endif
+  41:_commonCode_localized/tcnter/0.30/tcnter.c ****  #endif
+  42:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  43:_commonCode_localized/tcnter/0.30/tcnter.c ****  #ifndef TCNTER_SOURCE_OVERFLOW_VAL
+  44:_commonCode_localized/tcnter/0.30/tcnter.c ****   #ifdef __AVR_AT90PWM161__
+  45:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_SOURCE_OVERFLOW_VAL	0xffff
+  46:_commonCode_localized/tcnter/0.30/tcnter.c ****   #else
+  47:_commonCode_localized/tcnter/0.30/tcnter.c ****    //Assuming an 8-bit timer...
+  48:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_SOURCE_OVERFLOW_VAL	0xff
+  49:_commonCode_localized/tcnter/0.30/tcnter.c ****   #endif
+  50:_commonCode_localized/tcnter/0.30/tcnter.c ****  #endif
+  51:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  52:_commonCode_localized/tcnter/0.30/tcnter.c ****  #ifndef TCNTER_AVRTIMER_NUM
+  53:_commonCode_localized/tcnter/0.30/tcnter.c ****   #ifdef __AVR_AT90PWM161__
+  54:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_AVRTIMER_NUM	1
+  55:_commonCode_localized/tcnter/0.30/tcnter.c ****   #else
+  56:_commonCode_localized/tcnter/0.30/tcnter.c ****    #define TCNTER_AVRTIMER_NUM	0
+  57:_commonCode_localized/tcnter/0.30/tcnter.c ****   #endif
+  58:_commonCode_localized/tcnter/0.30/tcnter.c ****  #endif
+  59:_commonCode_localized/tcnter/0.30/tcnter.c ****  //This moved to tcnter.h
+  60:_commonCode_localized/tcnter/0.30/tcnter.c **** /*
+  61:_commonCode_localized/tcnter/0.30/tcnter.c ****  #ifndef TCNTER_AVRTIMER_CLKDIV
+  62:_commonCode_localized/tcnter/0.30/tcnter.c ****   //This choice is arbitrary...
+  63:_commonCode_localized/tcnter/0.30/tcnter.c ****   // According to timerCommon, it exists in most typical systems
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 4
+
+
+  64:_commonCode_localized/tcnter/0.30/tcnter.c ****   // The only exception I've run into so far is AT90PWM161, which ONLY has
+  65:_commonCode_localized/tcnter/0.30/tcnter.c ****   // CLKDIV1, which wouldn't work too well since tcnter_update() would have
+  66:_commonCode_localized/tcnter/0.30/tcnter.c ****   // to run every 255 clock cycles (or 65535?)
+  67:_commonCode_localized/tcnter/0.30/tcnter.c ****   // LCDdirectLVDS69 uses the timer for dms... so it must work, ish.
+  68:_commonCode_localized/tcnter/0.30/tcnter.c ****   #define TCNTER_AVRTIMER_CLKDIV CLKDIV64
+  69:_commonCode_localized/tcnter/0.30/tcnter.c ****  #endif
+  70:_commonCode_localized/tcnter/0.30/tcnter.c **** */
+  71:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+  72:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  73:_commonCode_localized/tcnter/0.30/tcnter.c **** //DON'T CHANGE THIS WITHOUT CHANGING both!
+  74:_commonCode_localized/tcnter/0.30/tcnter.c **** //#define tcnter_source_t	uint8_t
+  75:_commonCode_localized/tcnter/0.30/tcnter.c **** //#define tcnter_compare_t	int16_t
+  76:_commonCode_localized/tcnter/0.30/tcnter.c **** //#define tcnter_t	uint32_t
+  77:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  78:_commonCode_localized/tcnter/0.30/tcnter.c **** //Running TCNTs since last init
+  79:_commonCode_localized/tcnter/0.30/tcnter.c **** volatile tcnter_t tcnter_myTcnter = 0;
+  80:_commonCode_localized/tcnter/0.30/tcnter.c **** //Last TCNT value read in update()
+  81:_commonCode_localized/tcnter/0.30/tcnter.c **** // this is not used, except internally
+  82:_commonCode_localized/tcnter/0.30/tcnter.c **** // (global for reset on init)
+  83:_commonCode_localized/tcnter/0.30/tcnter.c **** tcnter_source_t tcnter_lastTcnt = 0;
+  84:_commonCode_localized/tcnter/0.30/tcnter.c **** // Before inlining functions:
+  85:_commonCode_localized/tcnter/0.30/tcnter.c **** //INLINING EXPERIMENTS: INLINE=FALSE 4098B INLINE=TRUE 4240B
+  86:_commonCode_localized/tcnter/0.30/tcnter.c **** //   after all inlining, it's still bigger than without inlining!
+  87:_commonCode_localized/tcnter/0.30/tcnter.c **** //Inlined: Saved 24B (4216)	
+  88:_commonCode_localized/tcnter/0.30/tcnter.c **** TCNTER_INLINEABLE
+  89:_commonCode_localized/tcnter/0.30/tcnter.c **** void tcnter_init(void)
+  90:_commonCode_localized/tcnter/0.30/tcnter.c **** {
+ 109               		.stabn	68,0,90,.LM0-.LFBB1
+ 110               	.LM0:
+ 111               	.LFBB1:
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 0 */
+ 115               	.L__stack_usage = 0
+  91:_commonCode_localized/tcnter/0.30/tcnter.c **** #if (defined(TCNTER_INITS_TIMER) && TCNTER_INITS_TIMER)
+  92:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//What if the timer is 16bit (do they default as such?)
+  93:_commonCode_localized/tcnter/0.30/tcnter.c **** 	timer_setWGM(TCNTER_AVRTIMER_NUM, WGM_NORMAL); //Necessary?
+  94:_commonCode_localized/tcnter/0.30/tcnter.c **** 	timer_selectDivisor(TCNTER_AVRTIMER_NUM, TCNTER_AVRTIMER_CLKDIV);
+  95:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+  96:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+  97:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_lastTcnt = TCNTER_SOURCE_VAR;
+ 116               		.stabn	68,0,97,.LM1-.LFBB1
+ 117               	.LM1:
+ 118 0000 82B7      		in r24,0x32
+ 119 0002 8093 0000 		sts tcnter_lastTcnt,r24
+  98:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_myTcnter = 0;
+ 120               		.stabn	68,0,98,.LM2-.LFBB1
+ 121               	.LM2:
+ 122 0006 1092 0000 		sts tcnter_myTcnter,__zero_reg__
+ 123 000a 1092 0000 		sts tcnter_myTcnter+1,__zero_reg__
+ 124 000e 1092 0000 		sts tcnter_myTcnter+2,__zero_reg__
+ 125 0012 1092 0000 		sts tcnter_myTcnter+3,__zero_reg__
+ 126 0016 0895      		ret
+ 127               		.size	tcnter_init, .-tcnter_init
+ 128               	.Lscope1:
+ 129               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 130               		.stabd	78,0,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 5
+
+
+ 131               		.stabs	"tcnter_overflowUpdate:F(0,47)",36,0,136,tcnter_overflowUpdate
+ 132               	.global	tcnter_overflowUpdate
+ 133               		.type	tcnter_overflowUpdate, @function
+ 134               	tcnter_overflowUpdate:
+ 135               		.stabd	46,0,0
+  99:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 100:_commonCode_localized/tcnter/0.30/tcnter.c **** 	DPRINT("tcnter_init()\n");
+ 101:_commonCode_localized/tcnter/0.30/tcnter.c **** }
+ 102:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 103:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 104:_commonCode_localized/tcnter/0.30/tcnter.c **** void tcnter_wait(myTcnter_t tcnts)
+ 105:_commonCode_localized/tcnter/0.30/tcnter.c **** {
+ 106:_commonCode_localized/tcnter/0.30/tcnter.c **** 	myTcnter_t startTime = tcnter_get();
+ 107:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 108:_commonCode_localized/tcnter/0.30/tcnter.c **** 	while(!tcnter_isItTime(&startTime, tcnts))
+ 109:_commonCode_localized/tcnter/0.30/tcnter.c **** 	{
+ 110:_commonCode_localized/tcnter/0.30/tcnter.c **** 		tcnter_update();
+ 111:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//asm("nop;");
+ 112:_commonCode_localized/tcnter/0.30/tcnter.c **** 	}
+ 113:_commonCode_localized/tcnter/0.30/tcnter.c **** }
+ 114:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 115:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 116:_commonCode_localized/tcnter/0.30/tcnter.c **** #if(defined(TCNT_UPDATE_ONCE_PER_OVERFLOW) && \
+ 117:_commonCode_localized/tcnter/0.30/tcnter.c **** 		TCNT_UPDATE_ONCE_PER_OVERFLOW)
+ 118:_commonCode_localized/tcnter/0.30/tcnter.c **** //65536 calls should be plenty, right...?
+ 119:_commonCode_localized/tcnter/0.30/tcnter.c **** // what if we're in a tcnter_wait() function, and the overflow-value is
+ 120:_commonCode_localized/tcnter/0.30/tcnter.c **** // large?
+ 121:_commonCode_localized/tcnter/0.30/tcnter.c **** // There's an easy-ish way to check this, right...?
+ 122:_commonCode_localized/tcnter/0.30/tcnter.c **** // e.g. assume no more than one update can be called every 20 clock cycles
+ 123:_commonCode_localized/tcnter/0.30/tcnter.c **** // (just an estimate) Then determine how long an overflow is in terms of
+ 124:_commonCode_localized/tcnter/0.30/tcnter.c **** // clock-cycles... 
+ 125:_commonCode_localized/tcnter/0.30/tcnter.c **** // then we could #if(MAXUPDATES < 65535) use uint16... etc.
+ 126:_commonCode_localized/tcnter/0.30/tcnter.c **** uint32_t tcnter_updatesSinceOverflowUpdate = 0;
+ 127:_commonCode_localized/tcnter/0.30/tcnter.c **** // This is the tcnt value at the time of the last overflow...
+ 128:_commonCode_localized/tcnter/0.30/tcnter.c **** tcnter_source_t tcnter_lastOverflowTcnt = 0;
+ 129:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 130:_commonCode_localized/tcnter/0.30/tcnter.c **** //If called, e.g. in the timer's overflow-interrupt, then tcnter should
+ 131:_commonCode_localized/tcnter/0.30/tcnter.c **** //advance by TCNTER_SOURCE_OVERFLOW_VAL each time...
+ 132:_commonCode_localized/tcnter/0.30/tcnter.c **** // Of course, the actual call might occur a few tcnts after the interrupt
+ 133:_commonCode_localized/tcnter/0.30/tcnter.c **** // (and after the actual overflow)... and therefore could be called at
+ 134:_commonCode_localized/tcnter/0.30/tcnter.c **** // slightly different (+/-) times WRT the actual overflow...
+ 135:_commonCode_localized/tcnter/0.30/tcnter.c **** TCNTER_INLINEABLE
+ 136:_commonCode_localized/tcnter/0.30/tcnter.c **** void tcnter_overflowUpdate(void)
+ 137:_commonCode_localized/tcnter/0.30/tcnter.c **** {
+ 136               		.stabn	68,0,137,.LM3-.LFBB2
+ 137               	.LM3:
+ 138               	.LFBB2:
+ 139               	/* prologue: function */
+ 140               	/* frame size = 0 */
+ 141               	/* stack size = 0 */
+ 142               	.L__stack_usage = 0
+ 138:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_source_t thisTcnt = TCNTER_SOURCE_VAR;
+ 143               		.stabn	68,0,138,.LM4-.LFBB2
+ 144               	.LM4:
+ 145 0018 E2B7      		in r30,0x32
+ 139:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 140:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//This will be calculated before being added to myTcnter...
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 6
+
+
+ 141:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_compare_t deltaTcnt;
+ 142:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 143:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 144:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//If tcnter_update() has been called inbetween, just treat this like a
+ 145:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//normal tcnter_update()	
+ 146:_commonCode_localized/tcnter/0.30/tcnter.c **** 	if(tcnter_updatesSinceOverflowUpdate)
+ 146               		.stabn	68,0,146,.LM5-.LFBB2
+ 147               	.LM5:
+ 148 001a 4091 0000 		lds r20,tcnter_updatesSinceOverflowUpdate
+ 149 001e 5091 0000 		lds r21,tcnter_updatesSinceOverflowUpdate+1
+ 150 0022 6091 0000 		lds r22,tcnter_updatesSinceOverflowUpdate+2
+ 151 0026 7091 0000 		lds r23,tcnter_updatesSinceOverflowUpdate+3
+ 152 002a 8E2F      		mov r24,r30
+ 153 002c 90E0      		ldi r25,0
+ 154 002e 452B      		or r20,r21
+ 155 0030 462B      		or r20,r22
+ 156 0032 472B      		or r20,r23
+ 157 0034 01F0      		breq .L3
+ 147:_commonCode_localized/tcnter/0.30/tcnter.c **** 	{
+ 148:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//wrap-around can be handled here...
+ 149:_commonCode_localized/tcnter/0.30/tcnter.c **** 		// (This shouldn't happen, right? Since overflowUpdate is called?)
+ 150:_commonCode_localized/tcnter/0.30/tcnter.c **** 		if(thisTcnt < tcnter_lastTcnt)
+ 158               		.stabn	68,0,150,.LM6-.LFBB2
+ 159               	.LM6:
+ 160 0036 4091 0000 		lds r20,tcnter_lastTcnt
+ 161 003a E417      		cp r30,r20
+ 162 003c 00F4      		brsh .L6
+ 151:_commonCode_localized/tcnter/0.30/tcnter.c **** 			deltaTcnt = (tcnter_compare_t)(TCNTER_SOURCE_OVERFLOW_VAL);
+ 163               		.stabn	68,0,151,.LM7-.LFBB2
+ 164               	.LM7:
+ 165 003e 27E8      		ldi r18,lo8(-121)
+ 166 0040 30E0      		ldi r19,0
+ 167 0042 00C0      		rjmp .L4
+ 168               	.L6:
+ 152:_commonCode_localized/tcnter/0.30/tcnter.c **** 		else
+ 153:_commonCode_localized/tcnter/0.30/tcnter.c **** 			deltaTcnt = 0;
+ 169               		.stabn	68,0,153,.LM8-.LFBB2
+ 170               	.LM8:
+ 171 0044 20E0      		ldi r18,0
+ 172 0046 30E0      		ldi r19,0
+ 173               	.L4:
+ 154:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 155:_commonCode_localized/tcnter/0.30/tcnter.c **** 		deltaTcnt += (tcnter_compare_t)thisTcnt
+ 156:_commonCode_localized/tcnter/0.30/tcnter.c **** 						- (tcnter_compare_t)tcnter_lastTcnt;
+ 174               		.stabn	68,0,156,.LM9-.LFBB2
+ 175               	.LM9:
+ 176 0048 841B      		sub r24,r20
+ 177 004a 9109      		sbc r25,__zero_reg__
+ 155:_commonCode_localized/tcnter/0.30/tcnter.c **** 						- (tcnter_compare_t)tcnter_lastTcnt;
+ 178               		.stabn	68,0,155,.LM10-.LFBB2
+ 179               	.LM10:
+ 180 004c 820F      		add r24,r18
+ 181 004e 931F      		adc r25,r19
+ 182 0050 00C0      		rjmp .L5
+ 183               	.L3:
+ 157:_commonCode_localized/tcnter/0.30/tcnter.c **** 	}
+ 158:_commonCode_localized/tcnter/0.30/tcnter.c **** 	else
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 7
+
+
+ 159:_commonCode_localized/tcnter/0.30/tcnter.c **** 	{
+ 160:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//Any error will be subtracted later...
+ 161:_commonCode_localized/tcnter/0.30/tcnter.c **** 		deltaTcnt = TCNTER_SOURCE_OVERFLOW_VAL;
+ 162:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 163:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//This should probably be small, e.g. +-1 WRT the last overflowUpdate
+ 164:_commonCode_localized/tcnter/0.30/tcnter.c **** 		// since it likely occurs in the overflow interrupt.
+ 165:_commonCode_localized/tcnter/0.30/tcnter.c **** 		deltaTcnt += (tcnter_compare_t)thisTcnt
+ 166:_commonCode_localized/tcnter/0.30/tcnter.c **** 						- (tcnter_compare_t)tcnter_lastOverflowTcnt;
+ 184               		.stabn	68,0,166,.LM11-.LFBB2
+ 185               	.LM11:
+ 186 0052 2091 0000 		lds r18,tcnter_lastOverflowTcnt
+ 187 0056 821B      		sub r24,r18
+ 188 0058 9109      		sbc r25,__zero_reg__
+ 165:_commonCode_localized/tcnter/0.30/tcnter.c **** 						- (tcnter_compare_t)tcnter_lastOverflowTcnt;
+ 189               		.stabn	68,0,165,.LM12-.LFBB2
+ 190               	.LM12:
+ 191 005a 8957      		subi r24,121
+ 192 005c 9F4F      		sbci r25,-1
+ 193               	.L5:
+ 167:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 168:_commonCode_localized/tcnter/0.30/tcnter.c **** 	}
+ 169:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 170:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 171:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//Add the delta to myTcnter
+ 172:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_myTcnter += deltaTcnt;
+ 194               		.stabn	68,0,172,.LM13-.LFBB2
+ 195               	.LM13:
+ 196 005e 4091 0000 		lds r20,tcnter_myTcnter
+ 197 0062 5091 0000 		lds r21,tcnter_myTcnter+1
+ 198 0066 6091 0000 		lds r22,tcnter_myTcnter+2
+ 199 006a 7091 0000 		lds r23,tcnter_myTcnter+3
+ 200 006e AA27      		clr r26
+ 201 0070 97FD      		sbrc r25,7
+ 202 0072 A095      		com r26
+ 203 0074 BA2F      		mov r27,r26
+ 204 0076 840F      		add r24,r20
+ 205 0078 951F      		adc r25,r21
+ 206 007a A61F      		adc r26,r22
+ 207 007c B71F      		adc r27,r23
+ 208 007e 8093 0000 		sts tcnter_myTcnter,r24
+ 209 0082 9093 0000 		sts tcnter_myTcnter+1,r25
+ 210 0086 A093 0000 		sts tcnter_myTcnter+2,r26
+ 211 008a B093 0000 		sts tcnter_myTcnter+3,r27
+ 173:_commonCode_localized/tcnter/0.30/tcnter.c **** 	
+ 174:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//And prep for the next call...
+ 175:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_updatesSinceOverflowUpdate = 0;
+ 212               		.stabn	68,0,175,.LM14-.LFBB2
+ 213               	.LM14:
+ 214 008e 1092 0000 		sts tcnter_updatesSinceOverflowUpdate,__zero_reg__
+ 215 0092 1092 0000 		sts tcnter_updatesSinceOverflowUpdate+1,__zero_reg__
+ 216 0096 1092 0000 		sts tcnter_updatesSinceOverflowUpdate+2,__zero_reg__
+ 217 009a 1092 0000 		sts tcnter_updatesSinceOverflowUpdate+3,__zero_reg__
+ 176:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_lastTcnt = thisTcnt;
+ 218               		.stabn	68,0,176,.LM15-.LFBB2
+ 219               	.LM15:
+ 220 009e E093 0000 		sts tcnter_lastTcnt,r30
+ 177:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_lastOverflowTcnt = thisTcnt;
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 8
+
+
+ 221               		.stabn	68,0,177,.LM16-.LFBB2
+ 222               	.LM16:
+ 223 00a2 E093 0000 		sts tcnter_lastOverflowTcnt,r30
+ 224 00a6 0895      		ret
+ 225               		.size	tcnter_overflowUpdate, .-tcnter_overflowUpdate
+ 226               		.stabs	"thisTcnt:r(3,2)",64,0,138,30
+ 227               		.stabn	192,0,0,.LFBB2-.LFBB2
+ 228               		.stabn	224,0,0,.Lscope2-.LFBB2
+ 229               	.Lscope2:
+ 230               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 231               		.stabd	78,0,0
+ 232               		.stabs	"tcnter_update:F(0,47)",36,0,195,tcnter_update
+ 233               	.global	tcnter_update
+ 234               		.type	tcnter_update, @function
+ 235               	tcnter_update:
+ 236               		.stabd	46,0,0
+ 178:_commonCode_localized/tcnter/0.30/tcnter.c **** }
+ 179:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+ 180:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 181:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 182:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 183:_commonCode_localized/tcnter/0.30/tcnter.c **** //#warning "Changing TCNT for this purpose makes the timer unusable for more than one UAR/T or othe
+ 184:_commonCode_localized/tcnter/0.30/tcnter.c **** // What about a tcnt DIFFERENCE, instead?
+ 185:_commonCode_localized/tcnter/0.30/tcnter.c **** // How difficult would this be with wraparound and/or resets at arbitary
+ 186:_commonCode_localized/tcnter/0.30/tcnter.c **** // values?
+ 187:_commonCode_localized/tcnter/0.30/tcnter.c **** // Can we use the other devices' (e.g. DMS) OCR values?
+ 188:_commonCode_localized/tcnter/0.30/tcnter.c **** // What about an xyTracker for more precision and less cumulative error?
+ 189:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 190:_commonCode_localized/tcnter/0.30/tcnter.c **** //Inlined: WTF?! 4240->4880B! (used twice... once on init)
+ 191:_commonCode_localized/tcnter/0.30/tcnter.c **** //  Also seems to cause the main loop to not function
+ 192:_commonCode_localized/tcnter/0.30/tcnter.c **** //  (how could it take *more* instructions?!)
+ 193:_commonCode_localized/tcnter/0.30/tcnter.c **** //   trying to shuffle registers?
+ 194:_commonCode_localized/tcnter/0.30/tcnter.c **** //TCNTER_INLINEABLE
+ 195:_commonCode_localized/tcnter/0.30/tcnter.c **** void tcnter_update(void)
+ 196:_commonCode_localized/tcnter/0.30/tcnter.c **** {
+ 237               		.stabn	68,0,196,.LM17-.LFBB3
+ 238               	.LM17:
+ 239               	.LFBB3:
+ 240               	/* prologue: function */
+ 241               	/* frame size = 0 */
+ 242               	/* stack size = 0 */
+ 243               	.L__stack_usage = 0
+ 197:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_source_t thisTcnt = TCNTER_SOURCE_VAR;	//e.g. TCNT0
+ 244               		.stabn	68,0,197,.LM18-.LFBB3
+ 245               	.LM18:
+ 246 00a8 22B7      		in r18,0x32
+ 198:_commonCode_localized/tcnter/0.30/tcnter.c **** 	
+ 199:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_compare_t deltaTcnt = (tcnter_compare_t)thisTcnt 
+ 200:_commonCode_localized/tcnter/0.30/tcnter.c **** 										- (tcnter_compare_t)tcnter_lastTcnt;
+ 247               		.stabn	68,0,200,.LM19-.LFBB3
+ 248               	.LM19:
+ 249 00aa 3091 0000 		lds r19,tcnter_lastTcnt
+ 199:_commonCode_localized/tcnter/0.30/tcnter.c **** 										- (tcnter_compare_t)tcnter_lastTcnt;
+ 250               		.stabn	68,0,199,.LM20-.LFBB3
+ 251               	.LM20:
+ 252 00ae 822F      		mov r24,r18
+ 253 00b0 90E0      		ldi r25,0
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 9
+
+
+ 254 00b2 831B      		sub r24,r19
+ 255 00b4 9109      		sbc r25,__zero_reg__
+ 201:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 202:_commonCode_localized/tcnter/0.30/tcnter.c **** 	
+ 203:_commonCode_localized/tcnter/0.30/tcnter.c **** #if(defined(TCNT_UPDATE_ONCE_PER_OVERFLOW) && \
+ 204:_commonCode_localized/tcnter/0.30/tcnter.c **** 		TCNT_UPDATE_ONCE_PER_OVERFLOW)
+ 205:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//The odd-case being if e.g. overflowUpdate is called at TCNT=1
+ 206:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// and update() is called after, at TCNT=1
+ 207:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// update won't increment, and the updatesSinceOverflow, if allowed to
+ 208:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// be incremented, would indicate to overflowUpdate that it should treat
+ 209:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// the next overflow as a normal update, which may well occur at, again,
+ 210:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// TCNT=1, which would result in a non-advancement at all.
+ 211:_commonCode_localized/tcnter/0.30/tcnter.c **** 	if(thisTcnt == tcnter_lastOverflowTcnt)
+ 256               		.stabn	68,0,211,.LM21-.LFBB3
+ 257               	.LM21:
+ 258 00b6 4091 0000 		lds r20,tcnter_lastOverflowTcnt
+ 259 00ba 2417      		cp r18,r20
+ 260 00bc 01F0      		breq .L8
+ 212:_commonCode_localized/tcnter/0.30/tcnter.c **** 		return;
+ 213:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 214:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_updatesSinceOverflowUpdate++;
+ 261               		.stabn	68,0,214,.LM22-.LFBB3
+ 262               	.LM22:
+ 263 00be 4091 0000 		lds r20,tcnter_updatesSinceOverflowUpdate
+ 264 00c2 5091 0000 		lds r21,tcnter_updatesSinceOverflowUpdate+1
+ 265 00c6 6091 0000 		lds r22,tcnter_updatesSinceOverflowUpdate+2
+ 266 00ca 7091 0000 		lds r23,tcnter_updatesSinceOverflowUpdate+3
+ 267 00ce 4F5F      		subi r20,-1
+ 268 00d0 5F4F      		sbci r21,-1
+ 269 00d2 6F4F      		sbci r22,-1
+ 270 00d4 7F4F      		sbci r23,-1
+ 271 00d6 4093 0000 		sts tcnter_updatesSinceOverflowUpdate,r20
+ 272 00da 5093 0000 		sts tcnter_updatesSinceOverflowUpdate+1,r21
+ 273 00de 6093 0000 		sts tcnter_updatesSinceOverflowUpdate+2,r22
+ 274 00e2 7093 0000 		sts tcnter_updatesSinceOverflowUpdate+3,r23
+ 215:_commonCode_localized/tcnter/0.30/tcnter.c **** #endif
+ 216:_commonCode_localized/tcnter/0.30/tcnter.c **** 	
+ 217:_commonCode_localized/tcnter/0.30/tcnter.c **** 	// Handle wrap-around...
+ 218:_commonCode_localized/tcnter/0.30/tcnter.c **** 	if (thisTcnt < tcnter_lastTcnt)
+ 275               		.stabn	68,0,218,.LM23-.LFBB3
+ 276               	.LM23:
+ 277 00e6 2317      		cp r18,r19
+ 278 00e8 00F4      		brsh .L10
+ 219:_commonCode_localized/tcnter/0.30/tcnter.c **** 		deltaTcnt += (tcnter_compare_t)(TCNTER_SOURCE_OVERFLOW_VAL);
+ 279               		.stabn	68,0,219,.LM24-.LFBB3
+ 280               	.LM24:
+ 281 00ea 8957      		subi r24,121
+ 282 00ec 9F4F      		sbci r25,-1
+ 283               	.L10:
+ 220:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 221:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_lastTcnt = thisTcnt;
+ 284               		.stabn	68,0,221,.LM25-.LFBB3
+ 285               	.LM25:
+ 286 00ee 2093 0000 		sts tcnter_lastTcnt,r18
+ 222:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 223:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_myTcnter += (tcnter_t)deltaTcnt;
+ 287               		.stabn	68,0,223,.LM26-.LFBB3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 10
+
+
+ 288               	.LM26:
+ 289 00f2 4091 0000 		lds r20,tcnter_myTcnter
+ 290 00f6 5091 0000 		lds r21,tcnter_myTcnter+1
+ 291 00fa 6091 0000 		lds r22,tcnter_myTcnter+2
+ 292 00fe 7091 0000 		lds r23,tcnter_myTcnter+3
+ 293 0102 AA27      		clr r26
+ 294 0104 97FD      		sbrc r25,7
+ 295 0106 A095      		com r26
+ 296 0108 BA2F      		mov r27,r26
+ 297 010a 840F      		add r24,r20
+ 298 010c 951F      		adc r25,r21
+ 299 010e A61F      		adc r26,r22
+ 300 0110 B71F      		adc r27,r23
+ 301 0112 8093 0000 		sts tcnter_myTcnter,r24
+ 302 0116 9093 0000 		sts tcnter_myTcnter+1,r25
+ 303 011a A093 0000 		sts tcnter_myTcnter+2,r26
+ 304 011e B093 0000 		sts tcnter_myTcnter+3,r27
+ 305               	.L8:
+ 306 0122 0895      		ret
+ 307               		.size	tcnter_update, .-tcnter_update
+ 308               		.stabs	"thisTcnt:r(3,2)",64,0,197,18
+ 309               		.stabs	"deltaTcnt:r(3,3)",64,0,199,24
+ 310               		.stabn	192,0,0,.LFBB3-.LFBB3
+ 311               		.stabn	224,0,0,.Lscope3-.LFBB3
+ 312               	.Lscope3:
+ 313               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 314               		.stabd	78,0,0
+ 315               		.stabs	"tcnter_wait:F(0,47)",36,0,104,tcnter_wait
+ 316               		.stabs	"tcnts:P(3,6)",64,0,104,22
+ 317               	.global	tcnter_wait
+ 318               		.type	tcnter_wait, @function
+ 319               	tcnter_wait:
+ 320               		.stabd	46,0,0
+ 105:_commonCode_localized/tcnter/0.30/tcnter.c **** 	myTcnter_t startTime = tcnter_get();
+ 321               		.stabn	68,0,105,.LM27-.LFBB4
+ 322               	.LM27:
+ 323               	.LFBB4:
+ 324 0124 8F92      		push r8
+ 325 0126 9F92      		push r9
+ 326 0128 AF92      		push r10
+ 327 012a BF92      		push r11
+ 328 012c CF92      		push r12
+ 329 012e DF92      		push r13
+ 330 0130 EF92      		push r14
+ 331 0132 FF92      		push r15
+ 332 0134 CF93      		push r28
+ 333 0136 DF93      		push r29
+ 334 0138 00D0      		rcall .
+ 335 013a 00D0      		rcall .
+ 336 013c CDB7      		in r28,__SP_L__
+ 337 013e DEB7      		in r29,__SP_H__
+ 338               	/* prologue: function */
+ 339               	/* frame size = 4 */
+ 340               	/* stack size = 14 */
+ 341               	.L__stack_usage = 14
+ 342               	.LBB8:
+ 343               	.LBB9:
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 11
+
+
+ 224:_commonCode_localized/tcnter/0.30/tcnter.c **** }
+ 225:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 226:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 227:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 228:_commonCode_localized/tcnter/0.30/tcnter.c **** //Inlined: Saved 40B
+ 229:_commonCode_localized/tcnter/0.30/tcnter.c **** TCNTER_INLINEABLE
+ 230:_commonCode_localized/tcnter/0.30/tcnter.c **** tcnter_t tcnter_get(void)
+ 231:_commonCode_localized/tcnter/0.30/tcnter.c **** {
+ 232:_commonCode_localized/tcnter/0.30/tcnter.c **** 	return tcnter_myTcnter;
+ 344               		.stabn	68,0,232,.LM28-.LFBB4
+ 345               	.LM28:
+ 346 0140 C090 0000 		lds r12,tcnter_myTcnter
+ 347 0144 D090 0000 		lds r13,tcnter_myTcnter+1
+ 348 0148 E090 0000 		lds r14,tcnter_myTcnter+2
+ 349 014c F090 0000 		lds r15,tcnter_myTcnter+3
+ 350               	.L13:
+ 351               	.LBE9:
+ 352               	.LBE8:
+ 353               	.LBB10:
+ 354               	.LBB11:
+ 355               		.stabs	"./_commonCode_localized/tcnter/0.30/tcnter.h",132,0,0,.Ltext1
+ 356               	.Ltext1:
+   1:./_commonCode_localized/tcnter/0.30/tcnter.h **** /* mehPL:
+   2:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    This is Open Source, but NOT GPL. I call it mehPL.
+   3:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    I'm not too fond of long licenses at the top of the file.
+   4:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    Please see the bottom.
+   5:./_commonCode_localized/tcnter/0.30/tcnter.h ****  *    Enjoy!
+   6:./_commonCode_localized/tcnter/0.30/tcnter.h ****  */
+   7:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+   8:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+   9:./_commonCode_localized/tcnter/0.30/tcnter.h **** //tcnter 0.30-6
+  10:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Similar functionality to dmsTimer
+  11:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   Doesn't require interrupts
+  12:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   MUCH higher resolution-potential (e.g. for bit-rate generation)
+  13:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      limited only by the tcnter_update() call rate(?)
+  14:./_commonCode_localized/tcnter/0.30/tcnter.h **** // TODO: Make some, if not all, functions inline.
+  15:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       CONSIDER: if timing is highly critical, it may make sense
+  16:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 to call update() with every get()
+  17:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 THOUGH: this would add a lot of calculations...
+  18:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       CONSIDER2: could myTcnter_t be smaller, and use wraparound math?
+  19:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 e.g.  if(get() >= next) NOGO ? next=3, get=254
+  20:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                 e.g.2 if(get() - next >= 0) ... same
+  21:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  wasn't there a way to do this?
+  22:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                       if(get() - last >= next - last) ?
+  23:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                             next=3, get=254, last=253
+  24:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                          get()-last = 254-253 = 1
+  25:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                          next-last = 3-253 = 6
+  26:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  Promotion issues may occur, watch casts.
+  27:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                  See cTools/unsignedSubtraction.c
+  28:./_commonCode_localized/tcnter/0.30/tcnter.h **** //                             next=5, get=7, last=6
+  29:./_commonCode_localized/tcnter/0.30/tcnter.h **** //					Create "wrappableTimeCompare()" macro?
+  30:./_commonCode_localized/tcnter/0.30/tcnter.h **** //             Also usable in dms, etc...
+  31:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-6 adding TCNT_UPDATE_ONCE_PER_OVERFLOW:
+  32:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			and tcnter_overflowUpdate()
+  33:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       ...
+  34:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       LCDdirectLVDS77 attempts to call tcnter_update() only once per
+  35:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			timer-overflow (in the interrupt)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 12
+
+
+  36:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       So it's quite likely that each tcnter_update() occurs at or around
+  37:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       the same TCNT value. (which might explain why the heart isn't
+  38:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       fading).
+  39:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-5 Checking if TCNTER_MS is <= 0
+  40:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-4 TCNTER_INITS_TIMER is configured by default IF timerCommon is not
+  41:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			included in the makefile before tcnter is...
+  42:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       This is a bit hokey... (what if timerCommon is included *after*?)
+  43:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       TODO: Figure this out.
+  44:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-3 PWM161 wasn't handled...
+  45:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-2 8V2, not V28
+  46:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Adding tcnter_wait(tcnts)
+  47:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-1 moving TCNTER_AVRTIMER_CLKDIV to tcnter.h so it can be used by
+  48:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			e.g. heartbeat to calculate timings...
+  49:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30  tcnter on an AVR will most-likely use a timer, e.g. timer0
+  50:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      so should set some defaults, not have to explicitly include
+  51:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      timerCommon in the project's makefile, etc.
+  52:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.21  per dmsTimer1.14, a/o heartbeat1.50...
+  53:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      isItTime functions have an option to NOT worry about
+  54:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      cumulative-error...
+  55:./_commonCode_localized/tcnter/0.30/tcnter.h **** //      Also, they've been made inline, so now included in the header-file
+  56:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-10 Replacing tests' makefiles with those that refer to tcnter
+  57:./_commonCode_localized/tcnter/0.30/tcnter.h **** //        properly... a/o/ala anaButtons 0.50
+  58:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-9 adding this TODO: Apparently math doesn't work with
+  59:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			tcnter_source_t = uint16_t???
+  60:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       And looking into it...
+  61:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-8 a/o polled_uar/0.40/avrTest...
+  62:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       adding some Usage notes...
+  63:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-7 adding isItTime (non 8-bit)
+  64:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-6 adding to COM_HEADERS when INLINED
+  65:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-5 Renaming Globals to tcnter_*... nastiness
+  66:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       see puar notes...
+  67:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-4 tcnter8_t -> tcnter_isItTime8(startTime, delta)
+  68:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       HANDY: When inlined, if(tcnter_isItTime()) results in
+  69:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       an if statement from inside tcnter_isItTime, which is used
+  70:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       *in place of* the if surrounding tcnter_isItTime()
+  71:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Inlining optimization is great!
+  72:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-3 myTcnter_t is stupid -> tcnter_t
+  73:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-2 adding _SPECIALHEADER_FOR_TCNTER_
+  74:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       e.g. TCNTER OVERFLOW VAL = _DMS_OCR_VAL_ requires dmsTimer.h
+  75:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       so CFLAGS+=-D'_SPECIALHEADER_FOR_TCNTER_=_DMSTIMER_HEADER_'
+  76:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20-1 inlining...
+  77:./_commonCode_localized/tcnter/0.30/tcnter.h **** //				SEE NOTES in .c before using inlining
+  78:./_commonCode_localized/tcnter/0.30/tcnter.h **** //          and experiment and stuff
+  79:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.20 TCNTER_SOURCE_MAX renamed to TCNTER_SOURCE_OVERFLOW_VAL
+  80:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-3 fixing names in test (to match 0.10-1 changes)
+  81:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       experimenting with test
+  82:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-2 Need <avr/io.h> when TCNT, etc. is used...
+  83:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-1 (forgot to backup first version?)
+  84:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       renaming all tcnt and whatnot to tcnter
+  85:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10 First version, stolen and modified from polled_uar 0.10-6
+  86:./_commonCode_localized/tcnter/0.30/tcnter.h **** //
+  87:./_commonCode_localized/tcnter/0.30/tcnter.h **** //---------
+  88:./_commonCode_localized/tcnter/0.30/tcnter.h **** //polled_uar 0.10-6:
+  89:./_commonCode_localized/tcnter/0.30/tcnter.h **** //   Doesn't use interrupts (no lag-times, etc.)
+  90:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-4 
+  91:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Looking into running-tcnt
+  92:./_commonCode_localized/tcnter/0.30/tcnter.h **** //				myTcnter and nextTcnter now implemented
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 13
+
+
+  93:./_commonCode_localized/tcnter/0.30/tcnter.h **** //          Fixes potential issues with multi-TCNTs per update
+  94:./_commonCode_localized/tcnter/0.30/tcnter.h **** //            Aiding cumulative-error fixing
+  95:./_commonCode_localized/tcnter/0.30/tcnter.h **** //            (Next time was dependent on the time of the current update)
+  96:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-3 test app using makefile...
+  97:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			cleanup
+  98:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-1 More mods, test app
+  99:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10 First Version stolen and modified heavily from usi_uart 0.22-3
+ 100:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 101:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef __TCNTER_H__
+ 102:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define __TCNTER_H__
+ 103:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This shouldn't be necessary... (or its necessity removed soon)
+ 104:./_commonCode_localized/tcnter/0.30/tcnter.h **** //#include <avr/io.h>
+ 105:./_commonCode_localized/tcnter/0.30/tcnter.h **** #include <stdint.h>
+ 106:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 107:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifdef __AVR_ARCH__
+ 108:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //This is only necessary if TCNT0 (etc.) is used
+ 109:./_commonCode_localized/tcnter/0.30/tcnter.h ****  // according to the project makefile
+ 110:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include <avr/io.h>
+ 111:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 112:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 113:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This is for, e.g. where TCNTER_SOURCE_OVERFLOW_VAL = _DMS_OCR_VAL_
+ 114:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Then tcnter needs to be aware of the definition of _DMS_OCR_VAL_
+ 115:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifdef _SPECIALHEADER_FOR_TCNTER_
+ 116:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include _SPECIALHEADER_FOR_TCNTER_
+ 117:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 118:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 119:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 120:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if (defined(TCNTER_INITS_TIMER) && TCNTER_INITS_TIMER)
+ 121:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include _TIMERCOMMON_HEADER_
+ 122:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 123:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //Moved here so it can be referenced elsewhere for determining timings...
+ 124:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifndef TCNTER_AVRTIMER_CLKDIV
+ 125:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #ifdef __AVR_AT90PWM161__
+ 126:./_commonCode_localized/tcnter/0.30/tcnter.h **** 	// This is the only option on the PWM161
+ 127:./_commonCode_localized/tcnter/0.30/tcnter.h ****    #define TCNTER_AVRTIMER_CLKDIV CLKDIV1
+ 128:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #else
+ 129:./_commonCode_localized/tcnter/0.30/tcnter.h ****    //This choice is arbitrary...
+ 130:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // According to timerCommon, it exists in most typical systems
+ 131:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // The only exception I've run into so far is AT90PWM161, which ONLY has
+ 132:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // CLKDIV1, which wouldn't work too well since tcnter_update() would
+ 133:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // have to run every 255 clock cycles (or 65535?)
+ 134:./_commonCode_localized/tcnter/0.30/tcnter.h ****    // LCDdirectLVDS69 uses the timer for dms... so it must work, ish.
+ 135:./_commonCode_localized/tcnter/0.30/tcnter.h ****    #define TCNTER_AVRTIMER_CLKDIV CLKDIV64
+ 136:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #endif
+ 137:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 138:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 139:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //These can be used by other code...
+ 140:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTS_PER_SECOND  (F_CPU/(1<<TCNTER_AVRTIMER_CLKDIV))
+ 141:./_commonCode_localized/tcnter/0.30/tcnter.h ****  //At FCPU = 16MHz, TCNTER_MS is 250...
+ 142:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 143:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTER_INITS_TIMER is NOT TRUE. This can happen a number of ways, the weirdest being tha
+ 144:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "If you get weird errors, did you check that TCNTER_SEC, etc. have been set for your proj
+ 145:./_commonCode_localized/tcnter/0.30/tcnter.h **** #warning "Check: TCNTER_SOURCE_VAR, TCNTER_SOURCE_OVERFLOW_VAL, and TCNTS_PER_SECOND, also _SPECIAL
+ 146:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 147:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 148:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 149:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if((TCNTS_PER_SECOND/1000) > 0)
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 14
+
+
+ 150:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTS_PER_MS		(TCNTS_PER_SECOND/1000)
+ 151:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTER_MS			(TCNTS_PER_MS)
+ 152:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 153:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTS_PER_MS <= 0, so TCNTER_MS is disabled"
+ 154:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 155:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 156:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define TCNTER_SEC			(TCNTS_PER_SECOND)
+ 157:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 158:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if((TCNTS_PER_SECOND/10000) > 0)
+ 159:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTER_DMS			(TCNTS_PER_SECOND/10000)
+ 160:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 161:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #warning "TCNTER_DMS <= 0, so disabled"
+ 162:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 163:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 164:./_commonCode_localized/tcnter/0.30/tcnter.h **** /*
+ 165:./_commonCode_localized/tcnter/0.30/tcnter.h **** // This'd be nice to change...
+ 166:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if (!defined(PU_PC_DEBUG) || !PU_PC_DEBUG)
+ 167:./_commonCode_localized/tcnter/0.30/tcnter.h **** // #include "../../bithandling/0.94/bithandling.h"
+ 168:./_commonCode_localized/tcnter/0.30/tcnter.h **** #else
+ 169:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #include <stdio.h>
+ 170:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 171:./_commonCode_localized/tcnter/0.30/tcnter.h **** */
+ 172:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 173:./_commonCode_localized/tcnter/0.30/tcnter.h **** //DON'T CHANGE THIS WITHOUT CHANGING both!
+ 174:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if ( (!defined(tcnter_source_t) && defined(tcnter_compare_t)) \
+ 175:./_commonCode_localized/tcnter/0.30/tcnter.h ****     ||(!defined(tcnter_compare_t) && defined(tcnter_source_t)) )
+ 176:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #error "tcnter_source_t and tcnter_compare_t must *both* be overridden"
+ 177:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 178:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 179:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef tcnter_source_t
+ 180:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifdef __AVR_AT90PWM161__
+ 181:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_source_t	uint16_t
+ 182:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #else
+ 183:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_source_t   uint8_t
+ 184:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 185:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 186:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 187:./_commonCode_localized/tcnter/0.30/tcnter.h **** #ifndef tcnter_compare_t
+ 188:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #ifdef __AVR_AT90PWM161__
+ 189:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_compare_t  int32_t
+ 190:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #else
+ 191:./_commonCode_localized/tcnter/0.30/tcnter.h ****   #define tcnter_compare_t  int16_t
+ 192:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #endif
+ 193:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 194:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 195:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This is a stupid name...
+ 196:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define myTcnter_t  uint32_t
+ 197:./_commonCode_localized/tcnter/0.30/tcnter.h **** //This makes more sense...
+ 198:./_commonCode_localized/tcnter/0.30/tcnter.h **** // But I think I did it that way because I might later want to make this
+ 199:./_commonCode_localized/tcnter/0.30/tcnter.h **** // an internal structure, in case I want multiple tcnters...
+ 200:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (e.g. like xyt, or hfm, etc...)
+ 201:./_commonCode_localized/tcnter/0.30/tcnter.h **** // seems less likely in this case...
+ 202:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define tcnter_t uint32_t
+ 203:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define tcnter8_t uint8_t
+ 204:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 205:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 206:./_commonCode_localized/tcnter/0.30/tcnter.h **** //********** TCNTER Prototypes **********//
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 15
+
+
+ 207:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 208:./_commonCode_localized/tcnter/0.30/tcnter.h **** //These are the functions that are used in main code...
+ 209:./_commonCode_localized/tcnter/0.30/tcnter.h **** // General initialization...
+ 210:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_init(void);
+ 211:./_commonCode_localized/tcnter/0.30/tcnter.h **** // To be called in the main loop...
+ 212:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (Handles reading the TCNT deltas and adding to myTcnter, etc)
+ 213:./_commonCode_localized/tcnter/0.30/tcnter.h **** // this should be called MORE OFTEN than overflows
+ 214:./_commonCode_localized/tcnter/0.30/tcnter.h **** // If using an overflow-interrupt as the only reliable source of updates
+ 215:./_commonCode_localized/tcnter/0.30/tcnter.h **** // then use tcnter_overflowUpdate() (other tcnter_updates can also be
+ 216:./_commonCode_localized/tcnter/0.30/tcnter.h **** // called)
+ 217:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_update(void);
+ 218:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 219:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if(defined(TCNT_UPDATE_ONCE_PER_OVERFLOW) && \
+ 220:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		      TCNT_UPDATE_ONCE_PER_OVERFLOW)
+ 221:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_overflowUpdate(void);
+ 222:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
+ 223:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 224:./_commonCode_localized/tcnter/0.30/tcnter.h **** // Get the current value of myTcnter
+ 225:./_commonCode_localized/tcnter/0.30/tcnter.h **** tcnter_t tcnter_get(void);
+ 226:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 227:./_commonCode_localized/tcnter/0.30/tcnter.h **** void tcnter_wait(myTcnter_t tcnts);
+ 228:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 229:./_commonCode_localized/tcnter/0.30/tcnter.h **** //Of course, this is only safe if it's called often enough...
+ 230:./_commonCode_localized/tcnter/0.30/tcnter.h **** // and deltaTime is small enough...
+ 231:./_commonCode_localized/tcnter/0.30/tcnter.h **** // and tcnterUpdate is called often enough, as well (?)
+ 232:./_commonCode_localized/tcnter/0.30/tcnter.h **** //uint8_t tcnter_isItTime8(tcnter8_t *startTime, tcnter8_t deltaTime);
+ 233:./_commonCode_localized/tcnter/0.30/tcnter.h **** //uint8_t tcnter_isItTime(tcnter_t *startTime, tcnter_t deltaTime);
+ 234:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 235:./_commonCode_localized/tcnter/0.30/tcnter.h **** // dmsTimer has these inlined, and lists them in the header file
+ 236:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (I guess it makes sense, they're small enough to always inline, and that
+ 237:./_commonCode_localized/tcnter/0.30/tcnter.h **** // won't happen if they're in the C file...)
+ 238:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 239:./_commonCode_localized/tcnter/0.30/tcnter.h **** // For now, the notes are still in the C file.
+ 240:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 241:./_commonCode_localized/tcnter/0.30/tcnter.h **** // a/o V2: dontAllowCumulation should optimize-out into a smaller function
+ 242:./_commonCode_localized/tcnter/0.30/tcnter.h **** //         (if FALSE)
+ 243:./_commonCode_localized/tcnter/0.30/tcnter.h **** extern volatile tcnter_t tcnter_myTcnter;
+ 244:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 245:./_commonCode_localized/tcnter/0.30/tcnter.h **** static __inline__
+ 246:./_commonCode_localized/tcnter/0.30/tcnter.h **** uint8_t tcnter_isItTime8V2(tcnter8_t *startTime, tcnter8_t deltaTime,
+ 247:./_commonCode_localized/tcnter/0.30/tcnter.h **** 										uint8_t dontAllowCumulation)
+ 248:./_commonCode_localized/tcnter/0.30/tcnter.h **** {
+ 249:./_commonCode_localized/tcnter/0.30/tcnter.h ****    tcnter8_t thisDelta = (uint8_t)tcnter_myTcnter - (uint8_t)(*startTime);
+ 250:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 251:./_commonCode_localized/tcnter/0.30/tcnter.h ****    if(thisDelta >= deltaTime)
+ 252:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 253:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		if(dontAllowCumulation)
+ 254:./_commonCode_localized/tcnter/0.30/tcnter.h ****       	*startTime = (uint8_t)tcnter_myTcnter - (thisDelta - deltaTime);
+ 255:./_commonCode_localized/tcnter/0.30/tcnter.h ****       else
+ 256:./_commonCode_localized/tcnter/0.30/tcnter.h **** 			*startTime = (uint8_t)tcnter_myTcnter;
+ 257:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		return TRUE;
+ 258:./_commonCode_localized/tcnter/0.30/tcnter.h ****    }
+ 259:./_commonCode_localized/tcnter/0.30/tcnter.h ****    else
+ 260:./_commonCode_localized/tcnter/0.30/tcnter.h ****       return FALSE;
+ 261:./_commonCode_localized/tcnter/0.30/tcnter.h **** }
+ 262:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 263:./_commonCode_localized/tcnter/0.30/tcnter.h **** static __inline__
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 16
+
+
+ 264:./_commonCode_localized/tcnter/0.30/tcnter.h **** uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+ 265:./_commonCode_localized/tcnter/0.30/tcnter.h **** 										uint8_t dontAllowCumulation)
+ 266:./_commonCode_localized/tcnter/0.30/tcnter.h **** {
+ 267:./_commonCode_localized/tcnter/0.30/tcnter.h ****    tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+ 357               		.stabn	68,0,267,.LM29-.LFBB4
+ 358               	.LM29:
+ 359 0150 8090 0000 		lds r8,tcnter_myTcnter
+ 360 0154 9090 0000 		lds r9,tcnter_myTcnter+1
+ 361 0158 A090 0000 		lds r10,tcnter_myTcnter+2
+ 362 015c B090 0000 		lds r11,tcnter_myTcnter+3
+ 363 0160 8C18      		sub r8,r12
+ 364 0162 9D08      		sbc r9,r13
+ 365 0164 AE08      		sbc r10,r14
+ 366 0166 BF08      		sbc r11,r15
+ 268:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
+ 269:./_commonCode_localized/tcnter/0.30/tcnter.h ****    if(thisDelta >= deltaTime)
+ 367               		.stabn	68,0,269,.LM30-.LFBB4
+ 368               	.LM30:
+ 369 0168 8616      		cp r8,r22
+ 370 016a 9706      		cpc r9,r23
+ 371 016c A806      		cpc r10,r24
+ 372 016e B906      		cpc r11,r25
+ 373 0170 00F0      		brlo .L12
+ 270:./_commonCode_localized/tcnter/0.30/tcnter.h ****    {
+ 271:./_commonCode_localized/tcnter/0.30/tcnter.h **** 		if(dontAllowCumulation)
+ 272:./_commonCode_localized/tcnter/0.30/tcnter.h ****       	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+ 374               		.stabn	68,0,272,.LM31-.LFBB4
+ 375               	.LM31:
+ 376 0172 8091 0000 		lds r24,tcnter_myTcnter
+ 377 0176 9091 0000 		lds r25,tcnter_myTcnter+1
+ 378 017a A091 0000 		lds r26,tcnter_myTcnter+2
+ 379 017e B091 0000 		lds r27,tcnter_myTcnter+3
+ 380               	/* epilogue start */
+ 381               	.LBE11:
+ 382               	.LBE10:
+ 383               		.stabs	"_commonCode_localized/tcnter/0.30/tcnter.c",132,0,0,.Ltext2
+ 384               	.Ltext2:
+ 113:_commonCode_localized/tcnter/0.30/tcnter.c **** 
+ 385               		.stabn	68,0,113,.LM32-.LFBB4
+ 386               	.LM32:
+ 387 0182 0F90      		pop __tmp_reg__
+ 388 0184 0F90      		pop __tmp_reg__
+ 389 0186 0F90      		pop __tmp_reg__
+ 390 0188 0F90      		pop __tmp_reg__
+ 391 018a DF91      		pop r29
+ 392 018c CF91      		pop r28
+ 393 018e FF90      		pop r15
+ 394 0190 EF90      		pop r14
+ 395 0192 DF90      		pop r13
+ 396 0194 CF90      		pop r12
+ 397 0196 BF90      		pop r11
+ 398 0198 AF90      		pop r10
+ 399 019a 9F90      		pop r9
+ 400 019c 8F90      		pop r8
+ 401 019e 0895      		ret
+ 402               	.L12:
+ 110:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//asm("nop;");
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 17
+
+
+ 403               		.stabn	68,0,110,.LM33-.LFBB4
+ 404               	.LM33:
+ 405 01a0 6983      		std Y+1,r22
+ 406 01a2 7A83      		std Y+2,r23
+ 407 01a4 8B83      		std Y+3,r24
+ 408 01a6 9C83      		std Y+4,r25
+ 409 01a8 00D0      		rcall tcnter_update
+ 410 01aa 6981      		ldd r22,Y+1
+ 411 01ac 7A81      		ldd r23,Y+2
+ 412 01ae 8B81      		ldd r24,Y+3
+ 413 01b0 9C81      		ldd r25,Y+4
+ 414 01b2 00C0      		rjmp .L13
+ 415               		.size	tcnter_wait, .-tcnter_wait
+ 416               		.stabs	"startTime:r(3,6)",64,0,106,12
+ 417               		.stabn	192,0,0,.LFBB4-.LFBB4
+ 418               		.stabn	224,0,0,.Lscope4-.LFBB4
+ 419               	.Lscope4:
+ 420               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 421               		.stabd	78,0,0
+ 422               		.stabs	"tcnter_get:F(3,6)",36,0,230,tcnter_get
+ 423               	.global	tcnter_get
+ 424               		.type	tcnter_get, @function
+ 425               	tcnter_get:
+ 426               		.stabd	46,0,0
+ 231:_commonCode_localized/tcnter/0.30/tcnter.c **** 	return tcnter_myTcnter;
+ 427               		.stabn	68,0,231,.LM34-.LFBB5
+ 428               	.LM34:
+ 429               	.LFBB5:
+ 430               	/* prologue: function */
+ 431               	/* frame size = 0 */
+ 432               	/* stack size = 0 */
+ 433               	.L__stack_usage = 0
+ 434               		.stabn	68,0,232,.LM35-.LFBB5
+ 435               	.LM35:
+ 436 01b4 6091 0000 		lds r22,tcnter_myTcnter
+ 437 01b8 7091 0000 		lds r23,tcnter_myTcnter+1
+ 438 01bc 8091 0000 		lds r24,tcnter_myTcnter+2
+ 439 01c0 9091 0000 		lds r25,tcnter_myTcnter+3
+ 233:_commonCode_localized/tcnter/0.30/tcnter.c **** }
+ 440               		.stabn	68,0,233,.LM36-.LFBB5
+ 441               	.LM36:
+ 442 01c4 0895      		ret
+ 443               		.size	tcnter_get, .-tcnter_get
+ 444               	.Lscope5:
+ 445               		.stabs	"",36,0,0,.Lscope5-.LFBB5
+ 446               		.stabd	78,0,0
+ 447               	.global	tcnter_lastOverflowTcnt
+ 448               		.section .bss
+ 449               		.type	tcnter_lastOverflowTcnt, @object
+ 450               		.size	tcnter_lastOverflowTcnt, 1
+ 451               	tcnter_lastOverflowTcnt:
+ 452 0000 00        		.zero	1
+ 453               	.global	tcnter_updatesSinceOverflowUpdate
+ 454               		.type	tcnter_updatesSinceOverflowUpdate, @object
+ 455               		.size	tcnter_updatesSinceOverflowUpdate, 4
+ 456               	tcnter_updatesSinceOverflowUpdate:
+ 457 0001 0000 0000 		.zero	4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 18
+
+
+ 458               	.global	tcnter_lastTcnt
+ 459               		.type	tcnter_lastTcnt, @object
+ 460               		.size	tcnter_lastTcnt, 1
+ 461               	tcnter_lastTcnt:
+ 462 0005 00        		.zero	1
+ 463               	.global	tcnter_myTcnter
+ 464               		.type	tcnter_myTcnter, @object
+ 465               		.size	tcnter_myTcnter, 4
+ 466               	tcnter_myTcnter:
+ 467 0006 0000 0000 		.zero	4
+ 468               		.stabs	"tcnter_myTcnter:G(0,48)=B(3,6)",32,0,79,0
+ 469               		.stabs	"tcnter_lastTcnt:G(3,2)",32,0,83,0
+ 470               		.stabs	"tcnter_updatesSinceOverflowUpdate:G(3,6)",32,0,126,0
+ 471               		.stabs	"tcnter_lastOverflowTcnt:G(3,2)",32,0,128,0
+ 472               		.text
+ 473               		.stabs	"",100,0,0,.Letext0
+ 474               	.Letext0:
+ 475               		.ident	"GCC: (GNU) 4.8.2"
+ 476               	.global __do_clear_bss
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tcnter.c
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:107    .text:00000000 tcnter_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:461    .bss:00000005 tcnter_lastTcnt
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:466    .bss:00000006 tcnter_myTcnter
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:134    .text:00000018 tcnter_overflowUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:456    .bss:00000001 tcnter_updatesSinceOverflowUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:451    .bss:00000000 tcnter_lastOverflowTcnt
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:235    .text:000000a8 tcnter_update
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:319    .text:00000124 tcnter_wait
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccCfB3K3.s:425    .text:000001b4 tcnter_get
+
+UNDEFINED SYMBOLS
+__do_clear_bss

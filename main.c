@@ -9,6 +9,7 @@
 
 
 
+
 // Please see mainConfig.h!
 
 
@@ -28,34 +29,57 @@
 #include <avr/pgmspace.h>
 #include _TIMERCOMMON_HEADER_
 //#include "../../../_commonCode/charBitmap/0.10/charBitmap.h"
-#include _CHARBITMAP_HEADER_
 #include "fbColors.h"
 
-#include _SINETABLE_HEADER_
+
 
 
 
 #include "mainConfig.h"
 
 
+//This is hokey, just trying to free up space
+// Frankly, these should only be included as-needed
+#if (!defined(FB_QUESTION) || !FB_QUESTION)
+//These two saved 800Bytes
+// But that's probably just charBitmap, because sineTable is compiled via
+// the makefile.
+// Yeahp.
+#include _SINETABLE_HEADER_
+#include _CHARBITMAP_HEADER_
+#endif
+
+
 
 #include "delay_cyc.h"
+
+
+//This should be handled in mainConfig, now...
+#if (!defined(FB_REFRESH_ON_CHANGE) || !FB_REFRESH_ON_CHANGE)
+ #define FB_REFRESH_ON_CHANGE_COUNT	TRUE
+#else
+ #ifndef FB_REFRESH_ON_CHANGE_COUNT
+  #define FB_REFRESH_ON_CHANGE_COUNT	5
+ #endif
+#endif
+
 
 
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
 	 #include "rowSegBuffer.h"
 #endif
 
+//a/o v70: this should be handled by writeColor.c now
 //Nope, can't be removed yet...
 //#define ROW_BUFFER FALSE
 //#define LOADROW TRUE
-#if (defined(ROW_BUFFER) && ROW_BUFFER)
-#error
-#include "rowBuffer.c"
-#endif
+//#if (defined(ROW_BUFFER) && ROW_BUFFER)
+//#error
+//#include "rowBuffer.c"
+//#endif
 
 #if (defined(SEG_TET) && SEG_TET)
- #include "tetStuff.c"
+ #include "_options/tetStuff.c"
 #endif
 
 
@@ -63,7 +87,8 @@
  #include _ADC_HEADER_
 #endif
 
-#if (defined(FB_QUESTION) && FB_QUESTION)
+#if (defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
+//#if (defined(FB_QUESTION) && FB_QUESTION)
  #include _PIEZOHITDETECTOR_CFILE_
 #endif
 
@@ -72,22 +97,59 @@
 #include "lcdDefines.h"
 #include "pll.c"
 
-#if (defined(__AVR_AT90PWM161__))
- #include "lvds161.c"
-#else
- #include "lvds.c"
+
+
+
+
+#if(defined(FB_SMILEY) && FB_SMILEY)
+ #define FB_WIDTH 16
+ #define FB_HEIGHT 16
+#elif (defined(FB_QUESTION) && FB_QUESTION)
+ #define FB_WIDTH 16
+ #define FB_HEIGHT 16
+#elif (defined(FB_TETRIS) && FB_TETRIS)
+ #define FB_WIDTH	24
+ #define FB_HEIGHT 24
+#elif (defined(FB_HEXCOLOR) && FB_HEXCOLOR)
+ #define FB_WIDTH 16
+ #define FB_HEIGHT 16
 #endif
+
+#if (defined(FB_QUESTION) && FB_QUESTION)
+ #if (defined(BUMP_SWITCH) && BUMP_SWITCH)
+  //#error "OK1"
+  #include "_hitSensors/bumpSwitch.c"
+ #endif
+#endif
+
+#include _LCD_INTERFACE_CFILE_
+/*
+#if (defined(__AVR_AT90PWM161__))
+ #include "_interfaces/lvds161.c"
+#else
+ #include "_interfaces/lvds.c"
+#endif
+*/
+
 
 #if(defined(FB_SMILEY) && FB_SMILEY)
  #define fb_updater()	smileyUpdate()
 #elif (defined(FB_QUESTION) && FB_QUESTION)
  #include "fb_question.h"
  #define fb_updater()	fbQuestion_update()
+#elif (defined(FB_TETRIS) && FB_TETRIS)
+//These are just rough estimates...
+ #include "_options/tetStuff.c"
+ #define fb_updater()	tetUpdate()
+#elif (defined(FB_HEXCOLOR) && FB_HEXCOLOR)
+ #include "_options/hexColor.c"
+ #define fb_updater()	hexColor_update()
 #endif
 
 uint8_t isNewFrame(void);
 
-#if (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+#if ( (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING) || \
+		(defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING) )
  #include "_options/writeColor.c"
 #endif
 
@@ -311,6 +373,10 @@ void loadRow(uint16_t rowNum) \
 	__attribute__((__always_inline__));
 #endif
 
+#if(defined(PARTIAL_REFRESH) && PARTIAL_REFRESH)
+#define FULL_REFRESH	UINT16_MAX
+uint16_t stopRefreshAtRow = FULL_REFRESH;
+#endif
 
 //The endOfFrameHandler() function might e.g. cause the timer-interrupt to
 //be disabled until it's time to redraw a new frame
@@ -327,9 +393,27 @@ void endOfFrameHandler(void)
  #include _LCDSTUFF_CFILE_
  //#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
 
+	//If REFRESH_ON_CHANGE != TRUE, then FB_REFRESH_ON_CHANGE_COUNT = TRUE
+	// and goes unchanged...
 
- volatile uint8_t updateFrame = TRUE;
+	//updateFrame is decremented in main.c each time the frame is completed
+	// it's reset to FB_REFRESH_ON_CHANGE in _options/frameBuffer.c
+	// (via restartFrameUpdate())
+ volatile uint8_t updateFrame = FB_REFRESH_ON_CHANGE_COUNT; //TRUE;
  volatile uint8_t frameCount = 0;
+
+
+ void restartFrameUpdate(void)
+ {
+	updateFrame = FB_REFRESH_ON_CHANGE_COUNT;
+
+	//The sony display seems to dislike not having a dot-clock...
+	// This is an experiment...
+  #if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK_PWM) && \
+		  LCDINTERFACE_BITBANGED_DOTCLOCK_PWM)
+	lcdInterface_pwmDotClockInit(FALSE);
+  #endif
+ }
 
  //Nearly everything display-related happens in this interrupt
  // It even calls the functions that load (and calculate!) the data for the
@@ -341,8 +425,19 @@ void endOfFrameHandler(void)
 	 dms_update();
 #endif
 
+		//Since HEART_TCNTER_UPDATES_AND_INIT is not true (could test here)
+		// we need to do it manually...
+		// (because the tcnter uses the hsyncTimer)
+#if(!defined(HEART_TCNTER_UPDATES_AND_INIT) || \
+		!HEART_TCNTER_UPDATES_AND_INIT)
+#if(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
+	 tcnter_overflowUpdate();
+#endif
+#endif
+
 	 if(!updateFrame)
 		 return;
+
  //	static uint8_t frameCount = 0;
 
 	//Could insert a delay of sorts for scopability...
@@ -352,7 +447,7 @@ void endOfFrameHandler(void)
 
 	//So here's the deal:
 	// This handles a single row of pixel/timing data (Hblanks included)
-	// updateLCD()             (from lcdStuff.c) 
+	// lcd_update()             (from lcdStuff.c) 
 	//  --> loadData()         (from lcdStuff.c)
 	//        HSync
 	//        H-Back-Porch
@@ -364,22 +459,43 @@ void endOfFrameHandler(void)
 	// H-Front-Porch is handled in the time between completion of this
 	// interrupt and the next interrupt...
 
-	if(updateLCD())
+
+	int16_t rowNum = lcd_update();
+
+	if(rowNum == LCD_FRAMECOMPLETE)
 	{
 		frameCount++;
-		//updateLCD() returns TRUE when the frame is complete
+		//lcd_update() returns TRUE when the frame is complete
 		// which can be used for whatever purposes 
 		// (e.g. FRAME_COUNT_TO_DELAY)
 
 		endOfFrameHandler();
 	}
 
+#if(defined(PARTIAL_REFRESH) && PARTIAL_REFRESH)
+	else if(rowNum >= (int16_t)stopRefreshAtRow)
+	{
+		lcd_init();
+		frameCount++;
+		endOfFrameHandler();
+	}
+#endif
+
  #if(defined(LOADROW) && LOADROW)
+	//a/o v70: All the following notes are old, and should probably be
+	//removed...
+	//  Historically: lcd_update() handled calling loadRow
+	//  That'd been removed, then readded, then removed
+	//  as, somewhere inbetween it was moved here and forgotten
+	//  This makes the most sense, as it's more project-specific
+	//
 	//Load the next row into the row(seg)buffer
 	//data is enabled after T_VD+T_Vlow...
 	//a/o v60: Rereading this is confusing...
 	// Basically, there's no reason to call loadRow for display-lines
 	// which don't display data (e.g. V-Sync)
+#warning "This test could probably be replaced with rowNum..."
+
 	if((hsyncCount >= T_VD+T_Vlow) && (hsyncCount < T_VD+T_Vlow+V_COUNT))
 		loadRow(hsyncCount - (T_VD+T_Vlow));
  #endif
@@ -394,6 +510,11 @@ void endOfFrameHandler(void)
 	// calculations to determine the memory location to write from
 	// This effect has since been minimized
 	// BUT loadRow might be necessary for program-memory-based images...
+
+
+	//THIS IS A HACK
+	//tcnter_update();
+
  }
 #endif //!PWM_TESTING
 
@@ -411,8 +532,6 @@ void endOfFrameHandler(void)
 #endif
 
 #if(defined(LOADROW) && LOADROW)
-// whatever this means... it's OLD.
-//#warning "loadRow is currently in an intermediate phase..."
 void loadRow(uint16_t rowNum)
 {
 
@@ -631,10 +750,26 @@ void loadRow(uint16_t rowNum)
 	addSegfb(3, _W);
 	segTerminate();
  #elif(defined(SEG_GRADIENT2) && SEG_GRADIENT2)
-#error "Heh, never did implement this..."
+   #error "Heh, never did implement this..."
  #else
 	#error "Gotta select a SEG_... option, or create your own"
  #endif //SEG_ selection
+#elif (defined(ROW_BUFFER) && (ROW_BUFFER))
+
+//This is a *really* simple test for ROW_BUFFER
+// It just cycles through the colors in diagonal stripes...
+// Technically each color should be 16 pixels high, but it appears to be
+// coming through much taller. Certainly this is display-specific
+// timing-related issues... (This display is known to repeat rows when not
+// syncing correctly)
+// First-guess is ROW_CALCULATION_CYCS isn't right, but higher values is
+// causing syncing problems.
+// TODO, I guess.
+	uint16_t col;
+	for(col=0; col<RB_WIDTH; col++)
+		rowBuffer[col] = fb_to_rb((col+rowNum)&0x3f);
+		//rowBuffer[col] = fb_to_rb((col+rowNum/16)&0x3f);
+
 #endif //ROW_SEG_BUFFER
 }
 #endif //LOAD_ROW
@@ -928,16 +1063,21 @@ static __inline__ void drawPix(uint16_t rowNum)
 	//No drawPix necessary...
 
 #else
+#if 0
+#define drawPix nonRSB_drawPix
+#else
 //#include "_options/writeColor.c"
 //#include "nonRSB_drawPix.c"
-void drawPix(uint16_t rowNum)
+static __inline__ void drawPix(uint16_t rowNum)
 {
+	//a/o v70, it's in use again for ROW_BUFFER.
 	//a/o v67, this is used by FRAMEBUFFER_TESTING...
 	//Old:
 	//This hasn't been used in quite some time... 
 	// it may not work at all anymore.
 	nonRSB_drawPix(rowNum);
 }
+#endif
 #endif
 #endif
 
@@ -969,7 +1109,16 @@ void endOfFrameHandler(void)
 {
 	//The original plan was to stop the timer, but now that is used by
 	//dmsTimer... so instead:
-	updateFrame = FALSE;
+	if(updateFrame)
+		updateFrame--; //= FALSE;
+
+	//The sony display seems to dislike not having a dot-clock...
+	// This is an experiment...
+  #if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK_PWM) && \
+		  LCDINTERFACE_BITBANGED_DOTCLOCK_PWM)
+	if(!updateFrame)
+		lcdInterface_pwmDotClockInit(TRUE);
+  #endif
 }
 #else
 //See the declaration, above...
@@ -978,11 +1127,24 @@ void endOfFrameHandler(void)
 }
 #endif
 
+//#define TEST__FLASH TRUE
 
+#if(defined(TEST__FLASH) && TEST__FLASH)
+ #include "test__flash.c"
+#endif
 
 int main(void)
 {
+// a/o FB_TETRIS, testing...
+	//WTF... this ain't showin' up when FB_WIDTH=24...?!
 
+#if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+	frameBufferInit();
+	uint8_t i, j;
+	for(i=0; i<FB_HEIGHT; i++)
+		for(j=0; j<FB_WIDTH; j++)
+			frameBuffer[i][j] = i+j;
+#endif
 
 #if(defined(SEG_RACER) && SEG_RACER)
 	racer_init();
@@ -995,7 +1157,8 @@ int main(void)
 #endif
 
 
-#if (defined(FB_QUESTION) && FB_QUESTION)
+#if (defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
+//#if (defined(FB_QUESTION) && FB_QUESTION)
 	//This is identical to the BLUE_ADC case, above, but the adc is used
 	//differently... and I'm trying to do some cleanup, which is more messy
 	//here, because of it. Wee!
@@ -1005,7 +1168,7 @@ int main(void)
 	phd_init();
 #endif
 
-#if(defined(SEG_TET) && SEG_TET)
+#if((defined(SEG_TET) && SEG_TET) || (defined(FB_TETRIS) && FB_TETRIS))
 	tetInit(3);
 #endif
 
@@ -1032,31 +1195,66 @@ int main(void)
 
 	setHeartRate(0);
 
+
+
+
+#if(defined(TEST__FLASH) && TEST__FLASH)
+	test__flash();
+#endif
+
+
+
+
+
+
 	lvds_timerInit();
 
+
+#if (defined(FB_QUESTION) && FB_QUESTION)
+ #if (defined(BUMP_SWITCH) && BUMP_SWITCH)
+	hitSensor_init();
+ #endif
+#endif
 
 
 	while(1)
 	{
 #if(defined(FB_QUESTION) && FB_QUESTION)
+//THIS PROBABLY SHOULD BE REVISED...
+//_hitSensors/bumpSwitch.c handles it differently...
+#if (!defined(BUMP_SWITCH) || !BUMP_SWITCH)
+
+#if(!defined(__HEART_REMOVED__) || !(__HEART_REMOVED__))
+#if (defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
 		if(phd_update())				
+#else
+		if(!heartPinInputPoll())
+#endif
 			fbQuestion_hitDetected();
 #endif
+#endif
 
+#endif
 
-//#if( (defined(FB_QUESTION) && FB_QUESTION) \
+//#if( (defined(FB_QUESTION) && FB_QUESTION) 
 //	  ||	(defined(FB_SMILEY) && FB_SMILEY) )
 #if( defined(FRAMEBUFFER_TESTING) && (FRAMEBUFFER_TESTING))
 		frameBufferUpdate();
 #endif
 
 		heartUpdate();
+		
+		//THIS IS A HACK
+		//tcnter_update();
 	}
 
 }
 
 
-//#include "rowSegBuffer.c"
+#if(defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
+ #include "rowSegBuffer.c"
+#endif
+
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
  *    necessary; where people would respect others' work and wishes, 
@@ -1118,7 +1316,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/main.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/main.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -9,6 +9,10 @@
 
 
 
+
+
+
+
 //THIS IS NOT THE SAME as delayCyc.h in _commonCode.../
 
 //Please see the description and functionality explanation in delay_cyc.c
@@ -94,7 +98,7 @@ void delay_cyc(int32_t numCyc) \
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/delay_cyc.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/delay_cyc.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

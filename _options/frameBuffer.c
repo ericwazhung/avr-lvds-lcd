@@ -9,21 +9,65 @@
 
 
 
+// 30 < MAIN_MS < 300
+#if (MAIN_MS < 30)
+#error "WTF?"
+#endif
+
+
+
 
 //Please see writeColor.c
 
 
 #if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
 extern volatile uint8_t updateFrame;
+
+void restartFrameUpdate(void);
 #endif
 
 //drawPix from program memory
 //a/0 v60: Again, unused for its original purpose, but tightly intertwined
 // in old code that's still being (mis)used...
-#define FB_WIDTH 16
-#define FB_HEIGHT 16
-uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
+#ifndef FB_WIDTH
+ #define FB_WIDTH 16
+ #error "This error a/o v80, just noting that FB_WIDTH wasn't previously defined elsewhere..."
+#endif
+#ifndef FB_HEIGHT
+ #define FB_HEIGHT 16
+#endif
 
+//FB_WIDTH+1 is a hack for displaying the last pixel equal-length...
+// see writeColor() notes in nonRSB_drawPix()
+uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH+1];
+/*	This does NOT init just these elements, but ALL elements
+	Which takes up a TON of program-space.
+	Moved to frameBufferInit();
+	= 
+{ 
+	[0 ... FB_HEIGHT-1][FB_WIDTH]=_W
+};
+*/
+/*
+{ 
+	[0][FB_WIDTH]=_W,
+	[1][FB_WIDTH]=_W,
+	[2][FB_WIDTH]=_W,
+	[3][FB_WIDTH]=_W,
+	[4][FB_WIDTH]=_W,
+	[5][FB_WIDTH]=_W,
+	[6][FB_WIDTH]=_W,
+	[7][FB_WIDTH]=_W,
+	[8][FB_WIDTH]=_W,
+	[9][FB_WIDTH]=_W,
+	[10][FB_WIDTH]=_W,
+	[11][FB_WIDTH]=_W,
+	[12][FB_WIDTH]=_W,
+	[13][FB_WIDTH]=_W,
+	[14][FB_WIDTH]=_W,
+	[15][FB_WIDTH]=_W
+}
+*/
 
 
 //AHHH it wasn't IMAGE_BUFFER that's entangled, but IMAGE_CHANGE
@@ -50,7 +94,14 @@ void setColor(uint8_t red, uint8_t green, uint8_t blue,
       pgm_read_byte((uint8_t *)(&((image)[(row)*FB_WIDTH+(col)])))
 
 
-
+//a/o v86: I can't recall why I chose white to display at the end of the
+//row... it may have had to do with the lvds displays and the timing stuff,
+//so I could actually see where the DE data was ending...(?)
+// Either way, I'd prefer it to be black in this particular instance, so
+// FB_END_OF_ROW_COLOR is now predefinable...
+#ifndef FB_END_OF_ROW_COLOR
+#define FB_END_OF_ROW_COLOR	_W
+#endif
 
 // This stuff was located in main() before the while loop...
 // #if !COLOR_BAR_SCROLL... (which is *nearly every case* including 
@@ -58,6 +109,14 @@ void setColor(uint8_t red, uint8_t green, uint8_t blue,
 // it's long-since been commented-out...
 void frameBufferInit(void)
 {
+	//_W in FB_WIDTH is a hack for equal-length pixels, see frameBuffer's
+	//definition, above.
+	uint8_t i;
+	for(i=0; i<FB_HEIGHT; i++)
+		frameBuffer[i][FB_WIDTH] = FB_END_OF_ROW_COLOR;
+
+
+
 	 //uint8_t frameBuffer[16][16];
 /*   for(r=0; r<FB_HEIGHT; r++)
    {
@@ -123,38 +182,79 @@ void frameBufferChange(uint8_t *bufferChanged,
 #include "_options/smiley.c"
 #endif
 
+
+
+ #if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
+//This is sorta handled in heartbeat... and maybe it'd make sense to use
+//its timer-stuff instead, in a general sense... something to consider
+#if(defined(_HEART_DMS_) && _HEART_DMS_)
+ #define fb_timer_t			dms4day_t
+ #define fb_getTime()		dmsGetTime()
+ #define fb_isItTime(a,b)	dmsIsItTimeV2((a),(b),FALSE)
+#elif(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
+ #define fb_timer_t			myTcnter_t
+ #define fb_getTime()		tcnter_get()
+ #define fb_isItTime(a,b)	tcnter_isItTimeV2((a),(b),FALSE)
+#else
+#error "Need timer-functions for REFRESH_ON_CHANGE"
+#endif
+#endif
+
+
+
 // This code was in main...
 // This isn't generalized enough to justify this function-name
 // just not ready to delete it completely
 // Returns TRUE if there's a change to the frameBuffer image
 // (so a refresh can be scheduled, if so desired)
-
+// a/o v71: This is called in the main loop
+// 	w/ REFRESH_ON_CHANGE:
+//        * The fb_updater() function (e.g. tet_update) is only called
+//          after the frame-refresh is complete
+//          (if there are several refreshes, it waits until they're all
+//          done)
+//          It *also* waits for a delay *after the refreshes* before
+//          fb_updater() is called... (this may be a little redundant?)
+//    w/o:
+//        * The fb_updater() function is called at the beginning of a new
+//          frame (once) to attempt to only update the framebuffer at a
+//          time when it won't refresh the screen with only half of the
+//          framebuffer itself updated.
 void frameBufferUpdate(void)
 {
  #if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
-      static uint8_t lastUpdated = FALSE;
-      static dms4day_t fbLastUpdateTime = 0;
+//      static uint8_t lastUpdated = FALSE;
+      static fb_timer_t fbLastUpdateTime = 0;
 
       //Because the dmsTimer is running somewhat arbitarily, this "200ms"
       // isn't particularly accurate...
       if(updateFrame)
-         fbLastUpdateTime = dmsGetTime();
-      else  //!updateFrame
+		{
+         fbLastUpdateTime = fb_getTime();
+			return;
+		}
+
+		// Since lastUpdateTime is updated each time this function is called
+		// with updateFrame != 0, this test will fail until 100ms after the
+		// last refresh.
+		// (a/o v71 this has changed, it was in an else, and this else-case
+		// handled multiple-refresh. That should now be handled in
+		// endOfFrameHandler())
+      if(fb_isItTime(&fbLastUpdateTime, FB_REFRESH_ON_CHANGE_DELAY))
       {
-         if(dmsIsItTime(&fbLastUpdateTime, 100*DMS_MS))
+			int16_t fb_changedTillRow = fb_updater();
+			//call fb_updater()
+			// and ONLY REFRESH if there's been a change to the frameBuffer
+      	if(fb_changedTillRow != -1)
          {
-            if(fb_updater())
-            {
-               updateFrame = TRUE;
-               lastUpdated = TRUE;
-            }
-         }
-         //Attempt to get double-refresh on stationary images
-         // to overcome the previous image
-         else if(lastUpdated)
-         {
-            updateFrame = TRUE;
-            lastUpdated = FALSE;
+#if(defined(PARTIAL_REFRESH) && PARTIAL_REFRESH)
+				extern uint16_t stopRefreshAtRow;
+				//This must be +1 to account for the length of the last pixel
+				// possibly 2 to help clear out ghosting
+				stopRefreshAtRow = (fb_changedTillRow+2) * V_COUNT / FB_HEIGHT;	
+#endif
+				restartFrameUpdate();
+				//updateFrame = FB_REFRESH_ON_CHANGE_COUNT;
          }
       }
  #else
@@ -239,7 +339,7 @@ void frameBufferUpdate(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_options/frameBuffer.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/frameBuffer.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

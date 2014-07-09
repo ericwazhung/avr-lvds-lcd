@@ -10,12 +10,25 @@
 
 
 
+
+
+
+
 // Timer0 is used to synchronize rows...
 // Its interrupt is responsible all display-timing. And all drawing is
 // handled within it.
 
+#ifndef __HSYNC_TIMER_H__
+#define __HSYNC_TIMER_H__
+
 #include "lcdDefines.h"
 
+#include "mainConfig.h"
+
+#include _BITHANDLING_HEADER_
+
+//#include <avr/io.h>
+#include _TIMERCOMMON_HEADER_
 
 //These defaults for the ATTiny861
 // They can be overridden in makefile with CFLAGS+=-D'...'
@@ -278,6 +291,10 @@
 
 
 
+#endif	//__HSYNC_TIMER_H__
+
+
+
 
 
 
@@ -342,7 +359,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/hsyncTimerStuff.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/hsyncTimerStuff.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

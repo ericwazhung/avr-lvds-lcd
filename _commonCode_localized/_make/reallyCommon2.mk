@@ -6,8 +6,6 @@
 # */
 #
 #
-#
-#
 #reallyCommon2.mk -someNum...
 
 # Changing over from reallyCommon to reallyCommon2:
@@ -74,6 +72,18 @@
 # There're probably several changes between each noted version that aren't
 # at all noted...
 
+# No idea what version number...
+#  adding PROJ_PREMAKE to target 'all'
+#  a/o LCDdirectLVDS76, this is very specific, but PROJ_PREMAKE could
+#  probably be used in many other ways...
+#  Used for allowing conditional code in the project's makefile based on a 
+#  configuration file (a header) which can be parsed into a makefile
+#  snippet, which can then be included in the project makefile
+#  (So probably requires two 'make' calls if the file changes)
+# ACTUALLY THAT'S UNNECESSARY. But leaving PROJ_PREMAKE is OK...
+#  (see 'info make' "3.5 How Makefiles Are Remade"
+# 17ish... WHOOPS, broke "make" for non-avr (pc-based) apps
+#          Fixed. Plus "make run"
 #2++ - Looking into 'make openDir', an idea to open 
 #          commonCode files/folders
 #      Called As (e.g.) : 'make openDir file=bitHandling'
@@ -372,6 +382,7 @@ OBJ = $(BUILD_DIR_SRC:.c=.o) $(ASRC:.S=.o)
 
 
 #Do this before OPT (below) so MCU's OPT=s will override this one's (2?)
+# NOTE That reallyCommon2.mk's default-target is overridden by avrCommon's
 ifdef MCU
 include $(COMDIR)/_make/avrCommon.mk
 endif
@@ -521,6 +532,32 @@ RSYNCABLE_COMMON_STUFF := \
 
 
 
+
+#BACKUP_DIR = "backup_$(MCU)_$(shell date '+%Y-%m-%d_%H.%M.%S')"
+
+
+
+
+
+
+###############################################
+#####
+#####  THIS IS THE DEFAULT TARGET ('all')
+#####    when called as 'make'
+#####
+#####  Don't put any targets before this, or they'll be default!
+################################################
+
+ifdef PROJINFO_TARGET
+# Default target.
+.PHONY: all
+all: $(PROJ_PREMAKE) projInfo begin sizebefore $(TARGETS) sizeafter finished end
+else
+.PHONY: all
+all: begin sizebefore $(TARGETS) sizeafter finished end
+endif
+ 
+
 # This is a target-specific variable... 
 # Personally, I think this is confusing, as it looks like a target
 
@@ -557,20 +594,6 @@ includesMessage:
 	@echo "includes-lists have been placed in .o files under _BUILD"
 #
 ###############
-
-
-#BACKUP_DIR = "backup_$(MCU)_$(shell date '+%Y-%m-%d_%H.%M.%S')"
-
-ifdef PROJINFO_TARGET
-# Default target.
-.PHONY: all
-all: projInfo begin sizebefore $(TARGETS) sizeafter finished end
-else
-.PHONY: all
-all: begin sizebefore $(TARGETS) sizeafter finished end
-endif
- 
-
 
 #Could be handy if modified for computer... (see avr.mk)
 #.PHONY: projInfo
@@ -802,31 +825,64 @@ list:
 	@echo "BEWARE: This isn't necessarily all-inclusive"
 	@echo " Especially if a commonLib is _INLINE_ONLY"
 	@echo ""
-	@echo "SRC="
-	@echo $(SRC)
+	@echo "SRC=" ;\
+	stuff="$(subst ",\", $(SRC))" ;\
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "COMMON_DIRS="
-	@echo $(COMMON_DIRS)
+	@echo "COMMON_DIRS=" ;\
+	stuff="$(subst ",\", $(COMMON_DIRS))" ;\
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "ALL_CFLAGS="
-	@echo $(ALL_CFLAGS)
+	@echo "ALL_CFLAGS=" ;\
+	stuff="$(subst ",\",$(ALL_CFLAGS))" ;\
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "LDFLAGS="
-	@echo $(LDFLAGS)
+	@echo "LDFLAGS=" ; \
+	stuff="$(subst ",\", $(LDFLAGS))" ; \
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "COM_MAKE="
-	@echo $(COM_MAKE)
+	@echo "COM_MAKE=" ; \
+	stuff="$(subst ",\", $(COM_MAKE))" ; \
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "COM_HEADERS="
-	@echo $(COM_HEADERS)
+	@echo "COM_HEADERS=" ;\
+	stuff="$(subst ",\", $(COM_HEADERS))" ;\
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo "MY_SRC="
-	@echo $(MY_SRC)
+	@echo "MY_SRC=" ; \
+	stuff="$(subst ",\", $(MY_SRC))" ;\
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
-	@echo RSYNCABLE_COMMON_STUFF=
-	@echo $(RSYNCABLE_COMMON_STUFF)
+	@echo RSYNCABLE_COMMON_STUFF= ; \
+	stuff="$(subst ",\", $(RSYNCABLE_COMMON_STUFF))" ; \
+	for thing in $${stuff} ; \
+	do \
+		echo " $${thing}" ; \
+	done
 	@echo ""
 
+#@echo $(RSYNCABLE_COMMON_STUFF)
 
 #@echo "MAKEFILE_LIST="
 #@echo $(MAKEFILE_LIST)
@@ -940,10 +996,33 @@ clean_list:
 -include $(BUILD_DIR_SRC:.c=.d)
 #-include main.d
 
-ifndef MCU
+#Moved Above
+#ifndef MCU
 #.PHONY: run
+#run: $(TARGET)
+#	$(TARGET)
+#endif
+
+
+##############
+# a/o audioThing40:
+#
+# 'make run' 
+#    On a PC-application: would ideally run the program (with no arguments)
+#    On an AVR project: is the equivalent of the old 'make flash'
+#                       with a bit of new-handling for eeprom
+#
+# This probably should NOT be .PHONY, but I'm too tired to think of how to
+# do it the 'right' way.
+ifdef MCU
+.PHONY: run
+run: loadChip
+else
 run: $(TARGET)
-	$(TARGET)
+	@echo	"################################################################################"
+	@echo "#### make: RUNNING $(TARGET)"
+	@echo	"################################################################################"
+	$(TARGET)	
 endif
 #/* mehPL:
 # *    I would love to believe in a world where licensing shouldn't be
@@ -1006,7 +1085,7 @@ endif
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_commonCode_localized/_make/reallyCommon2.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/reallyCommon2.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

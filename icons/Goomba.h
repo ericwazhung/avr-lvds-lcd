@@ -10,8 +10,12 @@
 
 
 
-#include "iconPacking.h"
 
+
+
+
+#include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -36,8 +40,8 @@
 #define GOOMBARF ROWPACK(0,0,0,0,3,3,3,2,3,3,3,3,3,3,0,0)
 
 
-const static uint8_t pgm_imageGOOMBA[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(GOOMBA);
+const static uint8_t pgm_imageGOOMBA[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(GOOMBA) };
    
    
 #define pgm_maskGOOMBA NULL
@@ -53,8 +57,6 @@ const static uint8_t pgm_imageGOOMBA[ICON_PACKED_BYTES] PROGMEM =
 #define GOOMBA_BLACK	rgb8(  0, 24, 60)
 #define GOOMBA_WHITE	rgb8(255,157,190)
 
-#define rgb2(r,g,b) \
-		(r | (g<<2) | (b<<4))
 //gimpPixelValToLColor should probably be taken into account.
 const static uint8_t pgm_paletteGOOMBA[4*NUMPALETTES_GOOMBA] PROGMEM =
 {
@@ -64,23 +66,43 @@ const static uint8_t pgm_paletteGOOMBA[4*NUMPALETTES_GOOMBA] PROGMEM =
 								// ALSO forgot that these values don't take into
 								// account that gimpColor is being modified...
 								// (right?)
-	rgb2(0,1,0),
+
+#if(defined(__SONY_ACX705AKM_H__))
+	//The other green is too dark on this display...
+//	rgb2(0,2,0),
+#else
+//	rgb2(0,1,0),
+#endif
+	37, //Normal sky-color during the first phase (when the goomba is
+		 //revealed)
 	GOOMBA_BODY, //rgb8(206, 28, 60),
 	GOOMBA_WHITE, //rgb8(255,157,190),
 	GOOMBA_BLACK, //rgb8(  0, 24, 60),
 		//Other colors look right, sos I'mma leave 'em
 	//Getting Dangerous
-	rgb2(0,1,0), //0x0b, 					//yellow
+#if(defined(__SONY_ACX705AKM_H__))
+	rgb2(0,2,0), //0x0b, 					//yellow
+#else
+	rgb2(0,1,0),
+#endif
 	GOOMBA_BODY, //rgb8(206, 28, 60),
 	GOOMBA_WHITE, //rgb8(255,157,190),
 	GOOMBA_BLACK, //rgb8(  0, 24, 60),
 	//Too Late
+#if(defined(__SONY_ACX705AKM_H__))
+	rgb2(2,3,0), //0x0f,						//yellow-orange
+#else
 	rgb2(1,1,0), //0x0f,						//yellow-orange
+#endif
 	GOOMBA_BODY, //rgb8(206, 28, 60),
 	GOOMBA_WHITE, //rgb8(255,157,190),
 	GOOMBA_BLACK, //rgb8(  0, 24, 60)
 
+#if(defined(__SONY_ACX705AKM_H__))
+	rgb2(2,2,0), //0x07,        		//orange
+#else
 	rgb2(3,1,0), //0x07,        		//orange
+#endif
 	GOOMBA_BODY, 
 	GOOMBA_WHITE,
 	GOOMBA_BLACK,
@@ -97,8 +119,198 @@ const static uint8_t pgm_paletteGOOMBA[4*NUMPALETTES_GOOMBA] PROGMEM =
 
 };
 
-static sprite_t spriteGOOMBA =
-      {pgm_imageGOOMBA, pgm_maskGOOMBA, pgm_paletteGOOMBA, NUMPALETTES_GOOMBA};
+#define GOOMBA_QCOUNT (48+16+16)
+#define GOOMBA_MOTIONS GOOMBA_QCOUNT
+
+const uint8_t GoombaFlip[FLIP_BYTES(GOOMBA_MOTIONS)] FLIP_MEM =
+{
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	
+	
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	PACK_FLIP_BYTE(NORM,FLIP,NORM,FLIP,NORM,FLIP,NORM,FLIP),
+	
+
+	//Sliding off-screen
+	PACK_FLIP_BYTE(FLIP,FLIP,FLIP,FLIP,FLIP,FLIP,FLIP,FLIP),
+	PACK_FLIP_BYTE(FLIP,FLIP,FLIP,FLIP,FLIP,FLIP,FLIP,FLIP)
+};
+
+const uint8_t GoombaY[MOTION_BYTES(GOOMBA_MOTIONS)] MOTION_MEM =
+{
+	PACK_MOTION_BYTE( 2, 2, 2, 2),
+	PACK_MOTION_BYTE( 2, 2, 2, 2),
+	PACK_MOTION_BYTE( 2, 2, 2, 2),
+	PACK_MOTION_BYTE( 2, 2, 2, 2),
+
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+};
+
+const __flash motion_t GoombaMotion[2] = { {0,NULL}, {-16, GoombaY} };
+
+//Can't use the default motion, because Goomba stays visible longer...
+const uint8_t GoombaCamY[MOTION_BYTES(GOOMBA_MOTIONS)] MOTION_MEM =
+{
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( DIR_TOGGLE, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+	PACK_MOTION_BYTE( 0, 0, 0, 0),
+
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+	PACK_MOTION_BYTE( 1, 1, 1, 1),
+};
+
+const __flash motion_t GoombaCamMotion[2] = { {0,NULL},{0,GoombaCamY}};
+
+
+const uint8_t GoombaLayer[LAYER_BYTES(GOOMBA_MOTIONS)] LAYER_MEM =
+{
+	PACK_LAYER_BYTE(_BG,_BG,_BG,_BG,_BG,_BG,_BG,_BG),
+	PACK_LAYER_BYTE(_BG,_BG,_BG,_BG,_BG,_BG,_BG,_BG),
+
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG)
+};
+
+/* From fb_question.c:getSpritePalette()
+switch(spritePhase)
+{
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+         thePalette = 0;
+         break;
+      case 4:
+      case 5:
+      case 6:
+         thePalette = 1;
+         break;
+      case 7:
+      case 8:
+      case 9:
+         thePalette = 2;
+         break;
+      case 10:
+      case 11:
+      case 12:
+         thePalette = 3;
+         break;
+      case 13:
+      case 14:
+      case 15:
+         thePalette = 4;
+         break;
+      default:
+         thePalette = p_thisSprite->numPalettes-1;
+}
+
+And from getSpritePhase()
+if (vOffset < 0) //(spriteRow < rowToDrawAt)
+   spritePhase = 0;
+if (vOffset > 0) //(spriteRow > rowToDrawAt)
+   spritePhase = GOOMBA_QCOUNT;
+else
+   spritePhase /=3;
+
+
+....
+So... for the first 16 steps (as the goomba slides into center-view)
+there is no phase change
+
+Then, it cycles through the colors at 1/3rd the rate...
+
+WAIT: Doesn't that mean the entire motion will be 48 + 16 + 16??? TODO
+
+Then it stays on the last color as it slides up...
+
+FOR NOW: ignoring /3 we have: (48 here - 16up -16slide = 16)
+    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+    0 0 0 0 1 1 1 2 2 2 3  3  3  4  4  4
+PA: 0 0 0 0 1 0 0 1 0 0 1  0  0  1  0  0
+*/
+
+const uint8_t GoombaPA[PA_BYTES(GOOMBA_MOTIONS)] PROGMEM =
+{
+	//Revealed
+	PACK_PA_BYTE(0,0,0,0,0,0,0,0),
+	PACK_PA_BYTE(0,0,0,0,0,0,0,0),
+
+	//Danger! (Goomba approaching)
+//	PACK_PA_BYTE(0,0,0,0,1,0,0,1),
+//	PACK_PA_BYTE(0,0,1,0,0,1,0,0),
+	PACK_PA_BYTE(1,0,0, 0,0,0, 0,0),
+	PACK_PA_BYTE(0, 0,0,0, 0,0,0, 0),
+	PACK_PA_BYTE(0,0, 1,0,0, 0,0,0),
+	PACK_PA_BYTE(0,0,0, 0,1,0, 0,0),
+	PACK_PA_BYTE(0, 0,0,0, 0,0,0, 1),
+	PACK_PA_BYTE(0,0, 0,0,0, 0,0,0),
+
+
+	//Dead and sliding off-screen
+	PACK_PA_BYTE(1,0,0,0,0,0,0,0),
+	PACK_PA_BYTE(0,0,0,0,0,0,0,0)
+};
+
+
+
+const __flash sprite_t spriteGOOMBA =
+      {
+			pgm_imageGOOMBA, 
+			pgm_maskGOOMBA, 
+			pgm_paletteGOOMBA, 
+			NUMPALETTES_GOOMBA,
+			GOOMBA_QCOUNT,
+			GoombaFlip,
+			GoombaMotion,
+			GoombaLayer,
+			GoombaCamMotion,
+			GoombaPA,
+			1
+		};
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -161,7 +373,7 @@ static sprite_t spriteGOOMBA =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/Goomba.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Goomba.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -10,8 +10,12 @@
 
 
 
-#include "iconPacking.h"
 
+
+
+
+#include "iconPacking.h"
+#include "defaultMotion.c"
 
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
@@ -93,9 +97,15 @@
 
 //37 (sky), 7, 47, 2
 
-const static uint8_t pgm_imageCOIN[ICON_PACKED_BYTES] PROGMEM =
-   IMAGE_INIT(COIN);
-   
+const static uint8_t pgm_imageCOIN[4][ICON_PACKED_BYTES] PROGMEM =
+{
+	IMAGE_INIT(COIN),
+	IMAGE_INIT(COIN1),
+	IMAGE_INIT(COIN2),
+	IMAGE_INIT(COIN3)
+};
+
+/*  
 const static uint8_t pgm_imageCOIN1[ICON_PACKED_BYTES] PROGMEM =
 	IMAGE_INIT(COIN1);
 
@@ -104,7 +114,7 @@ const static uint8_t pgm_imageCOIN2[ICON_PACKED_BYTES] PROGMEM =
 
 const static uint8_t pgm_imageCOIN3[ICON_PACKED_BYTES] PROGMEM =
 	IMAGE_INIT(COIN3);
-
+*/
 #define pgm_maskCOIN	NULL
 //static uint8_t * pgm_maskCOIN; //[ICON_MASK_BYTES]; // PROGMEM =
 //  MASK_INIT(GETNAMED(QUESTION));
@@ -121,10 +131,67 @@ const static uint8_t pgm_paletteCOIN[4*NUMPALETTES_COIN] PROGMEM =
 // 2 -> 3
 // 3 -> 1
 
-static sprite_t spriteCOIN =
-      {pgm_imageCOIN, pgm_maskCOIN, pgm_paletteCOIN, NUMPALETTES_COIN};
+
+#define COIN_MOTIONS	DEFAULT_MOTIONS //32
+
+const uint8_t CoinY[MOTION_BYTES(COIN_MOTIONS)] MOTION_MEM =
+{
+	//Bring it up to just above the box...
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
 
 
+	//Rathern creating a new CamMotion, let's simulate...
+	//PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	//PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 1, 1, 1, 1 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	//So this roughly looks as though the camera's moving the same rate
+	// almost until the coin clears the screen
+	// (It speeds up briefly toward the end, as the simulated camera starts
+	// panning back down)
+
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 ),
+	PACK_MOTION_BYTE( 2, 2, 2, 2 )
+};
+
+const __flash motion_t CoinMotion[2] = { {0, NULL}, {-16, CoinY} };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const __flash sprite_t spriteCOIN =
+      {
+			pgm_imageCOIN, 
+			pgm_maskCOIN, 
+			pgm_paletteCOIN, 
+			NUMPALETTES_COIN,
+			COIN_MOTIONS,
+#warning "COIN needs image-cycling!"
+			NadaFlip,			//THESE ARE NOT RIGHT, but need to be filled...
+			CoinMotion,
+			DefaultLayer,
+			DefaultCamMotion,
+			NULL,
+			4
+		};
+
+/*
 uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
 {
 	const uint8_t * p_image;
@@ -157,6 +224,8 @@ uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
                (row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
         )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
 }  
+*/
+
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -219,7 +288,7 @@ uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/Coin.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Coin.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

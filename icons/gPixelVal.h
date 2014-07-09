@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 #ifndef __GPIXELVAL_H__
 #define __GPIXELVAL_H__
 
@@ -90,7 +94,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/icons/gPixelVal.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/gPixelVal.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

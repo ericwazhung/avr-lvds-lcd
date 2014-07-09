@@ -9,6 +9,10 @@
 
 
 
+
+
+
+
 //lcdDefines.h contains project-specific definitions (and redefinitions?)
 //  for functions/macros/constants/timing-values used by:
 //  _commonCode.../lcdStuff
@@ -17,9 +21,35 @@
 
 
 
+//a/o v80:
+// Addition of _LCD_SPECIFIC_HEADER_:
+// This file is selected in mainConfig.h
+// Contains timing values specific to the display being used
+// (It's also entirely plausible to have several files for the same
+// display, for testing purposes)
+// 
+// There's probably quite a bit still here that should be removed...
+
+
 #ifndef __LCD_DEFINES_H__
 #define __LCD_DEFINES_H__
 
+//for LVDS_PRESCALER...
+// As well as _LCD_SPECIFIC_HEADER_, used below
+#include "mainConfig.h"
+
+//THIS IS A HACK:
+//Attempting to get new delay_Dots() here...
+#define FB_WIDTH	16
+#include _LCD_SPECIFIC_HEADER_
+#include _LCD_INTERFACE_CFILE_
+
+
+//TODO: This needs to be more sophisticated...
+// e.g. "#ifdef LCD_IS_LVDS" ...?
+
+
+#ifndef DOTS_TO_CYC
 //One dot-clock is 7/8ths of a CPU cycle... (prescaler = 1)
 //                 14/8ths with prescaler = 2 ...
 //
@@ -54,10 +84,27 @@
 #else
    #define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/8))
 #endif
+#endif //ifndef DOTS_TO_CYC 
 
-#define delay_Dots(numDots) delay_cyc(DOTS_TO_CYC(numDots))
+
+
+
+//a/o v81: delay_Dots may be defined elsewhere, e.g. in
+//_interfaces/6bitParallel.c, since there it might handle dot-clocking...
+#ifndef delay_Dots
+ #define delay_Dots(numDots) delay_cyc(DOTS_TO_CYC(numDots))
+#endif
 
 #define DE_DotDelay(numDots) delay_Dots(numDots)
+
+
+
+
+
+
+
+#if 0
+
 
 //THESE NOTES ARE OLD:
 //This has to be changed every time the DE code is changed...
@@ -75,6 +122,9 @@
 //Options LTN, IDT, or TESTVALS
 // IDT display *still* doesn't sync... maybe my H/V signals aren't right
 #define DISPLAY TESTVALS //LTN //TESTVALS //IDT //LTN
+
+#endif //0
+
 
 
 
@@ -102,15 +152,39 @@
 // LTN: 1072-1344-1500 clocks per line, 1024DE... Hsync unused
 // SEE Hlow_Delay() notes if this value is large!
 
-#if (DISPLAY == LTN)
-#define H_LOW_DOTS   8
-#elif (DISPLAY == IDT)
-#define H_LOW_DOTS   40//8//1//40 //30 //2//136
-#elif (DISPLAY == TESTVALS)
-#define H_LOW_DOTS   100//0 //LTN doesn't use H_LOW (DE-only)
-                       // And having a value here increases codesize
-#endif
 
+//a/o v75: IDTech never worked and has since bit-the-dust
+//
+// Up to this point, both the LTN and the Chi Mei, which have been working
+// were using "TESTVALS"
+// and I haven't been keeping track of which vals belong to which.
+// so, as of v74 (LTN, PWM161):
+// LTN was last using H_LOW_DOTS = 0, HD_DOTS = 0
+// These were changed (not sure when)
+// from 100 and 50, in v66
+//
+// Now's the kicker:
+//  v66 works with the new BOE display, but v74 does not.
+//  So reverting for that...
+
+// This applies to all DE-only displays
+// (Of which all have been so far)
+// Having a value for H_LOW_DOTS increases codesize
+// Those might be better-moved elsewhere (e.g. HFP?)
+
+/* Now in _displays/...h
+#if (DISPLAY == LTN)
+//Though the values have varied over time...:
+#error "DISPLAY == TESTVALS has been used for quite some time with various displays"
+#define H_LOW_DOTS   0	//8==OLD unused... 0==last use a/o v74 in TESTVALS
+								//LTN doesn't use H_LOW (DE-only)
+#elif (DISPLAY == IDT)
+#error "DISPLAY == TESTVALS has been used for quite some time with various displays"
+ #define H_LOW_DOTS   40//8//1//40 //30 //2//136
+#elif (DISPLAY == TESTVALS)
+ #define H_LOW_DOTS   100
+#endif
+*/
 
 //H is set low immediately upon entry of the timer interrupt
 // its low-time is controlled via nops
@@ -131,6 +205,7 @@
 //        it does, however, affect the vertical(!)
 // If I recall Correctly, this is used only for setting the timer interrupt
 //  rate...
+/* Now in _displays/...h
 #if (DISPLAY == LTN)
 #define DE_ACTIVE_DOTS   1024
 #elif (DISPLAY == IDT)
@@ -138,6 +213,7 @@
 #elif (DISPLAY == TESTVALS)
 #define DE_ACTIVE_DOTS   1024
 #endif
+*/
 
 #define T_DE_CYC   DOTS_TO_CYC(DE_ACTIVE_DOTS)
 
@@ -151,13 +227,16 @@
 //IDTech Last Used: 50
 //LTN last used 5
 
+//See notes about TESTVALS and whatnot above in: H_LOW_DOTS
+/* Now in _displays/...h
 #if (DISPLAY == LTN)
-#define HD_DOTS 5
+#define HD_DOTS 0 //5==last used long ago. Latest TESTVALS a/o v74 was 0
 #elif (DISPLAY == IDT)
 #define HD_DOTS   50 //5 //0//20//5 //50 //30 //1 //160
 #elif (DISPLAY == TESTVALS)
 #define HD_DOTS 50//5
 #endif
+*/
 
 #define HD_Delay()   delay_Dots(HD_DOTS)
 
@@ -170,6 +249,7 @@
 // IDTech Last Used: 24
 // LTN last used 46
 // 1072-1024-1-1 = 46
+/* Now in _displays/...h
 #if (DISPLAY == LTN)
 #define DH_DOTS   46
 #elif (DISPLAY == IDT)
@@ -177,6 +257,7 @@
 #elif (DISPLAY == TESTVALS)
 #define DH_DOTS   0//1000//100//46
 #endif
+*/
 
 #define T_DH_CYC   DOTS_TO_CYC(DH_DOTS)
 
@@ -201,6 +282,7 @@
 // IDTech Last Used: 29
 // LTN last used 3
 //LTN Frame: 772-806-1000 lines...
+/* Now in _displays/...h
 #if (DISPLAY == LTN)
 #define T_VD 3
 #elif (DISPLAY == IDT)
@@ -249,6 +331,8 @@
   #define V_COUNT (768)
  #endif
 #endif
+*/
+
 
 //                       
 //                      |           
@@ -337,7 +421,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/lcdDefines.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/lcdDefines.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -1,0 +1,853 @@
+  4       306 Dec 15  2012 1-fromLCDdirect50
+  1     20888 Dec 13  2012 1-fromLCDdirect50 0_preNoDE.zip
+  1    149451 Dec 15  2012 1-fromLCDdirect50 10_deadTimeRequiresComplementaryOutputMode.zip
+  1    150237 Dec 15  2012 1-fromLCDdirect50 11_complementaryClr+SingleEndedSet.zip
+  1    152449 Dec 15  2012 1-fromLCDdirect50 12_LooksGood.zip
+  1     38405 Dec 14  2012 1-fromLCDdirect50 1_PWM1Xinversion.zip
+  1     22550 Dec 14  2012 1-fromLCDdirect50 2_noCodeYet.zip
+  1     24993 Dec 15  2012 1-fromLCDdirect50 3_noMakefile.zip
+  1    172223 Dec 15  2012 1-fromLCDdirect50 4_bitWidthsVary.zip
+  1    169751 Dec 15  2012 1-fromLCDdirect50 5_PWMtimingTests.zip
+  1    170287 Dec 15  2012 1-fromLCDdirect50 6_pwmNotes.zip
+  1    151311 Dec 15  2012 1-fromLCDdirect50 7_revisitingStates_DUD.zip
+  1    148907 Dec 15  2012 1-fromLCDdirect50 8_deadTimerExperiments.zip
+  1    149441 Dec 15  2012 1-fromLCDdirect50 9_deadTimeWorks.zip
+  4       306 Dec 15  2012 2-HigherFreq
+  4       306 Dec 15  2012 3-PLLing
+  1    157296 Dec 15  2012 3-PLLing 0_OK.zip
+  4       306 Dec 16  2012 4-sequencing
+  1    114504 Dec 15  2012 4-sequencing 0_optimizing.zip
+  1    116105 Dec 15  2012 4-sequencing 1_inlineGlobalVariableTestDUD.zip
+  1    107531 Dec 15  2012 4-sequencing 2_externTestDUD.zip
+  1    116291 Dec 15  2012 4-sequencing 3_pointerTestDUD.zip
+  1    137477 Dec 16  2012 4-sequencing 4_allStatesTested.zip
+  1    138506 Dec 16  2012 4-sequencing 5_slowEverything.zip
+  1    140822 Dec 16  2012 4-sequencing 6_gettingThere.zip
+  1    146411 Dec 16  2012 4-sequencing 7_perfectionTesting.zip
+  4       306 Dec 17  2012 5-timer0cycCount
+  1    172497 Dec 16  2012 5-timer0cycCount 0_syncedForNadaToV.zip
+  1    151907 Dec 17  2012 5-timer0cycCount 1_TransitionTesting.zip
+  4       306 Dec 17  2012 10-PreviousWasWAYtooComplicated_from5
+  1    179112 Dec 17  2012 10-PreviousWasWAYtooComplicated_from5 0.zip
+  1    149776 Dec 17  2012 10-PreviousWasWAYtooComplicated_from5 1_Simple!.zip
+  4       306 Dec 20  2012 11-backToInterrupt
+  1     74156 Dec 18  2012 11-backToInterrupt 0_incomplete.zip
+  1    155931 Dec 20  2012 11-backToInterrupt 10_clockFix.zip
+  1    163950 Dec 18  2012 11-backToInterrupt 1_partial.zip
+  1    159707 Dec 18  2012 11-backToInterrupt 2_timer0ing.zip
+  1    160771 Dec 18  2012 11-backToInterrupt 3_TCNT0alignment.zip
+  1    161313 Dec 20  2012 11-backToInterrupt 4_preLCD.zip
+  1    160971 Dec 20  2012 11-backToInterrupt 5_DE_BLUE.zip
+  1    164121 Dec 20  2012 11-backToInterrupt 6_hlowdelayCyc.zip
+  1    165050 Dec 20  2012 11-backToInterrupt 7_timings.zip
+  1    163978 Dec 20  2012 11-backToInterrupt 8_minTimings.zip
+  1    155492 Dec 20  2012 11-backToInterrupt 9_preClockFix.zip
+  4       306 Dec 22  2012 12-postSwitchResTests
+  1    156781 Dec 22  2012 12-postSwitchResTests 0.zip
+  1    189350 Dec 22  2012 12-postSwitchResTests 1_preTimingRecheck.zip
+  1    190876 Dec 22  2012 12-postSwitchResTests 2_forgotVsyncFromNada.zip
+  5       340 Dec 24  2012 13-LTNinstead
+  1    158279 Dec 23  2012 13-LTNinstead 0_wiringNotes.zip
+  1    193932 Dec 23  2012 13-LTNinstead 1_FullInitTestsFALSE-betterSyncish.zip
+  1    202585 Dec 23  2012 13-LTNinstead 2_LRflip.zip
+  1    166862 Dec 23  2012 13-LTNinstead 3_diagBarTest.zip
+  1    165651 Dec 23  2012 13-LTNinstead 4_LTNminTiming.zip
+  1    197003 Dec 23  2012 13-LTNinstead 5_VertScroll_3Hz.zip
+  1    165671 Dec 23  2012 13-LTNinstead 6_stretchingTiming.zip
+  5       340 Dec 26  2012 14-DEOnlyTests
+  5       340 Dec 26  2012 15-IDTechRevisited_MathDoesntWork-1FPS!
+  5       340 Dec 30  2012 16-LTNAgain_from14
+  1    167358 Dec 26  2012 16-LTNAgain_from14 0_noChange=14.zip
+  1    197299 Dec 26  2012 16-LTNAgain_from14 1_drawPix_something.zip
+  1    207627 Dec 26  2012 16-LTNAgain_from14 2_3shadesOK.zip
+  1    184322 Dec 26  2012 16-LTNAgain_from14 3_changingPixelAffectsLVDSLevels.zip
+  1    206848 Dec 27  2012 16-LTNAgain_from14 4_interestingEffectsVaryingPotsWithTransistorsAndCaps.zip
+  1    169531 Jan  7  2013 16-LTNAgain_from14 5_REMOVE_DC.zip
+  5       340 Jan  7  2013 17-XOR+OR=differential
+  1    185596 Jan  7  2013 17-XOR+OR=differential 0_pixelChange=OK!.zip
+  1    185915 Jan  7  2013 17-XOR+OR=differential 1_pixelChange=scroll.zip
+  1    228634 Jan  7  2013 17-XOR+OR=differential 2_AllBlues_coolVerticalPatternButNotWhatIWanted.zip
+  1    228466 Jan  7  2013 17-XOR+OR=differential 3_coolRhythm.zip
+  1    234425 Jan  7  2013 17-XOR+OR=differential 4_scrolling+Notes.zip
+  6       374 Jan  8  2013 18-settingBuffer
+  1    309935 Jan  8  2013 18-settingBuffer 0_pre_regMoveToDrawPix.zip
+  1    299495 Jan  8  2013 18-settingBuffer 1_drawPixFunctionizingSeemsToHaveFixedLoopsWEIRD.zip
+  5       340 Jan  8  2013 18-settingBuffer 2
+  1    369618 Jan  8  2013 18-settingBuffer 2_pre-nounrollLoops.zip
+  1    411998 Jan  8  2013 18-settingBuffer 3_delayCycHack.zip
+  6       374 Jan  8  2013 19-multiRows
+  1    412868 Jan  8  2013 19-multiRows 0_betterScroll.zip
+  1    414409 Jan  8  2013 19-multiRows 1_drawPixTimingFix.zip
+  6       374 Jan  8  2013 20-maybeGreen
+  6       374 Jan  9  2013 21-maybeRedToo
+  1    380496 Jan  8  2013 21-maybeRedToo 0_HeartRemoved.zip
+  1    401288 Jan  9  2013 21-maybeRedToo 10_ASMGreenNotRed.zip
+  1    428408 Jan  9  2013 21-maybeRedToo 11_OK_nowTooFast.zip
+  1    381445 Jan  8  2013 21-maybeRedToo 1_greenSyncing.zip
+  6       374 Jan  9  2013 21-maybeRedToo 2
+  1    438973 Jan  9  2013 21-maybeRedToo 2 0_from21.11and21.10_stillTooFast.zip
+  1    383596 Jan  8  2013 21-maybeRedToo 2_GOOD.zip
+  1    383411 Jan  8  2013 21-maybeRedToo 3_andYellow.zip
+  1    346849 Jan  9  2013 21-maybeRedToo 4_LookinGood.zip
+  1    385801 Jan  9  2013 21-maybeRedToo 5_NotesPonderingOtherColors.zip
+  1    393265 Jan  9  2013 21-maybeRedToo 6_smileyFirstGo_shouldabeen22.zip
+  1    393294 Jan  9  2013 21-maybeRedToo 7_smileyGood.zip
+  1    399195 Jan  9  2013 21-maybeRedToo 8_colorTimingFirstGo.zip
+  1    399845 Jan  9  2013 21-maybeRedToo 9_firstGoASM.zip
+  6       374 Jan 10  2013 22-moreColorWidthTiming_from21_2
+  1    437473 Jan  9  2013 22-moreColorWidthTiming_from21_2 0_LooksGood.zip
+  1    440752 Jan  9  2013 22-moreColorWidthTiming_from21_2 1_GROOVY.zip
+  1    441591 Jan  9  2013 22-moreColorWidthTiming_from21_2 2_MoreGrooving.zip
+  1    402281 Jan  9  2013 22-moreColorWidthTiming_from21_2 3_Good.zip
+  6       374 Jan  9  2013 23-MemoryVisualizer_NYI
+  6       374 Jan 11  2013 24-clockInsensitivityTesting_from22
+  1    442918 Jan 10  2013 24-clockInsensitivityTesting_from22 0_firstGo_smileyNowCenteredWTF.zip
+  1    442477 Jan 10  2013 24-clockInsensitivityTesting_from22 1_colorScrollOKish+NotBadGlitches.zip
+  1    444000 Jan 10  2013 24-clockInsensitivityTesting_from22 2_colorShadeNotes.zip
+  1    444839 Jan 10  2013 24-clockInsensitivityTesting_from22 3_DT0_BLUES_ONLY.zip
+  6       408 Jan 11  2013 25-preLVDSnoteRemoval
+  6       408 Jan 12  2013 26-colorShades
+  1    419306 Jan 11  2013 26-colorShades 0_shadeTimingNotes.zip
+  1    420103 Jan 11  2013 26-colorShades 1_moreNotes.zip
+  1    429863 Jan 11  2013 26-colorShades 2_firstGo.zip
+  1    432391 Jan 11  2013 26-colorShades 3_AllColorsGo.zip
+  1    433633 Jan 11  2013 26-colorShades 4_switch-16bit!.zip
+  1    429181 Jan 12  2013 26-colorShades 5_imageFixed.zip
+  6       408 Jan 12  2013 27-frameStills
+  1    439018 Jan 11  2013 27-frameStills 0_WOW.zip
+  1    438367 Jan 11  2013 27-frameStills 1_TOOFASTdisabled.zip
+  1    431606 Jan 12  2013 27-frameStills 2_OSCCAL_VALreplacingTOOFAST.zip
+  1    442708 Jan 12  2013 27-frameStills 3_PlusNotes.zip
+  6       408 Jan 12  2013 28-colorWidthsAgain
+  1    448554 Jan 12  2013 28-colorWidthsAgain 0_looksGood.zip
+  1    452609 Jan 12  2013 28-colorWidthsAgain 1_imageChange.zip
+  6       408 Jan 12  2013 29-fullColorImage
+  1    450751 Jan 12  2013 29-fullColorImage 0_colorExperiments.zip
+  1    451265 Jan 12  2013 29-fullColorImage 1_transparency.zip
+  1    452931 Jan 12  2013 29-fullColorImage 2_FOUR_SHADESnogo.zip
+  1    454239 Jan 12  2013 29-fullColorImage 3_FOUR_SHADES_RedOnly.zip
+  6       408 Jan 12  2013 30-timing
+  1    458787 Jan 12  2013 30-timing 0_leftBarRemovedAndStraightPixels.zip
+  1    466164 Jan 12  2013 30-timing 1_IDTechTestingRevisitedNOGO.zip
+  1    418253 Jan 12  2013 30-timing 2_LTNIDTtimingOptions.zip
+  6       408 Jan 12  2013 31-doubleRefresh
+  6       408 Jan 13  2013 32-ExperimentingWithHalfShadesViaSlowRefresh
+  1    418812 Jan 12  2013 32-ExperimentingWithHalfShadesViaSlowRefresh 0_firstGo+FRAME_COUNT_TO_DELAY=0OK.zip
+  6       408 Jan 14  2013 33-LIFE
+  1    424650 Jan 13  2013 33-LIFE 0_firstGoNOGO.zip
+  1    417525 Jan 13  2013 33-LIFE 1_FRAME_SYNC.zip
+  1    389925 Jan 13  2013 33-LIFE 2_nogo.zip
+  1    426172 Jan 13  2013 33-LIFE 3_FromcTools_lifeTest.c.zip
+  1    427090 Jan 13  2013 33-LIFE 4_fromcTools_lifeTest2.c+78Bytes!.zip
+  1    429237 Jan 13  2013 33-LIFE 5_LifeTooColorful.zip
+  1    428178 Jan 13  2013 33-LIFE 6_goodExampleOfFadingPixelsForIntermediateShades.zip
+  1    391526 Jan 14  2013 33-LIFE 7_good.zip
+  6       408 Jan 14  2013 34-LVDSnotes
+  6       408 Jan 14  2013 35-Notes+LoadRowExperimentsReFasterPixels
+  1    420687 Jan 14  2013 35-fasterPixels 0_Notes.zip
+  1    423849 Jan 14  2013 35-fasterPixels 1_rowCalcDelayTesting.zip
+  6       510 Jan 25  2013 36-LoadRow
+  1    437008 Jan 14  2013 36-LoadRow 0_charBitmapOKBlue1NOTOK.zip
+  1    428275 Jan 14  2013 36-LoadRow 1_weirdnessButPromising.zip
+  1    437100 Jan 14  2013 36-LoadRow 2_blueSettingFix.zip
+  1    443623 Jan 14  2013 36-LoadRow 3_FINALLY.zip
+  1    443369 Jan 14  2013 36-LoadRow 4_RB_HEIGHT.zip
+  1    447401 Jan 14  2013 36-LoadRow 5_+Hello.zip
+  1    448624 Jan 14  2013 36-LoadRow 6_FBcenteredWASScaled.zip
+  6       510 Jan 25  2013 36-LoadRow_OLD
+  6       544 Jan 15  2013 37-LifeOnTheRight
+  1    460972 Jan 14  2013 37-LifeOnTheRight 0_fillingRemainingPixels.zip
+  1    461601 Jan 14  2013 37-LifeOnTheRight 1_64x48.zip
+  6       510 Jan 25  2013 37-LifeOnTheRight 2
+  1    462734 Jan 25  2013 37-LifeOnTheRight 2 0_blackCol=lessNoise.zip
+  6       476 Jan 25  2013 37-LifeOnTheRight 2_OLD
+  1    445174 Jan 25  2013 37-LifeOnTheRight 2_horribleSync.zip
+  1    489951 Jan 25  2013 37-LifeOnTheRight 3_defiesPhysics.zip
+  1    489457 Jan 25  2013 37-LifeOnTheRight 4_cleanup+ROWCALCDELAY++.zip
+  1    489042 Jan 25  2013 37-LifeOnTheRight 5_ROW_SCALE.zip
+  6       510 Jan 25  2013 37-LifeOnTheRight_OLD
+  3       204 Jan 25  2013 37-LifeOnTheRight_recovered
+  1       225 Jan 26  2013 38-41_NOTE.txt
+  6       510 Jan 26  2013 38-TimingAgain
+  1    489831 Jan 25  2013 38-TimingAgain 1.zip
+  1    489897 Jan 25  2013 38-TimingAgain 2.zip
+  6       544 Jan 26  2013 39-towardTetris
+  1    488859 Jan 25  2013 39-towardTetris 0_earlyNotes.zip
+  1    489598 Jan 25  2013 39-towardTetris 1_getSetBrick.zip
+  1    490080 Jan 25  2013 39-towardTetris 2_orientationNotes.zip
+  1    490461 Jan 25  2013 39-towardTetris 3_piecesStart.zip
+  1    490723 Jan 25  2013 39-towardTetris 4_piecesStart.zip
+  1    491018 Jan 25  2013 39-towardTetris 5_piecesStart.zip
+  1    491093 Jan 25  2013 39-towardTetris 6_piecesDone.zip
+  1    450507 Jan 25  2013 39-towardTetris 7_tetStuff.zip
+  1    452203 Jan 25  2013 39-towardTetris 8_piecesLoaded.zip
+  1    504683 Jan 25  2013 39-towardTetris 9_loadRowCleanup.zip
+  6       578 Jan 26  2013 40-frameBufferRemoval
+  1    492839 Jan 25  2013 40-frameBufferRemoval 0.zip
+  1    508848 Jan 25  2013 40-frameBufferRemoval 10_tetBufferOK.zip
+  1    493513 Jan 25  2013 40-frameBufferRemoval 1_scrollRightSide.zip
+  1    495427 Jan 25  2013 40-frameBufferRemoval 2_backwardsR.zip
+  1    496679 Jan 25  2013 40-frameBufferRemoval 3_FloatingSmileOnRight.zip
+  1    496509 Jan 25  2013 40-frameBufferRemoval 4_minorBugFix.zip
+  1    496590 Jan 25  2013 40-frameBufferRemoval 5_shiftR.zip
+  1    506071 Jan 25  2013 40-frameBufferRemoval 6_tetFirstGo.zip
+  1    510700 Jan 25  2013 40-frameBufferRemoval 7_secondGo.zip
+  1    510545 Jan 25  2013 40-frameBufferRemoval 8_thirdGo.zip
+  1    509575 Jan 25  2013 40-frameBufferRemoval 9_fourthGo.zip
+  6       612 Jan 27  2013 41-moreTetris
+  1    508314 Jan 25  2013 41-moreTetris 0_colorSchemeYuck.zip
+  1    486856 Jan 27  2013 41-moreTetris 10_closer.zip
+  1    487041 Jan 27  2013 41-moreTetris 11_right-on.zip
+  1    488210 Jan 27  2013 41-moreTetris 12_reset.zip
+  1    488435 Jan 27  2013 41-moreTetris 13_prettyDurnGood.zip
+  1    488559 Jan 27  2013 41-moreTetris 14_resetFix.zip
+  1    488568 Jan 27  2013 41-moreTetris 15_bugAtGroundZero.zip
+  1    488018 Jan 27  2013 41-moreTetris 16_gnd0fixed_otherOddityUnknown.zip
+  1    510514 Jan 25  2013 41-moreTetris 1_border+syncProbs.zip
+  6       680 Jan 21  2013 41-moreTetris 2
+  1    481364 Jan 26  2013 41-moreTetris 2_lastVersionPreCrash_recoveredFromJiggyFour.zip
+  6       680 Jan 22  2013 41-moreTetris 3
+  1    470246 Jan 26  2013 41-moreTetris 3_tetDrawRow_firstGo.zip
+  5       646 Jan 26  2013 41-moreTetris 4
+  1    470111 Jan 26  2013 41-moreTetris 4_fixedImageDestruction-leWhereltShouldaBeen.zip
+  1    473470 Jan 26  2013 41-moreTetris 5_firstDrawingOfPiece.zip
+  1    475519 Jan 26  2013 41-moreTetris 6_piecesChanging1go.zip
+  1    475873 Jan 26  2013 41-moreTetris 7_pieceChanges.zip
+  1    476696 Jan 26  2013 41-moreTetris 8_piecesMove.zip
+  1    484589 Jan 27  2013 41-moreTetris 9_collision1go.zip
+  6       612 Jan 28  2013 42-ColorExperiments
+  1    485552 Jan 28  2013 42-ColorExperiments 0_displayColorVal.zip
+  1    485654 Jan 28  2013 42-ColorExperiments 1_writeColorCycleNotes.zip
+  6       612 Jan 28  2013 42-ColorExperiments 2
+  1    487298 Jan 28  2013 42-ColorExperiments 2 0_WTF_1pixwidth.zip
+  1    487719 Jan 28  2013 42-ColorExperiments 2 1_pllEnableFix.zip
+  1    487089 Jan 28  2013 42-ColorExperiments 2_+PixelSlowing.zip
+  1    486918 Jan 28  2013 42-ColorExperiments 3_LVDS_PRESCALER+DOTS_TO_CYC--DUD.zip
+  1    487664 Jan 28  2013 42-ColorExperiments 4_L_PRESCALE_Go1.zip
+  6       612 Jan 28  2013 43-LVDS_PRESCALERmore
+  1    487947 Jan 28  2013 43-LVDS_PRESCALERmore 0.zip
+  1    489393 Jan 28  2013 43-LVDS_PRESCALERmore 1_pre2OK.zip
+  1    488217 Jan 28  2013 43-LVDS_PRESCALERmore 2_PRE4tests.zip
+  1    487671 Jan 28  2013 43-LVDS_PRESCALERmore 3_PRE8tests-NiceScrollClearing.zip
+  1    488258 Jan 28  2013 43-LVDS_PRESCALERmore 4_fixOverflowInDotsToCyc.zip
+  3       408 Jan 28  2013 44-CodeSizingTests
+  1    276217 Jan 28  2013 44-CodeSizingTests 0_200B+cleanup.zip
+  3       510 Jan 31  2013 45-RowSegments
+  1    281384 Jan 31  2013 45-RowSegments 0_fileSeparation.zip
+  1    288341 Jan 31  2013 45-RowSegments 1_noPush-overwritingRegsWTF.zip
+  1    289220 Jan 31  2013 45-RowSegments 2_pop0000rcall00.zip
+  1    286827 Jan 31  2013 45-RowSegments 3_asmFixed.zip
+  1    262430 Jan 31  2013 45-RowSegments 4_rowSeg1go.zip
+  1    265006 Jan 31  2013 45-RowSegments 5_segLengths1go.zip
+  1    265612 Jan 31  2013 45-RowSegments 6_segLengthsMatched.zip
+  1    266871 Jan 31  2013 45-RowSegments 7_squareSegs.zip
+  3       510 Mar 19 20:19 46-CalcDelay
+  1    267116 Jan 31  2013 46-CalcDelay 0_NoLongerMultiple.zip
+  1    267870 Jan 31  2013 46-CalcDelay 1_whiteLastColSyncFix.zip
+  1    266235 Jan 31  2013 46-CalcDelay 2_SEG_STRETCH.zip
+  1    315612 Jan 31  2013 46-CalcDelay 3_SEG_STRETCH3OK.zip
+  1    274287 Feb  1  2013 46-CalcDelay 4_SegLengthMask.zip
+  1    275869 Feb  1  2013 46-CalcDelay 5_towardSegMath.zip
+  1    283380 Feb  1  2013 46-CalcDelay 6_newSegStretch1GoNoGo.zip
+  1    328108 Feb  1  2013 46-CalcDelay 7_FSCKED.zip
+  1    289618 Feb  1  2013 46-CalcDelay 8_OK.zip
+  1    333131 Feb  1  2013 46-CalcDelay 9_GOOD.zip
+  3       510 Mar 19 20:19 47-DiagonalLine
+  1    327695 Feb  1  2013 47-DiagonalLine 0_SyncTroubles.zip
+  3       510 Mar 19 20:19 48-TestingStretchSeg
+  1    331368 Feb  1  2013 48-TestingStretchSeg 0_OK.zip
+  1    330758 Feb  1  2013 48-TestingStretchSeg 1_rbpixToSegCleanup.zip
+  1    330349 Feb  1  2013 48-TestingStretchSeg 2_moreCleanup.zip
+  1    329816 Feb  1  2013 48-TestingStretchSeg 3_MoreCleanup.zip
+  1    330489 Feb  1  2013 48-TestingStretchSeg 4_linesRevisitedGOOD.zip
+  3       510 Mar 19 20:19 49-circle
+  1    341427 Feb  1  2013 49-circle 0_interesting.zip
+  1    341624 Feb  1  2013 49-circle 1_SinesActually_AWSOME.zip
+  3       510 Feb  1  2013 50-sidwaysText
+  1    345155 Feb  1  2013 50-sidwaysText 0_+TEXT.zip
+  1    346464 Feb  1  2013 50-sidwaysText 1_AWESOME.zip
+  1    349427 Feb  1  2013 50-sidwaysText 2_twoRows.zip
+  1    353078 Feb  1  2013 50-sidwaysText 3_+PSTR.zip
+  3       510 Feb  1  2013 51-fb_to_seg
+  1    362873 Feb  1  2013 51-fb_to_seg 0_firstGoWhiteGood.zip
+  1    364434 Feb  1  2013 51-fb_to_seg 1_RedYellowNoGo.zip
+  1    364434 Feb  1  2013 51-fb_to_seg 2_noItWasBlueAndFixed.zip
+  1    364549 Feb  1  2013 51-fb_to_seg 3_newSegfb.zip
+  1    318286 Feb  1  2013 51-fb_to_seg 4_FillingColorsWavyGravy.zip
+  1    318676 Feb  1  2013 51-fb_to_seg 5_colorFillingFixed.zip
+  1    364357 Feb  1  2013 51-fb_to_seg 6_reallyCoolButNotRight.zip
+  3       510 Feb  1  2013 52-stretchThoseSinePix
+  3      510 May 26 03:16 52-stretchThoseSinePix
+  1    359062 Feb  1  2013 52-stretchThoseSinePix 0_good+sineBackground.zip
+  3       510 Feb  2  2013 53-DidntIHaveTwoBlues
+  1    361103 Feb  1  2013 53-DidntIHaveTwoBlues 0_rgbFinally.zip
+  1    352611 Feb  2  2013 53-DidntIHaveTwoBlues 1_horizLines.zip
+  1    355338 Feb  2  2013 53-DidntIHaveTwoBlues 2_gradientish.zip
+  3       544 Aug  7  2013 54-moreColorStuff
+  1    355183 Feb  5  2013 54-moreColorStuff 0_rgbGradientFn.zip
+  1    323930 Feb 10  2013 54-moreColorStuff 1_LastTested.zip
+  1    324137 Mar 22  2013 54-moreColorStuff 2_prePostingOnline.zip
+  1    324475 Jul 17  2013 54-moreColorStuff 3_movedToAvrProjFolder.zip
+  3       476 Feb  5  2013 54exp-rowSegDisabled
+  1    324112 Oct 14  2013 55-TODOs 0_priorToLCDStuff0.40.zip
+  5       782 Oct 31  2013 55=54.5-avoidingTodos
+  1    333260 Oct 27  2013 55=54.5-avoidingTodos 0_versionInChipBackedUp_was2-5-13_projInfoIs7-17-13.zip
+  1    336193 Oct 27  2013 55=54.5-avoidingTodos 10_TOGIMPPALETTE_almost.zip
+  1    336497 Oct 27  2013 55=54.5-avoidingTodos 11_better.zip
+  1    336648 Oct 27  2013 55=54.5-avoidingTodos 12_aws.zip
+  1    387825 Oct 27  2013 55=54.5-avoidingTodos 13_multiColorSchemes+rgb8+allThatGimpPaletteStuff.zip
+  1    337922 Oct 27  2013 55=54.5-avoidingTodos 14_rgb8Notes.zip
+  1    387449 Oct 27  2013 55=54.5-avoidingTodos 15_colorChangingMoreOftenIsBetter.zip
+  1    385878 Oct 28  2013 55=54.5-avoidingTodos 16_officialQuestion_firstGo.zip
+  1    386117 Oct 28  2013 55=54.5-avoidingTodos 17_awesome.zip
+  1    390848 Oct 28  2013 55=54.5-avoidingTodos 18_icons_firstGo.zip
+  1    391814 Oct 28  2013 55=54.5-avoidingTodos 19_lookingGood_QIcon_NoColorChange.zip
+  1    333272 Oct 27  2013 55=54.5-avoidingTodos 1_noChangeFrom54_Rebuilt+Loads_WeirdNumberMixupPrior.zip
+  1    392830 Oct 28  2013 55=54.5-avoidingTodos 20_andImageChanging.zip
+  1    393134 Oct 28  2013 55=54.5-avoidingTodos 21_flowerLooksGoodToo.zip
+  1    385080 Oct 28  2013 55=54.5-avoidingTodos 22_whoaNelly_16x16Is256BytesPerFrame.zip
+  1    394801 Oct 28  2013 55=54.5-avoidingTodos 23_on-demand_switching_OKish.zip
+  1    397627 Oct 28  2013 55=54.5-avoidingTodos 24_hugeRestructure_TryingToGetThere.zip
+  1    392510 Oct 28  2013 55=54.5-avoidingTodos 25_Something_BUTMASKISNOTINITED.zip
+  1    393086 Oct 28  2013 55=54.5-avoidingTodos 26_forgotPalette_butAintRight.zip
+  1    342047 Oct 28  2013 55=54.5-avoidingTodos 27_YES...noMaskYet.zip
+  1    394953 Oct 28  2013 55=54.5-avoidingTodos 28_+biggie_GO.zip
+  1    399247 Oct 28  2013 55=54.5-avoidingTodos 29_AndQuestion_YAY...multiPalette.zip
+  1    315388 Oct 27  2013 55=54.5-avoidingTodos 2_towardQuestionMark...justDrawingColors_syncsOddButGood.zip
+  1    399745 Oct 28  2013 55=54.5-avoidingTodos 30_AndStar.zip
+  1    403710 Oct 29  2013 55=54.5-avoidingTodos 31_buttonAffectsNextRefresh.zip
+  1    403075 Oct 29  2013 55=54.5-avoidingTodos 32_returnToQ.zip
+  1    405143 Oct 29  2013 55=54.5-avoidingTodos 33_goesSolid.zip
+  1    405264 Oct 29  2013 55=54.5-avoidingTodos 34_+COIN_debuggingDefaultCaseOnly.zip
+  1    409290 Oct 29  2013 55=54.5-avoidingTodos 35_oneBugFound_ButNoticedOutOfMemory.zip
+  1    409016 Oct 29  2013 55=54.5-avoidingTodos 36_maskNULL_hugeMemorySavings_SurprisinglySo.zip
+  1    409344 Oct 29  2013 55=54.5-avoidingTodos 37_CoinMoreOften.zip
+  1    409740 Oct 29  2013 55=54.5-avoidingTodos 38_DEBUGGING_PRESSIMMEDIATE.zip
+  1    410211 Oct 29  2013 55=54.5-avoidingTodos 39_flowerFirstGo.zip
+  1    372342 Oct 27  2013 55=54.5-avoidingTodos 3_firstGoQuestion_Promising.zip
+  1    412101 Oct 29  2013 55=54.5-avoidingTodos 40_fixedPaletteMath_hadntNoticedPrior_DidIMentionFLOWERNow.zip
+  1    358936 Oct 29  2013 55=54.5-avoidingTodos 41_TryingToGetQToStartWithShiney_noGo_RevertingTo40.zip
+  1    410362 Oct 29  2013 55=54.5-avoidingTodos 42_removalOfMY_QUESTION_cleanup.zip
+  1    424769 Oct 29  2013 55=54.5-avoidingTodos 43_allThatSoQisYellowOnBoot 1_FoundTheFlowerBugFrom44...through47.zip
+  1    410780 Oct 29  2013 55=54.5-avoidingTodos 43_allThatSoQisYellowOnBoot.zip
+  1    373131 Oct 29  2013 55=54.5-avoidingTodos 44_goombaFirstGo_weird 1_lssDiffed_WTFISGOINGON.zip
+  1    366128 Oct 29  2013 55=54.5-avoidingTodos 44_goombaFirstGo_weird 2_FlowerBugFound.zip
+  1    414729 Oct 29  2013 55=54.5-avoidingTodos 44_goombaFirstGo_weird.zip
+  1    414439 Oct 29  2013 55=54.5-avoidingTodos 45_goombaFixedIsh.zip
+  1    416996 Oct 29  2013 55=54.5-avoidingTodos 46_deadGoomba.zip
+  1    420758 Oct 29  2013 55=54.5-avoidingTodos 47_flowerColorSchemeMessedUp_weird.zip
+  1    367856 Oct 29  2013 55=54.5-avoidingTodos 48_GoodLord_IfIfElseRathernIfElseifElse_whatAWasteOfTime.zip
+  1    422312 Oct 29  2013 55=54.5-avoidingTodos 49_nowItsTooBig.zip
+  1    373135 Oct 27  2013 55=54.5-avoidingTodos 4_great.zip
+  1    369523 Oct 29  2013 55=54.5-avoidingTodos 50_getGimpColorValNowInFunction_Nearly100BSaved.zip
+  1    369523 Oct 30  2013 55=54.5-avoidingTodos 51_lastVerBefore56.zip
+  1    420980 Oct 30  2013 55=54.5-avoidingTodos 52_REALLY_IMMEDIATE.zip
+  1    375013 Oct 27  2013 55=54.5-avoidingTodos 5_firstGoStretchingWithHFM.zip
+  1    375270 Oct 27  2013 55=54.5-avoidingTodos 6_stretchBetter.zip
+  1    375940 Oct 27  2013 55=54.5-avoidingTodos 7_noticedMathErrorInStretchingAndPadding_Notes.zip
+  1    376658 Oct 27  2013 55=54.5-avoidingTodos 8_stretchingFun_NowUpToOne.zip
+  1    336271 Oct 27  2013 55=54.5-avoidingTodos 9_lvdsColorExperimentsFromGLColorTest2.zip
+  5       816 Oct 31  2013 56-36_from56-36-1
+  1    354496 Oct 31  2013 56-36_from56-36-1 0_shortenedNameForRestores.zip
+  1    414299 Oct 31  2013 56-36_from56-36-1 1_closerToLCDStuff...usingUpdateLCD.zip
+  1    413841 Oct 31  2013 56-36_from56-36-1 2_yepupdateLCD.zip
+  1    414177 Oct 31  2013 56-36_from56-36-1 3_colorOverrideRemoved.zip
+  1    414178 Oct 31  2013 56-36_from56-36-1 4_towardCLOCK_INSENSITIVITY_TESTINGremoval.zip
+  1    416186 Oct 31  2013 56-36_from56-36-1 5_moreToward.zip
+  1    357988 Oct 31  2013 56-36_from56-36-1 6_55=99TODOsTODONE.zip
+  1    437738 Oct 31  2013 56-36_from56-36-1 7_actuallyUsingLCDStuffYAY.zip
+  1    404506 Oct 30  2013 56-racer 0_widthExperiments.zip
+  1    411793 Oct 30  2013 56-racer 10_minorCleanup.zip
+  1    413381 Oct 30  2013 56-racer 11_extraSegsForRacer.zip
+  1    415535 Oct 30  2013 56-racer 12_racer.nogo.zip
+  1    416756 Oct 30  2013 56-racer 13_racerNogo.zip
+  1    416384 Oct 30  2013 56-racer 14_stillNogo.zip
+  1    416794 Oct 31  2013 56-racer 15_still.zip
+  1    416829 Oct 31  2013 56-racer 16_almostPromising.zip
+  1    416863 Oct 31  2013 56-racer 17_yeah.zip
+  1    416905 Oct 31  2013 56-racer 18_YEAH.zip
+  5       782 Oct 31  2013 56-racer 19_betterIntersectionHandling
+  1    418332 Oct 31  2013 56-racer 19_betterIntersectionHandling.zip
+  1    404482 Oct 30  2013 56-racer 1_fixed_coolHFMPattern.zip
+  1    441481 Oct 31  2013 56-racer 20_firstGoADC_noGo.zip
+  1    435816 Oct 31  2013 56-racer 21_adcStuff_lookinGood.zip
+  1    435691 Oct 31  2013 56-racer 22_adcGood.zip
+  1    435953 Oct 31  2013 56-racer 23_SmoothingADC.zip
+  1    443216 Oct 31  2013 56-racer 24_trackSmoothingFirstGoNoGo.zip
+  1    444459 Oct 31  2013 56-racer 25_still.zip
+  1    439758 Oct 31  2013 56-racer 26_testingOldWithNewVars_OK.zip
+  1    444243 Oct 31  2013 56-racer 27_indexNotValue_stillOff.zip
+  1    444228 Oct 31  2013 56-racer 28_more.zip
+  1    444451 Oct 31  2013 56-racer 29_better.zip
+  1    398274 Oct 30  2013 56-racer 2_workingTowardArbitraryStretching.zip
+  1    444468 Oct 31  2013 56-racer 30_trackSmoothing=Good.zip
+  1    437887 Oct 31  2013 56-racer 31_reimplementing55LatestChanges.zip
+  1    438738 Oct 31  2013 56-racer 32_QuestionDoubleClicking_NoGo.zip
+  1    438706 Oct 31  2013 56-racer 33_doubleClick=better.zip
+  1    420889 Oct 31  2013 56-racer 34_Wow_Tet+LifeEtcWasStillBeingLoaded.zip
+  1    420811 Oct 31  2013 56-racer 35_betterStill.zip
+  1    410570 Oct 31  2013 56-racer 36_morehexColorCommentedOut 1_testingHD_DOTS_rathernCyc_Good.zip
+  1    356851 Oct 31  2013 56-racer 36_morehexColorCommentedOut 2_FRAME_COUNT_TO_DELAYisUsed_CantJustDisable.zip
+  1    419477 Oct 31  2013 56-racer 36_morehexColorCommentedOut.zip
+  1    417920 Oct 31  2013 56-racer 37_priorToLCDStuff_LotsOfModsForLCDStuffLocal.zip
+  1    397265 Oct 31  2013 56-racer 38_movedLCDStuffToLCDSTUFFLOCAL_butItsActingWeird_RevertingTo56-36-1-7.zip
+  1    398894 Oct 30  2013 56-racer 3_stretching.zip
+  1    405836 Oct 30  2013 56-racer 4_crossingTracks_firstGo_ish.zip
+  1    406335 Oct 30  2013 56-racer 5_betterIsh.zip
+  1    406336 Oct 30  2013 56-racer 6_overlapFixed.zip
+  1    407039 Oct 30  2013 56-racer 7_great.zip
+  1    357978 Oct 30  2013 56-racer 8_intermediateSegs.zip
+  1    410910 Oct 30  2013 56-racer 9_colorsDefined.zip
+  5       816 Nov  9  2013 57-LCDStuff_from56-36-1-7
+  1    384840 Nov  9  2013 57-LCDStuff_from56-36-1-7 0_latest_wQuestion.zip
+  1    448577 Nov  9  2013 57-LCDStuff_from56-36-1-7 1_racerAgain.zip
+  1    451791 Nov  9  2013 57-LCDStuff_from56-36-1-7 2_towardScore.zip
+  1    451867 Nov  9  2013 57-LCDStuff_from56-36-1-7 3_scoreBar.zip
+  1    458158 Nov  9  2013 57-LCDStuff_from56-36-1-7 4_scoreFirstGo.zip
+  1    458686 Nov  9  2013 57-LCDStuff_from56-36-1-7 5_repeatingCharFixed.zip
+  5       816 Nov  9  2013 57-LCDStuff_from56-36-1-7 6_firstFewRowsNotDisplayingEh
+  1    459025 Nov  9  2013 57-LCDStuff_from56-36-1-7 6_firstFewRowsNotDisplayingEh.zip
+  1    460292 Nov  9  2013 57-LCDStuff_from56-36-1-7 7_manualDivision.zip
+  6       816 Dec 14  2013 58-moreRacerStuff
+  1    459929 Nov  9  2013 58-moreRacerStuff 0_grabDecimal_u32_firstGo.zip
+  5       816 Nov  9  2013 58-moreRacerStuff 1_yeah
+  1    460173 Nov  9  2013 58-moreRacerStuff 1_yeah.zip
+  1    460667 Nov  9  2013 58-moreRacerStuff 2_DontPrintAfter_OrBeforeButThatDunWoik.zip
+  1    460975 Nov  9  2013 58-moreRacerStuff 3_good.zip
+  1    408851 Nov  9  2013 58-moreRacerStuff 4_good.zip
+  1    410262 Nov  9  2013 58-moreRacerStuff 5_pseudoPercentage.zip
+  1    468206 Nov  9  2013 58-moreRacerStuff 6_levelFirstGo.zip
+  1    468240 Nov  9  2013 58-moreRacerStuff 7_levelsStaticDuh.zip
+  1    468264 Nov  9  2013 58-moreRacerStuff 8_hfmSmoothingFixed.zip
+  6       816 Dec 11  2013 58a-JustLocalizing58
+  8       918 Dec 14  2013 59-reallyCommon2
+  1    135057 Dec 11  2013 59-reallyCommon2 0_localizesAndBuilds.zip
+  1  10488602 Dec 13  2013 59-reallyCommon2 10_experimentingWithDefines_AndNotingEffects.zip
+  1  11307048 Dec 13  2013 59-reallyCommon2 11_moreDefineExperimentingAndNotes.zip
+  1   8159039 Dec 13  2013 59-reallyCommon2 12_otherLocalizables_thenRemoved.zip
+  7       816 Dec 14  2013 59-reallyCommon2 13_notesReFlakeyDisplay
+  1   8457962 Dec 13  2013 59-reallyCommon2 13_notesReFlakeyDisplay.zip
+  1   8458269 Dec 13  2013 59-reallyCommon2 14_doubleSysClk.zip
+  1   8521617 Dec 13  2013 59-reallyCommon2 15_carryoverintoNextLineFixed_NeedToExploreTheFix.zip
+  1   8521664 Dec 13  2013 59-reallyCommon2 16_more.zip
+  1   8522932 Dec 13  2013 59-reallyCommon2 17_revisitingFailure.zip
+  7       816 Dec 14  2013 59-reallyCommon2 18_moreExperimentsMoreNotes
+  1   8524959 Dec 13  2013 59-reallyCommon2 18_moreExperimentsMoreNotes.zip
+  1   8526014 Dec 13  2013 59-reallyCommon2 19_firstAttemptAtTimerCycDotAlignment.zip
+  1    523730 Dec 11  2013 59-reallyCommon2 1_localized_myrmNoLongerNecessary++.zip
+  1   8527361 Dec 14  2013 59-reallyCommon2 20_aligningPixels_allGreenWTF.zip
+  1   8526152 Dec 14  2013 59-reallyCommon2 21_ALIGN_doesntWorkYet.zip
+  1   8527854 Dec 14  2013 59-reallyCommon2 22_timer0Stuff_fileCleanup.zip
+  1   8467077 Dec 14  2013 59-reallyCommon2 23_more.zip
+  1   8460200 Dec 14  2013 59-reallyCommon2 24_LCDdefines_MovedFromMain.zip
+  1   8463922 Dec 14  2013 59-reallyCommon2 25_more.zip
+  1   8524573 Dec 14  2013 59-reallyCommon2 26_timer0Calculator_firstGo.zip
+  1   8473974 Dec 14  2013 59-reallyCommon2 27_experimentingWithROW_CALC_DELAY.zip
+  1   8462994 Dec 14  2013 59-reallyCommon2 28_more.zip
+  1   8463145 Dec 14  2013 59-reallyCommon2 29_crispColumnsDueToAlignmentAndCALC_DELAY.zip
+  1   1507125 Dec 12  2013 59-reallyCommon2 2_pinout+cleanup.zip
+  1   1507927 Dec 12  2013 59-reallyCommon2 3_someCleanup.zip
+  1   1989407 Dec 12  2013 59-reallyCommon2 4_readme+pinout+QuestionRetest.zip
+  1   1966417 Dec 12  2013 59-reallyCommon2 5_revisitingOLDdisplayStuff.zip
+  1   1994721 Dec 12  2013 59-reallyCommon2 6_SEG_xxxNotes.zip
+  1   1931763 Dec 12  2013 59-reallyCommon2 7_allSEG_sDescribed.zip
+  1   1932320 Dec 12  2013 59-reallyCommon2 8_moreNotes.zip
+  1  10492419 Dec 12  2013 59-reallyCommon2 9_images++.zip
+  8       884 Dec 14  2013 59-reallyCommon2 9_images++_TryingToFigureOutRacerPrintError
+  9      1190 Dec 16  2013 60-thisGitThingIsMessingUpMyVersioningScheme
+  1   8957803 Dec 14  2013 60-thisGitThingIsMessingUpMyVersioningScheme 0_moreFileCleanup.zip
+  1   9254365 Dec 16  2013 60-thisGitThingIsMessingUpMyVersioningScheme 10_latestTetWithOverlay.zip
+  1   9630949 Dec 16  2013 60-thisGitThingIsMessingUpMyVersioningScheme 11_priorToMoreColors.zip
+  1   8948496 Dec 14  2013 60-thisGitThingIsMessingUpMyVersioningScheme 1_moreFileCleanup.zip
+  1   8872473 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 2_moreFileCleanup.zip
+  1   8916139 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 3_lotsMore.zip
+  1   8914095 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 4_moreCleaning.zip
+  1   8886152 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 5_RowBufferAlmostRemoved.zip
+  1   9224924 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 6_committedMassiveCleanup.zip
+  1   9245102 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 7_towardTet.zip
+  1   9248132 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 8_sheeshRowBuffWasHardToGet.zip
+  1   9265274 Dec 15  2013 60-thisGitThingIsMessingUpMyVersioningScheme 9_tet+overlay.zip
+  9      1190 Dec 23  2013 61-moreColors
+  8      1156 Mar  3 19:18 62-chiMeiExperiments
+  1  10007716 Jan  8  2014 62-chiMeiExperiments 0_earlyLVDSPrescaler=1.zip
+  1    431902 Mar  1 00:58 62-chiMeiExperiments 10_tryingSEG_Line_AllGreen+Squeel.zip
+  1    438944 Mar  2 18:38 62-chiMeiExperiments 11_writeColor.c_NYI.zip
+  1    474692 Mar  2 19:47 62-chiMeiExperiments 12_firstGoSmileyRevisited.zip
+  1    488623 Mar  2 20:01 62-chiMeiExperiments 13_SmileSorta.zip
+  1    475296 Mar  2 22:22 62-chiMeiExperiments 14_alignmentIssues.zip
+  1    490134 Mar  2 22:49 62-chiMeiExperiments 15_stretchFirstGo_Promising.zip
+  1    485536 Mar  2 23:25 62-chiMeiExperiments 16_stretchingAndTimingExperiments.zip
+  1    510162 Mar  2 23:54 62-chiMeiExperiments 17_disablingGreenNotes.zip
+  1    512248 Mar  3 00:05 62-chiMeiExperiments 18_more.zip
+  1    518421 Mar  3 00:29 62-chiMeiExperiments 19_moreTimingStuff_ReEnablingGreenEtc.zip
+  1   9877329 Jan  8  2014 62-chiMeiExperiments 1_WHOAdropped1k_onlyChangedNUM_PSEGSeh...AlsoDelocalized.zip
+  1    518795 Mar  3 01:04 62-chiMeiExperiments 20_moreTiming.zip
+  1    489166 Mar  3 02:15 62-chiMeiExperiments 21_prettyGoodStretched.zip
+  8      1156 Mar  3 03:13 62-chiMeiExperiments 22_fb_question_nyi
+  1    497475 Mar  3 02:43 62-chiMeiExperiments 22_fb_question_nyi.zip
+  1    511585 Mar  3 03:06 62-chiMeiExperiments 23_brokeSomn.zip
+  1    504421 Mar  3 03:23 62-chiMeiExperiments 24_OSCCAL_VAL.zip
+  1    511465 Mar  3 03:25 62-chiMeiExperiments 25_questionOK.zip
+  1    510627 Mar  3 03:34 62-chiMeiExperiments 26_questionChangesColor.zip
+  1    531142 Mar  3 05:05 62-chiMeiExperiments 27_fb_questionCycling.zip
+  1    533690 Mar  3 15:31 62-chiMeiExperiments 28_adcFirstGo_noGo.zip
+  1    533794 Mar  3 15:37 62-chiMeiExperiments 29_still.zip
+  1   9850499 Jan  8 05:49 62-chiMeiExperiments 2_SEG_QUESTIONscaling+lastAttemptPriorToDEBlue.zip
+  1    510159 Mar  3 15:57 62-chiMeiExperiments 30_wtf.zip
+  1    510499 Mar  3 16:01 62-chiMeiExperiments 31_forgotInits.zip
+  1    510566 Mar  3 16:06 62-chiMeiExperiments 32_woot.zip
+  1    510601 Mar  3 16:13 62-chiMeiExperiments 33_awes.zip
+  1    512437 Mar  3 16:42 62-chiMeiExperiments 34_andNowProperHittingAndReturning.zip
+  1    511868 Mar  3 16:53 62-chiMeiExperiments 35_prettyDurnGood.zip
+  1    513078 Mar  3 17:35 62-chiMeiExperiments 36_deadGoombaToQuestion.zip
+  1    503618 Mar  3 18:30 62-chiMeiExperiments 37_goombaBGstuff.zip
+  1    498932 Mar  3 20:58 62-chiMeiExperiments 38_awesome.zip
+  1   9827944 Jan  8 06:08 62-chiMeiExperiments 3_DE_BLUE_maybeOK.zip
+  8      1156 Feb 28 23:53 62-chiMeiExperiments 4_BLUE_DIAG_BAR_GOOD+noVisibleRefreshEh
+  1   9832670 Jan  8 06:28 62-chiMeiExperiments 4_BLUE_DIAG_BAR_GOOD+noVisibleRefreshEh.zip
+  8      1122 Feb 28 23:57 62-chiMeiExperiments 5_BLUE_TESTING_fullyImplemented+WellDocumented
+  1   9961656 Jan  8 08:06 62-chiMeiExperiments 5_BLUE_TESTING_fullyImplemented+WellDocumented_diagScroll.zip
+  7      1088 Mar  1 00:21 62-chiMeiExperiments 6_lastTestedOK
+  1  10000846 Jan 29 01:31 62-chiMeiExperiments 6_lastTestedOK_BlueADC.zip
+  8      1156 Feb 28 23:49 62-chiMeiExperiments 7_lastUsedPriorToSomeNotes
+  1    397970 Feb 17 18:01 62-chiMeiExperiments 7_lastUsedPriorToSomeNotes.zip
+  1    402037 Feb 28 23:43 62-chiMeiExperiments 8_lastPriorToBoxedForMario.zip
+  1    420622 Mar  1 00:32 62-chiMeiExperiments 9_revertingTo6functionality...erm_diagScroll.zip
+  8      1156 Mar  5 15:30 63-fbQuestionScrolling
+  1    509175 Mar  4 16:56 63-fbQuestionScrolling 0_somn_butNotRight.zip
+  1    517491 Mar  5 06:36 63-fbQuestionScrolling 10_skyColorHandledBetweenSprites.zip
+  1    518170 Mar  5 06:48 63-fbQuestionScrolling 11_betterStill.zip
+  1    518240 Mar  5 06:57 63-fbQuestionScrolling 12_betterStill+testingFlower.zip
+  1    519015 Mar  5 07:13 63-fbQuestionScrolling 13_rewardScrollsUpWhileQScrollsDown_awes.zip
+  1    530672 Mar  5 14:07 63-fbQuestionScrolling 14_rotatingCoin.zip
+  1    534234 Mar  5 14:40 63-fbQuestionScrolling 15_matchingCoinColorPalettes.zip
+  1    534393 Mar  5 14:49 63-fbQuestionScrolling 16_more.zip
+  1    526988 Mar  5 15:30 63-fbQuestionScrolling 17_good+everyFrameEasyToRevert.zip
+  1    510235 Mar  4 17:22 63-fbQuestionScrolling 1_better.zip
+  1    510375 Mar  4 17:26 63-fbQuestionScrolling 2_muchBetter.zip
+  1    510540 Mar  4 17:32 63-fbQuestionScrolling 3.zip
+  1    505484 Mar  5 03:23 63-fbQuestionScrolling 4_great.zip
+  1    505426 Mar  5 04:09 63-fbQuestionScrolling 5_allSpritesUse0=Sky.zip
+  1    512011 Mar  5 05:30 63-fbQuestionScrolling 6_notQuite_gettingThere.zip
+  1    513199 Mar  5 05:44 63-fbQuestionScrolling 7_moreToward.zip
+  1    513922 Mar  5 06:09 63-fbQuestionScrolling 8_more+autoHit.zip
+  1    514820 Mar  5 06:19 63-fbQuestionScrolling 9_getRawPixelVal.zip
+  8      1156 Mar  6 14:14 64-everyFrame
+  1    538145 Mar  5 19:06 64-everyFrame 0_coin+q_timing.zip
+  1    525117 Mar  5 20:03 64-everyFrame 1_workinOnDaGoomba.zip
+  1    525477 Mar  5 20:24 64-everyFrame 2_more.zip
+  1    528739 Mar  5 20:46 64-everyFrame 3_skyStuffFixed_needToFigureOutKillableQCOUNT.zip
+  1    529324 Mar  5 22:50 64-everyFrame 4_better.zip
+  1    532227 Mar  6 01:13 64-everyFrame 5_great+demoMode.zip
+ 10      1258 Mar 27 22:59 65-reGittifying
+  1   7105087 Mar 19 19:00 65-reGittifying 0_readmeLicensing.zip
+ 10      1258 Mar 28 05:47 66-notesNCleanup
+  1   7985749 Mar 27 23:39 66-notesNCleanup 0_iconsLicensing.zip
+  1   8522711 Mar 28 05:55 66-notesNCleanup 1_notesInAllNonCommonCode.zip
+  1   8522711 May 26 03:12 66-notesNCleanup 2_firstVerTestedWithBOEdisplay_Tiny861_AfterV73_FirstGoGood.zip
+ 10     1292 May 26 03:19 66-_fromOld_LastTiny861Till73
+ 10     1326 Apr 28 00:57 67-pwm161
+  1   763138 Apr 20 16:18 67-pwm161 0_justRebuildingOld_neededConstPriorToProgmemForGCC48.zip
+  1   583672 Apr 27 00:46 67-pwm161 10_ALLSHADES+GradientIsWeird.zip
+  1   584655 Apr 27 01:45 67-pwm161 11_moreTests.zip
+  1   584713 Apr 27 01:47 67-pwm161 12_moreTests.zip
+  1   585396 Apr 27 01:48 67-pwm161 13_PLOCK_seemsToHaveFixedGradient.zip
+  8     1292 Apr 27 02:21 67-pwm161 14_PLOCK_seemsToHaveFixedGradient
+  1   585395 Apr 27 01:49 67-pwm161 14_PLOCK_seemsToHaveFixedGradient.zip
+  1   567594 Apr 27 02:23 67-pwm161 15_orSomething_thisVerIsMoreStable_ButStillWeird.zip
+  1   567606 Apr 27 02:49 67-pwm161 16_+blockingWraparoundSeemsStable.zip
+  1   539880 Apr 27 03:08 67-pwm161 17_GRADIENT_now4discernableShades.zip
+  1   576449 Apr 27 03:46 67-pwm161 18_ALLSHADES_AND_COLORS.zip
+  1   559259 Apr 27 12:18 67-pwm161 19_InvertedPSCR+setRedGreen4.zip
+  1   384113 Apr 22 21:49 67-pwm161 1_makefile+pll.zip
+  1   384113 Apr 23 23:14 67-pwm161 2.zip
+  1   560330 Apr 27 12:28 67-pwm161 20_setRedGreenInALLSHADES_AND_COLORS_odditiesWithSyncingBarelyNoted.zip
+  1   684433 Apr 27 14:27 67-pwm161 21_writeColorPseudoImplemented_weirdness.zip
+  1   562912 Apr 27 18:02 67-pwm161 22_bunchOfStuff_PLLSYSCLK_etc+VolatileASM_mightBeOptimized.zip
+  1   562915 Apr 27 18:20 67-pwm161 23_volatileRegisterWasIn_delayCyc.zip
+  1   656522 Apr 27 18:44 67-pwm161 24_writeColor_registerWritesInASM.zip
+  1   581820 Apr 27 19:12 67-pwm161 25_frameBufferStillNogo...butBLUE_GRADIENT_OK.zip
+  1   611534 Apr 27 20:09 67-pwm161 26_SMILEY_sortaWorksNow_addedDEInitTononRSBdrawPix.zip
+  1   666582 Apr 27 20:18 67-pwm161 27_FB_QUESTION_nowSeemsOK_ish.zip
+  1   648337 Apr 27 21:30 67-pwm161 28_fb_questionSeemsGood...weirdSyncingAtOneColor_though.zip
+  1   621689 Apr 27 22:06 67-pwm161 29_experimentingWithFBSmiley_CertainColors=weirdSync.zip
+  1   629703 Apr 27 22:50 67-pwm161 30_NeedToRevisitTransitions.zip
+  1   601430 Apr 28 00:20 67-pwm161 31_writeColorNowUsesSetColors_worksFine_Dunno_KindaCoolAnyhow.zip
+  1   668185 Apr 28 00:32 67-pwm161 32_looks3DwithQuestionBox.zip
+  1   668207 Apr 28 00:43 67-pwm161 33_aws_preGit.zip
+  1   387783 Apr 23 23:38 67-pwm161 3_discardsConstFixes+heart1.30.zip
+  1   397633 Apr 24 06:03 67-pwm161 4_buildsWithALLOWUNIMPLEMENTED.zip
+  1   497668 Apr 25 05:06 67-pwm161 5_firstGoDEBlue_eah.zip
+  1   525090 Apr 26 15:48 67-pwm161 6_heartbeatEnabled.zip
+  1   497613 Apr 26 17:52 67-pwm161 7_experimentingWithBluePWM+notes.zip
+  1   499959 Apr 26 18:42 67-pwm161 8_aligningPSC2+PSCR_firstGo.zip
+  1   503718 Apr 26 19:31 67-pwm161 9_delayCycs_usedForSyncingPSCs.zip
+ 10     1360 Apr 28 21:57 68-backToLTN
+  1   370231 Apr 28 13:09 68-backToLTN 0...piezoHitDetectorInCommonCode.zip
+  1   754819 Apr 28 16:59 68-backToLTN 10_revisedFromPreviousVersion_Good_butFastSometimes.zip
+  1   756107 Apr 28 17:21 68-backToLTN 11_doubleRefresh_PrettyGood_butMaybeTooFast.zip
+  1   695253 Apr 28 19:13 68-backToLTN 12_FB_REFRESH_ON_CHANGE-forSmileyToo.zip
+  1   698234 Apr 28 19:36 68-backToLTN 13_cleanup_fbUpdateNowMacrod++.zip
+  8     1292 Apr 28 20:24 68-backToLTN 14_moreCleanupSMILEYandFBQ
+  1   932042 Apr 28 20:16 68-backToLTN 14_moreCleanupSMILEYandFBQ.zip
+  1   387034 Apr 28 13:16 68-backToLTN 1_isNewFrame.zip
+  1   661025 Apr 28 13:22 68-backToLTN 2.zip
+  1   665583 Apr 28 13:49 68-backToLTN 3_endOfFrameHandler_currentlyBlank.zip
+  1   743228 Apr 28 14:08 68-backToLTN 4_dmsReAdded.zip
+  1   738173 Apr 28 14:18 68-backToLTN 5_fbQuestionUpdatedViaDMS.zip
+  1   739376 Apr 28 14:27 68-backToLTN 6_updateFrame.zip
+  1   741687 Apr 28 15:19 68-backToLTN 7_blueASM_fixed.zip
+  1   725463 Apr 28 15:41 68-backToLTN 8_writeColorFixed.zip
+  1   755240 Apr 28 16:19 68-backToLTN 9_fbQ_onlyRefreshOnChange_PrettyGood...yeah_flakey.zip
+  9     1292 May  7 19:31 69-revisitingOldStuff
+  1  1008574 Apr 29 00:01 69-revisitingOldStuff 0_FB_TET_firstGo_notQuite.zip
+  1   742592 May  6 00:08 69-revisitingOldStuff 10_delocalized_8164to8212.zip
+  1   942166 May  6 00:48 69-revisitingOldStuff 11_still_dunnoWhyItsSoMuchLarger_tetUpdateNStuff.zip
+  1   941023 May  6 01:05 69-revisitingOldStuff 12_WEIRD_TheVariableIsCLEARLYuninitialized_yetNoErrorOrWarning.zip
+  1   941037 May  6 01:13 69-revisitingOldStuff 13_anotherTry.zip
+  1   950890 May  6 01:15 69-revisitingOldStuff 14_STILL.zip
+  1   952314 May  6 03:39 69-revisitingOldStuff 15_yeah_WuninitializedIsUseless.zip
+  1   913765 May  7 15:37 69-revisitingOldStuff 16_fb_tet_withRefreshOnChange_RefreshesMoreOften_weird.zip
+  1   953147 May  7 16:36 69-revisitingOldStuff 17_foundIt...notYetFixed.zip
+  1   953580 May  7 16:46 69-revisitingOldStuff 18_firstAttemptAtFixing_NotIdeal.zip
+  1   955377 May  7 17:07 69-revisitingOldStuff 19_firstGoWOOT_kindaHokey_butNotBad...AndStillWorksWithConstantRefresh.zip
+  1  1008822 Apr 29 00:04 69-revisitingOldStuff 1_almost.zip
+  1   922952 May  7 18:59 69-revisitingOldStuff 20_fb_hexColor.zip
+  1   899735 May  7 19:20 69-revisitingOldStuff 21_hexColorExplained.zip
+  8     1258 Apr 29 03:07 69-revisitingOldStuff 2_frameBufferStopsDrawingAtCol15_duh
+  1  1017962 Apr 29 00:53 69-revisitingOldStuff 2_frameBufferStopsDrawingAtCol15_duh.zip
+  1   993983 Apr 29 03:05 69-revisitingOldStuff 3_writeColorCalls_notYetFunctional.zip
+  1  1003835 Apr 29 03:09 69-revisitingOldStuff 4_LeastItRunsAgain.zip
+  1  1033345 Apr 29 03:22 69-revisitingOldStuff 5_finally.zip
+  1  1020307 Apr 29 03:46 69-revisitingOldStuff 6_LookinGood.zip
+  1   662607 May  5 23:14 69-revisitingOldStuff 7_tetLastVisitedDaysAgo.zip
+  1  1041309 May  5 23:50 69-revisitingOldStuff 8_tetRefreshesOnChange.zip
+  9     1326 May  6 00:35 69-revisitingOldStuff 9_seemsToRefreshDespiteNoChange
+  1  1031672 May  5 23:54 69-revisitingOldStuff 9_seemsToRefreshDespiteNoChange.zip
+  8     1190 May  9 17:06 70-revisitingRowBuffer
+  1   941911 May  8 00:16 70-revisitingRowBuffer 0_rowBuffer_somnAnyhow_blankForNow.zip
+  1   703772 May  8 00:35 70-revisitingRowBuffer 1_lcdStuffWithLoadRow_notComplainingOfLackEh.zip
+  1   722479 May  8 00:55 70-revisitingRowBuffer 2_loadRow_wasHandledInMain_duh_SimpleTestColorBars.zip
+  1   714766 May  8 01:08 70-revisitingRowBuffer 3_blueFixed.zip
+  1   723293 May  8 01:18 70-revisitingRowBuffer 4_usingAutomatedWriteColorCalls.zip
+  1   712640 May  9 00:40 70-revisitingRowBuffer 5_cleanup_and_WRITE_COLOR_DELAY_fixes...64pixNowFits.zip
+  1   715790 May  9 02:14 70-revisitingRowBuffer 6_rowBuffer_diagonalColors_DoubledLinesEh.zip
+  1   484257 May  9 02:25 70-revisitingRowBuffer 7_AfewStepsToward_ROWSEGBUFFER_TESTING.zip
+  8     1190 May 10 21:44 71-revisitingFBQuestion
+  1   757220 May 10 17:05 71-revisitingFBQuestion 0_mainConfig_onlyChange.zip
+  1   757373 May 10 17:08 71-revisitingFBQuestion 1_maximizeOsccal=badHsync.zip
+  1   807992 May 10 17:44 71-revisitingFBQuestion 2_variousAttempts+betterStretching_stillBadSync.zip
+  1   812495 May 10 18:06 71-revisitingFBQuestion 3_DE_enabledByWriteColor_fixedSyncingTooAWS.zip
+  1   807393 May 10 18:26 71-revisitingFBQuestion 4_more+notesReCut-OffLastPixel.zip
+  1   810843 May 10 20:22 71-revisitingFBQuestion 5_good_stretchedRightEtc.zip
+  1   829260 May 10 20:49 71-revisitingFBQuestion 6_REFRESH_ON_CHANGE_COUNT.zip
+  1   784499 May 10 21:02 71-revisitingFBQuestion 7_REFRESH_ON_CHANGE-COUNT=0_DELAY=0_doesntDoAsExpected.zip
+  8     1224 May 11 02:19 71b-exploringPartialRefresh_was72
+  1   760866 May 10 22:12 72-exploringPartialRefresh 0_partialUpdate==OK_PoorlyImplemented...FB_SMILEY.zip
+  1   646829 May 10 22:46 72-exploringPartialRefresh 1_DE_BLUE_SCROLL___WOWOW_COOL.zip
+  1   647155 May 10 23:06 72-exploringPartialRefresh 2_T_DV_Increase.zip
+  1   729417 May 10 23:58 72-exploringPartialRefresh 3_partialRefreshOfSmiley_shrinking_repeatedVertically.zip
+  1   729615 May 11 00:19 72-exploringPartialRefresh 4_testingWhetherRepeatedRefreshesAlternate_no.zip
+  1   725715 May 11 00:39 72-exploringPartialRefresh 5_partialrefreshesOnVariousLines_SeemsPromising.zip
+  1   743898 May 11 01:25 72-exploringPartialRefresh 6_alternatingFBRowRefresh_GoodButLastLCDRowInFBRowGetsGreen.zip
+  1   726185 May 11 02:10 72-exploringPartialRefresh 7_reversionToTestHorizontalRefreshing_nogo.zip
+  1   727861 May 11 02:19 72-exploringPartialRefresh 8_moreWithPartialHorizontal_continuesWithAnotherLine_shifted.zip
+  8     1190 May 18 23:19 73-partialRefresh_from71
+  1   762202 May 11 02:27 73-partialRefresh_from71 0_straightFrom71_not71b.zip
+  1   763800 May 11 03:03 73-partialRefresh_from71 1_lcdStuff0.60_towardPartialRefresh.zip
+  1   772943 May 11 03:18 73-partialRefresh_from71 2_implemented_notTested.zip
+  1   783322 May 11 03:23 73-partialRefresh_from71 3_promising_butNotQuiteWorking.zip
+  1   771538 May 18 23:19 73-partialRefresh_from71 4_questionOnHeartPin_go.zip
+  8     1224 May 22 04:02 74-dualPixelThoughts
+  8     1258 May 26 07:21 75-backToTiny+BOE
+  1   747202 May 26 03:54 75-backToTiny+BOE 0_setRed4_BadSyncing_HeartBeat_eh.zip
+  1   707702 May 26 05:02 75-backToTiny+BOE 1_returningH_LOW_DOTS+HD_DOTS_fromV66_BOEnowSyncs-ish.zip
+  1   731721 May 26 05:13 75-backToTiny+BOE 2_FB_REFRESH_ON_CHANGE_DELAY=noChange_forgotConfigEh.zip
+  8     1224 May 26 13:48 75-backToTiny+BOE 2_FB_REFRESH_ON_CHANGE_DELAY=noChange_forgotDMSnotOnTiny861
+  1   718130 May 26 05:44 75-backToTiny+BOE 3_CHARBITMAP_HEADER_noLongerIncludedInMain_ThisWillHaveToBeAddedToNeedyProjects.zip
+  1   759197 May 26 07:00 75-backToTiny+BOE 4_TRYINGtoGetDMStoFit.zip
+  8     1258 May 27 21:25 76-NeedATimer_from75-2
+  1   391380 May 26 14:00 76-NeedATimer_from75-2 0_heart0.50-REMOVED_soNotTested_stillTooLarge.zip
+  1   773518 May 26 17:14 76-NeedATimer_from75-2 10_frameBufferInitializationWasHUGE.zip
+  1   765893 May 26 17:18 76-NeedATimer_from75-2 11_Awesome_NowRefreshOnChangeWith861+BOE.zip
+  1   791352 May 26 17:23 76-NeedATimer_from75-2 12_AWS.zip
+  1   760760 May 27 17:25 76-NeedATimer_from75-2 13_After77_NOTE_HeartPortAssignmentIsWrong.zip
+  1   705212 May 26 14:38 76-NeedATimer_from75-2 1_configParser.zip
+  1   705400 May 26 14:50 76-NeedATimer_from75-2 2_more.zip
+  1   724239 May 26 15:42 76-NeedATimer_from75-2 3_processor+makefileWorks_nowToInclude.zip
+  1   725366 May 26 15:56 76-NeedATimer_from75-2 4_awes.zip
+  1   692934 May 26 16:08 76-NeedATimer_from75-2 5_firstGo_finally.zip
+  1   689991 May 26 16:13 76-NeedATimer_from75-2 6_fbQuestion.c_from75.zip
+  1   681689 May 26 16:25 76-NeedATimer_from75-2 7_moreFrom75.zip
+  1   666767 May 26 16:33 76-NeedATimer_from75-2 8_USE_ADC.zip
+  1   666889 May 26 17:00 76-NeedATimer_from75-2 9_makeHandlesRemakingMakefilesAlready.zip
+  8     1258 May 27 14:06 77-Leaf__NYI
+  8     1258 May 27 23:22 77-heartTcnter
+  1   418266 May 27 15:45 77-heartTcnter 0_almostTcntin.zip
+  1   725374 May 27 23:23 77-heartTcnter 10_FINALLY.zip
+  1   463776 May 27 16:13 77-heartTcnter 1_gettingThere.zip
+  1   718586 May 27 16:28 77-heartTcnter 2_builds_butDoesntUpdate.zip
+  1   718991 May 27 17:28 77-heartTcnter 3_HEARTPIN_wasWRONG_MightveAffectedPWM161...tcnterUpdatesNotOftenEnoughEh.zip
+  1   737483 May 27 17:35 77-heartTcnter 4_tcnterUpdate_movedToHSYNCInterrupt.zip
+  1   743795 May 27 20:24 77-heartTcnter 5_tcnter_overflowUpdate.zip
+  1   725473 May 27 21:28 77-heartTcnter 6_seemsLikeItShouldWork_butNo.zip
+  1   741972 May 27 21:31 77-heartTcnter 7_stillWorksWithoutREFRESH_ON_CHANGE.zip
+  1   725289 May 27 23:16 77-heartTcnter 8_ItDOESwork_justSlowerThanConfigured.zip
+  1   725329 May 27 23:22 77-heartTcnter 9_ForgotParensInTCNTS_PER_SECOND.zip
+  1   726888 May 27 23:35 78-leafAgain 0_stationaryOK.zip
+  1   748093 May 28 22:22 78-leafAgain 10_originConfusion.zip
+  1   748138 May 28 23:22 78-leafAgain 11_moreFun.zip
+  1   748607 May 28 23:28 78-leafAgain 12_niceLeafMotion.zip
+  1   756564 May 29 00:21 78-leafAgain 13_NoDoubleGoombas+BetterRandomizer.zip
+  1   751628 May 29 00:32 78-leafAgain 14_sky=mask.zip
+  1   751364 May 29 00:36 78-leafAgain 15_rainbowsky.zip
+  1   753193 May 29 00:59 78-leafAgain 16_functionizingMotionStuff.zip
+  1   753564 May 29 01:23 78-leafAgain 17_moreCleanup.zip
+  1   755227 May 29 01:37 78-leafAgain 18_moreFunctionizing_overlaySprite.zip
+  8     1258 May 29 04:39 78-leafAgain 19_leafOverlapsQ
+  1   755949 May 29 01:54 78-leafAgain 19_leafOverlapsQ.zip
+  1   736356 May 28 00:17 78-leafAgain 1_fb_question_cleanup_prepNextSprite.zip
+  1   756133 May 29 02:00 78-leafAgain 20.zip
+  1   756942 May 29 04:15 78-leafAgain 21_holyShitTheStructureThingWorked.zip
+  1   758488 May 29 04:28 78-leafAgain 22_flipAnimation.zip
+  1   758486 May 29 04:38 78-leafAgain 23_reversed.zip
+  8     1258 May 31 15:35 78-leafAgain 23_reversed__lastRunningVersion
+  1   759678 May 29 04:50 78-leafAgain 24_experimentingWithProgmem_+80B_text-20B_data.zip
+  8     1258 May 29 04:51 78-leafAgain 24_experimentingWithProgmem_+80B_text-20B_data__REVERTING
+  1   723475 May 28 00:51 78-leafAgain 2_moreCleanup.zip
+  1   744596 May 28 21:05 78-leafAgain 3_motionArrayFirstGo.zip
+  1   744560 May 28 21:11 78-leafAgain 4_somethingNada.zip
+  1   744953 May 28 21:17 78-leafAgain 5_closer.zip
+  1   745727 May 28 21:23 78-leafAgain 6_initializePosition.zip
+  1   745712 May 28 21:27 78-leafAgain 7_good_forgotToANDinGETMOTION.zip
+  1   745536 May 28 21:33 78-leafAgain 8_good.zip
+  1   747625 May 28 22:18 78-leafAgain 9_motion_t.zip
+  7     1224 May 31 16:01 78-leafAgain_RevertedTo23
+  8     1258 Jun  2 18:26 79-MoreMotionStuff
+  1   761025 May 31 16:23 79-MoreMotionStuff 0_flipPacking.zip
+  1   761484 May 31 16:36 79-MoreMotionStuff 1_NULL_MOTION.zip
+  1   761382 May 31 16:41 79-MoreMotionStuff 2_NadaFlip=NULL.zip
+  1   763439 May 31 17:01 79-MoreMotionStuff 3_cameraMotion.zip
+  1   763730 May 31 17:06 79-MoreMotionStuff 4_more.zip
+  1   748833 Jun 19 19:08 79-MoreMotionStuff 5_lastPriorTo80.zip
+ 10     1258 Jun 24 22:25 80-SonyParallelFrom79.5
+  1   400891 Jun 21 05:04 80-SonyParallelFrom79.5 0_sonyHeader.zip
+  1   636129 Jun 24 07:21 80-SonyParallelFrom79.5 10_NotesAndExperimentsWithTiming_BLUEsTimingsVaryDramatically.zip
+  1   641753 Jun 24 08:16 80-SonyParallelFrom79.5 11_variousInclusionHacksForParallelLCD_WriteColor.zip
+  1   750641 Jun 24 08:19 80-SonyParallelFrom79.5 12_FrameBuffer_veryPromising_syncingOffThough.zip
+  1   752427 Jun 24 08:55 80-SonyParallelFrom79.5 13_WC_SETUP_forCalcsPriorToHsync_NYI.zip
+  1   753012 Jun 24 09:02 80-SonyParallelFrom79.5 14_drawPixSetup_implemented_slightImprovement.zip
+  1   734718 Jun 24 09:06 80-SonyParallelFrom79.5 15_attemptedOptimization_nogo.zip
+  1  1505181 Jun 24 09:10 80-SonyParallelFrom79.5 16_revertedTo14.zip
+  1   751022 Jun 24 09:26 80-SonyParallelFrom79.5 17_moreOptimization_inliningDrawpix_slightImprovement.zip
+  1   743450 Jun 24 09:55 80-SonyParallelFrom79.5 18_refreshOnChangeRemoved_noEffectOnSyncing.zip
+  1   756793 Jun 24 21:47 80-SonyParallelFrom79.5 19_HsyncRemovalTest_nadaDisplayed.zip
+  1   757547 Jun 21 05:39 80-SonyParallelFrom79.5 1_displaysSubfolder.zip
+  1   751274 Jun 24 21:56 80-SonyParallelFrom79.5 20_HsyncVsyncRemovalNotes.zip
+  1   750340 Jun 24 22:27 80-SonyParallelFrom79.5 21_Vsync_init_insteadOfHsyncRemoval_slightChange.zip
+  1   667048 Jun 21 06:28 80-SonyParallelFrom79.5 2_lcdStuff0.70+sonyNowBuilds_stillLVDS...Odd_FBQ+sony=206Bovf_FBQ+testVals=JustFits__DEBLUE+sony=300BLESSthantestVals.zip
+  1   629172 Jun 22 10:09 80-SonyParallelFrom79.5 3_interfacesCfiles_mightBeFunctional.zip
+  1   629601 Jun 24 04:03 80-SonyParallelFrom79.5 4_firstGoSoldered_noHeart.zip
+  1   644166 Jun 24 04:14 80-SonyParallelFrom79.5 5_HEART_PINNUM_onMOSI_viaMainConfig.zip
+  1   635019 Jun 24 05:34 80-SonyParallelFrom79.5 6_MCKwasntRunning_GotSomn.zip
+  1   630472 Jun 24 05:42 80-SonyParallelFrom79.5 7_blueDiagBar_forTimingIsh.zip
+  1   651577 Jun 24 06:07 80-SonyParallelFrom79.5 8_experimentingWithDE_BLUE+BLUE_DIAG_BAR__shiftDiffersSinceNoDE_somnToDo.zip
+  1   630319 Jun 24 06:14 80-SonyParallelFrom79.5 9_syncingStuff.zip
+  1   742360 Jun 25 00:04 81-SonyParallel_bitbangedDotClock 0_6bitParallel_errorIfNotTiny861.zip
+  1   762319 Jun 25 18:57 81-SonyParallel_bitbangedDotClock 10_LookingIntoFixingRefreshOnChangeFlickering_PWMDotClockWhenNotRefreshing=Nogo.zip
+  1   762738 Jun 25 19:00 81-SonyParallel_bitbangedDotClock 11_more.zip
+  1   735355 Jun 25 22:44 81-SonyParallel_bitbangedDotClock 12_workingFast.zip
+  1   765193 Jun 25 23:00 81-SonyParallel_bitbangedDotClock 13_pwmWhileNotRefreshing_Fixed_andWorks.zip
+  1   765059 Jun 25 23:15 81-SonyParallel_bitbangedDotClock 14_RefreshTwice_slightFlicker_fadingEh.zip
+  1   738359 Jun 25 23:43 81-SonyParallel_bitbangedDotClock 15_runningWithRefreshOnChange.zip
+ 10     1224 Jun 30 23:08 81-SonyParallel_bitbangedDotClock 16_latestUsed
+  1   739139 Jun 30 22:08 81-SonyParallel_bitbangedDotClock 16_latestUsed.zip
+  1   742974 Jun 25 01:38 81-SonyParallel_bitbangedDotClock 1_bitBanged_firstGo_flickeryBlack.zip
+  1   742880 Jun 25 01:43 81-SonyParallel_bitbangedDotClock 2_moreAttempts_ColorsIsh.zip
+  1   515299 Jun 25 02:10 81-SonyParallel_bitbangedDotClock 3_TryingToOverrideDotDelayInLcdDefines.zip
+  1   692277 Jun 25 02:21 81-SonyParallel_bitbangedDotClock 4_StillTrying_mightBeBestToRevert.zip
+  1   758150 Jun 25 16:30 81-SonyParallel_bitbangedDotClock 5_ROW_COMPLETION_DOTS_ohShitThatFixedItREALLY.zip
+  1   759258 Jun 25 17:16 81-SonyParallel_bitbangedDotClock 6_lcdStuffRevertedToNadaTooEarly_vsyncSeemsOneRowBetter.zip
+  1   752953 Jun 25 17:24 81-SonyParallel_bitbangedDotClock 7_REFRESH_ON_CHANGE_disabled__noFlickerButTooSlowToUpdateImage.zip
+  1   760455 Jun 25 17:29 81-SonyParallel_bitbangedDotClock 8_REFRESH_ON_CHANGE_experiments_stillFlickers.zip
+  1   760482 Jun 25 17:37 81-SonyParallel_bitbangedDotClock 9_REFRESH_ON_CHANGE=TRUE+DELAY=0+REFRESHES=1__Smooth_butTooFast.zip
+ 11     1292 Jul  1 03:16 82-BumpSensor
+  1   759142 Jul  1 01:19 82-BumpSensor 0_firstGo_untested.zip
+  1   777863 Jul  1 02:07 82-BumpSensor 1_WorksWithHeart_notBumpSensor...StackOverflowTooEh.zip
+  1   764094 Jul  1 02:15 82-BumpSensor 2_forgotHitSensorInit_nowHitsAlways.zip
+  1   747087 Jul  1 02:25 82-BumpSensor 3_memoryUsageReducedWithHeartRemoved_randomPixelsFixed_bumpSensorStillAutoHits.zip
+  1   732943 Jul  1 02:36 82-BumpSensor 4_forgotToClearPCMSKother...fixed_butInternalPU_notWorking.zip
+  1   729102 Jul  1 02:58 82-BumpSensor 5_weird_SomeInclusion-OrderIssue_PullUpsNowOK.zip
+  1   709938 Jul  3 19:19 83-backToLeaf 0_fewDaysAgo.zip
+  1   730320 Jul  3 22:06 83-backToLeaf 10_layer.zip
+  1   729076 Jul  3 22:11 83-backToLeaf 11_LayerLooksGood.zip
+  1   730905 Jul  3 22:37 83-backToLeaf 12_RemovingOldTransitions_NYI.zip
+  1   719526 Jul  3 19:30 83-backToLeaf 1_autoHit+LeafOverride.zip
+  1   720195 Jul  3 19:44 83-backToLeaf 2_FlipInProgmem.zip
+  1   720495 Jul  3 19:50 83-backToLeaf 3_FlipPgmOptional.zip
+  1   721925 Jul  3 20:00 83-backToLeaf 4_motionInPgm_NoGo.zip
+  1   721826 Jul  3 20:07 83-backToLeaf 5_OK_motion_t_stillInRAM.zip
+  1   721957 Jul  3 20:22 83-backToLeaf 6_newLeafMotion_notYet.zip
+  1   722100 Jul  3 20:25 83-backToLeaf 7_closer.zip
+  1   722330 Jul  3 20:34 83-backToLeaf 8_yep.zip
+  1   726859 Jul  3 21:31 83-backToLeaf 9_DefaultMotion_Test.zip
+ 11     1292 Jul  3 22:38 83-backToLeaf_12_NYI
+ 10     1258 Jul  5 11:17 84-MoreStuffInSprite_rathernMotion
+  1   735221 Jul  3 23:29 84-MoreStuffInSprite_rathernMotion 0_spriteTotalCount.zip
+  1   735832 Jul  4 00:27 84-MoreStuffInSprite_rathernMotion 1_motionFiles.zip
+  1   718220 Jul  4 00:46 84-MoreStuffInSprite_rathernMotion 2_LeafMotionInLeafFile.zip
+  1   720986 Jul  4 01:07 84-MoreStuffInSprite_rathernMotion 3_more_fbQ_cleanup.zip
+  1   727370 Jul  4 01:19 84-MoreStuffInSprite_rathernMotion 4_TowardOtherTransitionRemoval_nogo.zip
+  1   726997 Jul  4 01:24 84-MoreStuffInSprite_rathernMotion 5_OK.zip
+  1   715644 Jul  4 01:25 84-MoreStuffInSprite_rathernMotion 6_+noteReNextSprite.zip
+  1   719555 Jul  5 07:29 84-MoreStuffInSprite_rathernMotion 7_DoneMostlyDrunkenlyAndHackedLater_SpritesContainMotionData_TowardGeneralizedSpriteMotion.zip
+  1   726542 Jul  5 08:31 84-MoreStuffInSprite_rathernMotion 8_Generalizing+nowSpriteFixesNextSpriteWasSelected...WhoaMemory.zip
+  1   728134 Jul  5 08:42 84-MoreStuffInSprite_rathernMotion 9_otherSpriteStateRemovedForNULL+Memory.zip
+ 11     1360 Jul  5 11:02 85-sprite_tInProgmem
+  1   792497 Jul  5 09:20 85-sprite_tInProgmem 0_testing__flash+heart.zip
+  1   779773 Jul  5 09:30 85-sprite_tInProgmem 1___flashArray_OK.zip
+  1   781111 Jul  5 09:48 85-sprite_tInProgmem 2_AndNowStructsOK.zip
+  1   781498 Jul  5 10:02 85-sprite_tInProgmem 3_separateFile.zip
+  1   760040 Jul  5 10:27 85-sprite_tInProgmem 4_Qconst__flash_firstAttempt.zip
+  1   751640 Jul  5 10:37 85-sprite_tInProgmem 5_gettingThere.zip
+  1   749766 Jul  5 10:52 85-sprite_tInProgmem 6_AllMovedTo__flash_eh.zip
+  1   747101 Jul  5 11:12 85-sprite_tInProgmem 7_motion_t_in__flash.zip
+ 11     1326 Jul  5 17:05 86-paletteSwitching
+  1   765144 Jul  5 12:34 86-paletteSwitching 0_eahErr.zip
+  1   769660 Jul  5 15:09 86-paletteSwitching 10_autoKillGoomba_towardGoombaDead.zip
+  1   768495 Jul  5 15:51 86-paletteSwitching 11_Goomba+Dead=Good.zip
+  1   768080 Jul  5 15:58 86-paletteSwitching 12_EverythingLooksGoodButCoin.zip
+  1   747631 Jul  5 16:25 86-paletteSwitching 13_CoinIn2DArray_NoProbSurprisingly__TOWARD_COIN_IMAGE_CYCLING.zip
+  1   749887 Jul  5 16:59 86-paletteSwitching 14_p_imageNow2D.zip
+  1   745952 Jul  5 17:12 86-paletteSwitching 15_IMAGE_CYCLING_good.zip
+  1   756094 Jul  5 12:47 86-paletteSwitching 1_foundIt_butStillNogo.zip
+  1   764381 Jul  5 12:56 86-paletteSwitching 2_ModNumPalettesNotTotalCount.zip
+  1   768305 Jul  5 13:12 86-paletteSwitching 3_towardCoin.zip
+  1   753961 Jul  5 13:21 86-paletteSwitching 4_towardFlower.zip
+  1   754829 Jul  5 13:28 86-paletteSwitching 5_FlowerGood.zip
+  1   763030 Jul  5 13:33 86-paletteSwitching 6_towardGoomba.zip
+  1   770311 Jul  5 14:17 86-paletteSwitching 7_GoombaFixes_forgotFlip_SkyColor_Foreground.zip
+  1   773097 Jul  5 14:19 86-paletteSwitching 8_flipCausedSlide.zip
+  1   768580 Jul  5 14:58 86-paletteSwitching 9_GoombaSlower.zip
+ 11     1326 Jul  6 19:19 87-backToBumpSensor
+  1   755467 Jul  5 17:32 87-backToBumpSensor 0_AcceptableGoombaKillTime.zip
+  1   745897 Jul  5 23:39 87-backToBumpSensor 1_betterMotions.zip
+  1   750472 Jul  5 23:49 87-backToBumpSensor 2_betterCoin.zip
+  1   743578 Jul  5 23:54 87-backToBumpSensor 3_betterCoinStill.zip
+  1   746088 Jul  7 01:12 87-backToBumpSensor 4_finalVer_noBumpSensor_tooFlakey_sameCodeForPushbutton.zip
+ 11     1326 Jul  7 02:28 88-centeringInBoxWindow
+  1   447146 Jul  7 01:44 88-centeringInBoxWindow 0_notesWhileLookingForCenteringDelay.zip
+  1   777411 Jul  7 01:58 88-centeringInBoxWindow 1_firstGo_OKButWrongSize+WhiteAtEdge.zip
+  1   794583 Jul  7 02:00 88-centeringInBoxWindow 2_sizeRightStillWhite.zip
+  1   784671 Jul  7 02:26 88-centeringInBoxWindow 3_notes+black.zip
+ 10     1292 Jul  9 05:08 89-newSprites
+  1   759196 Jul  8 23:42 89-newSprites 0_Cloud.zip
+  1   749758 Jul  9 00:01 89-newSprites 1_Mario.zip
+  1   761462 Jul  9 00:34 89-newSprites 2_LuigiColor.zip
+  1   764970 Jul  9 01:50 89-newSprites 3_marioRuns.zip
+  1   445487 Jul  9 02:01 89-newSprites 4_marioRunsOffscreen.zip
+  1   753695 Jul  9 02:38 89-newSprites 5_initSpriteStateNowMoreThorough.zip
+  1   756719 Jul  9 03:44 89-newSprites 6_MarioRisesStationaryThenRun.zip
+  1   756566 Jul  9 04:09 89-newSprites 7_LuigiRuns.zip
+  1   760684 Jul  9 04:43 89-newSprites 8_OK_priorToMehPL.zip
+ 12     1428 Jul  9 05:48 90-reGitting

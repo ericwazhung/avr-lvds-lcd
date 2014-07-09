@@ -9,12 +9,42 @@
 #
 #
 #
+#
+#
+#
+#
+
+#This bit (.mainConfig.preprocessed.mk) handles making #defines in
+#mainConfig.h available to make for conditional inclusion...
+# I guess it's sort of like an autoconfigure script
+# that automatically runs each time mainConfig.h is modified.
+
+#This is added to the default 'make' target in reallyCommon2.mk
+# See the target at the bottom of this file.
+#This is unnecessary, see 'info make' "3.5 How Makefiles Are Remade"
+#PROJ_PREMAKE=.mainConfig.preprocessed.mk
+#-include this so we can at least get to create it if nonexistent
+# But otherwise it should definitely be included.
+
+#BEWARE: Only certain thingamagigs are usable... 
+# e.g. #define MAIN_MS TCNTER_MS but TCNTER_MS isn't defined in mainConfig
+# nor its inclusions... so MAIN_MS == TCNTER_MS but NOT the *value* of
+# TCNTER_MS
+include .mainConfig.preprocessed.mk
+
+
+
 
 # This makefile scheme is highly-dependent on the inclusion of various
 # other makefiles, including _commonCode.../_make/reallyCommon2.mk
 # (Modified for reallyCommon2.mk via sdramThing2.0-13)
 
+#These don't handle all cases, and are in commonWarnings.mk, now, anyhow?
+CFLAGS += -Werror=uninitialized
+CFLAGS += -Werror=maybe-uninitialized
 
+# Uncomment this for macroExpander.sh
+#CFLAGS += -E -dM
 
 ###### Listed Early-On because THIS IS BAD if it's TRUE
 #CFLAGS += -D'ALLOW_UNIMPLEMENTED=TRUE'
@@ -50,8 +80,8 @@ TARGET = LCDdirectLVDS
 #This is the selected AVR... Used in MANY cases, including configuration of
 # avr-dude, avr-gcc, and more.
 #MCU = at_dneTest
-MCU = at90pwm161
-#MCU = attiny861
+#MCU = at90pwm161
+MCU = attiny861
 
 # This is the CPU frequency. Generally it's used for calculating BAUD
 # rates, and timer compare-match values. In C/H code, its value can be
@@ -175,10 +205,16 @@ CFLAGS += -D'HSYNC_TIMER_MAX=0xffff'
 #PWM161's Timer1 only has CLKDIV1... so if it doesn't fit, we're screwed.
 CFLAGS += -D'HSYNC_TIMER_CLKDIV=CLKDIV1'
 CFLAGS += -D'HSYNC_TIMER_INTERRUPT_VECT=TIMER1_CAPT_vect'
+CFLAGS += -D'HSYNC_TIMER_TCNT=TCNT1'
 else
 #Apparently it doesn't *quite* handle the atTiny861 by default anymore...
+
+#ATTiny861's Timer0 is 8/16-bit... for some reason I decided to use it in
+#8-bit mode. And, oddly, TCNT0 is not defined, only TCNT0L/H
+# (Discovered a/o v77)
 CFLAGS += -D'HSYNC_TIMER_INTERRUPT_VECT=TIMER0_COMPA_vect'
 CFLAGS += -D'HSYNC_TIMER_MAX=0xff'
+CFLAGS += -D'HSYNC_TIMER_TCNT=TCNT0L'
 endif
 
 
@@ -281,6 +317,7 @@ VER_HFMODULATION = 1.00
 HFMODULATION_LIB = $(COMDIR)/hfModulation/$(VER_HFMODULATION)/hfModulation
 include $(HFMODULATION_LIB).mk
 
+
 #adc is used by fb_question for the "hit-sensor" (a piezo-element), as well
 # by SEG_RACER for the potentiometer.
 VER_ADC = 0.20
@@ -288,8 +325,12 @@ CFLAGS += -D'ADC_SUM_REMOVED=TRUE'
 # For early testing toward the pwm161
 CFLAGS += -D'ADC_MCU_NYI_ERROR_DISABLED=TRUE'
 ADC_LIB = $(COMDIR)/adc/$(VER_ADC)/adc
+ifeq "$(MAKE_MAINCONFIG__USE_ADC)" "TRUE"
 include $(ADC_LIB).mk
-
+else
+#But make sure it's still included for distro
+COM_HEADERS+=$(COMDIR)/adc/$(VER_ADC)
+endif
 
 #timerCommon is used by everything timer-related... 
 #With the ATtiny861:
@@ -332,11 +373,20 @@ include $(TIMERCOMMON_LIB).mk
 # pin, so therefore heartbeat can be used with the default configuration
 # (on MISO)
 #SEE NOTE BELOW IN COM_HEADERS...
-ifneq "$(MCU)" "at90pwm161"
-HEART_REMOVED = TRUE
-endif
+#ifneq "$(MCU)" "at90pwm161"
 
-VER_HEARTBEAT = 1.30
+#### TODO:
+# a/o v82, attempting HEART_REMOVED to reduce memory usage... (RAM)
+# As it appears that the stack is overwriting data.
+
+
+##### a/o v85: Readding heart for testing of __flash...
+#HEART_REMOVED = TRUE
+
+
+#endif
+
+VER_HEARTBEAT = 1.50
 HEARTBEAT_LIB = $(COMDIR)/heartbeat/$(VER_HEARTBEAT)/heartbeat
 
 #Code-size was running-out on the ATTiny861, so don't include DMS_TIMER
@@ -345,14 +395,32 @@ HEARTBEAT_LIB = $(COMDIR)/heartbeat/$(VER_HEARTBEAT)/heartbeat
 # continue development alongside.
 #DMS is used by FB_QUESTION to determine when to change the images... a/o
 # v68
-ifeq "$(MCU)" "at90pwm161"
-HEART_DMS = TRUE
-DMS_EXTERNALUPDATE = TRUE
-CFLAGS += -D'DMS_FRAC_UNUSED=TRUE'
-else
-HEART_DMS = FALSE
+#ifeq "$(MCU)" "at90pwm161"
+#HEART_DMS = TRUE
+#DMS_EXTERNALUPDATE = TRUE
+#CFLAGS += -D'DMS_FRAC_UNUSED=TRUE'
+HEART_TCNTER = TRUE
+
+# Use the HSYNC_TIMER for the tcnter, as well... since it's already running
+#This is necessary to make these HSYNC_TIMER_... definitions available to
+#tcnter:
+CFLAGS += -D'_SPECIALHEADER_FOR_TCNTER_="hsyncTimerStuff.h"'
+#These set up the TCNTER timing stuff...
+CFLAGS += -D'TCNTER_SOURCE_VAR=HSYNC_TIMER_TCNT'
+CFLAGS += -D'TCNTER_SOURCE_OVERFLOW_VAL=HSYNC_TIMER_OCRVAL'
+CFLAGS += -D'TCNTS_PER_SECOND=(F_CPU/(1<<HSYNC_TIMER_CLKDIV))'
+
+#Because the hsync timer-interrupt function takes *so much time*
+# It's very likely the main-loop doesn't even run a full-loop between each
+# interrupt. So, tcnter_update() wouldn't be called often-enough.
+# Use this, and put tcnter_overflowUpdate() in the interrupt
+CFLAGS += -D'TCNT_UPDATE_ONCE_PER_OVERFLOW=TRUE'
+
+
+#else
+#HEART_DMS = FALSE
 #DMS_EXTERNALUPDATE = FALSE
-endif
+#endif
 
 #override heartBeat's preferred 4s choice...
 #CFLAGS += -D'_WDTO_USER_=WDTO_1S'
@@ -370,12 +438,27 @@ CFLAGS += -D'HEARTPIN_HARDCODED=TRUE'
 #PWM161:
 # MISO is otherwise unused, so can therefore be used for the heart
 # (as long as there's enough code-space and whatnot)
-ifneq "$(MCU)" "at90pwm161"
-CFLAGS += -D'HEART_PINNUM=PA3'
-CFLAGS += -D'HEART_PINPORT=PORTA'
+
+# IF mainConfig.h contains a definition for _HEART_PINNUM_
+#  then use that instead (e.g. a/o v80, the Tiny861 can also be used with
+#  the Sony Parallel-interfaced LCD, which doesn't have the limitation
+#  described above (MISO is available for the heart)
+# So, mainConfig.h can override these defaults...
+ifdef MAKE_MAINCONFIG___HEART_PINNUM_
+CFLAGS += -D'HEART_PINNUM=$(MAKE_MAINCONFIG___HEART_PINNUM_)'
+CFLAGS += -D'HEART_PINPORT=$(MAKE_MAINCONFIG___HEART_PINPORT_)'
 else
+ifeq "$(MCU)" "at90pwm161"
+#PWM161
 CFLAGS += -D'HEART_PINNUM=PB6'
 CFLAGS += -D'HEART_PINPORT=PORTB'
+else
+#TINY861
+#THIS IS NOT the normal pin for heartbeat (on the programming-header)
+# as that pin has to be used for FPD-Link...
+CFLAGS += -D'HEART_PINNUM=PA6'
+CFLAGS += -D'HEART_PINPORT=PORTA'
+endif
 endif
 
 CFLAGS += -D'HEART_LEDCONNECTION=LED_TIED_HIGH'
@@ -383,7 +466,9 @@ include $(HEARTBEAT_LIB).mk
 
 
 
-
+#Trying to free-up space for FB_QUESTION on Tiny861, sineTable is only used
+# by a few options, but has been compiled in for everything until now.
+#This isn't the best test... but it's good-nough for now
 #sineTable is a table of values for sin(), but not using floating-point.
 # Here it's used by SEG_RACER to generate the track, by SEG_SINE to
 # generate the sine-wave image, and possibly elsewhere.
@@ -393,8 +478,13 @@ CFLAGS += -D'SINE_DISABLEDOUBLESCALE=TRUE'
 SINE_TYPE = 16
 CFLAGS+=-D'SINE_RAW8=TRUE'
 #CGLAGS += -D'SINE_TABLE_ONLY=TRUE'
-include $(SINETABLE_LIB).mk
 
+ifneq "$(MAKE_MAINCONFIG__FB_QUESTION)" "TRUE"
+include $(SINETABLE_LIB).mk
+else
+#Make sure it's still available in the distro:
+COM_HEADERS += $(COMDIR)/sineTable/$(VER_SINETABLE)
+endif
 
 
 
@@ -489,7 +579,7 @@ CFLAGS += -D'_DELAYCYC_HEADER_="$(DELAYCYC)"'
 # Yes, this is one of those cases where COM_HEADERS is being hacked for
 # direct-inclusion of a .c file. It's ugly. lcdStuff.h and lcdStuff.mk
 # should be created. They haven't yet.
-LCDSTUFF := $(COMDIR)/lcdStuff/0.55ncf/lcdStuff.c
+LCDSTUFF := $(COMDIR)/lcdStuff/0.80ncf/lcdStuff.c
 COM_HEADERS += $(dir $(LCDSTUFF))
 CFLAGS += -D'_LCDSTUFF_CFILE_="$(LCDSTUFF)"'
 
@@ -568,6 +658,34 @@ include $(COMDIR)/_make/reallyCommon2.mk
 
 
 
+
+.mainConfig.preprocessed.mk: mainConfig.h
+	@echo ""
+	@echo " #################################################################"
+	@echo " ## mainConfig.h has changed or otherwise needs to be processed ##"
+	@echo " ## !!! probably best to run 'make clean' !!!!                  ##"
+	@echo " #################################################################"
+	@echo ""
+	@_tools/configParser2.sh > .mainConfig.preprocessed.mk
+#	@touch main.c
+# This is all unnecessary.
+# see 'info make' "3.5 How Makefiles Are Remade"
+#
+#	if [ "$${?}" != "0" ] ;\
+#	then \
+#		echo "WTF...? Check _tools/configParser2.sh...?" ;\
+#		exit 1 ;\
+#	fi
+#	@echo " This will exit with a failure, but actually it worked."
+#	@echo " It's just that since it modifies an included makefile,"
+#	@echo " make needs to be run a second time.... So..."
+#	@echo " ##################################################"
+#	@echo " ### Just run 'make' again, and be on your way  ###"
+#	@echo " ##################################################"
+#	@exit 1
+
+
+
 #/* mehPL:
 # *    I would love to believe in a world where licensing shouldn't be
 # *    necessary; where people would respect others' work and wishes, 
@@ -629,7 +747,7 @@ include $(COMDIR)/_make/reallyCommon2.mk
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/makefile
+# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/makefile
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

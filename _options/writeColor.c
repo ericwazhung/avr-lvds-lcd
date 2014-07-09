@@ -10,6 +10,10 @@
 
 
 
+
+
+
+
 //writeColor() is a hokey method to draw individual pixels from a buffer,
 //either a row-buffer or a frame-buffer.
 // I say "hokey" because the associated drawPix() function has individual
@@ -53,7 +57,12 @@
 
 
 #if(!defined(ROW_BUFFER) || !ROW_BUFFER)
-#include "_options/frameBuffer.c"
+ #include "_options/frameBuffer.c"
+#else
+ #include "_options/rowBuffer.c"
+
+ //FB_WIDTH should probably be renamed...
+ #define FB_WIDTH (RB_WIDTH)
 #endif
 
 
@@ -94,12 +103,48 @@
 
 //#if(!defined(ROW_SEG_BUFFER) || !ROW_SEG_BUFFER)
 
+
+//WRITE_COLOR_CYCS is the number of CPU clock-cycles each call to
+//writeColor() takes (minus the delay)
+// This value is determined by the code/optimizer, often by looking into
+// the .lss file, and/or determined by the number of asm instructions.
+// It's only used in calculations for determining how much delay to add to
+// stretch pixels to fill the screen...
+// Changing the value to something inaccurate doesn't really change the
+// writeColor() code, at all, it merely affects the associated
+// stretching-delays.
+// E.G. If somehow the math works out that the image isn't stretched all
+// the way across the screen, *shrinking* the number of WRITE_COLOR_CYCS
+// would cause *increased* WRITE_COLOR_DELAYs, but since the actual number
+// of cycles taken by writeColor() doesn't change, this has the effect of
+// merely increasing the delay until the next writeColor.
+// THIS IS NOT GOOD HABIT
+// But it is the way it's coded.
+// Ideally, the math would work out properly, and WRITE_COLOR_CYCS would be
+// best if it was the *actual* number of cycles it takes to complete a call
+// to writeColor() (again, minus the delay)
+// ... as it is used in calculations elsewhere, as well.
+
+
+//If writeColor is defined elsewhere, then so must be WRITE_COLOR_CYCS
+// So don't define it here...
+// (e.g. for _interfaces/6bitParallel.c for the Sony LCD)
+#ifndef WRITE_COLOR_CYCS
 #if(defined(__AVR_AT90PWM161__))
- #define WRITE_COLOR_CYCS 56
- //This value determined from .lss
- // probably not 100% accurate.
- //And kinda surprising it's so much more than the others...
-#else
+ #if(defined(ROW_BUFFER) && ROW_BUFFER)
+  //This is just an estimate:
+  //Figured (roughly) from the .lss
+  #define WRITE_COLOR_CYCS 27//18
+ #else
+  #define WRITE_COLOR_CYCS 38//56
+  //This value determined from .lss
+  // probably not 100% accurate.
+  //And kinda surprising it's so much more than the others...
+  // a/o v71: This has been modified to stretch it better across the
+  // screen... for FB_TESTING (FB_QUESTION) and may no longer work with
+  // ROW_BUFFER, etc. 
+ #endif
+#else	//ATtiny861
  #if(defined(ROW_BUFFER) && ROW_BUFFER)
  //THIS IS JUST AN ESTIMATE
   #define WRITE_COLOR_CYCS   (13)
@@ -111,26 +156,62 @@
   #define WRITE_COLOR_CYCS   (9*3+3)
  #endif
 #endif
+#endif //WRITE_COLOR_CYCS wasn't predefined...
 
+
+//If it's already been included elsewhere, then it won't recalculate...
+// (since everything's #included in such roundabout ways...)
+#include "writeColorDelay.h"
+
+/*
+//WRITE_COLOR_DELAY attempts to stretch each pixel such that the total
+//number of horizontal pixels (e.g. FB_WIDTH) will stretch across the
+//screen. It takes into account the number of cycles it takes to extract
+//the color register-values from the buffer, and load them into the
+//registers. It's entirely plausible it will be negative, if e.g.
+//FB_WIDTH * WRITE_COLOR_CYCS > DE_CYC
+//(i.e. you've chosen an FB_WIDTH that's too large for the screen)
+//The math is loose, e.g.:
+// WRITE_COLOR_CYCS is, unless done entirely in assembly, usually an
+//  estimate 
+// There's no rounding, and integer division...
+// There's nothing stopping you from setting an FB_WIDTH too large...
+//So it's likely the resulting image will be skinnier (or wider?) than the
+// display...
+//Calcs:
 // DE_CYC = FB_WIDTH * ( WRITE_COLOR_CYCS + WRITE_COLOR_DELAY )
 // DE_CYC/FB_WIDTH = WRITE_COLOR_CYCS + WRITE_COLOR_DELAY
 // WRITE_COLOR_DELAY = DE_CYC/FB_WIDTH - WRITE_COLOR_CYCS
 // Not sure why -4 is necessary... overhead in delayCyc?
-#define WRITE_COLOR_DELAY \
+#define WRITE_COLOR_DELAY_PRETEST \
 	( DOTS_TO_CYC(DE_ACTIVE_DOTS) / FB_WIDTH - WRITE_COLOR_CYCS-4)
-#if((WRITE_COLOR_DELAY < 0) || (WRITE_COLOR_DELAY >127))
+
+#if(WRITE_COLOR_DELAY_PRETEST < 0)
  #define WRITE_COLOR_DELAY 0
- #warning "problem here..."
+ #warning "WRITE_COLOR_DELAY < 0, your FB_WIDTH is possibly too large for the screen..."
 // #error "problem here..."
+#elif(WRITE_COLOR_DELAY_PRETEST >127)
+ #define WRITE_COLOR_DELAY 127
+ #warning "WRITE_COLOR_DELAY > 127... Tiny FB_WIDTH? HUGE screen? Have fun!"
+#else
+ #define WRITE_COLOR_DELAY (WRITE_COLOR_DELAY_PRETEST)
 #endif
+*/
+
+
 
 //load a color-value from the frame/row buffer and write the registers
 
 
 
+//includeDEinit should be TRUE only *once* at the *beginning* of the
+//drawPix function...
+// Setting it FALSE does *not* disable DE
 
+#ifndef writeColor	
 static __inline__ 
-void writeColor(uint8_t includeDelay, uint8_t colorVal) 
+void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
+																		uint8_t colorVal) 
 	__attribute__((__always_inline__));
 
 #if(defined(__AVR_AT90PWM161__))
@@ -141,6 +222,7 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
 // But you can actually use this one here for fun
 // (Actually, it's kinda cool, it makes the FB_QUESTION sprites look even
 //  more 3D)
+// a/o v70: The above is true if ROW_BUFFER is NOT TRUE.
 #if 0
  void writeColor(uint8_t includeDelay, uint8_t colorVal)
  {
@@ -157,13 +239,33 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
 
  }
 #endif
- void writeColor(uint8_t includeDelay, uint8_t colorVal)
+ void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
+		 															uint8_t colorVal)
  {
 
 #if(defined(ROW_BUFFER) && ROW_BUFFER)
-	#error "ROW_BUFFER is NYI for the PWM161"
-#endif
+	//see rowBuffer.c for how this is packed...
+	//
+   // In this case, colorVal is actually settingVal...
+   // Between LDI, these instructions, and OCR/DT register writes
+   // this is XX cycles... or XX pixels...
+	// a/o v70: XX pixels AT LVDS_PRESCALER=1, right......?
 
+   //                              //ldi (colorVal) (2 cyc)
+   //Red: (temp)
+	uint8_t redAndBlue = (colorVal >> 2);
+ 	//uint8_t ocrd = colorVal >> 2;   //mov, shl, shl
+   //Green:
+	uint8_t greenOCR_val = (colorVal & 0x03) + 3;
+   //uint8_t dt = colorVal & 0x03; //andi
+   //Blue:
+	uint8_t blueOCR_val = (redAndBlue >> 3) + 4;
+   //uint8_t ocra = ocrd >> 3;      //mov, shl, shl, shl
+   //And red...
+   //ocrd &= 0x07;                  //andi
+	uint8_t redOCR_val = redAndBlue & 0x07;
+                                 //out OCRD, out DT, out OCRA
+#else //NOT ROW_BUFFER (FRAMEBUFFER)
 
 	 //This is pieced-together from the ATTiny861's writeColor()
 	 // and memory...
@@ -245,6 +347,8 @@ __asm__ __volatile__
 	   "0" (blueOCR_val)
 	);
 
+#endif //ROW_BUFFER vs NOT
+
 	//Now all the OCR_val variables are set
 	// write them to the registers
 	// Locking/unlocking of the PSCs can't occur simultaneously,
@@ -261,6 +365,10 @@ __asm__ __volatile__
 //"For the Extended I/O space from 0x60-0xFF in SRAM, only the ST... and
 //LD... instructions can be used"
 // So, rather than using _SFR_IO_ADDR(), use _SFR_MEM_ADDR()
+
+#warning "lock/unlock should probably occur in asm, as well..."
+	if(!includeDEinit)
+	{
 		__asm__ __volatile__
 		(
 		 "sts %3, %0; \n\t"
@@ -275,6 +383,26 @@ __asm__ __volatile__
 			"M" (_SFR_MEM_ADDR(OCR0SBL)) //"%5"  //0x22 (0x42)
 
 		);
+	} else {
+		uint8_t blueOCR_DE_init = 0;
+		__asm__ __volatile__
+		(
+		 "sts %3, %0; \n\t"
+		 "sts %4, %1; \n\t"
+		 "sts %5, %2; \n\t"
+		 "sts %6, %7; \n\t"
+		 :
+		 : "r" (blueOCR_val),	//"%0"
+		   "r" (redOCR_val),		//"%1"
+			"r" (greenOCR_val),	//"%2"
+			"M" (_SFR_MEM_ADDR(OCR2RAL)), //"%3" //0x2e (0x4e)
+			"M" (_SFR_MEM_ADDR(OCR0SAL)), //"%4"	//(0x60)
+			"M" (_SFR_MEM_ADDR(OCR0SBL)), //"%5"  //0x22 (0x42)
+			"M" (_SFR_MEM_ADDR(OCR2SAL)), //"%6"
+			"r" (blueOCR_DE_init)         //"%7" 
+
+		);
+	}
 	unlockPSC0();
 	unlockPSC2();
 
@@ -286,351 +414,11 @@ __asm__ __volatile__
  }
 
 
-
-#endif
-
-
-
-
-
-
-
-
-
-
-/*
-static __inline__ \
-void writeColor(uint8_t includeDelay, uint8_t colorVal) \
-     __attribute__((__always_inline__));
-*/
-
-
-
-//This drawPix was developed before RowSegBuffer
-// there are two versions included: RowBuffer and FrameBuffer
-// which function almost identically as far as this function's concerned
-
-// After writeColor()s are called, the remaining is (a/o v60) identical
-// to rsb_drawPix, as it was a result of an:
-//#if(!ROW_SEG_BUFFER)
-// void drawPix(uint8_t rowNum)
-// {
-//  	do writeColorStuff...
-//#else
-// void drawPix(uint8_t rowNum)
-// {
-//		do rowSegBufferStuff...
-//#endif
-//    do remaining Stuff...
-// }
-
-// But nonRSB stuff hasn't been tested in quite some time...
-
-void nonRSB_drawPix(uint16_t rowNum)
-{
-   //uint8_t *setting = &(settingBuffer[rowNum][0]);
-#if(defined(ROW_BUFFER) && ROW_BUFFER)
-   uint8_t *color = &(rowBuffer[0]);
-#else
-	rowNum = rowNum*FB_HEIGHT / V_COUNT;
-//	rowNum &= 0x0f;
-	uint8_t *color = &(frameBuffer[rowNum][0]);
-#endif
-
-	//a/o v67:
-	// WTF... this didn't work without DEonly_init();
-	// despite the fact that writeColor() on the 161 sets DE?!
-	// AND it worked on the Tiny861 without this?!
-	// No... writeColor doesn't change one register, which needs to be set
-	// for blue...
-	DEonly_init();
-	//lockPSC2();
-	//OCR2SA=1;	//WTF, 0 doesn't work?!
-	//OCR2RA=4;
-	//unlockPSC2();
-   /*
-      DEonly_fromNada();
-      //Enable complementary-output for Green (on /OC1B, where CLK is OC1B)
-      TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
-               | (0<<COM1B1) | (1<<COM1B0)
-               | (1<<PWM1A) | (1<<PWM1B) );
-   */
-      //The Greenish-bar on the left is due to the time it takes to execute
-      // the first writeColor (since its value is only written at the END)
-      // Thus the greenish-bar is about one write-color wide...
-
-   //Judging by some weird experiences re v21/22,
-   // it's not entirely likely this will be predictable
-   // it may try to recalculate the Z register between writeBlues...
-   // hopefully not, for now. I should probably assemblify this
-      writeColor(FALSE, *(color+0));
-
-		lvds_enableGreen_MakeClockSensitiveToDT();
-
-		//Because includeDelay is FALSE, above, do it here...
-		// The intention being to get enableGreen as soon after the
-		// register-settings as possible.
-		delay_cyc(WRITE_COLOR_DELAY);
-		
-      //Moving this here not only removes (most of) the green bar
-      // but also seems to make the pixel edges significantly sharper
-      // (v29 has ~1/8in of noise, v30 has ~1pixel noise at the right edge)
-//      TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
-//               | (0<<COM1B1) | (1<<COM1B0)
-//               | (1<<PWM1A) | (1<<PWM1B) );
-
-      writeColor(TRUE, *(color+1));    
-      writeColor(TRUE, *(color+2));    
-      writeColor(TRUE, *(color+3)); 
-      writeColor(TRUE, *(color+4));    
-      writeColor(TRUE, *(color+5));                
-      writeColor(TRUE, *(color+6));  
-      writeColor(TRUE, *(color+7));                         
-      writeColor(TRUE, *(color+8));                         
-		writeColor(TRUE, *(color+9));                         
-      writeColor(TRUE, *(color+10));                         
-      writeColor(TRUE, *(color+11));                         
-      writeColor(TRUE, *(color+12));                         
-      writeColor(TRUE, *(color+13));                         
-      writeColor(TRUE, *(color+14));                         
-      writeColor(TRUE, *(color+15));   
-#define COLORS_WRITTEN   16      
-#if ( (defined(COLOR_BAR_SCROLL) && COLOR_BAR_SCROLL) \
-   || (defined(ROW_BUFFER) && (ROW_BUFFER)) )
-      writeColor(TRUE, *(color+16));
-      writeColor(TRUE, *(color+17));
-      writeColor(TRUE, *(color+18));
-      writeColor(TRUE, *(color+19));
-writeColor(TRUE, *(color+20));
-writeColor(TRUE, *(color+21));
-writeColor(TRUE, *(color+22));
-writeColor(TRUE, *(color+23));
-writeColor(TRUE, *(color+24));
-writeColor(TRUE, *(color+25));
-writeColor(TRUE, *(color+26));
-writeColor(TRUE, *(color+27));
-#define COLORS_WRITTEN   28
-#if (defined(ROW_BUFFER) && (ROW_BUFFER))
-writeColor(TRUE, *(color+28));
-writeColor(TRUE, *(color+29));
-writeColor(TRUE, *(color+30));
-writeColor(TRUE, *(color+31));
-//Some sort of syncing problem after 32... (?)
-
-writeColor(TRUE, *(color+32));
-writeColor(TRUE, *(color+33));
-writeColor(TRUE, *(color+34));
-writeColor(TRUE, *(color+35));
-writeColor(TRUE, *(color+36));
-writeColor(TRUE, *(color+37));
-writeColor(TRUE, *(color+38));
-writeColor(TRUE, *(color+39));
-writeColor(TRUE, *(color+40));
-writeColor(TRUE, *(color+41));
-writeColor(TRUE, *(color+42));
-writeColor(TRUE, *(color+43));
-writeColor(TRUE, *(color+44));
-writeColor(TRUE, *(color+45));
-writeColor(TRUE, *(color+46));
-writeColor(TRUE, *(color+47));
-writeColor(TRUE, *(color+48));
-writeColor(TRUE, *(color+49));
-writeColor(TRUE, *(color+50));
-writeColor(TRUE, *(color+51));
-writeColor(TRUE, *(color+52));
-writeColor(TRUE, *(color+53));
-writeColor(TRUE, *(color+54));
-writeColor(TRUE, *(color+55));
-writeColor(TRUE, *(color+56));
-writeColor(TRUE, *(color+57));
-writeColor(TRUE, *(color+58));
-writeColor(TRUE, *(color+59));
-writeColor(TRUE, *(color+60));
-writeColor(TRUE, *(color+61));
-writeColor(TRUE, *(color+62));
-writeColor(TRUE, *(color+63));
-// WriteColor writes the pixel *after* the calculations...
-// thus the pixel appears basically after writeColor completes
-// These nops assure the 64th pixel is fully-displayed before exitting
-// (Not sure how the other following instructions apply to this)
-// The number of nops was found experimentally...
-asm("nop");
-asm("nop");
-asm("nop");
-asm("nop");
-asm("nop");
-asm("nop");
-asm("nop");
-asm("nop");
-//count "0" below, as well..
-#define COLORS_WRITTEN 65
-#endif //ROW_BUFFER
-#else
-//   writeColor(0);
-#endif //COLOR_BARS || ROW_BUFFER
-/*      reg[17] = colorBuffer[rowNum][17];                         
-      writeColor(reg[17]);                         
-      ...
-      reg[20] = colorBuffer[rowNum][20];                         
-      writeColor(reg[20]);  
-      
-      //REPEATING to fill screen... (delayDots = 342 worked prior to this)
-      reg[0] = colorBuffer[rowNum][0];
-      writeColor(reg[0]);
-      ...
-      reg[10] = colorBuffer[rowNum][10];
-      writeColor(reg[10]);
-*/
-      //Display the rest as black...
-      writeColor(FALSE, 0);
-		//Do it as quickly as possible.
-		// (No, this cuts off the last pixel...)
-		//OCR1D = 0;	//Red Off
-		//DT1 = 0;		//Green Off
-		//OCR1A = 4;  //Blue Off
-
-		//writeColor(0xff);
-        //delay_Dots(500);//142); //Don't want to disable DE too early...   
-      //900 leaves a buffer for various calculations while also showing
-      // a blue bar at the right-side...
-      //LTN Last Used 900
-      // -68 is from 900's intent, IIRC
-      //  seems arbitrary, but its value (especially if too small)
-      // causes blank lines... (?!)
-      // -60 makes more sense for a delay (was the original post-900)
-      //  (outside DOTS_TO_CYC because it's for cycles used for calcs...
-      // -68 worked for LVDS_PRE=2
-      // -60 for 1
-      // 4 doesn't work... blue-lines
-
-//a/o v60
-//From Here Down, everything has only been tested recently with rowSegBuf
-// I did a nice #if-#else scheme which makes this redundant
-// with what's in rsb_drawPix()...
-
-// a/o v59-12ish... ROW_COMPLETION_DELAY uses were already commented-out
-// BUT WHY WAS IT REMOVED?! Seems to help, now.
-// 
-//   Some Experimenting has led to the conclusion:
-//   DE's active-duration needn't be exact. In fact, it can be *way* off
-//     White is shown between the end of drawSegs, and cyan is shown after
-//   ROW_COMPLETION_DELAY (which, for now, is constant, regardless of how
-//    many pixels were drawn)
-//   Almost immediately after the ROW_COMPLETION_DELAY (when it turns cyan)
-//    DE is disabled
-//    Yet the remainder of the screen still fills with cyan.
-//   THUS: Disabling DE before the end of the screen appears to have the
-//    effect of either not being acknowledged, or of repeating the last
-//    color (untested)
-//   Also, DE durations that are *longer* than the screen, seem to be 
-//    absorbed by nonexistent pixels to the left...
-//    (setting ROW_COMPLETION_DELAY==65535 unreasonably high,
-//         just shows white at the right side, and still syncs)
-//   Now, the original problem was that there seemed to be some carry-over
-//   which maybe due to DEs that are EXTRAORDINARILY long?
-//   NO!
-//   Actually, it appears to be due to DEs that are TOO SHORT (?)
-//      (setting ROW_COMPLETION_DELAY to 0 causes the problem again)
-//   Doesn't appear to be *entirely* scientific, as using SEG_SINE
-//    would suggest that these (now cyan) bars would appear at the troughs
-//    in the diagonal-color-stripes at the top...
-//    they seem, instead to be somewhat random, though maybe more common
-//      at those locations.
-//   But Wait! Setting ROW_COMPLETION_DELAY to 1 fixes it again.
-//    realistically, that should be nothing more than a single nop; no?
-//    (Maybe not, with a few cycles to entry, and minimum execution times)
-//    a handful of nops does the trick, as well.
-//    So is it a problem with too short a DE, or is it a matter of
-//    e.g. the last segment drawn is setting new values that might only
-//    be *completely transmitted* after a full PWM cycle...
-//    So maybe somehow that last transaction is being interrupted
-//     by the TCCR1A settings, or new values...
-//    Plausible.
-//
-// FURTHER. Lest it be revisited. It was noted elsewhere that I thought
-// this display was NOT DE-Only. In fact, the datasheet specifically says
-// "DE-Only Mode"
-
-
-
-
-/*#define ROW_COMPLETION_DELAY \
-      (DOTS_TO_CYC(DE_ACTIVE_DOTS) -60  \
-       - WRITE_COLOR_CYCS * COLORS_WRITTEN)
-*/
-//I think -60 was an arbitrary value just chosen to compensate for
-//calculations/instructions...
-// -90 has been found to be right at the edge of the screen, now...
-// ish. maybe it's not accurate since delay_loop_2 is four instructions per
-// loop...?
-#define ROW_COMPLETION_DELAY \
-      (DOTS_TO_CYC(DE_ACTIVE_DOTS) - 90  \
-       - (WRITE_COLOR_CYCS + WRITE_COLOR_DELAY) * COLORS_WRITTEN)
-//#define ROW_COMPLETION_DELAY 512 //1 //65535//512
-
-
-
-
-//#error "should add SEG_STRETCH here..."
-#if (ROW_COMPLETION_DELAY > 0)
-//      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
-//            - WRITE_COLOR_CYCS*COLORS_WRITTEN);
-
-
-		delay_cyc(ROW_COMPLETION_DELAY);
-
-		
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-//      asm("nop;");
-      
-#else
-#warning "ROW_COMPLETION_DELAY <= 0"
-#define ROW_COMPLETION_DELAY 0
-#endif
-
-		//a/o v62: (Original notes removed)
-		//OCR1D controls RED... >=6 is full-red
-		// Setting this here indicates where the drawing has completed
-		// This is handy for determining timing, stretching, etc...
-		//OCR1D = 6; //0;
-		fullRed();
-
-      //DE->Nada transition expects fullBlue...
-      //Also helps to show the edge of the DE timing...
-
-      //!!! Not sure what the state is at this point...
-      // could be any DE+Blue level, or could be NADA...
-      // Nada: DT1=3, still leaves one bit for clocking, might be OK
-         
-      //Among the things that don't make sense...
-      // This appears to go into affect BEFORE delay_cyc (?)
-      // as, without a pull-up resistor on the /OC1B output, 
-      // green seems to be floating between the last pixel and the
-      // delay_cyc (!)
-      //Disable complementary-output for Green 
-      //  (on /OC1B, where CLK is OC1B)
-      // Since Nada, V, and H DT's might be bad for clocking.
-//		TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
-//         | (1<<COM1B1) | (0<<COM1B0)
-//         | (1<<PWM1A) | (1<<PWM1B) );
-
-		lvds_disableGreen_MakeClockInsensitiveToDT();
-
-      //fullBlue();
-      //Nada_fromDEonly();
-		Nada_init();
-}
-
-
-
-#if(!defined(__AVR_AT90PWM161__))
-void writeColor(uint8_t includeDelay, uint8_t colorVal)
+//This should probably test for the TINY861, specifically
+#else //if(!defined(__AVR_AT90PWM161__))
+#warning "includeDEinit in writeColor() has not yet been implemented on the Tiny861"
+void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
+																		uint8_t colorVal)
 {
 //#warning "I'm absolutely certain this'll need to be revised, probably asm"
    //   Red: (+OC1D => RX0+)
@@ -658,6 +446,7 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
    // In this case, colorVal is actually settingVal...
    // Between LDI, these instructions, and OCR/DT register writes
    // this is 14 cycles... or 16 pixels...
+	// a/o v70: 16 pixels AT LVDS_PRESCALER=1, right......?
 
    //                              //ldi (colorVal) (2 cyc)
    //Red: (temp)
@@ -669,7 +458,6 @@ void writeColor(uint8_t includeDelay, uint8_t colorVal)
    //And red...
    ocrd &= 0x07;                  //andi
                                  //out OCRD, out DT, out OCRA
-
 #else //NOT ROW_BUFFER (FRAMEBUFFER)
 
 //a/o v67: I didn't make very clear notes here, but have been using it for
@@ -871,8 +659,463 @@ __asm__ __volatile__
 		//Attempt to stretch across the full screen...
 		delay_cyc(WRITE_COLOR_DELAY);
 }
-#endif //AT90PWM161
+#endif //AT90PWM161 or not...
 //#endif //!ROW_SEG_BUFFER
+#endif //writeColor not defined as a macro...
+
+
+
+
+
+
+
+
+
+/*
+static __inline__ \
+void writeColor(uint8_t includeDelay, uint8_t colorVal) \
+     __attribute__((__always_inline__));
+*/
+
+
+
+//This drawPix was developed before RowSegBuffer
+// there are two versions included: RowBuffer and FrameBuffer
+// which function almost identically as far as this function's concerned
+
+// After writeColor()s are called, the remaining is (a/o v60) identical
+// to rsb_drawPix, as it was a result of an:
+//#if(!ROW_SEG_BUFFER)
+// void drawPix(uint8_t rowNum)
+// {
+//  	do writeColorStuff...
+//#else
+// void drawPix(uint8_t rowNum)
+// {
+//		do rowSegBufferStuff...
+//#endif
+//    do remaining Stuff...
+// }
+
+// But nonRSB stuff hasn't been tested in quite some time...
+
+#if(defined(WC_SETUP) && WC_SETUP)
+uint8_t *wc_color; 
+
+#define drawPixSetup	writeColor_drawPixSetup
+#endif
+
+
+static __inline__
+uint8_t * writeColor_drawPixSetup(uint16_t rowNum)
+	__attribute__((__always_inline__));
+
+uint8_t * writeColor_drawPixSetup(uint16_t rowNum)
+{
+
+#if(!defined(WC_SETUP) || !WC_SETUP)
+	uint8_t *wc_color;
+#endif
+
+#if(defined(ROW_BUFFER) && ROW_BUFFER)
+   wc_color = &(rowBuffer[0]);
+#else
+	rowNum = rowNum*FB_HEIGHT / V_COUNT;
+//	rowNum &= 0x0f;
+	wc_color = &(frameBuffer[rowNum][0]);
+#endif
+
+	return wc_color;
+}
+
+
+static __inline__ void nonRSB_drawPix(uint16_t rowNum)
+{
+   //uint8_t *setting = &(settingBuffer[rowNum][0]);
+
+	//A pointer to the first color (pixel) in the row...
+
+	//a/o v80
+	//Stupid optimizer... just having these assigned at the beginning of the
+	//function doesn't make them occur in that order.
+	//In fact, the first writeColor... maybe I'm mistaken.
+#if(defined(WC_SETUP) && WC_SETUP)
+	uint8_t * color = wc_color;
+#else
+	uint8_t * color = writeColor_drawPixSetup(rowNum);
+#endif
+
+	//a/o v67:
+	// WTF... this didn't work without DEonly_init();
+	// despite the fact that writeColor() on the 161 sets DE?!
+	// AND it worked on the Tiny861 without this?!
+	// No... writeColor doesn't change one register, which needs to be set
+	// for blue...
+	//DEonly_init();
+	// This should now be handled in writeColor(TRUE...)
+	// And since Tiny861 didn't have it anyhow, it shouldn't matter that
+	// Tiny861's writeColor ignores the TRUE...
+//	writeColor(TRUE,FALSE, _W);
+	//lockPSC2();
+	//OCR2SA=1;	//WTF, 0 doesn't work?!
+	//OCR2RA=4;
+	//unlockPSC2();
+   /*
+      DEonly_fromNada();
+      //Enable complementary-output for Green (on /OC1B, where CLK is OC1B)
+      TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
+               | (0<<COM1B1) | (1<<COM1B0)
+               | (1<<PWM1A) | (1<<PWM1B) );
+   */
+      //The Greenish-bar on the left is due to the time it takes to execute
+      // the first writeColor (since its value is only written at the END)
+      // Thus the greenish-bar is about one write-color wide...
+
+   //Judging by some weird experiences re v21/22,
+   // it's not entirely likely this will be predictable
+   // it may try to recalculate the Z register between writeBlues...
+   // hopefully not, for now. I should probably assemblify this
+//      writeColor(FALSE,FALSE, *(color+0));
+	//a/o v71, see a/o v67, plus new notes... TRUE is handy!
+      writeColor(TRUE,FALSE, *(color+0));
+
+		lvds_enableGreen_MakeClockSensitiveToDT();
+
+		//Because includeDelay is FALSE, above, do it here...
+		// The intention being to get enableGreen as soon after the
+		// register-settings as possible.
+#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
+		delay_cyc(WRITE_COLOR_DELAY);
+#else
+		delay_Dots(WRITE_COLOR_DOT_DELAY);
+#endif
+
+      //Moving this here not only removes (most of) the green bar
+      // but also seems to make the pixel edges significantly sharper
+      // (v29 has ~1/8in of noise, v30 has ~1pixel noise at the right edge)
+//      TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
+//               | (0<<COM1B1) | (1<<COM1B0)
+//               | (1<<PWM1A) | (1<<PWM1B) );
+
+
+#if ( (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING) || \
+      (defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING) )
+		//fb_writeColorCalls is pretty much identical to the below cases...
+		// but automatically includes the proper number of calls to
+		// writeColor based on FB_WIDTH
+		//Can't yet create an autoGenerated form via make...
+		// since FB_WIDTH is not available to make.
+		#include "fb_writeColorCalls.c"
+		//again, including fb_writeColorCalls.c, here is the equivalent of:
+		//writeColor(FALSE,TRUE, *(color+1));
+		//writeColor(FALSE,TRUE, *(color+2));
+		// ...
+		// the appropriate number of times.
+#else
+#error "This is just a reminder that all the ugly still exists and could probably easily be replaced with fb_writeColorCalls.c"
+		//Keeping this for the various special cases that have yet to be
+		//reimplemented...
+      writeColor(FALSE,TRUE, *(color+1));    
+      writeColor(FALSE,TRUE, *(color+2));    
+      writeColor(FALSE,TRUE, *(color+3)); 
+      writeColor(FALSE,TRUE, *(color+4));    
+      writeColor(FALSE,TRUE, *(color+5));                
+      writeColor(FALSE,TRUE, *(color+6));  
+      writeColor(FALSE,TRUE, *(color+7));                         
+      writeColor(FALSE,TRUE, *(color+8));                         
+		writeColor(FALSE,TRUE, *(color+9));                         
+      writeColor(FALSE,TRUE, *(color+10));                         
+      writeColor(FALSE,TRUE, *(color+11));                         
+      writeColor(FALSE,TRUE, *(color+12));                         
+      writeColor(FALSE,TRUE, *(color+13));                         
+      writeColor(FALSE,TRUE, *(color+14));                         
+      writeColor(FALSE,TRUE, *(color+15));   
+#define COLORS_WRITTEN   16      
+#if ( (defined(COLOR_BAR_SCROLL) && COLOR_BAR_SCROLL) \
+   || (defined(ROW_BUFFER) && (ROW_BUFFER)) )
+      writeColor(FALSE,TRUE, *(color+16));
+      writeColor(FALSE,TRUE, *(color+17));
+      writeColor(FALSE,TRUE, *(color+18));
+      writeColor(FALSE,TRUE, *(color+19));
+writeColor(FALSE,TRUE, *(color+20));
+writeColor(FALSE,TRUE, *(color+21));
+writeColor(FALSE,TRUE, *(color+22));
+writeColor(FALSE,TRUE, *(color+23));
+writeColor(FALSE,TRUE, *(color+24));
+writeColor(FALSE,TRUE, *(color+25));
+writeColor(FALSE,TRUE, *(color+26));
+writeColor(FALSE,TRUE, *(color+27));
+#define COLORS_WRITTEN   28
+#if (defined(ROW_BUFFER) && (ROW_BUFFER))
+writeColor(FALSE,TRUE, *(color+28));
+writeColor(FALSE,TRUE, *(color+29));
+writeColor(FALSE,TRUE, *(color+30));
+writeColor(FALSE,TRUE, *(color+31));
+//Some sort of syncing problem after 32... (?)
+
+writeColor(FALSE,TRUE, *(color+32));
+writeColor(FALSE,TRUE, *(color+33));
+writeColor(FALSE,TRUE, *(color+34));
+writeColor(FALSE,TRUE, *(color+35));
+writeColor(FALSE,TRUE, *(color+36));
+writeColor(FALSE,TRUE, *(color+37));
+writeColor(FALSE,TRUE, *(color+38));
+writeColor(FALSE,TRUE, *(color+39));
+writeColor(FALSE,TRUE, *(color+40));
+writeColor(FALSE,TRUE, *(color+41));
+writeColor(FALSE,TRUE, *(color+42));
+writeColor(FALSE,TRUE, *(color+43));
+writeColor(FALSE,TRUE, *(color+44));
+writeColor(FALSE,TRUE, *(color+45));
+writeColor(FALSE,TRUE, *(color+46));
+writeColor(FALSE,TRUE, *(color+47));
+writeColor(FALSE,TRUE, *(color+48));
+writeColor(FALSE,TRUE, *(color+49));
+writeColor(FALSE,TRUE, *(color+50));
+writeColor(FALSE,TRUE, *(color+51));
+writeColor(FALSE,TRUE, *(color+52));
+writeColor(FALSE,TRUE, *(color+53));
+writeColor(FALSE,TRUE, *(color+54));
+writeColor(FALSE,TRUE, *(color+55));
+writeColor(FALSE,TRUE, *(color+56));
+writeColor(FALSE,TRUE, *(color+57));
+writeColor(FALSE,TRUE, *(color+58));
+writeColor(FALSE,TRUE, *(color+59));
+writeColor(FALSE,TRUE, *(color+60));
+writeColor(FALSE,TRUE, *(color+61));
+writeColor(FALSE,TRUE, *(color+62));
+writeColor(FALSE,TRUE, *(color+63));
+// WriteColor writes the pixel *after* the calculations...
+// thus the pixel appears basically after writeColor completes
+// These nops assure the 64th pixel is fully-displayed before exitting
+// (Not sure how the other following instructions apply to this)
+// The number of nops was found experimentally...
+//a/o v71 (in which this isn't even executed, due to #if...)
+// See below...
+asm("nop");
+asm("nop");
+asm("nop");
+asm("nop");
+asm("nop");
+asm("nop");
+asm("nop");
+asm("nop");
+//count "0" below, as well..
+#define COLORS_WRITTEN 65
+#endif //ROW_BUFFER
+#else
+//   writeColor(0);
+#endif //COLOR_BARS || ROW_BUFFER
+#endif //FRAMEBUFFER_TESTING or not...
+
+/*      reg[17] = colorBuffer[rowNum][17];                         
+      writeColor(reg[17]);                         
+      ...
+      reg[20] = colorBuffer[rowNum][20];                         
+      writeColor(reg[20]);  
+      
+      //REPEATING to fill screen... (delayDots = 342 worked prior to this)
+      reg[0] = colorBuffer[rowNum][0];
+      writeColor(reg[0]);
+      ...
+      reg[10] = colorBuffer[rowNum][10];
+      writeColor(reg[10]);
+*/
+
+		//a/o v71, see note above regarding nops...
+		// since writeColor() NOW actually *sets* the registers at the *end*
+		// of the calculations, but *before* the WRITE_COLOR_DELAY...
+		// The last pixel is cut-short again, even *with* the delay
+		// Having a bit of difficulty wrapping my head around *why*
+		// since we're using writeColor, here, to set _W = WHITE
+		// Probably because _W is a constant, and therefore doesn't require
+		// loading from SRAM, extraction, etc...
+		//
+		// E.G.:
+		// calc set delay (csd)
+		//
+		//  c1  s1 d1  c2  s2 d2  c3  s3 d3 cW sW (dW = FALSE)
+		// |---|--#---|---|--#---|---|--#---|-|--#...
+		//        \---------/\---------/\-------/\---
+		//         Pixel 1    Pixel 2    Pixel 3   WHITE  ... visible "pixel"
+		//          11pix      11pix       9pix           ... screen pixels
+		//
+		// Not sure how to accomodate this... maybe just load _W in a sram
+		// location...?
+      //Display the rest as black... (now white)
+      //writeColor(FALSE,FALSE, _W);
+		//a/o v86: I can't recall why I chose white, maybe just for
+		//visibility...
+		//Since we're working with VISIBLE_ROW_DOTS in this version, and want
+		//the remaining dots to be black, we'll see where this goes...
+#if(!defined(FRAMEBUFFER_TESTING) || !FRAMEBUFFER_TESTING)
+ #error "nonRSB_drawPix now requires the row-buffer to be FB_WIDTH+1 long"
+#endif
+		//This could probably be optimized a bit... maybe just using *one*
+		//SRAM location, instead of using one at the end of each row...
+		// but this should be pretty much guaranteed to be the same length
+		// since it uses the same convention.
+		// Looks close to right, but it could be an illusion ;)
+		writeColor(FALSE,FALSE, *(color+FB_WIDTH));
+
+		//Do it as quickly as possible.
+		// (No, this cuts off the last pixel...)
+		//OCR1D = 0;	//Red Off
+		//DT1 = 0;		//Green Off
+		//OCR1A = 4;  //Blue Off
+
+		//writeColor(0xff);
+        //delay_Dots(500);//142); //Don't want to disable DE too early...   
+      //900 leaves a buffer for various calculations while also showing
+      // a blue bar at the right-side...
+      //LTN Last Used 900
+      // -68 is from 900's intent, IIRC
+      //  seems arbitrary, but its value (especially if too small)
+      // causes blank lines... (?!)
+      // -60 makes more sense for a delay (was the original post-900)
+      //  (outside DOTS_TO_CYC because it's for cycles used for calcs...
+      // -68 worked for LVDS_PRE=2
+      // -60 for 1
+      // 4 doesn't work... blue-lines
+
+//a/o v60
+//From Here Down, everything has only been tested recently with rowSegBuf
+// I did a nice #if-#else scheme which makes this redundant
+// with what's in rsb_drawPix()...
+
+// a/o v59-12ish... ROW_COMPLETION_DELAY uses were already commented-out
+// BUT WHY WAS IT REMOVED?! Seems to help, now.
+// 
+//   Some Experimenting has led to the conclusion:
+//   DE's active-duration needn't be exact. In fact, it can be *way* off
+//     White is shown between the end of drawSegs, and cyan is shown after
+//   ROW_COMPLETION_DELAY (which, for now, is constant, regardless of how
+//    many pixels were drawn)
+//   Almost immediately after the ROW_COMPLETION_DELAY (when it turns cyan)
+//    DE is disabled
+//    Yet the remainder of the screen still fills with cyan.
+//   THUS: Disabling DE before the end of the screen appears to have the
+//    effect of either not being acknowledged, or of repeating the last
+//    color (untested)
+//   Also, DE durations that are *longer* than the screen, seem to be 
+//    absorbed by nonexistent pixels to the left...
+//    (setting ROW_COMPLETION_DELAY==65535 unreasonably high,
+//         just shows white at the right side, and still syncs)
+//   Now, the original problem was that there seemed to be some carry-over
+//   which maybe due to DEs that are EXTRAORDINARILY long?
+//   NO!
+//   Actually, it appears to be due to DEs that are TOO SHORT (?)
+//      (setting ROW_COMPLETION_DELAY to 0 causes the problem again)
+//   Doesn't appear to be *entirely* scientific, as using SEG_SINE
+//    would suggest that these (now cyan) bars would appear at the troughs
+//    in the diagonal-color-stripes at the top...
+//    they seem, instead to be somewhat random, though maybe more common
+//      at those locations.
+//   But Wait! Setting ROW_COMPLETION_DELAY to 1 fixes it again.
+//    realistically, that should be nothing more than a single nop; no?
+//    (Maybe not, with a few cycles to entry, and minimum execution times)
+//    a handful of nops does the trick, as well.
+//    So is it a problem with too short a DE, or is it a matter of
+//    e.g. the last segment drawn is setting new values that might only
+//    be *completely transmitted* after a full PWM cycle...
+//    So maybe somehow that last transaction is being interrupted
+//     by the TCCR1A settings, or new values...
+//    Plausible.
+//
+// FURTHER. Lest it be revisited. It was noted elsewhere that I thought
+// this display was NOT DE-Only. In fact, the datasheet specifically says
+// "DE-Only Mode"
+
+
+
+
+/*#define ROW_COMPLETION_DELAY \
+      (DOTS_TO_CYC(DE_ACTIVE_DOTS) -60  \
+       - WRITE_COLOR_CYCS * COLORS_WRITTEN)
+*/
+//I think -60 was an arbitrary value just chosen to compensate for
+//calculations/instructions...
+// -90 has been found to be right at the edge of the screen, now...
+// ish. maybe it's not accurate since delay_loop_2 is four instructions per
+// loop...?
+#if (!defined(LCDSTUFF_INCLUDE_NON_DE) || !LCDSTUFF_INCLUDE_NON_DE)
+ #define ROW_COMPLETION_DELAY \
+      (DOTS_TO_CYC(DE_ACTIVE_DOTS) - 90  \
+       - (WRITE_COLOR_CYCS + WRITE_COLOR_DELAY) * COLORS_WRITTEN)
+//#define ROW_COMPLETION_DELAY 512 //1 //65535//512
+
+
+
+
+//#error "should add SEG_STRETCH here..."
+ #if (ROW_COMPLETION_DELAY > 0)
+//      delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS) -60 // - 68)// - 60
+//            - WRITE_COLOR_CYCS*COLORS_WRITTEN);
+
+
+		delay_cyc(ROW_COMPLETION_DELAY);
+
+		
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+//      asm("nop;");
+      
+ #else
+  #warning "ROW_COMPLETION_DELAY <= 0, so not used."
+//#define ROW_COMPLETION_DELAY 0
+ #endif
+#else //LCDSTUFF_INCLUDE_NON_DE (Bitbanged MCK, usually)
+ #define ROW_COMPLETION_DOTS \
+		(DE_ACTIVE_DOTS - ((WRITE_COLOR_DOT_DELAY+1) * COLORS_WRITTEN))
+
+ #if (ROW_COMPLETION_DOTS > 0)
+		delay_Dots(ROW_COMPLETION_DOTS);
+ #elif (ROW_COMPLETION_DOTS < 0)
+  #warning "ROW_COMPLETION_DOTS < 0, so not used."
+ #endif
+#endif
+		//a/o v62: (Original notes removed)
+		//OCR1D controls RED... >=6 is full-red
+		// Setting this here indicates where the drawing has completed
+		// This is handy for determining timing, stretching, etc...
+		//OCR1D = 6; //0;
+		//fullRed();
+		// Now that we're using WHITE, use noRed instead
+		noRed();
+
+      //DE->Nada transition expects fullBlue...
+      //Also helps to show the edge of the DE timing...
+
+      //!!! Not sure what the state is at this point...
+      // could be any DE+Blue level, or could be NADA...
+      // Nada: DT1=3, still leaves one bit for clocking, might be OK
+         
+      //Among the things that don't make sense...
+      // This appears to go into affect BEFORE delay_cyc (?)
+      // as, without a pull-up resistor on the /OC1B output, 
+      // green seems to be floating between the last pixel and the
+      // delay_cyc (!)
+      //Disable complementary-output for Green 
+      //  (on /OC1B, where CLK is OC1B)
+      // Since Nada, V, and H DT's might be bad for clocking.
+//		TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
+//         | (1<<COM1B1) | (0<<COM1B0)
+//         | (1<<PWM1A) | (1<<PWM1B) );
+
+		lvds_disableGreen_MakeClockInsensitiveToDT();
+
+      //fullBlue();
+      //Nada_fromDEonly();
+		Nada_init();
+}
+
+
+
 
 
 
@@ -937,7 +1180,7 @@ __asm__ __volatile__
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/68-backToLTN/_options/writeColor.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/writeColor.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

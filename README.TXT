@@ -1,3 +1,41 @@
+This project's original aim was to drive an old laptop display directly
+from an AVR, to the fullest extent(s) possible.
+
+
+It has grown quite a bit since then.
+It now works with Numerous Displays, via configuration-options.
+It now works with both FPD-Link displays, as well as Parallel-interfaced.
+It's also the home of my "Mario Question Box" code... several of these
+boxes have been built, using different displays.
+(Hit the box, get a reward!)
+Quite a bit of limit-pushing has been done, much of which is
+display-specific... 
+(I mention in many places that the current state-of-the-art makes use of 
+ my high-resolution "row-segment-buffer", but that hasn't been the case in
+ quite some time. The "Question Box" uses a 16x16 frame-buffer, which works
+ with every display implemented so far.)
+Many other options have been created, including refreshes *only* when an
+image changes... At such slow bit-rates this makes for much
+smoother-looking images (using the TFTs' inherent memory to hold the image 
+until the next refresh).
+
+
+
+As-of 7-8-14: This and many other such files have not been updated for
+quite some time. Today I'm uploading v90 of the code. You'll see notes in
+this file referencing "now" as, e.g. v62. Yes, it's been a while, and there
+have been numerous significant changes since then, including quite a bit of
+new functionality, which kinda tends to burry the older functionality. 
+
+Basically: Start in mainConfig.h... This has (most) configuration options.
+           Start with "BLUE_TESTING" and "DE_BLUE"...
+			  FEEL FREE to email me with questions... it'll help me organize!
+
+
+
+------------------
+
+
 The original code-site for this code is located at:
 https://code.google.com/p/avr-lvds-lcd/
 
