@@ -11,9 +11,6 @@
 #ifndef __SONY_ACX705AKM_H__
 #define __SONY_ACX705AKM_H__
 
-//This is an attempt at moving calculations *before* Hsync, so as to work
-//with a non-DE display... had a *minor* effect...
-#define WC_SETUP TRUE
 //This is pretty much exclusively for bit-banged MCK on the 6bitParallel
 //interface...
 // bit-banged seems to have fixed the hsync-shift problem, but now the

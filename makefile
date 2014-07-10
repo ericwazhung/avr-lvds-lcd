@@ -659,7 +659,7 @@ include $(COMDIR)/_make/reallyCommon2.mk
 
 
 
-.mainConfig.preprocessed.mk: mainConfig.h
+.mainConfig.preprocessed.mk: mainConfig.h _config/*
 	@echo ""
 	@echo " #################################################################"
 	@echo " ## mainConfig.h has changed or otherwise needs to be processed ##"

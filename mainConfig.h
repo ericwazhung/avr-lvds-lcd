@@ -25,35 +25,7 @@
 //###   Note that other displays have not been   ###
 //###   tested recently, but should still work.  ###
 //##################################################
-#define SONY_TESTING TRUE
-
-#if(defined(SONY_TESTING) && SONY_TESTING)
-
- //So far, this is only implemented with the Sony parallel-LCD
- // It should be *really easy* to implement with other displays/interfaces
- // Just grep this.
- // If the display is partially covered by display-housing, then we'd like
- // to fit the frame-buffer into the *visible* portion
- // This'll likely be something *near* but *smaller than* DE_ACTIVE_DOTS
- //(This assumes the covered-up portion is at the right of the display)
- #define VISIBLE_ROW_DOTS	225
-
- //Override the default WHITE at the end of each row with BLACK...
- #define FB_END_OF_ROW_COLOR	_K
-
- //Later, maybe, _LCD_INTERFACE_CFILE should be handled in
- // _displays/sonyACX705AKM.h?
- // (Though, technically, the display *could* be interfaced via an FPD-Link
- //  receiver chip, using _interfaces/lvds.c... Unlikely, but maybe useful
- //  to keep these things separate for future displays/interfaces?)
- #define _LCD_SPECIFIC_HEADER_ "_displays/sonyACX705AKM.h"
- #define _LCD_INTERFACE_CFILE_ "_interfaces/6bitParallel.c"
-
- //Since the MISO pin is available for the heart, it's used instead of the
- //default assigned by the makefile
- #define _HEART_PINNUM_	PB1
- #define _HEART_PINPORT_	PORTB
-#endif	//SONY_TESTING
+#define SONY_TESTING_CONFIG TRUE
 
 
 
@@ -61,58 +33,24 @@
 
 
 
-//_LCD_SPECIFIC_HEADER_ is the header for the particular display being used
-// and handles Hsync/Vsync timing, etc.
-// It is #included in main.c, but defined here for configuration-purposes
-// If a specific header doesn't exist for your display, try looking into 
-// _displays/testDisplay.h...
-// CURRENTLY (a/o v80) most displays are using testDisplay.h (lvds)
-// Including the Samsung LTN display as well as the BOE Hydis display
-// (What about Chi Mei???)
-// And, actually, the addition of _LCD_SPECIFIC_HEADER_ comes *after*
-// working with the various displays, so it's no longer guaranteed to work
-// with them all...  TODO.
-
-//_LCD_INTERFACE_CFILE_ contains the initialization code for the display's
-// electrical-interface (generally LVDS/FPD-Link)
-// It handles initializing the pixel-clock timer, as well as setting 
-// port-directions, etc.
-// This is #included in main.c
-
-//GENERALLY:
-// These can be left undefined, as defaults are fine for most
-// displays I've worked with... see the DEFAULTS, below.
-// Though, if you need to change testDisplay.h for your own timings, it'd
-// be better to copy it and #define _LCD_SPECIFIC_HEADER_ as appropriate...
-
-//THESE ARE THE DEFAULTS FOR:
-// 1024x768 display via LVDS/FPD-Link Interface
-// To select another display/interface and override these defaults
-//  add your own #defines above
-#ifndef _LCD_SPECIFIC_HEADER_
- #define _LCD_SPECIFIC_HEADER_	"_displays/testDisplay.h"
-#endif
-#ifndef _LCD_INTERFACE_CFILE_
- #if (defined(__AVR_AT90PWM161__))
-  #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds161.c"
- #else	//Assumed ATtiny861:
-  #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds.c"
- #endif
-#endif //_LCD_INTERFACE_CFILE_ not previously defined
 
 
 
 
-//a/o v66:
+
 //This file is used for configuring the project at a high-level...
 // Most configuration-options are simplified, here, by uncommenting various
 // options.
 // The basic idea, with a new/untested display is:
-//   select BLUE_TESTING=TRUE (FRAMEBUFFER_TESTING=FALSE/commented-out)
-//   select DE_BLUE=TRUE (all remaining = FALSE/commented-out)
+//   in mainConfig.h: uncomment the line '#define BLUE_TESTING TRUE'
+//                    (make sure other _TESTINGs are commented-out)
+//   in _config/blueTesting.h: uncomment the line '#define DE_BLUE TRUE'
+//										 (all remaining = FALSE/commented-out)
+//
 //   If the display shows *anything* blue, then it's quite likely the
 //    display can be used with this system with a little tweaking of
-//    timing-values, etc.
+//    timing-values, etc. found in _displays/
+//
 //    If it shows completely blank (black or white) then you might be out 
 //    of luck with this particular display... or maybe there's an
 //    electrical or other problem (check those LVDS voltages)?
@@ -122,19 +60,19 @@
 //   Once DE_BLUE is working, comment it out, and select BLUE_VERT_BAR...
 //   Continue down the line...
 //
-//   Once all the "BLUE" tests are running (except maybe BLUE_ADC), 
+//   Once all the important "BLUE" tests are running 
 //    quite a bit can be done by just manipulating the "BLUE" code...
 //
 //   OR:
-//    comment-out BLUE_TESTING and select FRAMEBUFFER_TESTING
-//   So far, there's only one FB_xxx test (FB_QUESTION)
-//    Unfortunately, it's pretty complex as far as a starting-point.
-//    If that works, you can do quite a bit with the display, already, at
-//     low-resolution and basically the highest refresh-rate possible with
-//     this system.
-//    Other FB-based code exists, but hasn't been (re)implemented for use
-//     in mainConfig.h. e.g. smiley.c, tetStuff.c, lifeStuff.c,
-//     colorBarScroll.c (as I recall)
+//    in mainConfig.h: comment-out BLUE_TESTING 
+//                     and uncomment FRAMEBUFFER_TESTING
+//    and look into _config/frameBufferTesting.h
+//
+//   For higher resolution (at the cost of refresh-rate) look into
+//   "ROWBUFFER_TESTING" and "ROWSEGBUFFER_TESTING"
+//   (Note that these methods don't work with all displays)
+
+// OLD NOTES, need to be reorganized:
 //
 //    Also, RowBuffer code has not been (re)implemented in mainConfig.h
 //     This code works by calculating each row's pixel-data before drawing
@@ -166,61 +104,8 @@
 
 
 
-// a/o v80:
-// NOTE RE: BLUE TESTS:
-//
-// These tests were developed with displays which make use of the Data
-// Enable signal... These displays only draw data when DE is active, and
-// appear to be very flexible with regard to varying delays between each
-// row's Hsync and the corresponding Data Enable.
-// THUS: It has only now come to my attention (as-of experimenting with a
-// parallel-interfaced display *lacking* a Data-Enable signal)
-// Just How Varying these tests are with regards to timing.
-// 
-// Conclusion: This Project Works Well With Displays that have DE
-//   And not so well with those that rely on specific timing values.
-//
-// That'll likely change soon, since I want to get this Sony display
-// working...
-//
-// Additional Conclusion: DE-Displays seem to have a lot of flexibility
-// that's nice to work with, and lend themselves toward quite a bit more
-// hacking and limit-stretching.
-//
 
-
-
-// Again, start with BLUE_TESTING and DE_BLUE
-// The "BLUE" methods are simple enough they can be easily modified for
-// your own purposes.
-// Some other things to consider, for your own projects:
-//  (see lvds.c)
-//  Since there are, essentially, separate wires for "Red" and "Green",
-//  this system could be used purely for timing-purposes, using DE_BLUE,
-//  and the "Red" and "Green" signals could be controlled externally (e.g. 
-//  by analog-comparators, to create a dual-trace oscilloscope)
-//  Or, DE_BLUE could be modified with different color-values to turn the
-//  display into a color-filter for a stage-light... (or just hook the
-//  "red" and "green" signals to switches?)
-//  TODO: Add some color into the "BLUE" tests... before FRAMEBUFFER_TESTs
-
-
-
-// Latest Version is v66... 
-// (HAH, now we're at v90!)
-
-// Various notes exist from previous versions, and may be outdated...
-// This file (like all, here) could stand to be reorganized.
-
-
-// v66: Adding implementation notes to most files...
-//      (Probably forgot quite a bit inbetween)
-// v61: Significant cleanup, Experimenting with colors, etc...
-//      notes labelled "a/o v61"
-// v59: in which I'm adding a lot of notes re: defines, etc... 
-//      labelled "a/o v59"
-
-
+//#### IGNORE THESE NOTES, THEY NEED TO BE UPDATED  ####
 //THIS IS OLD... Actually RSB hasn't been implemented for a while...
 // I've gone back to frame-buffer for most new development, as it works on
 // nearly all displays without a hitch.
@@ -241,38 +126,101 @@
 //  the resolution).
 //  In both cases (RowBuffer *and* RowSegBuffer) use function-calls to
 //  write the values, rather than writing to the arrays directly.
+//#### TO HERE ####
 
 
 
 
-//This is for testing a new (unimplemented) chip
+
+
+
+
+
+//####################################################################
+//###  Uncomment ONE xxx_TESTING option below                      ###
+//###  And view its corresponding configuration file in _config/   ###
+//####################################################################
+
+
+
+
+//PWM_TESTING is for testing a new (unimplemented) chip
 // could also be useful for testing an implemented chip, since we're really
 // pushing the chip's limits...
 //For now, this just sets a specific and unchanging PWM signal, for
 //'scoping.
+//(This test probably needn't be run, in most cases)
 //#define PWM_TESTING	TRUE
 
 
 
 
 
-
-//START HERE. 
-//Set this true, then see the explanations below.
+//1) Set this true, then see _config/blueTesting.h
+//BLUE_TESTING is pretty much the simplest signal that can be sent, so it's
+//likely to work with a display, if the display is capable of being
+//worked-with. START HERE.
 //#define BLUE_TESTING	TRUE
 
-//Later, comment-out the above, and try this one...
+
+
+//2) Later, comment-out the above, and try this one, and see
+//_config/frameBufferTesting.h
+//If BLUE_TESTING works, then FRAMEBUFFER_TESTING likely will, as well...
+//This gives a (usually) 16x16 framebuffer stretched across the entire
+//screen.
 #define FRAMEBUFFER_TESTING	TRUE
 
+
+
+//3) OPTIONAL
+// RowBuffer takes the same 16x16=256 memory-locations and applies them to
+// *each row* on the display, dramatically increasing resolution at the
+// cost of refresh-rate and compatibility (some displays can't handle the
+// nasty timing-signals created by this method).
 //a/0 v70:
 // RowBuffer hasn't been implemented in some time...
 // Time to do it!
 //#define ROWBUFFER_TESTING	TRUE
 
-//a/0 v70+
-// This used to be the else-case, but now it's explicit...
+
+//4) OPTIONAL
+// RowSegBuffer uses a similar method as RowBuffer to increase resolution
+// and extend the memory as far as possible. 
+// At the highest-resolution (slowest refresh-rate) e.g. a rowSegment can 
+// start at any column (of ~680 stretched across a 1024x768 display) and 
+// end at any column... but the number of such segments is limited by
+// memory, to around 200.
+// Each row, on the display, is handled this way, so the smallest "pixel"
+// that can be resolved as a different color from its surrounding pixels
+// is 1/680th of a screen-width, and 1/768th of a screen-height.
+//a/o v90, rowSegBuffer has yet to be tested on any display other than the
+//Samsung LTN, and it's been quite a while...
 //#define ROWSEGBUFFER_TESTING TRUE
 
+
+
+
+
+
+
+
+
+
+
+
+
+//#########################################################################
+//### Pretty much everything from here down can be ignored...
+//### (And could *really* stand to be cleaned up a bit)
+//### But don't forget to look into the selected _config/...Testing.h file.
+//#########################################################################
+
+
+
+
+
+//Old note left here for my TODO: Check this note's continued relevence...
 //a/o v69:
 //Comment them both (and PWM_TESTING) out for SEG_whatevers...
 // This should probably become SEG_TESTING or something.
@@ -281,797 +229,69 @@
 
 
 
+
+
+
+
+
+
+
+
+#if(defined(BLUE_TESTING) && BLUE_TESTING)
+#include "_config/blueTesting.h"
+#elif(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+#include "_config/frameBufferTesting.h"
+#elif(defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING)
+#include "_config/rowBufferTesting.h"
+#elif(defined(ROWSEGBUFFER_TESTING) && ROWSEGBUFFER_TESTING)
+#include "_config/rowSegBufferTesting.h"
+#elif(defined(PWM_TESTING) && PWM_TESTING)
+ //Nothing to do here... but we need the else-case...
+#else
+ #error "Must select an xxx_TESTING option"
+#endif
+
+
+
+
+
+
+
+
 //These are defaults that will probably be overridden in the corresponding
 //_TESTING tests, below.
 //TODO: This should probably be changed such that ROW_SEG_BUFFER is only
 //paid attention to when it's TRUE... as it stands (a/o v67) it must be
 //explicitly either TRUE or FALSE...
+#ifndef ROW_SEG_BUFFER
 #define ROW_SEG_BUFFER FALSE
+#endif
 //This'll probably get changed during testing...
+#ifndef LVDS_PRESCALER
 #define LVDS_PRESCALER 1
+#endif
 //This needs to be TRUE for LVDS_PRESCALER == 1
+#ifndef LVDS_PRESCALER_ERROR_OVERRIDE
 #define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
+#endif
 
 
 
 
 
-
-
+/*
 #if (defined(BLUE_TESTING) && BLUE_TESTING)
-
-//These strip it down to basically the bare-minimum for the highest
-//refresh-rate and bit-rate possible with this system... 
-//Just ignore these for now.
-#define EXTERNAL_DRAWPIX	TRUE
-#define ROW_SEG_BUFFER FALSE
-#define LVDS_PRESCALER 1
-#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
-#define ROW_CALCULATION_CYCS 0
-
-//START HERE (continued):
-//When starting with a new (untested) display, you're best-off starting
-//with one of these "BLUE" options
-// Benefits are many. As I recall, they assure proper timing
-// (Porch-widths, etc. as-configured) since no calculations are done 
-// off-display.
-//
-// Additionally, since there's so little calculation being done, period,
-// these tests give kind-of a go-nogo as to whether a display can sync with
-// the maximum bit-rate and/or refresh-rate this system can provide (being
-// that this system's maximum is probably far-below the display's specs).
-//
-// These may be better-described in lcdStuff.c
-//
-// When starting with a new display, probably best to try each of these in
-// order... uncomment DE_BLUE, flash-it, try it... if it works, then
-// comment it back out, and uncomment BLUE_VERT_BAR, and so-on.
-//
-//(In these tests, in LCDdirectLVDS, "blue" is actually more of a
-// cyan/blue-green. I can't recall the exact details (they're documented
-// somewhere) but I think I decided at one point to display green as an
-// indicator after an entire row's pixels is completely drawn, in case I
-// happened to be writing fewer pixels than the display expects, I'd
-// know by seeing green... I think that code is carrying-over into these
-// "older" tests. Or else I have a bug somewhere. Oh, and where it shows
-// green, code-wise it would be "black.")
-//
-// Note that the timing-values are *not* exact, there's a bit more
-// explanation in BLUE_BORDER, below... So, if you have trouble, maybe try
-// fudging some timing-values...
-//
-// DE_BLUE displays solid blue on the screen
-// This gives a pretty good idea whether the display is even capable of
-// syncing. If you see *any* solid blue, (offset, or otherwise) then it's
-// quite likely this display can be synced with a little experimentation.
-// If it's solid ble and nothing else, then you lucked out!
-//#define DE_BLUE TRUE
-
-// BLUE_VERT_BAR, BLUE_VERT_BAR_REVERSED, and BLUE_BORDER display "black" (or green) and "blue" in vertical columns... 
-// Again, a good test for the display's ability to sync
-// If you want to lose hope, read this: It's quite plausible that the
-// display may just be repeating one row's data, rather than actually
-// paying attention to each (identical) row's data... So cross your fingers
-// when you move on to BLUE_DIAG_BAR
-// These two display one column in blue and another in "black"
-//#define BLUE_VERT_BAR TRUE
-
-//This one makes more sense... it draws a blue bar roughly 1/3rd of the
-//screen-width at the left-edge...
-//#define BLUE_VERT_BAR_REVERSED TRUE
-
-// 
-// BLUE_BORDER takes a value and draws (roughly) a vertical border on each
-// side that number of pixels-wide. 
-// Note, at small blue-borders it may be visible that the right edge is cut
-// short due to integer-rounding, delay-loops, etc...
-// (Note that this also means that DE may actually be active for longer
-// than 1024 pixel-clocks! These tests are pretty simple, using simple
-// delay-counter-loops which aren't *extremely* precise. In most cases
-// they'll *increase* the DE-width, so if your display is having trouble
-// syncing with values you're pretty sure should work, try decreasing the
-// values in this project... e.g. DE_ACTIVE_DOTS on a 1024x768 display
-// *should be* 1024, but with these delays you might have better luck with
-// 1000... I've yet to run into such a display, but they might exist. Also,
-// if it's *way* longer than the display's expecting, I've noticed that
-// some displays continue onto the next line, or even repeat the previous
-// line... weird.).
-//
-// Also, an odd experience: reflashing from 10 to 341 led to no syncing at
-// all, until powered-down and powered-up. Dunno, maybe the MISO/MOSI pins
-// were sending stray data to the display which confused it.
-//#define BLUE_BORDER (DE_ACTIVE_DOTS/4) //341//10//20
-
-
-
-// BLUE_DIAG_BAR displays two triangles, essentially, of blue, and black.
-// This is where things get iffy... I've seen some amazingly weird
-// patterns with this one; one time I swear ancient egyptians were trying
-// to communicate through time by transmitting their heiroglyphs to my
-// display. Really, it's just supposed to be the screen divided diagonally
-// from upper-right to lower-left (roughly) the top half "black" and the 
-// bottom-half "blue".
-// a/o v80: Top-half and bottom-half have been flipped, so the actual
-// data-starting-point can be seen for syncing. (top half is blue)
-//Now for the moment of truth for my ChiMei display:
-// Worked on the First Go!
-// And no visible refresh?! Wow!
-// a/o v80: (for parallel-interfaced display with no DE signal)
-//  NOTE that BLUE_DIAG_BAR takes a few more instructions than the previous
-//  tests... so there may be a greater shift. Displays which have a DE
-//  signal (e.g. every FPD-Link display I've run into) this doesn't matter,
-//  since the data doesn't start displaying until DE is active (regardless
-//  of whether the delay between the Hsync and DE varies). But the Sony
-//  display, for example, relies on a specific number of dot-clocks between
-//  the Hsync and the actual display of data, so... hmmm...
-//#define BLUE_DIAG_BAR TRUE
-
-//A new test (for this refreshless display)
-// BLUE_DIAG_BAR_SCROLL just takes the above idea, and scrolls it
-// vertically, one row at a time.
-// 
-// Amazing... no visible refresh *at all*, also lines seem highly precise,
-// resolution-wise... almost shockingly-so... TODO revisit this math!
-// The entire diagonal pattern cycles at 1:04, it's 1024 pixels tall
-// that's a refresh-rate of... 64seconds for 1024 refreshes, or dang-near
-// exactly 16Hz refresh.
-// Really, this all seems too good to be true. 
-#define BLUE_DIAG_BAR_SCROLL TRUE
-
-
-//Another new test
-// BLUE_DIAG_SCROLL_FLASH takes the above idea and alternates the colors in
-// each frame... Another good visual test for refresh-rate and method.
-// Also, this'll probably cause seizures, so be warned.
-// On this "refreshless" display, it causes some pretty interesting
-// illusions... while the image itself is scrolling up, peripheral-vision
-// seems to think it's it's scrolling down. Totally unintentional, just an
-// interesting observation.
-//#define BLUE_DIAG_SCROLL_FLASH TRUE
-//This just disables flashing, and alternates rows, instead...
-// probably mostly-useless. It should be enabled *with*
-// BLUE_DIAG_SCROLL_FLASH
-//#define BDSF_ALTERNATE_ROWS TRUE
-
-
-//New a/o pwm161 (v67):
-// BLUE_AND_COLORS does quick-testing for the other colors as well
-// It should display black, red, blue, and cyan in diagonal "bars"
-// I should probably move its code to _commonCode.../lcdStuff
-// but for now it's in main.c
-// THIS HAS NOT BEEN TESTED on the Tiny861, but should be implemented...
-//a/o v80: This displays ONLY BLACK on the Sony parallel-interfaced
-//display, likely due to the number of calculations necessary before the
-//drawing is started. 
-//#define BLUE_AND_COLORS	TRUE
-
-#if(defined(BLUE_AND_COLORS) && BLUE_AND_COLORS)
- #undef EXTERNAL_DRAWPIX
-#endif
-
-//New a/o pwm161 (v67):
-// BLUE_ALLSHADES fades from black to bright blue...
-// THIS DOES NOT WORK with the Tiny861
-//a/o v80: It likely won't work with parallel-interfaced displays, either.
-//#define BLUE_ALLSHADES	TRUE
-
-//ALLSHADES_GRADIENT shows the BLUE_ALLSHADES as a gradient
-// (BLUE_ALLSHADES should also be TRUE, to use ALLSHADES_GRADIENT)
-//It doesn't work! Does something *really* weird
-// Not sure what's going on... maybe the bits are misaligned...?
-// except, that BLUE_ALLSHADES seems to work right....
-// Could have to do with DelayDots() being too long...?
-// Also, maybe, consider the fact that having a white border seemed to help
-// syncing in much older versions...
-// I've tried *numerous* different ways, and it just ain't woikin.
-// Also plausible... Maybe One-Ramp-Mode doesn't actually pay attention to
-// 2RB, explicitly... in which case, switching things 'round might cause
-// the clock signal to be distorted...
-// That seems to be it... or close, anyways. Now it works.
-// (by disabling the shades that require wrap-around)
-// So we're left with essentially four discernable shades, 
-// which is one more than the Tiny861, Woot!
-#define ALLSHADES_GRADIENT TRUE
-//ALLSHADES_AND_COLORS adds Red, Green, and Yellow horizontal bars
-// to ALLSHADES_GRADIENT (which must be true, for this to also be)
-//The name's a bit misleading, it's not "All Shades-and-colors" it's 
-// "All-Shades and colors"
-#define ALLSHADES_AND_COLORS	TRUE
-
-#if(defined(BLUE_ALLSHADES) && BLUE_ALLSHADES)
- #undef EXTERNAL_DRAWPIX
- #ifndef __AVR_AT90PWM161__
-  #error "BLUE_ALLSHADES only works with the AT90PWM161, so far..."
- #endif
-#endif
-
-
-//Yet Another New Test (prior to v67)
-// BLUE_ADC reads the ADC value before drawing each row...
-// The value read determines the horizontal position of the color-change
-// thus, it's a very simple Oscilloscope!
-//This is pretty much identical to most of the BLUE_TESTING in lcdStuff.c
-// but, it throws some stuff before DEonly, which means that the
-// horizontal-back-porch is extended during this calculation/measurement
-// time... The amount may vary, so if the display requires a stable HFP,
-// then this may cause syncing problems. Further, the delayDots function is
-// really best-optimized to non-varying values, so it may cause DE to be
-// extended longer than in previous tests. (Wait, DIAG_BAR is varying...)
-// TODO: Consider creating a specific test for a display's immunity to 
-//   varying porch-times...? (This is kinda hokey to implement, because
-//   some displays seem more/less immune depending on the particular
-//   refresh-rate, etc.)
-// Interestingly, the ChiMei display seems to sync almost perfectly despite
-// this varying HFP, etc. but has an *audible* squeel (power-switching
-// circuitry?). The LTD display does not appear to respond to this at all.
-// it shows an unchanging solid vertical bar
-// TODO: Look into this!
-
-
-//This is specific to LCDdirectLVDS... only because I've already
-//implemented the adc here. It could be handy as a test in lcdStuff, in
-//general.
-//
-// Also, Have thought about using the analog-comparator, instead... the
-// benefit being that its interrupt could be used to trigger color-change,
-// which would leave the processor *free* during the DE-Active time
-//Again, its functionality is somewhat limited, one display doesn't like
-//it at all, and the other quite literally squeels.
-
-//THIS HAS NOT BEEN TESTED AT ALL with the PWM161
-//#define BLUE_ADC	TRUE
-
-#if(defined(BLUE_ADC) && BLUE_ADC)
- #undef EXTERNAL_DRAWPIX
- #define USE_ADC TRUE
-#endif
-
-
-// If you've gotten it going with all the above tests, then you're well on
-// your way to doing some pretty groovy things. 
-// Check out lcdStuff.c and create your own "drawPix" functions based on
-// those in lcdStuff, or try commenting-out BLUE_TESTING, at the top of
-// this file and continue below.
-
-
-
+ //It's all been moved to _config/blueTesting.h...
 #elif (defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
-
-
-//This is just for generalizing things here...
-// it might make more sense to put something like this in heartbeat
-// since it's the easy way to get a timer going, using two common methods
-#if(defined(_HEART_DMS_) && _HEART_DMS_)
- #define MAIN_MS	DMS_MS
-#elif(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
- #define MAIN_MS	TCNTER_MS
-#else
-// #error "This error only applies to those that use DMS_MS, or TCNTER_MS, it can probably be deleted. (e.g. frameBuffer.c with REFRESH_ON_CHANGE)"
-#endif
-
-
-//If FB_REFRESH_ON_CHANGE is TRUE, only refresh the LCD when there's a
-//change in the image... It works well, but on single-refresh changes, some
-//displays leave a ghost of the prior image. Thus, it's been designed to do
-//*two* refreshes upon each change, which is nice... but it's not
-//sophisticated enough to recognize when an image is about to change again,
-//in which case it shouldn't need to refresh-twice if, e.g. the image is
-//alternating (like the Star)
-// In other words, it's kinda seizure-inducing.
-// In another design, with only a seldom-changing image, it'd be sweet.
-//This is loosely derived from _unusedIdeas/frameCountToDelay.c
-//If it's NOT TRUE, then the LCD refreshes occur back-to-back regardless of
-//changes in the image
-//NOTE: If this is enabled, and you write your own code, you must keep in
-//mind that the TFT will eventually fade unless refreshed...
-// It's also not particularly smooth, not sure why exactly.
-// (e.g. sometimes it updates quicker than others... dms problem?)
-//NOTE 2: If an image is left for too long, apparently it sticks a bit...
-// e.g. running Smiley for a while, then running Question, the outline of
-// the smiley-face can be seen in solid-color images...
-// This might be hard on the pixels, I dunno.
-//THIS REQUIRES DMS_TIMER (as-implemented)
-// which is not available on ATTiny861, probably only due to
-// space-limitations... It could probably be re-added in the makefile...
-// I think we're there...
-//#if (defined(__AVR_AT90PWM161__))
-
-
-//WITHOUT FB_REFRESH_ON_CHANGE, if the framebuffer-updater function (e.g.
-//tet_update() takes too long, there's nothing can be done to avoid the
-//image's being only partially-written in the middle of a refresh.
-// This *despite* the fact, the framebuffer-updater function is only called
-// at the end of a frame.
-//
-// Alternatively (to avoid partial framebuffer refreshes) set this TRUE and
-// set REFRESH_ON_CHANGE_COUNT 1 and REFRESH_ON_CHANGE_DELAY = 0
-// it should be roughly the same, but slightly slower because it pauses
-// refresh until after the framebuffer-updater function completes.
-//COMMENT OR UNCOMMENT AS DESIRED:
-#define FB_REFRESH_ON_CHANGE TRUE
-
-
-
-
-//Number of screen refreshes to perform whenever the framebuffer changes
-// (1 usually leaves some ghosting, 2 usually clears that up)
-#if(!defined(SONY_TESTING) || !SONY_TESTING)
- #define FB_REFRESH_ON_CHANGE_COUNT	2
-#else
-//Experiments for the sony parallel-bitbanged LCD...
-//#define FB_REFRESH_ON_CHANGE_COUNT	4
- #define FB_REFRESH_ON_CHANGE_COUNT	1
-#endif
-
-//After the screen refresh(es) complete, wait this long before calling the
-//framebuffer-updater function (e.g. tet_update, or question_update)
-// which calculates a new frame image (which may be different from the
-// current one)
-
-
-
-//This value was last-used
-  #define FB_REFRESH_ON_CHANGE_DELAY	(100*MAIN_MS) //(0*DMS_MS)
- //#define FB_REFRESH_ON_CHANGE_DELAY	(1*MAIN_MS) //*MAIN_MS) //(0*DMS_MS)
-
-
-// TODO:
-// using various settings (currently COUNT=2, DELAY=1)
-// it's quite probable that a changing-image will cause fb_updater to be
-// called less-often than an unchanging image...
-// e.g. if a mushroom is shown, and expected to remain in place for 5
-// fb_question_update() calls, it will go *much quicker* than 5
-// fb_question_update() calls that result in a scrolling image.
-// Not sure what to do to stabilize this, off hand... 
-// That particular example isn't such a big deal, but consider the case
-// where the question-box scrolls down once every 3 updates, but the coin
-// rotates once every 2 updates, then the motion of the coin and scrolling
-// occurs at a spurradic rate, and once the coin is alone, it rotates
-// faster than it did while scrolling.
-
-//PARTIAL_REFRESH (currently only works with fb_question)
-// causes the screen to only refresh down to the lowest line that changed
-// in the last framebuffer update
-// CURRENTLY it does NOT work with FB_REFRESH_ON_CHANGE_COUNT > 1
-// because having the partial-refreshes back-to-back causes the screen to
-// think it's a continuation of the previous (unfinished) refresh
-// Likewise, if the frame-updates come too quickly, the same can happen
-// The effect is odd, it actually partially-refreshes at the top, as
-// expected, but *also* loads the same data lower down the display.
-// So, if that happens, try bumping up FB_REFRESH_ON_CHANGE_DELAY
-//
-// For this to be useful it needs some other features...
-// TODO:
-// e.g. it should definitely be able to double-refresh to reduce ghosting
-// when transitioning to a stationary image (e.g. a mushroom)
-// double-refresh + partial-refresh might get hokey, as described above
-// Something about inserting a delay... but then what's the benefit if not
-// to refresh faster...?
-// (check out stopRefreshAtRow in _options/frameBuffer.c, re: +2)
-// Something about memory for the last-refresh...? (double should fix that)
-// Something about how non-double-refresh is kinda nice for some things,
-// e.g. the rotating coin, ghosting looks like motion-blur
-// 
-//#define PARTIAL_REFRESH	TRUE
-
-#if(defined(PARTIAL_REFRESH) && PARTIAL_REFRESH)
- #define FB_REFRESH_ON_CHANGE_COUNT 1
- #define FB_REFRESH_ON_CHANGE_DELAY (200*MAIN_MS)
-#endif
-
-//#endif	//PWM161
-
-//a/o v62:
-//Not sure why this isn't working in this case...
-//Some rows "wobble" with this TRUE... it looks better if this is FALSE...
-// (Still jitters, but less noticeable)
-// Is this a ChiMei thing, or bad math somewhere...?
-//#define ALIGN_TIMER_WITH_PIXCLK FALSE
-
-//My delay-loop should be more precise *when its argument is constant*
-// Here it's used for stretching the framebuffer pixels horizontally
-#define DELAY_CYC_DELAY_LOOP FALSE
-
-#define LVDS_PRESCALER 1
-#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
-#define ROW_CALCULATION_CYCS 0
-#define ROW_BUFFER FALSE
-#define ROW_SEG_BUFFER FALSE
-
-
-//Loads a stationary smiley-face image into the frame-buffer and display it
-//#define FB_SMILEY	TRUE
-
-
-//Loads the frameBuffer equivalent of SEG_QUESTION (see description, below)
-// Note there are several options for testing in fb_question.c
-// It's entirely plausible I might've left one enabled that shouldn't be...
-// e.g. "AUTO_HIT" or random-override...
-#define FB_QUESTION	TRUE
-
-
-#if(defined(FB_QUESTION) && FB_QUESTION)
- #undef ALIGN_TIMER_WITH_PIXCLK
- #define ALIGN_TIMER_WITH_PIXCLK TRUE
-
- //If you're using a piezo-element for a hit-detector, then uncomment this:
- //(Hasn't been fully reimplemented, it may or may not work)
- //#define PIEZO_HIT_DETECTION TRUE
- #if(defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
- #define USE_ADC TRUE
- #endif
- 
- //BUMP_SWITCH was a method for detecting a bump via, literally, a
- //conductive-ball inside a cage made up of conductive pins... the ball
- //would rest shorting out two contacts, then when bumped the ball would
- //momentarily break contact. The idea's sound, but the conductivity was
- //hokey. The end-result is that instead of detecting whether a pin is
- //pulled-low or released-from-being-pulled-low, it would detect whether
- //there was *any change* (in case, for instance, the ball somehow landed
- //where it *didn't* make contact, but bumping it caused it to do so 
- //briefly)... The end-result is that this same code can be used with a
- //regular switch just as easily, and might well become the default rather
- //than just detecting for a low.
- #define BUMP_SWITCH	TRUE
-
- //AUTO_HIT is mostly for debugging, but also makes it useful when there's
- //no button...
- //#define AUTO_HIT TRUE
-#endif
-
-//a/o v69:
-//Tetris hasn't been used since the ol' "SEG_TET" days long ago...
-// But originally it was written for the frame-buffer
-// and then it was modified for the row-buffer
-// and finally it was modified again for the row-seg-buffer
-//So trying to make it more flexible, again...
-//#define FB_TETRIS	TRUE
-
-
-//also a/o v69... much later:
-//HexColor hasn't been used for a while, either...
-// Let's get-er-done
-//HexColor merely shows the hex-value of a framebuffer color in that color
-// Each color is represented by an 8-bit value, of which only 6 correspond
-// to the color. Bits 5:4 = Blue, 3:2 = Green, 1:0 = Red
-// Technically bits 7:6 represent an alpha-value (or translucency), but
-// that's not well-implemented... anywhere (maybe in FB_SMILEY)
-// On the Tiny861 blue only has 3 separate shades, rather than 4... so the
-// total number of colors is 48 (rather than 64)
-// And I often forget how that's implemented (is 0x20 == 0x30 or 0x10,
-// or...? This can help sort that out.
-// On the PWM161 we have 64 colors! That's right!
-// (If you're really keen on colors, there're some experimental code files
-//  burried in here regarding how to squeeze more out of the system...
-//  they're not very well implemented, if at all.
-//  One *really easy* method is to just stick with the 64 colors already 
-//  available, and alternate the rows between nearby colors to "dither."
-//  Another method is electrical: invert the FPD-Link output signals to get
-//  different color-palettes... etc. This method, and many others, generate
-//  very specific color-palettes but have a nice gradient-effect. E.G. a
-//  lot of browns/tans/coppers with inverted Red/Green signals.)
-// By default, the 64/48 color palette shown here stretches pretty evenly
-// across the spectrum from black to white.
-//#define FB_HEXCOLOR TRUE
-
-
-
-
-
+ //It's all been moved to _config/frameBufferTesting.h...
 #elif (defined(PWM_TESTING) && PWM_TESTING)
-
-
-
+ //Nothing Necessary, here...
 #elif (defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING)
-//The row-buffer method increases the resolution dramatically, when
-//compared to the frame-buffer method... all that memory which was used for
-//a 2D image can now be dedicated to a single row! (e.g. a 16x16 frame
-//buffer method requires 256 Bytes of RAM, a 24x24 frame buffer requires
-//576 bytes (more than the ATTiny861 has available).
-//
-//Instead, calculate each row immediately before drawing it (during the
-//LCD's "Horizontal Front Porch").
-// Thus, that i.e. 576 bytes originally used for an entire frame can now be
-// dedicated to each row. Further, since each row on the display itself has
-// to be drawn individually, it can increase the vertical resolution to 
-// that of the display (768, in my case).
-//
-//The "row-buffer" method is somewhat poorly-named.
-// It might be more appropriate to call it a "row-settings buffer", or
-// something similar, as each byte is not an RGB color-value (as in frame
-// buffer) but a packed representation of the actual register-values that
-// generate the desired color. This reduces calculations during the actual
-// row-drawing process, allowing the fewest number of calculations per
-// "pixel" by pushing the vast majority of calculations *before* the 
-// drawing process.
-// Fewer calculations per pixel => skinnier pixels => more pixels can be
-// squished in horizontally.
-// 
-//BUT: Since this requires recalculating *each row* *each time it's drawn*
-// we start to run into various limitations:
-//   The refresh-rate is limited by all that calculation time.
-//   Some displays will not sync with long delays between rows.
-//   Some displays seem to require *stable* delays between rows
-//      so even if some rows require very few cycles to calculate, the
-//      delay between each row needs to be kept somewhat constant
-//      (time for another timer and/or repurpose of the hsync timer?)
-//      Further, visually it's more comfortable (?) if the refresh doesn't 
-//      vary in speed on each row (due to varying calculation times).
-//
-//As it stands, only the LTN display has been tested with the row-buffer
-// It has been found quite stable. The Chi Mei display was tested with the
-// Row-Segment-Buffer, and found incompatible, so likely would be with the
-// row-buffer as well. Though further experimenting would be worthwhile,
-// that display has since been made-use-of rather permanently.
-
-//So, where's this leave us...?
-// The resolution, using row-buffer, is not as much limited by memory, as
-// it is by the actual number of cpu instructions necessary to load the
-// registers from the packed data vs. the display's pixel-clock (the LVDS
-// prescaler). There are various ways to optimize it based on needs: e.g.
-// with the PWM161's 1K of RAM, value-packing may not be necessary, then
-// unpacking isn't either, making each pixel require even fewer CPU
-// cycles. But doing so requires three bytes per pixel (three times the
-// memory!)
-//
-// FOR NOW: value-packing is de-facto, as this was developed with only 512B
-// of RAM.
-//
-// Also, changing the lvds-prescaler could increase resolution at the cost
-// of refresh-speed, if the display can handle slower rates.
-// 
-//
-//a/o v70, the rowBuffer hasn't been implemented for quite some time, and
-//not at all on the PWM161, so there's some work ahead.
-// Getting there...
-//
-//More contemplations:
-// If a project is designed with drawRow() functions, rather than
-// drawFrame, it's easy enough to port either way, as can be seen in
-// tetStuff, etc.
-// e.g. a drawRow function might contain:
-//   void drawRow(uint16_t rowNum, uint8_t *rowBuffer) {
-//     for(i=0; i<ROW_WIDTH; i++) rowBuffer[i] = _W; // (white)
-//   }
-//
-// using frameBuffer is as simple as having a function to loop through all
-// the rows calling drawRow as:
-//    drawRow(rowNum, frameBuffer[rowNum])
-// Note that frameBuffer is two dimensional, but given to drawRow with a
-// specific row-index, so appears to drawRow as a rowBuffer.
-//
-// The only other change is to set rowBuffer[i] = fb_to_rb(_W);
-//   instead of merely rowBuffer[i] = _W;
-//
-// fb_to_rb converts a frameBuffer color value (RGB) to a packed byte to
-// store in the row(settings)buffer
-//
-//
-
-
-#define ROW_BUFFER TRUE
-
-//These can be varied for testing...
-#define LVDS_PRESCALER 1
-#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
-
-//Interesting... this seems to be problematic now.
-#define ROW_CALCULATION_CYCS 0 //4000
-
-//Try out the 
-
-
-
-
-//#else	//NOT BLUE_TESTING, FRAMEBUFFER_TESTING, or PWM_TESTING
-		//(SEG_Whatevers)
+ //Moved to _config/rowBufferTesting.h... it's not well-implemented.
 #elif(defined(ROWSEGBUFFER_TESTING) && ROWSEGBUFFER_TESTING)
-#define ROW_SEG_BUFFER TRUE
-//Re the next two settings: (a/o v62)
-//This is a quick-attempt at getting the ChiMei display working with
-//SEG_Watevers, below...
-//The ChiMei display seems to need higher bit-rates than the other display,
-//so remove the prescaler...
-#define LVDS_PRESCALER 1
-//Some math relies on a higher LVDS_PRESCALER value... There's an #error
-//regarding this, but it can be ignored in some cases... 
-// so let's ignore it.
-#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
-#define ROW_CALCULATION_CYCS 0
-
-//From here-on I've done a ton of development with a particular display 
-// which seemed particularly-forgiving of things like DE-Active for way 
-// longer (or shorter) than expected... Further, it was more than happy 
-// refreshing all the way down to 1/5th of a Hz. Yes, that's 5 seconds 
-// to refresh the entire display. This is nice for high-resolution, but 
-// also it's quite probable that most displays can't handle these sorts of
-// refreshes. (This is part of why I've put off the ChiMei display for so 
-// long, though have been pleasantly surprised with it since I 
-// reimplemented the BLUE_TESTs to get it going.
-
-// Realistically, there's a significant bit that's been removed inbetween
-// the BLUE_TESTING and the SEG_whatevers below...
-// (With regards to the original tests with the LTN display)
-// These tests have been removed, but I might need to rethink them for this
-// ChiMei display, which worked fine with all the BLUE_TESTs but not yet
-// with the SEG_Whatevers, below...
-// * A *tiny* frame-buffer (16pixels x 16pixels stretched across the LCD)
-//   (Nice for early testing, because it doesn't require much processing
-//    and therefore doesn't interfere with timing)
-// * A *similarly tiny* row-buffer (Calculations and/or loading from 
-//    program-space are done during the Horizontal Front Porch, but if they
-//    take longer than the HFP, some displays might not be happy)
-//
-// And then, here, these "SEG_whatevers" basically do *all* the
-// calculations (and a lot of them) during the HFP, almost always causing
-// the HFP to actually be *longer* than the actual time it takes to display
-// a single row (the DE-Active time).
-
-
-//CONFIGURATION:
-
-//Only one of the following SEG_whatevers should be TRUE
-// (Assuming we're using the Row-Segment-Buffer, as explained above).
-//  HAH !!! I SEEM TO HAVE LOST THAT EXPLANATION A/O v62!!! TODO TODO TODO
-// IF NONE ARE TRUE:
-//  The default is to convert whatever's in the row-buffer into 
-//  the row-segment-buffer...
-//  This is where my old-code starts getting iffy, as the row-buffer hasn't
-//  been used (exclusively) for quite some time.
-// a/o v61: I think it's the case that an error will be generated if none
-//  of the SEG_whatevers are true. Further, as noted above, now the 
-//  row-buffer translation into the RowSegBuffer has been tested...
-//  See "SEG_TET" (and loadRow()) for examples.
-// Best to stick with assigning one of these SEG_xxx things true.
-// NUM_SEGMENTS and ROW_CALCULATION_CYCS:
-//  These values are overrides for the default, and are mostly for testing-
-//  purposes... e.g. in SEG_LINE ROW_CALCULATION_CYCS is 0... this does NOT
-//  mean that SEG_LINE mysteriously creates the next row's data without
-//  using any processor cycles. It does *not* affect how many cycles the
-//  row-calculation takes. For now, it's just a number that affects
-//  display timing a little bit... read more about it and NUM_SEGMENTS 
-//  elsewhere before changing these overrides.
-
-//Draws a diagonal white line on a red background...
-// I think it's supposed to repeat three times and not fill the entire
-// screen... though it's been a long time since I've used this.
-#define SEG_LINE TRUE
-
-#if(defined(SEG_LINE) && SEG_LINE)
-
-#define ROW_CALCULATION_CYCS 0UL //200000//(8*DISPLAY_CYC_COUNT)//(1024*8) //0UL //40000UL
-#endif
-
-
-//A very nice test-pattern... shows a sine-wave, the under-side of which
-// is horizontal color-bars, above it is vertical color-bars. 
-// Above that is two lines of text, showing all available characters
-// And above that is color-patterns using up the remaining Row-Segments
-// This is meant to be rotated 90-degrees
-// Like SEG_HFM, it might be handy to adjust NUM_SEGMENTS for experimenting
-// Note that color-segments which are too long to be stored in a single
-// row-segment are automatically put into the next.
-// And that existing segments are automatically stretched if the next-added
-// segment is the same color.
-// This displays all available colors and shows the resolution capabilities
-#define SEG_SINE TRUE
-
-#if(defined(SEG_SINE) && SEG_SINE)
-#define ROW_CALCULATION_CYCS 40000UL
-#define USE_ADC TRUE
-#endif
-
-//Uses "High-Frequency Modulation" to display an interesting pattern...
-// HFM is kinda like PWM. The idea is to have an output ON for
-//  a certain percentage of the time...
-//  In PWM, that's done by turning it on for a fraction of a cycle 
-//  (the "width" of the pulse), then off for the remainder.
-//  In HFM, it's accomplished by knowing the fraction of time it should be
-//  on... (the "power"). The fractions are automatically reduced 5/10->1/2.
-//  e.g. if the on-time should be 1/100th of the time, it will be on
-//  during one update-period, and off for 99, then repeat.
-//  If the on-time should be 1/2 of the time, it will be on during one
-//  update, off during the next, on again, and so-on.
-//  If the on-time is some strange fraction, like 3/5, it will distribute
-//  the pulses accordingly (e.g. on, off, on, off, on, repeat)
-//  Thus, the output toggles as quickly as possible to achieve the desired
-//  power... thus "High-Frequency"
-//  (See _commonCode.../hfModulation/...)
-//  I've been using HFM in ways never originally intended: e.g. it can be
-//  used for smoothing lines between two distant points...
-//  It's used this way in "SEG_RACER" in order to use a low-resolution
-//  course in memory, and increase the resolution by knowing that there are
-//  a certain number of rows in which it has to get from point1 to point2
-//  so the "power" of the HFM is set to (p2-p1)/numRows.
-//  The nice thing about it, is it doesn't use any actual division (which
-//  is quite slow) because it knows that every point inbetween will be 
-//  traversed.
-// SEG_HFM visualizes that, and actually looks pretty cool. Like moire
-//  patterns, or magnetic-field-lines.
-// Each row increases in power, essentially: rowNum/NUM_SEGMENTS
-// (Experimenting with NUM_SEGMENTS is fun, in this case, just don't exceed
-//  the available memory, and keep in mind that there's a stack and stuff)
-//#define SEG_HFM      TRUE
-// You can override NUM_SEGMENTS here, for that purpose...
-// OTHERWISE, it should probably be handled in rowSegBuffer.c
-#if(defined(SEG_HFM) && SEG_HFM)
- #define NUM_SEGMENTS   224//192//127 //128 //95//96//128 //68 //128//68
- #define ROW_CALCULATION_CYCS 40000UL
-#endif
-
-//Displays a Question-Mark box, ala Mario-Brothers. Press the button and
-// receive a reward (and occasional goomba)
-// Demonstrates usage of program-memory-based images in rowSegBuffer... 
-//(16x16 pixels WOO!)
-// This is much less functional than FB_QUESTION
-//#define SEG_QUESTION   TRUE
-
-//a/o v62:
-// ROW_CALCULATION_CYCS is highly finicky with the screen's syncing at
-// LVDS_PRESCALER==1
-#if(defined(SEG_QUESTION) && SEG_QUESTION)
- #if(LVDS_PRESCALER == 1)
-  #define NUM_SEGMENTS 128
-  #define ROW_CALCULATION_CYCS 8000UL
- #else
-  //This is from memory, should be compared with an older version
-  #define ROW_CALCULATION_CYCS 40000UL
- #endif
-#endif
-
-
-//A Game! Ala "Racer" from the ol' TI-82 days...
-// Use a potentiometer to try to keep the "car" on the race-track
-// It gets harder the longer you stay on course!
-// (Ideally: when this isn't true, remove ADC stuff from the makefile
-//  to save codespace. I don't think I've ever actually paid attention to
-//  this...)
-//#define SEG_RACER    TRUE
-
-#if(defined(SEG_RACER) && SEG_RACER)
-#define ROW_CALCULATION_CYCS 40000UL
-#define USE_ADC TRUE
-#endif
-
-
-//#define SEG_TET	TRUE
-// Look into SEG_TET case in loadRow for some configurables
-// (transparency overlay, etc).
-
-//Tetris was written for the row-buffer
-// and uses conversion...
-// it's a bit wasteful, since it requires *both* a rowBuffer AND a
-// rowSegBuffer, but it should work.
-#if(defined(SEG_TET) && SEG_TET)
- #define ROW_BUFFER	TRUE
- #define NUM_SEGMENTS	96 //128//RB_WIDTH+10
- #define ROW_CALCULATION_CYCS 0//40000UL //10000UL //0UL
-
-#endif
-
-
-//SEG_GRADIENT draws a "smooth" gradient from black to some color 
-// (currently white)... It uses HFM with a "power"-value that increases 
-// with the row-number...
-// It alternates rows between two shades until we've reached "full power"
-// at the next shade. Then it repeats between the next two shades, etc.
-// Mainly it's just for testing how plausible it is to create intermediate
-// color-values... e.g. SEG_QUESTION's color-scheme isn't quite right...
-// that question-box is supposed to look like copper!
-// So one possibility is to alternate between two colors for some pixels
-// Since the pixels are so large, the alternating colors would be barely 
-// visible, and it would likely look more like a smooth color. 
-// This kinda gives the ability to figure out how much we can get away with
-// Also try SEG_TET, which has gradients between colors 
-// (rather than shades)
-//#define SEG_GRADIENT TRUE
-#if(defined(SEG_GRADIENT) && SEG_GRADIENT)
- #define ROW_CALCULATION_CYCS	40000UL
-#endif
-
-
+ //Moved to _config/rowSegBufferTesting.h... it's not well-documented.
 #endif //BLUE_TESTING and SEG_whatevers...
-
+*/
 
 
 // I hereby declare this FPD-Link simulation technique to forever be called
@@ -1178,6 +398,69 @@
 #ifndef ALIGN_TIMER_WITH_PIXCLK
 #define ALIGN_TIMER_WITH_PIXCLK TRUE
 #endif
+
+
+
+
+
+
+
+
+
+
+
+//FROM HERE ON:
+//This bit can be ignored...
+
+#if(defined(SONY_TESTING_CONFIG) && SONY_TESTING_CONFIG)
+ #include "_config/sonyTestingConfig.h"
+#endif
+
+//_LCD_SPECIFIC_HEADER_ is the header for the particular display being used
+// and handles Hsync/Vsync timing, etc.
+// It is #included in main.c, but defined here for configuration-purposes
+// If a specific header doesn't exist for your display, try looking into 
+// _displays/testDisplay.h...
+// CURRENTLY (a/o v80) most displays are using testDisplay.h (lvds)
+// Including the Samsung LTN display as well as the BOE Hydis display
+// (What about Chi Mei???)
+// And, actually, the addition of _LCD_SPECIFIC_HEADER_ comes *after*
+// working with the various displays, so it's no longer guaranteed to work
+// with them all...  TODO.
+
+//_LCD_INTERFACE_CFILE_ contains the initialization code for the display's
+// electrical-interface (generally LVDS/FPD-Link)
+// It handles initializing the pixel-clock timer, as well as setting 
+// port-directions, etc.
+// This is #included in main.c
+
+//GENERALLY:
+// These can be left undefined, as defaults are fine for most
+// displays I've worked with... see the DEFAULTS, below.
+// Though, if you need to change testDisplay.h for your own timings, it'd
+// be better to copy it and #define _LCD_SPECIFIC_HEADER_ as appropriate...
+
+//THESE ARE THE DEFAULTS FOR:
+// 1024x768 display via LVDS/FPD-Link Interface
+// To select another display/interface and override these defaults
+//  add your own #defines above
+#ifndef _LCD_SPECIFIC_HEADER_
+ #define _LCD_SPECIFIC_HEADER_	"_displays/testDisplay.h"
+#endif
+#ifndef _LCD_INTERFACE_CFILE_
+ #if (defined(__AVR_AT90PWM161__))
+  #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds161.c"
+ #else	//Assumed ATtiny861:
+  #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds.c"
+ #endif
+#endif //_LCD_INTERFACE_CFILE_ not previously defined
+
+
+
+
+
+
+
 
 
 

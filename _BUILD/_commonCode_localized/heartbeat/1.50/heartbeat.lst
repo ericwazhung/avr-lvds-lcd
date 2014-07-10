@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 1
 
 
    1               		.file	"heartbeat.c"
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,7 +118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  112               		.stabd	46,0,0
    1:_commonCode_localized/heartbeat/1.50/heartbeat.c **** /* mehPL:
    2:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    This is Open Source, but NOT GPL. I call it mehPL.
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 3
 
 
    3:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  *    I'm not too fond of long licenses at the top of the file.
@@ -178,7 +178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
   57:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
   58:_commonCode_localized/heartbeat/1.50/heartbeat.c **** volatile uint8_t*	heartPIN;
   59:_commonCode_localized/heartbeat/1.50/heartbeat.c **** uint8_t heartBeatPin;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 4
 
 
   60:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #endif
@@ -238,7 +238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  123 0002 00C0      		rjmp .L2
  104:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		rate = 1;
  124               		.stabn	68,0,104,.LM2-.LFBB1
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 5
 
 
  125               	.LM2:
@@ -298,7 +298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  170 0042 00D0      		rcall __udivmodsi4
  171 0044 822F      		mov r24,r18
  114:_commonCode_localized/heartbeat/1.50/heartbeat.c **** }
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 6
 
 
  172               		.stabn	68,0,114,.LM6-.LFBB2
@@ -358,7 +358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  135:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // AFTER init_heartBeat, the wdt must be reset often enough!!! this can be accomplished via heartUp
  136:_commonCode_localized/heartbeat/1.50/heartbeat.c **** void init_heartBeat(volatile uint8_t* pin, uint8_t pinName, uint8_t ledConnectionType)
  137:_commonCode_localized/heartbeat/1.50/heartbeat.c **** {
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 7
 
 
  138:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	heartDDR = ddr;
@@ -418,7 +418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  234 0066 8093 0000 		sts heartStepTime,r24
  235 006a 9093 0000 		sts heartStepTime+1,r25
  236 006e A093 0000 		sts heartStepTime+2,r26
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 8
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 8
 
 
  237 0072 B093 0000 		sts heartStepTime+3,r27
@@ -478,7 +478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  201:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #warning "watchdog should NOT hang the system when distributed... this is DEBUGGING ONLY"
  202:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		while(1)
  203:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		{
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 9
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 9
 
 
  204:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 			heartUpdate();
@@ -538,7 +538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  258:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	desired = (uint8_t)(heartModulator.power);
  259:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
  260:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	desired += direction;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 10
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 10
 
 
  261:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	
@@ -598,7 +598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  295:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //Called by heartUpdate... used internally, only
  296:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (_HEART_DMS_)
  297:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define heart_isItTime(a,b,c)	dmsIsItTime6secV2((a),(b),(c))
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 11
 
 
  298:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #define TOGGLETIME   (250*DMS_MS)
@@ -658,7 +658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  352:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		thisNibble = (thisNibble & 0xf0) >> 4;
  353:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	else
  354:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		thisNibble = (thisNibble & 0x0f);
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 12
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 12
 
 
  355:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
@@ -718,7 +718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  280               	/* stack size = 2 */
  281               	.L__stack_usage = 2
  402:_commonCode_localized/heartbeat/1.50/heartbeat.c **** //	static uint32_t lastTime = 0;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 13
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 13
 
 
  403:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (	HEART_USES_TIMER )
@@ -778,7 +778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
   40:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.30-4 TCNTER_INITS_TIMER is configured by default IF timerCommon is not
   41:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			included in the makefile before tcnter is...
   42:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       This is a bit hokey... (what if timerCommon is included *after*?)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 14
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 14
 
 
   43:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       TODO: Figure this out.
@@ -838,7 +838,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
   97:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			cleanup
   98:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-1 More mods, test app
   99:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10 First Version stolen and modified heavily from usi_uart 0.22-3
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 15
 
 
  100:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
@@ -898,7 +898,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  154:./_commonCode_localized/tcnter/0.30/tcnter.h **** #endif
  155:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  156:./_commonCode_localized/tcnter/0.30/tcnter.h **** #define TCNTER_SEC			(TCNTS_PER_SECOND)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 16
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 16
 
 
  157:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
@@ -958,7 +958,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  211:./_commonCode_localized/tcnter/0.30/tcnter.h **** // To be called in the main loop...
  212:./_commonCode_localized/tcnter/0.30/tcnter.h **** // (Handles reading the TCNT deltas and adding to myTcnter, etc)
  213:./_commonCode_localized/tcnter/0.30/tcnter.h **** // this should be called MORE OFTEN than overflows
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 17
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 17
 
 
  214:./_commonCode_localized/tcnter/0.30/tcnter.h **** // If using an overflow-interrupt as the only reliable source of updates
@@ -1018,7 +1018,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  289               		.stabn	68,0,267,.LM19-.LFBB6
  290               	.LM19:
  291 0084 8091 0000 		lds r24,tcnter_myTcnter
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 18
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 18
 
 
  292 0088 9091 0000 		lds r25,tcnter_myTcnter+1
@@ -1078,7 +1078,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  337 00f0 67FD      		sbrc r22,7
  338 00f2 7095      		com r23
  339 00f4 680F      		add r22,r24
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 19
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 19
 
 
  340 00f6 711D      		adc r23,__zero_reg__
@@ -1138,7 +1138,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  421:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 
  422:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	//HEARTSTEPTIME isn't 100% accurate, especially if this isn't accessed often enough...
  423:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #else
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 20
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 20
 
 
  424:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	static uint32_t lastTime = 0;
@@ -1198,7 +1198,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  399 013e 00C0      		rjmp .L15
  400               	.L14:
  345:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		highNibble = 0;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 21
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 21
 
 
  401               		.stabn	68,0,345,.LM34-.LFBB6
@@ -1258,7 +1258,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  448               		.stabn	68,0,269,.LM41-.LFBB6
  449               	.LM41:
  450 018a 8032      		cpi r24,32
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 22
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 22
 
 
  451 018c 914A      		sbci r25,-95
@@ -1318,7 +1318,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  502               		1:
  503 01e2 880F      		lsl r24
  504 01e4 991F      		rol r25
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 23
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 23
 
 
  505 01e6 AA1F      		rol r26
@@ -1378,7 +1378,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  455:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 	{
  456:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #if (HEART_USES_TIMER)
  457:_commonCode_localized/heartbeat/1.50/heartbeat.c **** 		ledVal = blinkHeart();
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 24
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 24
 
 
  458:_commonCode_localized/heartbeat/1.50/heartbeat.c ****  #else
@@ -1438,7 +1438,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  571               		.stabn	68,0,495,.LM55-.LFBB6
  572               	.LM55:
  573 023e 81E0      		ldi r24,lo8(1)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 25
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 25
 
 
  574 0240 00C0      		rjmp .L24
@@ -1498,7 +1498,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  516:_commonCode_localized/heartbeat/1.50/heartbeat.c **** #if (!defined(HEART_INPUTPOLLING_UNUSED) || !HEART_INPUTPOLLING_UNUSED)
  517:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This value's arbitrary... works with tabletBluetoother 3...
  518:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // This function takes about 20 bytes
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 26
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 26
 
 
  519:_commonCode_localized/heartbeat/1.50/heartbeat.c **** // HEART_PULLUP_DELAY was originally 3, but doesn't seem to be enough for
@@ -1558,7 +1558,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  623               		.stabn	68,0,557,.LM63-.LFBB7
  624               	.LM63:
  625               	/* #APP */
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 27
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 27
 
 
  626               	 ;  557 "_commonCode_localized/heartbeat/1.50/heartbeat.c" 1
@@ -1618,7 +1618,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  667               		.data
  668               		.type	heartStepTime, @object
  669               		.size	heartStepTime, 4
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 28
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 28
 
 
  670               	heartStepTime:
@@ -1635,31 +1635,31 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			pag
  681               		.ident	"GCC: (GNU) 4.8.2"
  682               	.global __do_copy_data
  683               	.global __do_clear_bss
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s 			page 29
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s 			page 29
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 heartbeat.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:111    .text:00000000 setHeartRate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:670    .data:00000001 heartStepTime
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:151    .text:0000002a getHeartRate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:182    .text:00000048 heartClear
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:111    .text:00000000 setHeartRate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:670    .data:00000001 heartStepTime
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:151    .text:0000002a getHeartRate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:182    .text:00000048 heartClear
                             *COM*:00000004 heartModulator
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:204    .text:00000050 init_heartBeat
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:251    .text:00000078 set_heartBlink
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:663    .bss:00000000 heartBlink
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:271    .text:0000007e heartUpdate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:651    .bss:00000007 lastTime.1603
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:655    .data:00000000 direction.1585
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:649    .bss:00000006 highNibble.1598
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:647    .bss:00000005 toggleCount.1597
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:204    .text:00000050 init_heartBeat
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:251    .text:00000078 set_heartBlink
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:663    .bss:00000000 heartBlink
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:271    .text:0000007e heartUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:651    .bss:00000007 lastTime.1603
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:655    .data:00000000 direction.1585
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:649    .bss:00000006 highNibble.1598
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:647    .bss:00000005 toggleCount.1597
                              .bss:00000001 lastToggleTime.1596
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccWCnsTB.s:606    .text:0000024e heartPinInputPoll
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccyAb49U.s:606    .text:0000024e heartPinInputPoll
 
 UNDEFINED SYMBOLS
 __udivmodsi4
