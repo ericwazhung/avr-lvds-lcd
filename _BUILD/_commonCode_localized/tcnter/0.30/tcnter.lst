@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 1
 
 
    1               		.file	"tcnter.c"
@@ -7,7 +7,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
    4               	__SREG__ = 0x3f
    5               	__tmp_reg__ = 0
    6               	__zero_reg__ = 1
-   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/94-regitting/",100,0,2,.Ltext0
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/95-lookingIntoFunctionWriteColorDelays/",100,0,2,.Lt
    8               		.stabs	"_commonCode_localized/tcnter/0.30/tcnter.c",100,0,2,.Ltext0
    9               		.text
   10               	.Ltext0:
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,7 +118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
    4:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    Please see the bottom.
    5:_commonCode_localized/tcnter/0.30/tcnter.c ****  *    Enjoy!
    6:_commonCode_localized/tcnter/0.30/tcnter.c ****  */
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 3
 
 
    7:_commonCode_localized/tcnter/0.30/tcnter.c **** 
@@ -178,7 +178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
   61:_commonCode_localized/tcnter/0.30/tcnter.c ****  #ifndef TCNTER_AVRTIMER_CLKDIV
   62:_commonCode_localized/tcnter/0.30/tcnter.c ****   //This choice is arbitrary...
   63:_commonCode_localized/tcnter/0.30/tcnter.c ****   // According to timerCommon, it exists in most typical systems
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 4
 
 
   64:_commonCode_localized/tcnter/0.30/tcnter.c ****   // The only exception I've run into so far is AT90PWM161, which ONLY has
@@ -238,7 +238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  128               	.Lscope1:
  129               		.stabs	"",36,0,0,.Lscope1-.LFBB1
  130               		.stabd	78,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 5
 
 
  131               		.stabs	"tcnter_overflowUpdate:F(0,47)",36,0,136,tcnter_overflowUpdate
@@ -298,7 +298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  145 0018 E2B7      		in r30,0x32
  139:_commonCode_localized/tcnter/0.30/tcnter.c **** 
  140:_commonCode_localized/tcnter/0.30/tcnter.c **** 	//This will be calculated before being added to myTcnter...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 6
 
 
  141:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_compare_t deltaTcnt;
@@ -358,7 +358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  183               	.L3:
  157:_commonCode_localized/tcnter/0.30/tcnter.c **** 	}
  158:_commonCode_localized/tcnter/0.30/tcnter.c **** 	else
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 7
 
 
  159:_commonCode_localized/tcnter/0.30/tcnter.c **** 	{
@@ -418,7 +418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  219               	.LM15:
  220 009e E093 0000 		sts tcnter_lastTcnt,r30
  177:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_lastOverflowTcnt = thisTcnt;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 8
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 8
 
 
  221               		.stabn	68,0,177,.LM16-.LFBB2
@@ -478,7 +478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  251               	.LM20:
  252 00ae 822F      		mov r24,r18
  253 00b0 90E0      		ldi r25,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 9
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 9
 
 
  254 00b2 831B      		sub r24,r19
@@ -538,7 +538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  222:_commonCode_localized/tcnter/0.30/tcnter.c **** 
  223:_commonCode_localized/tcnter/0.30/tcnter.c **** 	tcnter_myTcnter += (tcnter_t)deltaTcnt;
  287               		.stabn	68,0,223,.LM26-.LFBB3
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 10
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 10
 
 
  288               	.LM26:
@@ -598,7 +598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  341               	.L__stack_usage = 14
  342               	.LBB8:
  343               	.LBB9:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 11
 
 
  224:_commonCode_localized/tcnter/0.30/tcnter.c **** }
@@ -658,7 +658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
   33:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       ...
   34:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       LCDdirectLVDS77 attempts to call tcnter_update() only once per
   35:./_commonCode_localized/tcnter/0.30/tcnter.h **** //			timer-overflow (in the interrupt)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 12
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 12
 
 
   36:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       So it's quite likely that each tcnter_update() occurs at or around
@@ -718,7 +718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
   90:./_commonCode_localized/tcnter/0.30/tcnter.h **** //0.10-4 
   91:./_commonCode_localized/tcnter/0.30/tcnter.h **** //       Looking into running-tcnt
   92:./_commonCode_localized/tcnter/0.30/tcnter.h **** //				myTcnter and nextTcnter now implemented
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 13
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 13
 
 
   93:./_commonCode_localized/tcnter/0.30/tcnter.h **** //          Fixes potential issues with multi-TCNTs per update
@@ -778,7 +778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  147:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  148:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  149:./_commonCode_localized/tcnter/0.30/tcnter.h **** #if((TCNTS_PER_SECOND/1000) > 0)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 14
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 14
 
 
  150:./_commonCode_localized/tcnter/0.30/tcnter.h ****  #define TCNTS_PER_MS		(TCNTS_PER_SECOND/1000)
@@ -838,7 +838,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  204:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  205:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  206:./_commonCode_localized/tcnter/0.30/tcnter.h **** //********** TCNTER Prototypes **********//
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 15
 
 
  207:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
@@ -898,7 +898,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  261:./_commonCode_localized/tcnter/0.30/tcnter.h **** }
  262:./_commonCode_localized/tcnter/0.30/tcnter.h **** 
  263:./_commonCode_localized/tcnter/0.30/tcnter.h **** static __inline__
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 16
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 16
 
 
  264:./_commonCode_localized/tcnter/0.30/tcnter.h **** uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
@@ -958,7 +958,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  401 019e 0895      		ret
  402               	.L12:
  110:_commonCode_localized/tcnter/0.30/tcnter.c **** 		//asm("nop;");
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 17
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 17
 
 
  403               		.stabn	68,0,110,.LM33-.LFBB4
@@ -1018,7 +1018,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  455               		.size	tcnter_updatesSinceOverflowUpdate, 4
  456               	tcnter_updatesSinceOverflowUpdate:
  457 0001 0000 0000 		.zero	4
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 18
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 18
 
 
  458               	.global	tcnter_lastTcnt
@@ -1040,25 +1040,25 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			pag
  474               	.Letext0:
  475               		.ident	"GCC: (GNU) 4.8.2"
  476               	.global __do_clear_bss
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s 			page 19
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 tcnter.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:107    .text:00000000 tcnter_init
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:461    .bss:00000005 tcnter_lastTcnt
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:466    .bss:00000006 tcnter_myTcnter
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:134    .text:00000018 tcnter_overflowUpdate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:456    .bss:00000001 tcnter_updatesSinceOverflowUpdate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:451    .bss:00000000 tcnter_lastOverflowTcnt
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:235    .text:000000a8 tcnter_update
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:319    .text:00000124 tcnter_wait
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccrHG0SO.s:425    .text:000001b4 tcnter_get
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:107    .text:00000000 tcnter_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:461    .bss:00000005 tcnter_lastTcnt
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:466    .bss:00000006 tcnter_myTcnter
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:134    .text:00000018 tcnter_overflowUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:456    .bss:00000001 tcnter_updatesSinceOverflowUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:451    .bss:00000000 tcnter_lastOverflowTcnt
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:235    .text:000000a8 tcnter_update
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:319    .text:00000124 tcnter_wait
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccXwcNST.s:425    .text:000001b4 tcnter_get
 
 UNDEFINED SYMBOLS
 __do_clear_bss

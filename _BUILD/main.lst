@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 1
 
 
    1               		.file	"main.c"
@@ -7,7 +7,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
    4               	__SREG__ = 0x3f
    5               	__tmp_reg__ = 0
    6               	__zero_reg__ = 1
-   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/94-regitting/",100,0,2,.Ltext0
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/95-lookingIntoFunctionWriteColorDelays/",100,0,2,.Lt
    8               		.stabs	"main.c",100,0,2,.Ltext0
    9               		.text
   10               	.Ltext0:
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,7 +118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  112               		.stabs	"_commonCode_localized/heartbeat/1.50/heartbeat.h",130,0,0,0
  113               		.stabs	"./_commonCode_localized/hfModulation/1.00/hfModulation.h",130,0,0,0
  114               		.stabs	"hfm_t:t(11,1)=(11,2)=B(11,3)=s4desiredSum:(4,3),0,16;maxPower:(4,2),16,8;power:(4,2),24,8;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 3
 
 
  115               		.stabn	162,0,0,0
@@ -178,7 +178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   26:./pll.c       **** //  But look here if it doesn't seem to be syncing...
   27:./pll.c       **** #warning "PLL_MULT_FACTOR defaults to 8, which is allegedly too fast for 3.3V"
   28:./pll.c       **** #define PLL_MULT_FACTOR	8
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 4
 
 
   29:./pll.c       **** // "PLLF3 is used for debug purpose", its value is always 0
@@ -238,7 +238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  152               	.LM1:
  153 0000 89B5      		in r24,0x29
  154 0002 8260      		ori r24,lo8(2)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 5
 
 
  155 0004 89BD      		out 0x29,r24
@@ -298,7 +298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   50:/opt/local/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
   51:/opt/local/avr/include/util/delay.h ****     #include <util/delay.h>
   52:/opt/local/avr/include/util/delay.h ****     \endcode
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 6
 
 
   53:/opt/local/avr/include/util/delay.h **** 
@@ -358,7 +358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  107:/opt/local/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
  108:/opt/local/avr/include/util/delay.h **** 
  109:/opt/local/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 7
 
 
  110:/opt/local/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
@@ -418,7 +418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  164:/opt/local/avr/include/util/delay.h **** 
  165:/opt/local/avr/include/util/delay.h **** #else
  166:/opt/local/avr/include/util/delay.h **** 	uint16_t __ticks;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 8
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 8
 
 
  167:/opt/local/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
@@ -478,7 +478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  221:/opt/local/avr/include/util/delay.h **** 
  222:/opt/local/avr/include/util/delay.h ****  */
  223:/opt/local/avr/include/util/delay.h **** void
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 9
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 9
 
 
  224:/opt/local/avr/include/util/delay.h **** _delay_us(double __us)
@@ -538,7 +538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  184               	/* #NOAPP */
  185 001a 00C0      		rjmp .L2
  186               	.L5:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 10
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 10
 
 
   83:./pll.c       ****    }
@@ -598,7 +598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   25:_interfaces/lvds.c ****    OCR1C = 6;
  211               		.stabn	68,0,25,.LM7-.LFBB2
  212               	.LM7:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 11
 
 
  213 0024 86E0      		ldi r24,lo8(6)
@@ -658,7 +658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   70:_interfaces/lvds.c ****    #define DTPSBITS ((1<<DTPS11) | (1<<DTPS10))
   71:_interfaces/lvds.c **** #elif (defined(LVDS_PRESCALER))
   72:_interfaces/lvds.c ****    //Timer1 on the Tiny861 uses a strange CLKDIV scheme...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 12
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 12
 
 
   73:_interfaces/lvds.c ****    // (but it's nicer!)
@@ -718,7 +718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  127:_interfaces/lvds.c ****    pll_enable();
  223               		.stabn	68,0,127,.LM10-.LFBB2
  224               	.LM10:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 13
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 13
 
 
  225 0030 00D0      		rcall pll_enable
@@ -778,7 +778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  245 0048 8160      		ori r24,lo8(1)
  246 004a 80BF      		out 0x30,r24
  162:_interfaces/lvds.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 14
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 14
 
 
  163:_interfaces/lvds.c ****    setbit(PWM1D, TCCR1C);
@@ -838,7 +838,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  195:_interfaces/lvds.c **** /* These are three instructions apiece!
  196:_interfaces/lvds.c **** #define lvds_ComplementaryClrOnCompare() clrbit(COM1A1, TCCR1A)
  197:_interfaces/lvds.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 15
 
 
  198:_interfaces/lvds.c **** #define lvds_setOnCompare() setbit(COM1A1, TCCR1A)
@@ -898,7 +898,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  248:_interfaces/lvds.c ****  * wasn't perfectly as-spec'd... it didn't work. So, why not remove the
  249:_interfaces/lvds.c ****  * necessity for enabling/disabling the green signal...
  250:_interfaces/lvds.c ****  (Yes, it's that tightly-knit that affecting the clock affects green,
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 16
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 16
 
 
  251:_interfaces/lvds.c ****  affects blue... but there's some confusion in my mind as to why green
@@ -958,7 +958,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  301:_interfaces/lvds.c **** //Another attempt (in v66.51, a/o v91):
  302:_interfaces/lvds.c **** 	// Irrelevent (?) since Nada_init() overwrites it...
  303:_interfaces/lvds.c **** 	// //Make sure Green is off...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 17
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 17
 
 
  304:_interfaces/lvds.c **** 	// DT1 = 3;
@@ -1018,7 +1018,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   32:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //            e.g. for bit-banged parallel-LCD and/or SDRAMthing
   33:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //            TODO: Remove other case (for SDRAMthing)
   34:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //0.80ncf-1 - Adding LCDSTUFF_INCLUDE_NON_DE
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 18
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 18
 
 
   35:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //            This is the same as LCDSTUFF_NOT_IN_TIMER, except
@@ -1078,7 +1078,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   89:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //        this version isn't yet used by any projects
   90:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //0.50ncf cleanup, colorOverride is unused...
   91:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //				SMILEY -> LCD_SMILEY
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 19
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 19
 
 
   92:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //0.40ncf-1 loadRow unused... removal untested...
@@ -1138,7 +1138,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  146:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //   DON'T START WITH BLUE_DIAG_BAR
  147:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //   Unless you want to be depressed
  148:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //   Good Starting Point DE_BLUE
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 20
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 20
 
 
  149:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
@@ -1198,7 +1198,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  203:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  with analog TV signals... the durations necessary for the electro-
  204:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  magnets to be moved from one side of the screen to the next, and the
  205:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  time necessary to move them again from top-to-bottom.
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 21
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 21
 
 
  206:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //
@@ -1258,7 +1258,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  260:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //              .                                 .
  261:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //              .                                 .      "Vsync Back Porch"
  262:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     /V ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯�
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 22
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 22
 
 
  263:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     /H |__|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯�
@@ -1318,7 +1318,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  317:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //
  318:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // Right, so the logic makes sense... but for some reason I have to run 
  319:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  through this whole diatribe every time I see the terms.
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 23
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 23
 
 
  320:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // Heh, and even after going through it, the damned thing seems backwards.
@@ -1378,7 +1378,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  374:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // 	well, doing-so might cause issues, since the LVDS clock will not be
  375:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    running... this is a TBD
  376:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define FRAME_UPDATE_DELAY 0//5000//50000 //2000 //5000 //20000 //50000
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 24
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 24
 
 
  377:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
@@ -1438,7 +1438,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  431:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //      LTN:  uses DE only
  432:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
  433:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 25
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 25
 
 
  434:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // The idea is to use FastPWM with the PLL to implement 64-85Mbits/sec
@@ -1498,7 +1498,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  488:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  
  489:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  Also used: The TTL 74AHC series...
  490:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    I found some one-gang 74AHC1G32 and 74AHC1G86's on an old iBook
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 26
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 26
 
 
  491:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     motherboard. (An OR and an XOR, respectively). These are spec'd for
@@ -1558,7 +1558,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  545:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     in individual bytes. Gives about 1/3 more pixels at 3x the memory
  546:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     (not implemented)
  547:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  * rowSegBuffer.c
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 27
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 27
 
 
  548:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     also calculates an entire row before drawing it
@@ -1618,7 +1618,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  602:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //            >___________________/¯¯¯¯¯¯¯¯¯\____|		DT=4, OCR=5
  603:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
  604:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //             ____ ____                ____ ____|____ 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 28
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 28
 
 
  605:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  V w/ H:   X xx X xx \    .    .    / xx X xx X xx X
@@ -1678,7 +1678,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  659:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    edge after the DT-write instruction completes
  660:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    (for +OC1A/DT1H, when TCNT is reset to 0)
  661:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    (for -OC1A/DT1L, when TCNT passes OCR1A)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 29
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 29
 
 
  662:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    New OCR values are delayed until the next TCNT reset to 0
@@ -1738,7 +1738,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  716:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define Vsync_fromNada()      Nada_init()
  717:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define VplusH_fromVsync()    Nada_init()
  718:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define Vsync_fromVplusH()    Nada_init()
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 30
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 30
 
 
  719:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define Nada_fromVsync()      Nada_init()
@@ -1798,7 +1798,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  773:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //             ....
  774:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //      __________-__-__-__-__-__-__-__-__-__-__________________  DE
  775:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //                 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 31
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 31
 
 
  776:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //             ^^^^\														//blah
@@ -1858,7 +1858,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  830:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    T_Vlow:
  831:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //          VSYNC inactive
  832:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    //Start of frame
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 32
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 32
 
 
  833:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    T_VD +(T_Vlow):
@@ -1918,7 +1918,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  887:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // DETIME^--------^|      ^--------^
  888:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //                 |
  889:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //                 dataEnable=FALSE
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 33
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 33
 
 
  890:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //
@@ -1978,7 +1978,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  944:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // DE ___________________________________________________ ...
  945:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  V _____________|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ ...
  946:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    ^ ^          ^   ^ ^
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 34
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 34
 
 
  947:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    | |          |   | |
@@ -2038,7 +2038,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1001:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  H |_|¯¯¯¯¯¯¯¯¯¯¯¯¯¯|_|¯¯¯¯¯¯¯¯¯¯¯¯¯¯|_|¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 1002:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // DE ___________________________________________________ .
 1003:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  V ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|____________________ .
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 35
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 35
 
 
 1004:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    ^ ^             .                                   .
@@ -2098,7 +2098,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  295               		.stabn	68,0,1057,.LM24-.LFBB3
  296               	.LM24:
  297               	.LFBB3:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 36
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 36
 
 
  298               	/* prologue: function */
@@ -2158,7 +2158,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1081:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //
 1082:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //    Data Enable
 1083:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //       Only active when there's valid pixel data
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 37
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 37
 
 
 1084:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //       (For a dual-pixel 1024x768 display:
@@ -2218,7 +2218,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1138:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #endif
 1139:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #endif
 1140:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 38
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 38
 
 
 1141:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //Horizontal Blank Time: HD_DOTS + H_LOW + DH_DOTS
@@ -2278,7 +2278,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1195:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //       \___________   \                        (just avoiding \ warning)
 1196:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //                   \  |     768 Hsyncs
 1197:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //                    v v
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 39
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 39
 
 
 1198:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //     _             _ _ _ _ _ _ _ _ _ _ 
@@ -2338,7 +2338,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1252:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // #if (LVDS_PRESCALER == 8)
 1253:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****   #define V_COUNT 768
 1254:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // #else
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 40
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 40
 
 
 1255:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //  #define V_COUNT	(768*2/3)
@@ -2398,7 +2398,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1309:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // H_LOW_DOTS = 100
 1310:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // HD_DOTS = 50 
 1311:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // DE_ACTIVE_DOTS = 1024
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 41
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 41
 
 
 1312:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** // DH_DOTS = 0
@@ -2458,7 +2458,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1366:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	//I think this was just an indicator for scope triggering...
 1367:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	// not relevent for 
 1368:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	setpinPORT(PB2, PORTB);
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 42
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 42
 
 
 1369:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	clrpinPORT(PB2, PORTB);
@@ -2518,7 +2518,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1423:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 				frameCount = 0;
 1424:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 				timer_compareMatchIntSetup(0, OUT_CHANNELA, FALSE);
 1425:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 				//timer_compareMatchIntDisable(0, OUT_CHANNELA);
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 43
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 43
 
 
 1426:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 			}
@@ -2578,7 +2578,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1480:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	//and...
 1481:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	if((rbRowNum >= SMILE_TOP_ROW) &&
 1482:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 			(rbRowNum < (SMILE_HEIGHT+SMILE_TOP_ROW)))
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 44
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 44
 
 
 1483:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	{
@@ -2638,7 +2638,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1537:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
 1538:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
 1539:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 45
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 45
 
 
 1540:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
@@ -2698,7 +2698,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1594:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		#warning "TIMER0_TCNTS = (TOTAL_CYC_COUNT+1023)/1024: Timer0 CLKDIV1024"
 1595:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		#define TIMER0_TCNTS ((TOTAL_CYC_COUNT+1023)/1024)
 1596:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		#define TIMER0_CLKDIV	CLKDIV1024
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 46
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 46
 
 
 1597:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	 #endif
@@ -2758,7 +2758,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1651:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
 1652:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****  #else
 1653:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****   #error "WTF?"
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 47
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 47
 
 
 1654:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****  #endif
@@ -2818,7 +2818,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1708:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		...
 1709:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		reg[20] = colorBuffer[rowNum][20];                         
 1710:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		writeColor(reg[20]);  
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 48
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 48
 
 
 1711:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		
@@ -2878,7 +2878,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1765:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****          | (1<<COM1B1) | (0<<COM1B0)
 1766:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****          | (1<<PWM1A) | (1<<PWM1B) );
 1767:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 49
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 49
 
 
 1768:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		fullBlue();
@@ -2938,7 +2938,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1822:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****  #else //NOT COLOR_BAR_SCROLL... drawPix...
 1823:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** */
 1824:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 50
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 50
 
 
 1825:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
@@ -2998,7 +2998,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1879:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	{
 1880:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		rowOffset++;
 1881:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		if(rowOffset >= (DE_ACTIVE_DOTS-BORDER))
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 51
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 51
 
 
 1882:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 			rowOffset = 0;
@@ -3058,7 +3058,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1936:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		//delay_cyc(DOTS_TO_CYC(BORDER));
 1937:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		delay_Dots(BORDER);
 1938:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		DEonly_fromDEblue();
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 52
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 52
 
 
 1939:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
@@ -3118,7 +3118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1993:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 	if(rowNum == 0)
 1994:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		rowOffset++;
 1995:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		//uint16_t blueCyc = DOTS_TO_CYC(rowNum);
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 53
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 53
 
 
 1996:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		//uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
@@ -3178,7 +3178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 2050:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #if(defined(BLUE_VERT_BAR_REVERSED) && BLUE_VERT_BAR_REVERSED)
 2051:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** DP_INLINEABLE void drawPix(uint16_t rowNum)
 2052:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** {
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 54
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 54
 
 
 2053:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		DEblue_fromNada();
@@ -3238,7 +3238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   21:/opt/local/avr/include/util/delay_basic.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
   22:/opt/local/avr/include/util/delay_basic.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
   23:/opt/local/avr/include/util/delay_basic.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 55
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 55
 
 
   24:/opt/local/avr/include/util/delay_basic.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
@@ -3298,7 +3298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   78:/opt/local/avr/include/util/delay_basic.h ****     can be achieved.
   79:/opt/local/avr/include/util/delay_basic.h **** */
   80:/opt/local/avr/include/util/delay_basic.h **** void
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 56
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 56
 
 
   81:/opt/local/avr/include/util/delay_basic.h **** _delay_loop_1(uint8_t __count)
@@ -3358,7 +3358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  371               		.stabs	"",36,0,0,.Lscope4-.LFBB4
  372               		.stabd	78,0,0
  373               		.stabs	"lcd_update:F(4,3)",36,0,1354,lcd_update
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 57
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 57
 
 
  374               	.global	lcd_update
@@ -3418,7 +3418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 2100:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #define BORDER	((DE_ACTIVE_DOTS)/4)
 2101:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** DP_INLINEABLE void drawPix(uint16_t rowNum)
 2102:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** {
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 58
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 58
 
 
 2103:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //	uint8_t insideFrame = 
@@ -3478,7 +3478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 2157:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 
 2158:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** #if 0
 2159:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** //NOT BLUE_DIAG_BAR, BLUE_VERT_BAR, NOR DE_BLUE
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 59
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 59
 
 
 2160:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****  #if ( defined(COLOR_BAR_SCROLL) && COLOR_BAR_SCROLL)
@@ -3538,7 +3538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  403 00be 01F0      		breq .L10
 2210:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****    {
 2211:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 		//Vsync_fromNada() is called at the end of the last interupt
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 60
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 60
 
 
 2212:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c ****       VplusH_fromVsync();
@@ -3598,7 +3598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  438               		.stabn	68,0,1384,.LM44-.LFBB5
  439               	.LM44:
  440 00e6 2091 0000 		lds r18,hsyncCount
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 61
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 61
 
 
  441 00ea 3091 0000 		lds r19,hsyncCount+1
@@ -3658,7 +3658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  486               		.stabn	68,0,1402,.LM53-.LFBB5
  487               	.LM53:
  488 012c 1092 0000 		sts vSync,__zero_reg__
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 62
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 62
 
 
 1403:_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c **** 			break;
@@ -3718,7 +3718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   16:main.c        **** 
   17:main.c        **** 
   18:main.c        **** //The order of these #includes is *very specific*
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 63
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 63
 
 
   19:main.c        **** // please see the associated files (especially lcdStuff, lcdDefines, and
@@ -3778,7 +3778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
   73:main.c        **** #endif
   74:main.c        **** 
   75:main.c        **** //a/o v70: this should be handled by writeColor.c now
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 64
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 64
 
 
   76:main.c        **** //Nope, can't be removed yet...
@@ -3838,7 +3838,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  130:main.c        **** #include _LCD_INTERFACE_CFILE_
  131:main.c        **** /*
  132:main.c        **** #if (defined(__AVR_AT90PWM161__))
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 65
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 65
 
 
  133:main.c        ****  #include "_interfaces/lvds161.c"
@@ -3898,7 +3898,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  187:main.c        **** // Wasn't sure where 357 came from... and now I'm wondering where the
  188:main.c        **** // notes I wrote regarding it disappeared to...
  189:main.c        **** // Anyhow, from line 72, if ROW_SEG_BUFFER && !LVDS_PRESCALER
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 66
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 66
 
 
  190:main.c        **** // "ROW_SEG_BUFFER uses 20cyc/pixel" (doesn't match the math I've 
@@ -3958,7 +3958,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  244:main.c        ****  // casting... it may be redundant since most uses would be assignments in
  245:main.c        ****  // integers, but if math is used, we don't want floating-point math to be
  246:main.c        ****  // run on it in real-time calculations...)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 67
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 67
 
 
  247:main.c        ****  #define NUM_PSEGS ((uint16_t)(NUM_PSEGS_F))
@@ -4018,7 +4018,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  301:main.c        **** // LTN last used 0x20
  302:main.c        **** // a/o v59:
  303:main.c        **** // 0xD8 is the lowest value that syncs reliably, a few glitches from time
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 68
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 68
 
 
  304:main.c        **** // to time.
@@ -4078,7 +4078,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  358:main.c        **** 
  359:main.c        **** 
  360:main.c        **** // Default is drawPix, from program memory...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 69
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 69
 
 
  361:main.c        **** // a/o v60: drawPix() has since become the de-facto function for drawing
@@ -4138,7 +4138,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  415:main.c        **** 	//If REFRESH_ON_CHANGE != TRUE, then FB_REFRESH_ON_CHANGE_COUNT = TRUE
  416:main.c        **** 	// and goes unchanged...
  417:main.c        **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 70
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 70
 
 
  418:main.c        **** 	//updateFrame is decremented in main.c each time the frame is completed
@@ -4198,7 +4198,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  553 015c 2F93      		push r18
  554 015e 3F93      		push r19
  555 0160 4F93      		push r20
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 71
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 71
 
 
  556 0162 5F93      		push r21
@@ -4258,7 +4258,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  476:main.c        **** 	//Could insert a delay of sorts for scopability...
  477:main.c        **** 	// (otherwise there's not much guarantee that register-assignments
  478:main.c        **** 	//  later will align with the LVDS frame... though ALIGN should help)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 72
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 72
 
 
  479:main.c        **** 	// see scopeHsync.c
@@ -4318,7 +4318,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  518:main.c        **** 		endOfFrameHandler();
  519:main.c        **** 	}
  520:main.c        **** #endif
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 73
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 73
 
 
  521:main.c        **** #endif
@@ -4378,7 +4378,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  609 01ae 1F90      		pop r1
  610 01b0 1895      		reti
  611               		.size	__vector_14, .-__vector_14
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 74
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 74
 
 
  612               	.Lscope7:
@@ -4438,7 +4438,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  635 01b6 62E0      		ldi r22,lo8(2)
  636 01b8 80E0      		ldi r24,0
  637 01ba 00D0      		rcall timer_setWGM
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 75
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 75
 
 
   32:hsyncTimerStuff.c ****    timer_selectDivisor(HSYNC_TIMER_NUM, HSYNC_TIMER_CLKDIV); //CLKDIV1);
@@ -4498,7 +4498,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  588:main.c        **** 	//Left here for an example...
  589:main.c        **** 	// Draws a diagonal line 
  590:main.c        **** 	//OLD NOTE:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 76
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 76
 
 
  591:main.c        **** 	//syncing issues due to recursion overflowing the stack???
@@ -4558,7 +4558,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  645:main.c        **** #define TET_VSTRETCH	16
  646:main.c        **** 	if(rowNum == 0)
  647:main.c        **** 	{
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 77
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 77
 
 
  648:main.c        **** 		//Probably not best to put this here, as we're still in the interrupt
@@ -4618,7 +4618,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  702:main.c        **** 	else
  703:main.c        **** 	{
  704:main.c        **** 		#define ROWS_PER 64//(V_COUNT/NUM_COLORS)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 78
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 78
 
 
  705:main.c        **** 
@@ -4678,7 +4678,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  759:main.c        **** 		//hfm_setPower(&hfmGradient, 
  760:main.c        **** 		power = (rowNum); // + ROWS_PER/16);
  761:main.c        **** 	}
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 79
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 79
 
 
  762:main.c        **** 	else if(rowNum < ROWS_PER*2)
@@ -4738,7 +4738,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  816:main.c        **** #include "hsyncTimerStuff.c"
  817:main.c        **** 
  818:main.c        **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 80
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 80
 
 
  819:main.c        **** #if (!defined(EXTERNAL_DRAWPIX) || !EXTERNAL_DRAWPIX)
@@ -4798,7 +4798,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  873:main.c        **** 		uint16_t notBlueDots = DE_ACTIVE_DELAYABLE - blueDots;
  874:main.c        **** 
  875:main.c        **** 		uint16_t halfNotBlueDots = notBlueDots/2;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 81
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 81
 
 
  876:main.c        **** 
@@ -4858,7 +4858,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  930:main.c        **** // This's gotten a bit bloated, and would probably be better-implemented as
  931:main.c        **** // several different BLUE_WHATEVERs
  932:main.c        **** DP_INLINEABLE void drawPix(uint16_t rowNum)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 82
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 82
 
 
  933:main.c        **** {
@@ -4918,7 +4918,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  987:main.c        **** // Weird... with +0, syncing is way-off (such that the red/green doesn't
  988:main.c        **** // come through *at all*
  989:main.c        **** // and so-forth.
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 83
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 83
 
 
  990:main.c        ****  #define DOTSPERSHADE (DE_ACTIVE_DOTS/(NUM_SHADES+15))
@@ -4978,7 +4978,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1044:main.c        **** //				ocr2ra_val = 5;	
 1045:main.c        **** //				break;
 1046:main.c        **** 			case 4:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 84
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 84
 
 
 1047:main.c        **** 				//48:
@@ -5038,7 +5038,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1101:main.c        **** #elif (defined(PWM_TESTING) && PWM_TESTING)
 1102:main.c        **** 	//No drawPix necessary...
 1103:main.c        **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 85
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 85
 
 
 1104:main.c        **** #else
@@ -5098,7 +5098,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  681 01dc 9093 0000 		sts lastFrameCount.2085,r25
 1137:main.c        **** 
 1138:main.c        **** 	return newFrame;
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 86
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 86
 
 
 1139:main.c        **** }
@@ -5158,7 +5158,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1176:main.c        **** 
 1177:main.c        **** //v66.51-64:
 1178:main.c        **** // This was added for comparing the assembly-output of GCC4.4 vs 4.8
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 87
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 87
 
 
 1179:main.c        **** // Otherwise it's not-used
@@ -5218,7 +5218,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1226:main.c        **** #endif
 1227:main.c        **** 
 1228:main.c        **** #if((defined(SEG_TET) && SEG_TET) || (defined(FB_TETRIS) && FB_TETRIS))
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 88
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 88
 
 
 1229:main.c        **** 	tetInit(3);
@@ -5278,7 +5278,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
 1269:main.c        **** 
 1270:main.c        **** 
 1271:main.c        **** #if (defined(FB_QUESTION) && FB_QUESTION)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 89
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 89
 
 
 1272:main.c        ****  #if (defined(BUMP_SWITCH) && BUMP_SWITCH)
@@ -5338,7 +5338,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  741 0000 01        		.byte	1
  742               	.global	hsyncCount
  743               		.section .bss
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 90
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 90
 
 
  744               		.type	hsyncCount, @object
@@ -5398,7 +5398,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  798 0023 3C        		.byte	60
  799 0024 3F        		.byte	63
  800 0025 7F        		.byte	127
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 91
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 91
 
 
  801 0026 7F        		.byte	127
@@ -5458,7 +5458,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  855 005c 18        		.byte	24
  856 005d 07        		.byte	7
  857 005e 6E        		.byte	110
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 92
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 92
 
 
  858 005f 0E        		.byte	14
@@ -5518,7 +5518,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  912 0095 33        		.byte	51
  913 0096 33        		.byte	51
  914 0097 63        		.byte	99
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 93
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 93
 
 
  915 0098 63        		.byte	99
@@ -5578,7 +5578,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  969 00ce 00        		.byte	0
  970 00cf 18        		.byte	24
  971 00d0 3B        		.byte	59
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 94
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 94
 
 
  972 00d1 0C        		.byte	12
@@ -5638,7 +5638,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1026 0107 6E        		.byte	110
  1027 0108 36        		.byte	54
  1028 0109 0E        		.byte	14
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 95
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 95
 
 
  1029 010a 1E        		.byte	30
@@ -5698,7 +5698,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1083 0140 7B        		.byte	123
  1084 0141 33        		.byte	51
  1085 0142 3E        		.byte	62
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 96
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 96
 
 
  1086 0143 03        		.byte	3
@@ -5758,7 +5758,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1140 0179 33        		.byte	51
  1141 017a 19        		.byte	25
  1142 017b 07        		.byte	7
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 97
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 97
 
 
  1143 017c 00        		.byte	0
@@ -5818,7 +5818,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1197 01b2 1E        		.byte	30
  1198 01b3 38        		.byte	56
  1199 01b4 0C        		.byte	12
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 98
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 98
 
 
  1200 01b5 33        		.byte	51
@@ -5878,7 +5878,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1254 01eb 0C        		.byte	12
  1255 01ec 0E        		.byte	14
  1256 01ed 00        		.byte	0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 99
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 99
 
 
  1257 01ee 0C        		.byte	12
@@ -5938,7 +5938,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1311 0224 33        		.byte	51
  1312 0225 03        		.byte	3
  1313 0226 06        		.byte	6
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 100
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 100
 
 
  1314 0227 3E        		.byte	62
@@ -5998,7 +5998,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1368 025d 00        		.byte	0
  1369 025e 06        		.byte	6
  1370 025f 0C        		.byte	12
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 101
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 101
 
 
  1371 0260 1E        		.byte	30
@@ -6058,7 +6058,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1425 0296 0C        		.byte	12
  1426 0297 36        		.byte	54
  1427 0298 63        		.byte	99
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 102
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 102
 
 
  1428 0299 30        		.byte	48
@@ -6118,7 +6118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1482 02cf 00        		.byte	0
  1483 02d0 00        		.byte	0
  1484 02d1 00        		.byte	0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 103
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 103
 
 
  1485 02d2 00        		.byte	0
@@ -6171,14 +6171,14 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1532               		.type	header, @object
  1533               		.size	header, 36
  1534               	header:
- 1535 0300 4C43 4464 		.string	"LCDdirectLVDS94 2014-07-12 06:52:40"
+ 1535 0300 4C43 4464 		.string	"LCDdirectLVDS95 2014-07-12 08:44:23"
  1535      6972 6563 
  1535      744C 5644 
- 1535      5339 3420 
+ 1535      5339 3520 
  1535      3230 3134 
  1536               		.stabs	"header:G(0,48)=ar(0,49)=r(0,49);0;0177777;;0;35;(0,50)=k(4,2)",32,0,12,0
  1537               		.stabs	"characters:G(0,51)=ar(0,49);0;7;(0,52)=ar(0,49);0;95;(0,50)",32,0,40,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 104
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 104
 
 
  1538               		.stabs	"dataEnable:G(0,53)=B(4,2)",32,0,1045,0
@@ -6192,34 +6192,34 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			pag
  1546               		.ident	"GCC: (GNU) 4.8.2"
  1547               	.global __do_copy_data
  1548               	.global __do_clear_bss
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s 			page 105
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s 			page 105
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:140    .text:00000000 pll_enable
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:200    .text:00000024 lvds_timerInit
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:291    .text:00000072 lcd_init
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:751    .bss:00000003 vSync
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:746    .bss:00000001 hsyncCount
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:756    .bss:00000004 dataEnable
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:327    .text:0000008c drawPix
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:376    .text:000000a2 lcd_update
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:520    .text:0000014a restartFrameUpdate
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:740    .data:00000000 updateFrame
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:543    .text:00000152 __vector_14
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:734    .bss:00000000 frameCount
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:618    .text:000001b2 init_hsyncTimer
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:656    .text:000001ca isNewFrame
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:140    .text:00000000 pll_enable
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:200    .text:00000024 lvds_timerInit
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:291    .text:00000072 lcd_init
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:751    .bss:00000003 vSync
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:746    .bss:00000001 hsyncCount
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:756    .bss:00000004 dataEnable
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:327    .text:0000008c drawPix
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:376    .text:000000a2 lcd_update
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:520    .text:0000014a restartFrameUpdate
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:740    .data:00000000 updateFrame
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:543    .text:00000152 __vector_14
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:734    .bss:00000000 frameCount
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:618    .text:000001b2 init_hsyncTimer
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:656    .text:000001ca isNewFrame
                              .bss:00000005 lastFrameCount.2085
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:697    .text.startup:00000000 main
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:762    .progmem.data:00000000 characters
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//cciiF9QE.s:1534   .progmem.data:00000300 header
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:697    .text.startup:00000000 main
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:762    .progmem.data:00000000 characters
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccURkXzY.s:1534   .progmem.data:00000300 header
 
 UNDEFINED SYMBOLS
 tcnter_overflowUpdate

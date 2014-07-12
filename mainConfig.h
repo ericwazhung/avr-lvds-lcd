@@ -246,7 +246,19 @@
 
 
 
-
+//######### BRIEF NOTE ###########
+// BLUE_TESTING's drawing functions rely on somewhat hokey delays in order
+// to create its images... While this is fine for most displays, some are
+// more timing-critical than that. FRAMEBUFFER_TESTING, while it seems more
+// complex, is much more reliable at assuring timing of each row is
+// identical... so, in fact, it might be more reliable to have a solid-blue
+// test in a frame-buffer as a first test... ToContemplate...
+// OTOH, a lot can be learned about the display's characteristics 
+// (and many new ideas can be gotten this way)
+// by fighting with these timings...
+// (e.g. the LTN repeats the last row if the next row's data doesn't come
+// in time... that could be quite handy... requiring sending half as much
+// data and still filling the screen...)
 
 //1) Set this true, then see _config/blueTesting.h
 //BLUE_TESTING is pretty much the simplest signal that can be sent, so it's

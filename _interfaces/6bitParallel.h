@@ -383,11 +383,20 @@ void lcdInterface_pwmDotClockInit(uint8_t onOff)
 #endif
 
 
-
+#if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		       LCDINTERFACE_BITBANGED_DOTCLOCK)
+//Bitbanged isn't apparently nearly as timing-sensitive, so inlining isn't
+//necessary...
+//static __inline__
+void parallelLCD_writeColor(uint8_t includeDEinit, uint8_t includeDelay,
+																		uint8_t colorVal)
+;//	__attribute__((__always_inline__));
+#else
 static __inline__
 void parallelLCD_writeColor(uint8_t includeDEinit, uint8_t includeDelay,
 																		uint8_t colorVal)
-	__attribute__((__always_inline__));
+		__attribute__((__always_inline__));
+#endif
 
 
 #elif (defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING)

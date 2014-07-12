@@ -478,9 +478,9 @@ END GROUP
  .stab          0x00003270      0x15c /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
                                 0x168 (size before relaxing)
 
-.stabstr        0x00000000     0x1a37
+.stabstr        0x00000000     0x1a51
  *(.stabstr)
- .stabstr       0x00000000     0x1a37 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
+ .stabstr       0x00000000     0x1a51 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
 
 .stab.excl
  *(.stab.excl)

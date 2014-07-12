@@ -1,4 +1,4 @@
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 1
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 1
 
 
    1               		.file	"sineTable.c"
@@ -7,7 +7,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
    4               	__SREG__ = 0x3f
    5               	__tmp_reg__ = 0
    6               	__zero_reg__ = 1
-   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/94-regitting/",100,0,2,.Ltext0
+   7               		.stabs	"/Users/meh/_avrProjects/LCDdirectLVDS/95-lookingIntoFunctionWriteColorDelays/",100,0,2,.Lt
    8               		.stabs	"_commonCode_localized/sineTable/0.99/sineTable.c",100,0,2,.Ltext0
    9               		.text
   10               	.Ltext0:
@@ -58,7 +58,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
   55               		.stabs	"_Sat unsigned _Accum:t(0,44)=r(0,1);4;0;",128,0,0,0
   56               		.stabs	"_Sat unsigned long _Accum:t(0,45)=r(0,1);8;0;",128,0,0,0
   57               		.stabs	"_Sat unsigned long long _Accum:t(0,46)=r(0,1);8;0;",128,0,0,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 2
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 2
 
 
   58               		.stabs	"void:t(0,47)=(0,47)",128,0,0,0
@@ -118,7 +118,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  112               		.stabs	"prog_int32_t:t(5,15)=(5,16)=(0,3)",128,0,356,0
  113               		.stabs	"prog_uint32_t:t(5,17)=(5,18)=(0,5)",128,0,357,0
  114               		.stabs	"prog_int64_t:t(5,19)=(5,20)=(0,6)",128,0,359,0
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 3
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 3
 
 
  115               		.stabs	"prog_uint64_t:t(5,21)=(5,22)=(0,7)",128,0,360,0
@@ -178,7 +178,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
   42:_commonCode_localized/sineTable/0.99/sineTable.c **** };
   43:_commonCode_localized/sineTable/0.99/sineTable.c **** 
   44:_commonCode_localized/sineTable/0.99/sineTable.c **** #define pgm_read_sine8(variable) \
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 4
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 4
 
 
   45:_commonCode_localized/sineTable/0.99/sineTable.c ****      ((int8_t)pgm_read_byte((int8_t *)(&(variable))))
@@ -238,7 +238,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
   99:_commonCode_localized/sineTable/0.99/sineTable.c **** 	23731, 24006, 24278, 24546, 24811, \
  100:_commonCode_localized/sineTable/0.99/sineTable.c **** 	25072, 25329, 25582, 25831, 26077, \
  101:_commonCode_localized/sineTable/0.99/sineTable.c **** 	26318, 26556, 26789, 27019, 27244, \
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 5
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 5
 
 
  102:_commonCode_localized/sineTable/0.99/sineTable.c **** 	27466, 27683, 27896, 28105, 28309, \
@@ -298,7 +298,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  156:_commonCode_localized/sineTable/0.99/sineTable.c **** 
  157:_commonCode_localized/sineTable/0.99/sineTable.c **** #if (!defined(SINE_TABLE_ONLY) || !SINE_TABLE_ONLY)
  158:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 6
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 6
 
 
  159:_commonCode_localized/sineTable/0.99/sineTable.c **** //Takes theta of any value in theta_t's range, and returns a theta
@@ -358,7 +358,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  183:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
  184:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//in the third quadrant, mirror the value and subtract the offset
  185:_commonCode_localized/sineTable/0.99/sineTable.c **** 	else if(theta < SINE_SIZE3) //384)
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 7
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 7
 
 
  158               		.stabn	68,0,185,.LM6-.LFBB1
@@ -418,7 +418,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  206:_commonCode_localized/sineTable/0.99/sineTable.c **** //int32_t sineTable[129];
  207:_commonCode_localized/sineTable/0.99/sineTable.c **** 
  208:_commonCode_localized/sineTable/0.99/sineTable.c **** // [I think] Use pgm_read_dword(address_short) unless it's far... we'll have to determine that...
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 8
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 8
 
 
  209:_commonCode_localized/sineTable/0.99/sineTable.c **** // probably OK since it's in the same file... who knows.. .data vs .text?
@@ -478,7 +478,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  253:_commonCode_localized/sineTable/0.99/sineTable.c **** 		//return -(sine_t)pgm_read_sine(sineTable[SINE_SIZE4-theta]); //512-theta]);
  254:_commonCode_localized/sineTable/0.99/sineTable.c **** 	}
  255:_commonCode_localized/sineTable/0.99/sineTable.c **** 
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 9
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 9
 
 
  256:_commonCode_localized/sineTable/0.99/sineTable.c **** 	//This reduced code-size from 3860 to 3838
@@ -538,7 +538,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  241               	.LM18:
  242 0056 9195      		neg r25
  243 0058 8195      		neg r24
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 10
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 10
 
 
  244 005a 9109      		sbc r25,__zero_reg__
@@ -598,7 +598,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  295:_commonCode_localized/sineTable/0.99/sineTable.c **** 	theta=quadrantizeTheta(theta);
  273               		.stabn	68,0,295,.LM21-.LFBB3
  274               	.LM21:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 11
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 11
 
 
  275 005e 00D0      		rcall quadrantizeTheta
@@ -658,7 +658,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  308:_commonCode_localized/sineTable/0.99/sineTable.c **** }
  316               		.stabn	68,0,308,.LM29-.LFBB3
  317               	.LM29:
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 12
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 12
 
 
  318 0080 0895      		ret
@@ -718,7 +718,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  372 0050 563C      		.word	15446
  373 0052 B83D      		.word	15800
  374 0054 173F      		.word	16151
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 13
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 13
 
 
  375 0056 7340      		.word	16499
@@ -778,7 +778,7 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  429 00c2 D876      		.word	30424
  430 00c4 6B77      		.word	30571
  431 00c6 FA77      		.word	30714
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 14
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 14
 
 
  432 00c8 8478      		.word	30852
@@ -815,20 +815,20 @@ GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			pag
  463               		.stabs	"",100,0,0,.Letext0
  464               	.Letext0:
  465               		.ident	"GCC: (GNU) 4.8.2"
-GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s 			page 15
+GAS LISTING /var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 sineTable.c
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:4      *ABS*:0000003f __SREG__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:5      *ABS*:00000000 __tmp_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:6      *ABS*:00000001 __zero_reg__
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:126    .text:00000000 quadrantizeTheta
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:190    .text:00000032 sineRaw
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:331    .progmem.data:00000000 sineTable
-/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccdW1cm7.s:264    .text:0000005e sineRaw8
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:4      *ABS*:0000003f __SREG__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:5      *ABS*:00000000 __tmp_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:6      *ABS*:00000001 __zero_reg__
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:126    .text:00000000 quadrantizeTheta
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:190    .text:00000032 sineRaw
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:331    .progmem.data:00000000 sineTable
+/var/folders/yG/yGnXnnFGGj4hKA71DL26EU+++TI/-Tmp-//ccYChTcS.s:264    .text:0000005e sineRaw8
 
 UNDEFINED SYMBOLS
 __divmodhi4

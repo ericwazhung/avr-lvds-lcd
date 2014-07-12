@@ -75,7 +75,7 @@
 // and displays it... (Actually, it may no longer be stationary)
 // It's been a while since I've tested this, but it should be the simplest
 // frame-buffer-based code...
-#define FB_SMILEY	TRUE
+//#define FB_SMILEY	TRUE
 
 
 
@@ -142,15 +142,8 @@
 //a/o v93: This has been developed heavily alongside the Sony display, and
 //works great.
 // Previously it was developed-heavily alongside the lvds displays, and
-// worked great, as well.
-// BUT: It's now too large to fit in program-space with the LVDS-displays
-//   SO: enter 'makefile' and uncomment the line saying
-//   "HEART_REMOVED=TRUE'
-//TODO: automate this, and/or decrease codesize with LVDS displays
-//      (the latter can probably be accomplished by removing delay_cyc from
-//       writeColor() calls, and replacing it either with a function-call 
-//       or possibly my asm-based delayCyc)
-//#define FB_QUESTION	TRUE
+// works great, as well.
+#define FB_QUESTION	TRUE
 
 
 

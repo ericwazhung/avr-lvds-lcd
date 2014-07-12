@@ -210,11 +210,42 @@
 //drawPix function...
 // Setting it FALSE does *not* disable DE
 
+
+//Check if there's enough delay-time that we can *not* inline writeColor
+// In which case, we'll save a *ton* of program-space
+#define WC_JUMPRET_CYCLES	8
+#if(WRITE_COLOR_DELAY > WC_JUMPRET_CYCLES)
+#define WC_INLINEABLE
+ #define WC_ALWAYS
+ #define WCD_DELAY	(WRITE_COLOR_DELAY-8)	//Two Jump/Rets
+#else
+ #define WC_INLINEABLE	static __inline__
+ #define WC_ALWAYS		__attribute__((__always_inline__))
+ #define WCD_DELAY	(WRITE_COLOR_DELAY-4)	//One JumpRet
+#endif
+
+//If it's functionized, then there's no reason to functionize this, as
+//well... but if not, we can squeeze about 72 bytes out this way...
+// so that's better'n'nothing, I guess...
+// (and I'm just too lazy to put it back, as this was the first experiment)
+void writeColorDelay(void)
+{
+#if(WCD_DELAY <= 0)
+#error "Can't *not* inline delay_cyc in writeColor, due to WCD_DELAY<=0"
+#endif
+	//And now we're jumping twice...
+	//Assuming two cycles to jump here and two to return...
+	delay_cyc(WCD_DELAY);
+}
+
+
 #ifndef writeColor	
-static __inline__ 
+//static __inline__ 
+WC_INLINEABLE
 void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
 																		uint8_t colorVal) 
-	__attribute__((__always_inline__));
+	WC_ALWAYS;
+	//	__attribute__((__always_inline__));
 
 #if(defined(__AVR_AT90PWM161__))
 //This is all the actual/uncommented writeColor() function, below, does...
@@ -241,7 +272,8 @@ void writeColor(uint8_t includeDEinit, uint8_t includeDelay,
 
  }
 #endif
- void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
+ WC_INLINEABLE 
+	void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
 		 															uint8_t colorVal)
  {
 
@@ -412,13 +444,15 @@ __asm__ __volatile__
 	//"Attempt to stretch across the full screen"
 	// Not sure if/where this is used... 
 	if(includeDelay)
-		delay_cyc(WRITE_COLOR_DELAY);
+		writeColorDelay();
+	//	delay_cyc(WRITE_COLOR_DELAY);
  }
 
 
 //This should probably test for the TINY861, specifically
 #else //if(!defined(__AVR_AT90PWM161__))
 #warning "includeDEinit in writeColor() has not yet been implemented on the Tiny861"
+WC_INLINEABLE
 void writeColor(uint8_t includeDEinit, uint8_t includeDelay, 
 																		uint8_t colorVal)
 {
@@ -658,8 +692,9 @@ __asm__ __volatile__
    OCR1A = ocra;
 
 	if(includeDelay)
+		writeColorDelay();
 		//Attempt to stretch across the full screen...
-		delay_cyc(WRITE_COLOR_DELAY);
+		//delay_cyc(WRITE_COLOR_DELAY);
 }
 #endif //AT90PWM161 or not...
 //#endif //!ROW_SEG_BUFFER

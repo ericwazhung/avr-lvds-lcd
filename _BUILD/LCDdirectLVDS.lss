@@ -11,17 +11,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   3 .stab         000033cc  00000000  00000000  00000de4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00001a37  00000000  00000000  000041b0  2**0
+  4 .stabstr      00001a51  00000000  00000000  000041b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .comment      00000011  00000000  00000000  00005be7  2**0
+  5 .comment      00000011  00000000  00000000  00005c01  2**0
                   CONTENTS, READONLY
-  6 .debug_info   000004b0  00000000  00000000  00005bf8  2**0
+  6 .debug_info   000004b0  00000000  00000000  00005c12  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000470  00000000  00000000  000060a8  2**0
+  7 .debug_abbrev 00000470  00000000  00000000  000060c2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000001d  00000000  00000000  00006518  2**0
+  8 .debug_line   0000001d  00000000  00000000  00006532  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000001a3  00000000  00000000  00006535  2**0
+  9 .debug_str    000001a3  00000000  00000000  0000654f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -229,9 +229,9 @@ Disassembly of section .text:
  418:	0f 78 00 00 00 00 00 00 00 1f 00 00 00 00 00 f4     .x..............
 
 00000428 <header>:
- 428:	4c 43 44 64 69 72 65 63 74 4c 56 44 53 39 34 20     LCDdirectLVDS94 
- 438:	32 30 31 34 2d 30 37 2d 31 32 20 30 36 3a 35 32     2014-07-12 06:52
- 448:	3a 34 30 00                                         :40.
+ 428:	4c 43 44 64 69 72 65 63 74 4c 56 44 53 39 35 20     LCDdirectLVDS95 
+ 438:	32 30 31 34 2d 30 37 2d 31 32 20 30 38 3a 34 34     2014-07-12 08:44
+ 448:	3a 32 33 00                                         :23.
 
 0000044c <__ctors_end>:
  44c:	11 24       	eor	r1, r1

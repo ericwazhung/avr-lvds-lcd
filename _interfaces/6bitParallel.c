@@ -111,6 +111,13 @@ void lcdInterface_init(void)
 
 
 #if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+
+
+ #if (defined(LCDINTERFACE_BITBANGED_DOTCLOCK) && \
+		  LCDINTERFACE_BITBANGED_DOTCLOCK)
+ #warning "parallelLCD_writeColor() needn't be inline, but it probably is."
+ #endif
+
 void parallelLCD_writeColor(uint8_t includeDEinit, uint8_t includeDelay,
 																		uint8_t colorVal)
 {
