@@ -8,6 +8,8 @@
 
 
 
+
+
 #include "MarioRuns.h"	//used for the images...
 
 #define NUM_IMAGES_LUIGIRUNS	NUM_IMAGES_MARIORUNS
@@ -127,7 +129,7 @@ const __flash sprite_t spriteLUIGIRUNS =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/LuigiRuns.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/LuigiRuns.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

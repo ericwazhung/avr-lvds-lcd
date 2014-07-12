@@ -8,6 +8,8 @@
 
 
 
+#include "frameBuffer.h"
+
 
 
 //Don't change the pixels behind the text...
@@ -141,7 +143,7 @@ static __inline__
 void frameBufferChange(uint8_t *bufferChanged,
 		                     uint8_t row, uint8_t col, uint8_t color);
 
-extern uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
+//extern uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
 
 #define tet_setPixel(row, col, color) \
 			frameBufferChange((&my_frameBufferChanged),(row),(col),(color))
@@ -876,7 +878,7 @@ const uint16_t pgm_tetPiece[NUM_PIECES][4] PROGMEM =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/tetStuff.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/tetStuff.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

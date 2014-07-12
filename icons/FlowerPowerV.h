@@ -9,6 +9,8 @@
 
 
 
+
+
 #ifndef __FLOWER_POWER_V_H__
 #define __FLOWER_POWER_V_H__
 
@@ -166,7 +168,7 @@ const __flash sprite_t spriteFLOWER =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/FlowerPowerV.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/FlowerPowerV.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

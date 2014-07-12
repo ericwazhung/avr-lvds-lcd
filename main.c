@@ -10,6 +10,8 @@
 
 
 
+
+
 // Please see mainConfig.h!
 
 
@@ -25,7 +27,7 @@
 
 #include "projInfo.h"   //Don't include in main.h 'cause that's included in other .c's?
 #include "main.h"
-#include <util/delay.h> //For delay_us in pll_enable
+//#include <util/delay.h> //For delay_us in pll_enable
 #include <avr/pgmspace.h>
 #include _TIMERCOMMON_HEADER_
 //#include "../../../_commonCode/charBitmap/0.10/charBitmap.h"
@@ -41,6 +43,7 @@
 //This is hokey, just trying to free up space
 // Frankly, these should only be included as-needed
 #if (!defined(FB_QUESTION) || !FB_QUESTION)
+#warning "These should only be included as-needed!"
 //These two saved 800Bytes
 // But that's probably just charBitmap, because sineTable is compiled via
 // the makefile.
@@ -95,7 +98,9 @@
 #define OSCCAL_VAL	0xff//0xDB//0xDC//0xE0//0//0xff//0x20//0xff //0x00
 #include "delay_cyc.c"
 #include "lcdDefines.h"
-#include "pll.c"
+
+//Now included in lvds[161].c:
+//#include "pll.c"
 
 
 
@@ -152,6 +157,9 @@ uint8_t isNewFrame(void);
 		(defined(ROWBUFFER_TESTING) && ROWBUFFER_TESTING) )
  #include "_options/writeColor.c"
 #endif
+
+
+
 
 #if (defined(FB_QUESTION) && FB_QUESTION)
  #include "fb_question.c"
@@ -390,6 +398,17 @@ void endOfFrameHandler(void)
 	__attribute__((__always_inline__));
 
 #if(!defined(PWM_TESTING) || !PWM_TESTING)
+ //This must (Now) come *after* the display headers, etc...
+ // especially for LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS
+ #warning "This implementation is a bit hokey... LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS"
+ #if(defined(LCDINTERFACE_BITBANGED_DOTCLOCK) &&\
+		 LCDINTERFACE_BITBANGED_DOTCLOCK)
+	#warning "LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS is FALSE (better be a bit-banged dot-clock, otherwise there's lots of math to be done...)"
+	#define LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS	FALSE
+ #else
+	#warning "LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS is TRUE (doesn't work with bitbanged dot-clocks!)"
+	#define LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS	TRUE
+ #endif
  #include _LCDSTUFF_CFILE_
  //#include "../../../_commonCode/lcdStuff/0.50ncf/lcdStuff.c"
 
@@ -421,6 +440,20 @@ void endOfFrameHandler(void)
  // So basically, the entire project is running via timer-interrupt.
  SIGNAL(HSYNC_TIMER_INTERRUPT_VECT) //TIMER0_COMPA_vect)
  {
+	 //This was an *early* test to compare functionality between v91 and
+	 //V66.51 (which was working)
+	 // Didn't seem to have any effect.
+	 // Wasn't until later it was discovered that GCC4.4 was being used for
+	 // v66.51, and therein lied the problem, not here.
+	 // a/o v92, this has been disabled, and no noticeable change has
+	 // appeared on the BOE display.
+	 // Plus, the heart now works.
+	 // This does NOT make v92+ compatible with V66.51-64 (the last version)
+	 // but more like v66.51-1, so is basically irrelevent, now.
+	 // (And doesn't take into account any changes made since v91, anyhow).
+//#define V6651COMPARE TRUE
+
+#if (!defined(V6651COMPARE) || !V6651COMPARE)
 #if(defined(_DMS_EXTERNALUPDATE_) && _DMS_EXTERNALUPDATE_)
 	 dms_update();
 #endif
@@ -430,9 +463,9 @@ void endOfFrameHandler(void)
 		// (because the tcnter uses the hsyncTimer)
 #if(!defined(HEART_TCNTER_UPDATES_AND_INIT) || \
 		!HEART_TCNTER_UPDATES_AND_INIT)
-#if(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
+ #if(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
 	 tcnter_overflowUpdate();
-#endif
+ #endif
 #endif
 
 	 if(!updateFrame)
@@ -459,7 +492,10 @@ void endOfFrameHandler(void)
 	// H-Front-Porch is handled in the time between completion of this
 	// interrupt and the next interrupt...
 
-
+#endif // testing 91 vs 66.51-1
+	 //a/o v66.51-64: lcdUpdate() was surrounded by heart set/cleared
+	 // for 'scoping syncing... definitely revealed the problem. But easy
+	 // enough to do that the code's not reimplemented here (set/clrpinPORT)
 	int16_t rowNum = lcd_update();
 
 	if(rowNum == LCD_FRAMECOMPLETE)
@@ -468,10 +504,12 @@ void endOfFrameHandler(void)
 		//lcd_update() returns TRUE when the frame is complete
 		// which can be used for whatever purposes 
 		// (e.g. FRAME_COUNT_TO_DELAY)
-
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
 		endOfFrameHandler();
+#endif
 	}
 
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
 #if(defined(PARTIAL_REFRESH) && PARTIAL_REFRESH)
 	else if(rowNum >= (int16_t)stopRefreshAtRow)
 	{
@@ -479,6 +517,7 @@ void endOfFrameHandler(void)
 		frameCount++;
 		endOfFrameHandler();
 	}
+#endif
 #endif
 
  #if(defined(LOADROW) && LOADROW)
@@ -779,7 +818,7 @@ void loadRow(uint16_t rowNum)
 
 #if (!defined(EXTERNAL_DRAWPIX) || !EXTERNAL_DRAWPIX)
 #if (defined(ROW_SEG_BUFFER) && ROW_SEG_BUFFER)
-void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 	//Note that rowNum isn't really used here...
 	// and it's only a uint8_t!
@@ -789,7 +828,7 @@ void drawPix(uint16_t rowNum)
 #elif (defined(BLUE_ADC) && BLUE_ADC)
 //This is pretty much identical to most of the BLUE_TESTING in lcdStuff.c
 // with a slight twist...
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
       //uint16_t blueCyc = DOTS_TO_CYC(rowNum);
       //uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
@@ -814,7 +853,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 #elif (defined(BLUE_AND_COLORS) && BLUE_AND_COLORS)
 // This draws four colors on the screen, black, red, blue, and cyan
 // in order to test the other colors (red and green)
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 	//DE_ACTIVE_DELAYABLE attempts to take into account the overhead of
 	//DE_DotDelay, setColors(), etc...
@@ -890,7 +929,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 // Then ALLSHADES_AND_COLORS was added, to show all usable colors
 // This's gotten a bit bloated, and would probably be better-implemented as
 // several different BLUE_WHATEVERs
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 #define BLUESHADES_MAX 11
 		
@@ -1068,7 +1107,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 #else
 //#include "_options/writeColor.c"
 //#include "nonRSB_drawPix.c"
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 	//a/o v70, it's in use again for ROW_BUFFER.
 	//a/o v67, this is used by FRAMEBUFFER_TESTING...
@@ -1133,6 +1172,24 @@ void endOfFrameHandler(void)
  #include "test__flash.c"
 #endif
 
+
+
+//v66.51-64:
+// This was added for comparing the assembly-output of GCC4.4 vs 4.8
+// Otherwise it's not-used
+/*
+void delayDotsFn(int32_t numDots)
+{
+	int32_t numCyc = DOTS_TO_CYC(numDots);
+
+	delay_cyc(numCyc);
+}
+*/
+
+
+
+
+
 int main(void)
 {
 // a/o FB_TETRIS, testing...
@@ -1191,10 +1248,11 @@ int main(void)
 #endif
 
 	//This starts pretty late... watch out for WDT
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
 	init_heartBeat();
 
 	setHeartRate(0);
-
+#endif
 
 
 
@@ -1242,8 +1300,9 @@ int main(void)
 		frameBufferUpdate();
 #endif
 
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
 		heartUpdate();
-		
+#endif		
 		//THIS IS A HACK
 		//tcnter_update();
 	}
@@ -1316,7 +1375,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/main.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/main.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

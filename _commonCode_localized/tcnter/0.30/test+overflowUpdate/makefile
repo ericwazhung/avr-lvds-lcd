@@ -118,7 +118,7 @@ include $(COMDIR)/_make/reallyCommon.mk
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/tcnter/0.30/test+overflowUpdate/makefile
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/tcnter/0.30/test+overflowUpdate/makefile
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

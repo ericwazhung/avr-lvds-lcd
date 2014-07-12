@@ -10,6 +10,8 @@
 
 
 
+
+
 //This file stolen from the original lcdDefines.h, and probably still
 //contains quite a bit of info that's not really display-specific...
 
@@ -242,7 +244,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_displays/testDisplay.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_displays/testDisplay.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

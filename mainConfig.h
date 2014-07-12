@@ -9,10 +9,56 @@
 
 
 
+
+
 #ifndef __MAIN_CONFIG_H__
 #define __MAIN_CONFIG_H__
 
 
+//########################
+//###  OVERVIEW:       ###
+//########################
+
+//This file is used for configuring the project at a high-level...
+// Most configuration options are simplified (here and in the various files
+// under _config/) by uncommenting various options.
+//
+// Basic Options:
+//  * Display 
+//    (timing-parameters defined in _displays/*)
+//
+// (* Interface                 )
+// (  * LVDS/FPD-Link  (DEFAULT))
+// (  * 6-bit parallel          )
+// (  defined in _interfaces/*  )
+//
+//  * Drawing Mode
+//    (See the corresponding file for more configuration-options)
+//    * BLUE_TESTING				(see: _config/blueTesting.h)
+//    * FRAMEBUFFER_TESTING	(see: _config/frameBufferTesting.h)
+//    * ROWBUFFER_TESTING		(see: _config/rowBufferTesting.h)
+//    * ROWSEGBUFFER_TESTING	(see: _config/rowSegBufferTesting.h)
+
+
+
+
+
+
+//Best to just leave this alone...
+
+//v91, notes to self:
+//Thought the multiplication in the .lss was coming from delay_cyc
+// but it's coming from delay_Dots(dots) -> delay_cyc(dots*7/4) ish
+//v92 (copying v66.51-64 notes):
+//This seems to have the same effect... the slope is wrong
+// are lines being doubled?
+// Regardless, FALSE seems to shift the diagonal right a bit (GCC4.8)
+//LATER:
+// Setting this TRUE helps with first few rows of DIAG_BAR, which were
+// random-length...
+//v92:
+// The end-result is TRUE is ideal, at least with DIAG_BAR(_SCROLL)
+#define DELAY_CYC_DELAY_LOOP TRUE
 
 
 
@@ -22,17 +68,63 @@
 //###   Unless using a Sony ACX705AKM            ###
 //###   or similar (parallel-interfaced)         ###
 //###   display, just comment out the next line. ###
-//###   Note that other displays have not been   ###
-//###   tested recently, but should still work.  ###
+//###   (This overrides _LCD_SPECIFIC_HEADER_    ###
+//###    options, as selected, below)            ###
 //##################################################
-#define SONY_TESTING_CONFIG TRUE
+//#define SONY_TESTING_CONFIG TRUE
+
+
+#if (!defined(SONY_TESTING_CONFIG) || !SONY_TESTING_CONFIG)
+//################################################
+//### Select a display                         ###
+//### Uncomment *one* of the following         ###
+//### (or add your own)                        ###
+//###                                          ###
+//### Leave all commented-out to use           ###
+//### _displays/testDisplay.h                  ###
+//###                                          ###
+//### (See _displays/displayNotes.txt)         ###
+//################################################
+
+//For the most part,
+//These _displays/ files simply contain timing-values
+// E.G. Width/Height, Hsync-width, etc. in pixels
+// (These values aren't necessarily those on the data-sheets!)
+
+//Samsung LTN121X1:
+// 1024x768, 12.1in
+// There're a few options for this display... I'll try to consolidate
+// them, soon. Until then, select one... If it doesn't work, try another.
+//Try _v6651 first, it's the last-tested
+#define _LCD_SPECIFIC_HEADER_   "_displays/samsungLTN121X1_v6651.h"
+//#define _LCD_SPECIFIC_HEADER_   "_displays/samsungLTN121X1.h"
+//#define _LCD_SPECIFIC_HEADER_   "_displays/samsungNogo.h"
+
+//Boe Hydis HD12X21:
+// 1024x768, 12.1in
+//#define _LCD_SPECIFIC_HEADER_   "_displays/boeHydisHT12X21.h"
+
+//Sony ACX705AKM:
+// 240x160, ~2in (parallel-interfaced)
+//AS OF v92: DON'T SELECT THIS HERE, Instead select SONY_TESTING_CONFIG
+// above.
+//#define _LCD_SPECIFIC_HEADER_		"_displays/sonyACX705AKM.h"
+
+//"Test Display":
+// This was once the default for most 1024x768 displays...
+// It's left here for easy manipulation for your own needs
+// But, it's better if you create your own (copy the file, as a
+// starting-point?)
+// (If _LCD_SPECIFIC_HEADER_ is not defined, it defaults to this)
+//#define _LCD_SPECIFIC_HEADER_		"_displays/testDisplay.h"
+
+//ALTERNATIVELY:
+//Add your own file to _displays/ and add it here:
+//#define _LCD_SPECIFIC_HEADER_		"_displays/YOUR_FILE_HERE.h"
 
 
 
-
-
-
-
+#endif //NOT SONY_TESTING_CONFIG, using a manual-display-selection
 
 
 
@@ -160,7 +252,7 @@
 //BLUE_TESTING is pretty much the simplest signal that can be sent, so it's
 //likely to work with a display, if the display is capable of being
 //worked-with. START HERE.
-//#define BLUE_TESTING	TRUE
+#define BLUE_TESTING	TRUE
 
 
 
@@ -169,7 +261,7 @@
 //If BLUE_TESTING works, then FRAMEBUFFER_TESTING likely will, as well...
 //This gives a (usually) 16x16 framebuffer stretched across the entire
 //screen.
-#define FRAMEBUFFER_TESTING	TRUE
+//#define FRAMEBUFFER_TESTING	TRUE
 
 
 
@@ -181,6 +273,13 @@
 //a/0 v70:
 // RowBuffer hasn't been implemented in some time...
 // Time to do it!
+//a/o v93:
+// This actually does something still with the LTN (and possibly most LVDS
+// displays!) But, NYI for the parallel-interfaced.
+// Currently getting 64 horizontal "pixels" by 384 rows (Rows must be
+// doubling due to the LTN's infamous doubled-row thing, right?)
+// Anyways, it's under-developed, but certainly has potential.
+// Basically as soon as I got it working, I moved on to rowSegBuffer
 //#define ROWBUFFER_TESTING	TRUE
 
 
@@ -196,6 +295,8 @@
 // is 1/680th of a screen-width, and 1/768th of a screen-height.
 //a/o v90, rowSegBuffer has yet to be tested on any display other than the
 //Samsung LTN, and it's been quite a while...
+//a/o v93, whoa, this code actually still compiles, and it sorta displays
+//something still on the LTN... To Be Revisited.
 //#define ROWSEGBUFFER_TESTING TRUE
 
 
@@ -449,8 +550,10 @@
 #endif
 #ifndef _LCD_INTERFACE_CFILE_
  #if (defined(__AVR_AT90PWM161__))
+  #define _LCD_INTERFACE_HEADER_ "interfaces/lvds161.h"
   #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds161.c"
  #else	//Assumed ATtiny861:
+  #define _LCD_INTERFACE_HEADER_ "_interfaces/lvds.h"
   #define _LCD_INTERFACE_CFILE_ "_interfaces/lvds.c"
  #endif
 #endif //_LCD_INTERFACE_CFILE_ not previously defined
@@ -621,7 +724,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/mainConfig.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/mainConfig.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -8,6 +8,8 @@
 
 
 
+
+
 #include "Mario.h"
 
 
@@ -100,7 +102,7 @@ const __flash sprite_t spriteLUIGI =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Luigi.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/Luigi.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

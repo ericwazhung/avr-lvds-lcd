@@ -15,6 +15,8 @@
 
 
 
+
+
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
 
@@ -376,7 +378,7 @@ static char header_data[] = {
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/_old/Coin2.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/_old/Coin2.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

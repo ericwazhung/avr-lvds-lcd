@@ -13,6 +13,28 @@
 #
 #
 #
+#
+#
+
+# a/o v92: (copy-over from v66.51-64 a/o v91):
+#
+# VERSION 66 WAS WRITTEN PRIOR TO AVR-GCC 4.8
+# (which requires "const" before PROGMEM, etc)
+# ALSO: gcc4.8 appears to do some weird stuff that 4.4 didn't...
+# like changing ((n*7)/4) to mult/div function-calls
+# whereas 4.4. apparently did ((n<<3)-n)>>2
+# which was *MUCH* faster
+# See notes in Delay_Dots()
+#
+# Otherwise, this may be useful for later testing, so left here
+# Commented-out is 4.8 (on my system)
+# Uncommented is 4.4 (on my system)
+#CC = /usr/local/bin/avr-gcc
+#
+
+
+
+
 
 #This bit (.mainConfig.preprocessed.mk) handles making #defines in
 #mainConfig.h available to make for conditional inclusion...
@@ -579,7 +601,13 @@ CFLAGS += -D'_DELAYCYC_HEADER_="$(DELAYCYC)"'
 # Yes, this is one of those cases where COM_HEADERS is being hacked for
 # direct-inclusion of a .c file. It's ugly. lcdStuff.h and lcdStuff.mk
 # should be created. They haven't yet.
-LCDSTUFF := $(COMDIR)/lcdStuff/0.80ncf/lcdStuff.c
+#
+# a/o v92: lcdStuff0.80ncfDD6651 is the version used in fixing
+# v66->v66.51-64 for GCC4.8... (specifically: BLUE_FRAME, and
+# BLUE_DIAG_BAR(_SCROLL)
+# v0.90 is such a minor change from v0.80 that it's probably not even worth
+# reusing...
+LCDSTUFF := $(COMDIR)/lcdStuff/0.80ncfDD6651/lcdStuff.c
 COM_HEADERS += $(dir $(LCDSTUFF))
 CFLAGS += -D'_LCDSTUFF_CFILE_="$(LCDSTUFF)"'
 
@@ -747,7 +775,7 @@ include $(COMDIR)/_make/reallyCommon2.mk
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/makefile
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/makefile
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

@@ -6,8 +6,28 @@
  */
 
 
-//lcdStuff 0.80ncf-2
+//lcdStuff 0.80ncfDD6651-3
 
+//0.80ncfDD6651-3 - BLUE_DIAG_BAR doesn't work with sony bit-banged (duh)
+//                  What to do about delay_cyc where delay_Dots should
+//                  always be...?
+//                  LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS
+//0.80ncfDD6651-2 - BLUE_BORDER doesn't work with BOE... timings?
+//0.80ncfDD6651-1 - a/o LCDdirectLVDS93, running through the BLUE tests...
+//                  drawPix definitions are now DP_INLINEABLE
+//0.80ncfDD6651 - Stolen from LCDdirectLVDS66.51-64 (a/o v91):
+//                BLUE_DIAG_BAR has been modified substantially
+//                 Including drawPixSetup
+//                 Now also combined with BLUE_DIAG_BAR_SCROLL
+//                TODO: Uses delay_cyc rather than delay_Dots
+//                      But this won't work with all systems (especially
+//                      bit-banged!)
+//                   
+//0.80ncfDD - Looking into delayDots as a possible culprit for GCC48's
+//				  destroying BLUE_TESTING (especially BLUE_DIAG_BAR_SCROLL)
+//            a/o LCDdirectLVDS91 -> 66.51
+//0.80ncf-3 - adding BLUE_FRAME since BLUE_DIAG_BAR wasn't working with the
+//				  LTN display (?!) a/o LCDdirectLVDS91
 //0.80ncf-2 - Fixing vsync-case which went back to Nada...
 //            e.g. for bit-banged parallel-LCD and/or SDRAMthing
 //            TODO: Remove other case (for SDRAMthing)
@@ -103,6 +123,20 @@
 //				A little bit of rewriting of notes to be more generalized
 //          All delay_cyc references replaced with delay_Dots,
 //					math changed accordingly...
+
+
+#if 0
+#define DP_INLINEABLE static __inline__
+#define DP_INLINEABLE_ALWAYS	__attribute__((__always_inline__))
+#else
+#define DP_INLINEABLE
+#define DP_INLINEABLE_ALWAYS
+#endif
+//static __inline__ 
+DP_INLINEABLE void drawPix(uint16_t rowNum) DP_INLINEABLE_ALWAYS;
+//	  __attribute__((__always_inline__));
+
+
 
 
 // I hereby declare this FPD-Link simulation technique to forever be called
@@ -1008,15 +1042,15 @@
 //   between each state...
 //   (the fewer changes, the less likely we'll glitch...?)
 
-uint8_t dataEnable = 0;
-uint8_t vSync = 0;
-uint16_t hsyncCount = 0;
+volatile uint8_t dataEnable = 0;
+volatile uint8_t vSync = 0;
+volatile uint16_t hsyncCount = 0;
 
 //frameCount=0 can be used in main to detect whether we've completed a 
 //  a frame AND its FRAME_UPDATE_DELAY
 #if (defined(FRAME_COUNT_TO_DELAY) && (FRAME_COUNT_TO_DELAY != 0))
 #error "FRAME_COUNT_TO_DELAY isn't really an lcdStuff thing anymore, is it?"
-uint8_t frameCount = 0;
+volatile uint8_t frameCount = 0;
 #endif
 
 void lcd_init(void)
@@ -1340,7 +1374,10 @@ int16_t lcd_update(void)
 	//  ... IN THIS INTERRUPT
 	//loadData(((hsyncCount-T_VD-T_Vlow)>>3)&31, dataEnable,colorOverride);
 //	loadData(hsyncCount-T_DV-T_VD-T_Vlow, dataEnable);
+
+
 	loadData(rowNum, dataEnable);
+
 
 	hsyncCount++;
 
@@ -1644,9 +1681,7 @@ void init_timer0Hsync(void)
 // RowSegBuffer doesn't pay attention to rowNum in drawPix...
 
 
-static __inline__ \
-void drawPix(uint16_t rowNum) \
-	  __attribute__((__always_inline__));
+
 #if 0
 #if (!defined(ROW_SEG_BUFFER) || !ROW_SEG_BUFFER)
 //drawPix loads each pixel individually... It doesn't use a for-loop
@@ -1820,27 +1855,99 @@ void drawPix(uint8_t rowNum)
 //a/o sdramThing2.0v8 early... appears to be syncing on Blue signal
 // thus we get diagonal data including Hsync (colored in red) along the
 // as a diagonal stripe at the right
-#if(defined(BLUE_DIAG_BAR) && BLUE_DIAG_BAR)
-static __inline__ void drawPix(uint16_t rowNum)
+#if((defined(BLUE_DIAG_BAR) && BLUE_DIAG_BAR) || \
+	 (defined(BLUE_DIAG_BAR_SCROLL) && BLUE_DIAG_BAR_SCROLL) )
+//BORDER is somewhat risky...
+// It doesn't actually add a border to the right-side
+// The green shown there is due to DE deactivating.
+#define BORDER ((DE_ACTIVE_DOTS - V_COUNT)/2)
+#define drawPixSetup dpSetup
+//uint16_t blueDots;
+//uint16_t blackDots;
+//int16_t notBlueCyc;
+//int16_t blueCyc;
+int32_t blueCount;
+int32_t blackCount;
+
+
+static __inline__ void dpSetup(uint16_t rowNum)
 {
+	uint32_t blueDots = rowNum;
+#if(defined(BLUE_DIAG_BAR_SCROLL) && BLUE_DIAG_BAR_SCROLL)
+	static uint16_t rowOffset = 0;
+	if(rowNum == 0)
+	{
+		rowOffset++;
+		if(rowOffset >= (DE_ACTIVE_DOTS-BORDER))
+			rowOffset = 0;
+	}
+
+	blueDots += rowOffset;
+
+	while(blueDots >= (DE_ACTIVE_DOTS-BORDER))
+	{
+		//rowOffset = 0;
+		blueDots -= (DE_ACTIVE_DOTS-BORDER);
+	}
+	//blueDots %= DE_ACTIVE_DOTS;
+#endif
+//If dots-to-cyc is used, then calculations should be done ahead of time
+//e.g. in lvds: delay_Dots(n) = delay_cyc(DOTS_TO_CYC(n))
+// but DOTS_TO_CYC is a lot of math when its argument is non-constant
+#if(defined(LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS) && \
+				LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS)
+//	blueDots = rowNum;
+//	blackDots = DE_ACTIVE_DOTS - blueDots;
+	//notBlueCyc = rowNum; //DOTS_TO_CYC(rowNum);
+	//blueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS-BORDER) - rowNum; //DOTS_TO_CYC(DE_ACTIVE_DOTS-BORDER-rowNum);
+	blueCount = DOTS_TO_CYC(blueDots);
+	//blueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS-BORDER - rowNum); //DOTS_TO_CYC(DE_ACTIVE_DOTS-BORDER-rowNum);
+	blackCount = DOTS_TO_CYC(DE_ACTIVE_DOTS-BORDER) - blueCount;
+	if(blackCount < 0)
+		blackCount = 0;
+#else //delayDots doesn't use DOTS_TO_CYC (e.g. bitbanged pixel-clock)
+	   // or maybe SDRAMThing
+	blueCount = blueDots;
+	blackCount = DE_ACTIVE_DOTS-BORDER - blueDots;
+#endif
+
+}
+
+#ifndef LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS
+#error "LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS is not defined. It should be either TRUE or FALSE; so's you don't forget."
+#elif(LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS)
+#define delayCount	delay_cyc
+#else //FALSE
+ #define delayCount	delay_Dots
+#endif
+
+DP_INLINEABLE void drawPix(uint16_t rowNum)
+{
+		//dpSetup(rowNum);
 		//uint16_t blueCyc = DOTS_TO_CYC(rowNum);
 		//uint16_t notBlueCyc = DOTS_TO_CYC(DE_ACTIVE_DOTS)-blueCyc;
-		uint16_t notBlueDots = rowNum;
-		uint16_t blueDots = DE_ACTIVE_DOTS - notBlueDots;
+//		uint16_t blueDots = rowNum;
+//		uint16_t blackDots = DE_ACTIVE_DOTS - blueDots;
 
 		DEonly_fromNada();
 		//a/o v0.70-1, swapping blue and not-blue...
 		//This is a bit of a hack, since DEblue_fromNada doesn't exist...
 		DEblue_fromDEonly();
-
-		//delay_cyc(notBlueCyc);
-		//delay_Dots(notBlueDots);
-		DE_DotDelay(blueDots);
+		//delay_cyc(DOTS_TO_CYC(BORDER));
+		delay_Dots(BORDER);
 		DEonly_fromDEblue();
-		//delay_cyc(blueCyc);
+
+		delayCount(blackCount);
 		//delay_Dots(blueDots);
-		DE_DotDelay(notBlueDots);
-		Nada_fromDEonly();
+		//DE_DotDelay(blackDots);
+		//DEonly_fromDEblue();
+		DEblue_fromDEonly();
+
+		delayCount(blueCount);
+		//delay_Dots(blackDots);
+		//DE_DotDelay(blueDots);
+		//Nada_fromDEonly();
+		Nada_fromDEblue();
 }
 #endif
 
@@ -1848,7 +1955,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 //a/o LCDdirectLVDS62: This is the same as above, but scrolls vertically
 // one line per refresh... so it's easy to calculate the refresh-rate
 #if(defined(BLUE_DIAG_BAR_SCROLL) && BLUE_DIAG_BAR_SCROLL)
-static __inline__ void drawPix(uint16_t rowNum)
+/*DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 	static uint16_t rowOffset;
 	if(rowNum == 0)
@@ -1869,6 +1976,8 @@ static __inline__ void drawPix(uint16_t rowNum)
 		DE_DotDelay(notBlueDots);
 		Nada_fromDEonly();
 }
+*/
+
 #endif
 
 
@@ -1877,7 +1986,8 @@ static __inline__ void drawPix(uint16_t rowNum)
 //between each frame...
 // (Careful, this one'll cause seizures!)
 #if(defined(BLUE_DIAG_SCROLL_FLASH) && BLUE_DIAG_SCROLL_FLASH)
-static __inline__ void drawPix(uint16_t rowNum)
+#error "BLUE_DIAG_SCROLL_FLASH is broken a/o v91 + GCC48)"
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 	static uint16_t rowOffset;
 	if(rowNum == 0)
@@ -1922,7 +2032,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 //a/o sdramThing2.0v8-31ish: LooksPromising, but delayed
 // also LVDS bit-shifts causing vertical striping
 #if(defined(BLUE_VERT_BAR) && BLUE_VERT_BAR)
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 		DEonly_fromNada();
 		//delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS)/3);
@@ -1938,7 +2048,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 
 //a/o sdramThing2.0v8-32 nogo... syncs at end of blue instead of Hsync
 #if(defined(BLUE_VERT_BAR_REVERSED) && BLUE_VERT_BAR_REVERSED)
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 		DEblue_fromNada();
 		//delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS)/3);
@@ -1954,7 +2064,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 
 
 #if(defined(DE_BLUE) && DE_BLUE)
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 		DEblue_fromNada();
 		//delay_cyc(DOTS_TO_CYC(DE_ACTIVE_DOTS));
@@ -1965,7 +2075,7 @@ static __inline__ void drawPix(uint16_t rowNum)
 #endif
 
 #if(defined(BLUE_BORDER) && (BLUE_BORDER!=0))
-static __inline__ void drawPix(uint16_t rowNum)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
 {
 		DEblue_fromNada();
 		DE_DotDelay(BLUE_BORDER);
@@ -1976,6 +2086,74 @@ static __inline__ void drawPix(uint16_t rowNum)
 		Nada_fromDEblue();
 }
 #endif
+
+
+#if(defined(BLUE_FRAME) && BLUE_FRAME)
+#define drawPixSetup dpSetup
+uint8_t insideFrame;
+
+static __inline__ void dpSetup(uint16_t rowNum)
+{
+	insideFrame = 
+		((rowNum > V_COUNT/4) && (rowNum < V_COUNT-V_COUNT/4));
+}
+#define BORDER	((DE_ACTIVE_DOTS)/4)
+DP_INLINEABLE void drawPix(uint16_t rowNum)
+{
+//	uint8_t insideFrame = 
+//		((rowNum > V_COUNT/4) && (rowNum < V_COUNT-V_COUNT/4));
+
+	DEblue_fromNada();
+	/*
+#ifdef lvds_enableGreen_MakeClockSensitiveToDT
+	lvds_enableGreen_MakeClockSensitiveToDT();
+#endif
+*/
+	if(insideFrame) //(rowNum > V_COUNT/4) && (rowNum < V_COUNT-V_COUNT/4))
+	{
+		//DEblue_fromNada();
+		DE_DotDelay(BORDER);
+		DEonly_fromDEblue();
+		DE_DotDelay(DE_ACTIVE_DOTS - BORDER*2);
+		DEblue_fromDEonly();
+		DE_DotDelay(BORDER);//+200);//Not having any effect!
+		//Nada_fromDEblue();
+	}
+	else
+	{
+		//DEblue_fromNada();
+//		DE_DotDelay(DE_ACTIVE_DOTS); //+200); Seems to be affecting above!!!
+//    Rounding-down(?) seems to cause the above to be significantly longer
+		//than the three below...
+		//WTF.
+		// DE_ACTIVE_DOTS = 1000 -> 1750 CYC
+		// 437Cyc/BORDER, 875Cyc center
+		// = 1749Cyc...
+		// Why is it *so far* off without all this rigamorole?!
+		// a/o BOE
+
+		DE_DotDelay(BORDER);
+		//DEonly_fromDEblue();
+#ifdef DEonly_fromDEblue_Placeholder
+		DEonly_fromDEblue_Placeholder();
+#endif
+		DE_DotDelay(DE_ACTIVE_DOTS - BORDER*2);
+#ifdef DEblue_fromDEonly_Placeholder
+		DEblue_fromDEonly_Placeholder();
+#endif
+		//DEblue_fromDEonly();
+		DE_DotDelay(BORDER);//+200);//Not having any effect!
+		//Nada_fromDEblue();
+	}
+	/*
+#ifdef lvds_disableGreen_MakeClockInsensitiveToDT
+	lvds_disableGreen_MakeClockInsensitiveToDT();
+#endif
+*/
+	Nada_fromDEblue();
+}
+#endif
+
 
 #if 0
 //NOT BLUE_DIAG_BAR, BLUE_VERT_BAR, NOR DE_BLUE
@@ -2046,6 +2224,7 @@ void loadData(uint16_t rowNum, uint8_t dataEnable)
 
    if(dataEnable)
    {
+
 		//No DE_fromNada() in here, either...
 		drawPix(rowNum);
 		//#error "No Nada here?!"
@@ -2382,7 +2561,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/lcdStuff/0.80ncf/lcdStuff.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/lcdStuff/0.80ncfDD6651/lcdStuff.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -10,6 +10,8 @@
 
 
 
+
+
 //
 //
 // THIS FILE IS NOT USED
@@ -378,7 +380,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_displays/originalLCDdefines_fromV79.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_displays/originalLCDdefines_fromV79.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

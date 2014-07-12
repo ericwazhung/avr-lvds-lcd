@@ -571,7 +571,7 @@ uint8_t timer_setOutputModes(uint8_t timerNum, uint8_t outputChannelMask,
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/timerCommon/1.22/timerCommon.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/timerCommon/1.22/timerCommon.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

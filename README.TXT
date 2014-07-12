@@ -27,14 +27,52 @@ this file referencing "now" as, e.g. v62. Yes, it's been a while, and there
 have been numerous significant changes since then, including quite a bit of
 new functionality, which kinda tends to burry the older functionality. 
 
+7-12-14: We're now at v94, which has been tested-functional with three 
+different displays.
+
+
 Basically: Start in mainConfig.h... This has (most) configuration options.
            Start with "BLUE_TESTING" and "DE_BLUE"...
+			  (Check 'makefile' to change the processor-selection.)
 			  FEEL FREE to email me with questions... it'll help me organize!
 
+Configuration As-Distributed:
+	(can be configured differently, as described above)
+	* 1024x768 laptop display (FPD-Link/"LVDS")
+	* ATtiny861
+	* "DE_BLUE" (Fills the screen with blue, for sync-testing)
 
+Necessary circuitry components:
+	* ATtiny861 (AT90PWM161 is also implemented)
+	* TTL Buffer   \  Only necessary for LVDS-displays; I use the 74LS86 XOR
+	* TTL Inverter /  for both purposes. 
+	* (Newer TTL chips may require 8 100ohm resistors in series with the
+		outputs)
+	* .1uF caps for power-filtering
+	* 3.3-3.6V power supply
+	* (CCFL LCD-backlight inverter)
+	* (Optional: LED+resistor, and push-button)
+
+Pinout/Wiring Info:
+	* pinout.h
+	* (see also files in _interfaces/)
+
+Build Process:
+	'make fuse'		--Configure the AVR's FUSE bits
+	'make clean'	--(It's wise to run this any time any change is made)
+	'make'
+	'make run'		--Burn it to the AVR's FLASH
+
+
+Tools:
+	(Visit _commonCode_localized/_make/avrCommon.mk to change)
+	* avr-gcc4.8 (4.4 should work, but some options might have to be removed
+					  from commonWarnings.mk)
+	* avr-dude
+	* usbTinyISP
 
 ------------------
-
+From here, on, notes are REALLY OLD.
 
 The original code-site for this code is located at:
 https://code.google.com/p/avr-lvds-lcd/

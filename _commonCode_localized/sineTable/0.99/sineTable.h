@@ -229,7 +229,7 @@ axis_t sineScaled(theta_t theta, axis_t axisAmplitude);
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/sineTable/0.99/sineTable.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/sineTable/0.99/sineTable.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

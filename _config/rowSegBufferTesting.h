@@ -8,6 +8,8 @@
 
 
 
+
+
 //This file is to be #included in <project>/mainConfig.h 
 // when ROWSEGBUFFER_TESTING is true...
 
@@ -341,7 +343,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/mainConfig.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_config/rowSegBufferTesting.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

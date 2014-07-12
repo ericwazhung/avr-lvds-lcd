@@ -40,6 +40,10 @@ CFLAGS += -Werror=return-type
 # Problems? "Some spurious warnings can be avoided if you declare all the
 #            functions you use that never return as 'noreturn'."
 CFLAGS += -Werror=uninitialized
+
+#THIS IFNDEF is a hack... the old avr-gcc doesn't have this option
+# Would be better to test these options in GCC before compiling... TODO
+ifndef CC
 # That's basically useless in all but the simplest cases, as is:
 CFLAGS += -Werror=maybe-uninitialized
 # Neither detect:
@@ -53,7 +57,7 @@ CFLAGS += -Werror=maybe-uninitialized
 #   return 0;
 #}
 # And haven't for over a decade. Except, apparently, Apple's GCC4.0
-
+endif
 
 
 # This case is just BAD and should not be allowed ever.
@@ -165,7 +169,7 @@ CFLAGS += -Wundef
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/commonWarnings.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/_make/commonWarnings.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

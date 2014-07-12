@@ -14,6 +14,8 @@
 
 
 
+
+
 // THIS IS JUST A COPY OF the following with everything removed but
 //  updateLCD
 // and with loadData with colorOverride added so we don't have to modify
@@ -189,7 +191,7 @@ uint8_t updateLCD(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_old/lcdUpdate.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_old/lcdUpdate.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -9,6 +9,8 @@
 
 
 
+
+
 //a/o v70:
 // This is somewhat poorly implemented...
 // writeColor.c actually handles unpacking the rowBuffer.
@@ -104,7 +106,7 @@
 
 #define RB_WIDTH 64 //100
 #define RB_HEIGHT 48
-uint8_t rowBuffer[RB_WIDTH];
+uint8_t rowBuffer[RB_WIDTH+1];
 
 #ifndef __AVR_AT90PWM161__
 //Convert from a frameBuffer color to a rowBuffer setting value...
@@ -259,7 +261,7 @@ uint8_t fb_to_rb(uint8_t fbColor)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/rowBuffer.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/rowBuffer.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

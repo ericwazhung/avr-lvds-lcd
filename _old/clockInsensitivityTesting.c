@@ -14,6 +14,8 @@
 
 
 
+
+
 //a/0 v24, this allows the clock signal to be affected by DT
 // if it works, we'll be able to use Green on /OC1B
 // Sort of works... Blues with DT=0 are good, timing's not screwed
@@ -86,7 +88,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_old/clockInsensitivityTesting.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_old/clockInsensitivityTesting.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

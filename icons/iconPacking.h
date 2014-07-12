@@ -13,6 +13,8 @@
 
 
 
+
+
 // This file contains tools for packing an icon/sprite into the least
 // memory possible, while allowing the image-data itself to be somewhat
 // viewable in the sprites' header files.
@@ -323,7 +325,7 @@ uint8_t getGimpColorVal(const __flash sprite_t *sprite, uint8_t palette, uint8_t
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/iconPacking.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/iconPacking.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

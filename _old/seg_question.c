@@ -14,6 +14,8 @@
 
 
 
+
+
 //seg_question.c (uses rowSegBuffer):
 //Displays a Question-Mark box, ala Mario-Brothers. Press the button and
 // receive a reward (and occasional goomba)
@@ -343,7 +345,7 @@ void segQuestion_loadRow(uint16_t rowNum)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_old/seg_question.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_old/seg_question.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -8,9 +8,10 @@
 
 
 
+
+
 #ifndef __SONY_ACX705AKM_H__
 #define __SONY_ACX705AKM_H__
-
 //This is pretty much exclusively for bit-banged MCK on the 6bitParallel
 //interface...
 // bit-banged seems to have fixed the hsync-shift problem, but now the
@@ -484,7 +485,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_displays/sonyACX705AKM.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_displays/sonyACX705AKM.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

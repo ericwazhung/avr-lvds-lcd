@@ -14,6 +14,8 @@
 
 
 
+
+
 //hsyncTimer is used for timing each LCD row.
 // Please see hsyncTimerStuff.h for implementation notes.
 
@@ -93,7 +95,7 @@ void init_hsyncTimer(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/hsyncTimerStuff.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/hsyncTimerStuff.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

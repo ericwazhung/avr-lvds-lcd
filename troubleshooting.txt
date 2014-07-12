@@ -36,12 +36,19 @@ BLUE_DIAG_BAR showing a tiny fraction of a blue triangle at the bottom,
 
 
 
+
+
 Early "BLUE_TESTING"
 	Weird seemingly-random garbage coming through? Try disconnecting the
 	programming-header. There's no way 'round using the same pins for
 	programming as "LVDS", due to the chip-layout.
    (Oddly, this presented itself on one display, but not another, same
 	 exact code. Dunno.)	
+	// If you want to lose hope, read this: It's quite plausible that the
+	// display may just be repeating one row's data, rather than actually
+	// paying attention to each (identical) row's data... So cross your
+	// fingers
+	// when you move on to BLUE_DIAG_BAR
 
 
 Some topics to keep in mind:

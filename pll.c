@@ -7,8 +7,11 @@
 
 
 
+#ifndef __PLL_C__
+#define __PLL_C__
 
-
+#include _BITHANDLING_HEADER_
+#include <util/delay.h> //For delay_us in pll_enable
 
 
 
@@ -87,6 +90,8 @@ void pll_enable(void)
 
 }
 
+#endif //__PLL_C__
+
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
  *    necessary; where people would respect others' work and wishes, 
@@ -148,7 +153,7 @@ void pll_enable(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/pll.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/pll.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

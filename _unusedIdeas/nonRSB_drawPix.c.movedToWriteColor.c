@@ -14,6 +14,8 @@
 
 
 
+
+
 //This drawPix was developed before RowSegBuffer
 // there are two versions included: RowBuffer and FrameBuffer
 // which function almost identically as far as this function's concerned
@@ -352,7 +354,7 @@ asm("nop");
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_unusedIdeas/nonRSB_drawPix.c.movedToWriteColor.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_unusedIdeas/nonRSB_drawPix.c.movedToWriteColor.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

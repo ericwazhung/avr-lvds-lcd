@@ -14,6 +14,8 @@
 
 
 
+
+
 // Looking back into other ways of getting more colors...
 // Considering switching the TCNT to start at the FALLING edge of clock
 
@@ -289,7 +291,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_unusedIdeas/color2.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_unusedIdeas/color2.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

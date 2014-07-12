@@ -1010,7 +1010,7 @@ const uint8_t __attribute__ ((progmem)) characters[][CHAR_COUNT+1] = //'~'-' '+1
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/charBitmap/0.10/charBitmap.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/charBitmap/0.10/charBitmap.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

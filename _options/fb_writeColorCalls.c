@@ -8,6 +8,8 @@
 
 
 
+
+
 //This file contains consecutive writeColor calls
 // in such a way that they'll be optimized not to use pointer-arithmetic,
 // nor a for-loop which requires counters, jumps, and tests that take quite
@@ -275,7 +277,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/fb_writeColorCalls.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/fb_writeColorCalls.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

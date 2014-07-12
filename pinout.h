@@ -14,6 +14,8 @@
 
 
 
+
+
 // Huh, I thought there was a pinout file already... I guess this isn't
 // actually used as a header file, but might be soon.
 //
@@ -240,7 +242,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/pinout.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/pinout.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -172,7 +172,7 @@ endif
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/at90pwm161.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/_make/at90pwm161.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

@@ -14,6 +14,8 @@
 
 
 
+
+
 //SHOULD PROBABLY BE REVISITED
 // It probably doesn't work with all cases...
 // Definitely with drawPix/Images...
@@ -96,7 +98,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_unusedIdeas/frameSync.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_unusedIdeas/frameSync.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

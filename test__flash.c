@@ -8,6 +8,8 @@
 
 
 
+
+
 //Test '__flash' and its functionality with structures...
 // Looks perfect.
 //#define TEST__FLASH TRUE
@@ -130,7 +132,7 @@ void test__flash(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/test__flash.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/test__flash.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

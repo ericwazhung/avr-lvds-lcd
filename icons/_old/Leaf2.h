@@ -8,6 +8,8 @@
 
 
 
+
+
 /*  GIMP header image file format (INDEXED): /Users/meh/_avrProjects/LCDdirectLVDS/Mario/Leaf2.h  */
 
 static unsigned int width = 16;
@@ -358,7 +360,7 @@ static char header_data[] = {
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/_old/Leaf2.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/_old/Leaf2.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

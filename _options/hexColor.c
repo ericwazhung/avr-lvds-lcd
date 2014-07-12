@@ -11,15 +11,20 @@
 
 
 
+#include "mainConfig.h"
+
 #if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+#include "frameBuffer.h"
+
 //__static __inline__
 //This formatting stolen from tetStuff a/o v69... NYfullyI
- extern uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH];
+// extern uint8_t frameBuffer[FB_HEIGHT][FB_WIDTH+1];
  #define hexColor_setPixel(col, color) \
 	rowBuffer[(col)] = (color)
 
  #if(defined(FB_REFRESH_ON_CHANGE) && FB_REFRESH_ON_CHANGE)
   #error "hexColor doesn't yet have FB_REFRESH_ON_CHANGE implemented... disable it or code it :)"
+ #endif
 #else
  #define hexColor_setPixel(col, color) \
 	rowBuffer[(col)] = fb_to_rb(color)
@@ -71,7 +76,7 @@ void hexColor_drawRow(uint8_t rbRowNum, uint8_t rowBuffer[])
 }
 
 #if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
-void hexColor_update(void)
+int16_t hexColor_update(void)
 {
 	uint8_t row;
 
@@ -79,9 +84,10 @@ void hexColor_update(void)
 //	static tcnter_t startTime = 0;
 
 //	if(tcnter_isItTime(&startTime, 5*TCNTER_SEC))
-	static dms4day_t startTime = 0;
+	//static dms4day_t startTime = 0;
+	static fb_timer_t	startTime = 0;
 
-	if(dmsIsItTime(&startTime, 5*DMS_SEC))
+	if(fb_isItTime(&startTime, 5000*MAIN_MS))
 	{
 		hexColor++;
 		hexColor &= 0x3f;	//There are only two bits per R/G/B so 3f is the
@@ -96,6 +102,9 @@ void hexColor_update(void)
 	{
 		hexColor_drawRow(row, frameBuffer[row]);
 	}
+	//hexColor_update() doesn't yet take into account *where* the
+	//frameBuffer has been changed...
+	return FB_HEIGHT-1;
 }
 #else
  #error "hexColor NYreI for non FrameBuffer mode"
@@ -162,7 +171,7 @@ void hexColor_update(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/hexColor.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/hexColor.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

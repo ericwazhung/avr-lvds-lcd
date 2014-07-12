@@ -190,8 +190,13 @@ endif
 
 
 # ---------------------------------------------------------------------------
-
-CC = avr-gcc
+# Allow CC to be overridden in a project's makefile
+# (e.g. if it necessitates an older version)
+#This doesn't work with CC since it has a default value...
+#ifndef CC
+ifeq ($(origin CC),default)
+CC := avr-gcc
+endif
 
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
@@ -585,7 +590,7 @@ coff: $(TARGET).cof end
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/avrCommon.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/_make/avrCommon.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

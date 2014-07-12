@@ -9,6 +9,8 @@
 
 
 
+#include <util/delay.h> //for delay_us, etc...
+
 
 
 
@@ -101,11 +103,33 @@ void delay_cyc(int32_t numCyc)
 {
    if(numCyc <= 0)
       return;
-
+#define V6651_delay_cyc
+//Also, numCyc+3/4 is being converted to >> and GCC warns that it's
+//assuming no signed-overflow occurs... So, for now, we're using v66.51's
+#ifndef V6651_delay_cyc
    uint16_t numLoops = (numCyc+3)/4;
 
    _delay_loop_2(numLoops);
+#else
+	//In v66.51, this was modified as follows...
+	// It's probably unnecessary (and likely why v91 is dang-near
+	// perfectly-stable in terms of pixel-jitter)
+	// But here it is, anyhow.
+	// Actually, on the BOE display, it seems to have no effect...
+	// Though, certainly, it takes more instructions to run...
+	int32_t numLoops = (numCyc+3)>>2;
 
+	while(numLoops > 65536)
+	{
+		_delay_loop_2(0);
+		numLoops -= 65536;
+	}
+
+	if(numLoops > 0)
+	{
+		_delay_loop_2(numLoops);
+	}
+#endif
 /*   uint32_t delayLoops = (numCyc+3)/4;
 
    do
@@ -128,6 +152,18 @@ void delay_cyc(int32_t numCyc)
    else
 */
 }
+//Also from v66.51, but also commented-out there...
+/* This only works when numCyc is constant
+#elif __HAS_DELAY_CYCLES && defined(__OPTIMIZE__)
+extern void __builtin_avr_delay_cycles(unsigned long);
+
+void delay_cyc(int32_t numCyc)
+{
+   __builtin_avr_delay_cycles(numCyc);
+}
+*/
+
+
 
 #else
 void delay_cyc(int32_t numCyc)
@@ -350,7 +386,7 @@ void delay_cyc(int32_t numCyc)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/delay_cyc.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/delay_cyc.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

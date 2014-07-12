@@ -14,6 +14,8 @@
 
 
 
+
+
 #include "iconPacking.h"
 #include "defaultMotion.c"
 
@@ -166,7 +168,7 @@ const __flash sprite_t spriteDEADGOOMBA =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/GoombaDead.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/GoombaDead.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

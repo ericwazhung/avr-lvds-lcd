@@ -14,6 +14,8 @@
 
 
 
+
+
 //writeColor() is a hokey method to draw individual pixels from a buffer,
 //either a row-buffer or a frame-buffer.
 // I say "hokey" because the associated drawPix() function has individual
@@ -949,10 +951,10 @@ asm("nop");
 		//visibility...
 		//Since we're working with VISIBLE_ROW_DOTS in this version, and want
 		//the remaining dots to be black, we'll see where this goes...
-#if(!defined(FRAMEBUFFER_TESTING) || !FRAMEBUFFER_TESTING)
+/*#if(!defined(FRAMEBUFFER_TESTING) || !FRAMEBUFFER_TESTING)
  #error "nonRSB_drawPix now requires the row-buffer to be FB_WIDTH+1 long"
 #endif
-		//This could probably be optimized a bit... maybe just using *one*
+*/		//This could probably be optimized a bit... maybe just using *one*
 		//SRAM location, instead of using one at the end of each row...
 		// but this should be pretty much guaranteed to be the same length
 		// since it uses the same convention.
@@ -1168,7 +1170,7 @@ asm("nop");
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/writeColor.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/writeColor.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -14,6 +14,8 @@
 
 
 
+
+
 // Timer0 is used to synchronize rows...
 // Its interrupt is responsible all display-timing. And all drawing is
 // handled within it.
@@ -23,7 +25,8 @@
 
 #include "lcdDefines.h"
 
-#include "mainConfig.h"
+//included in lcdDefines...
+//#include "mainConfig.h"
 
 #include _BITHANDLING_HEADER_
 
@@ -41,6 +44,7 @@
 #endif
 
 #ifndef HSYNC_TIMER_MAX
+ #error "Whoops, typo...?"
  #define HSYNCT_TIMER_MAX	255
 #endif
 
@@ -359,7 +363,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/hsyncTimerStuff.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/hsyncTimerStuff.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

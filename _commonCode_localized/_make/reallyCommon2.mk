@@ -440,8 +440,10 @@ CFLAGS += -g -O$(OPT) -funsigned-char -funsigned-bitfields -fpack-struct \
 SHELL = sh
 
 #These are defined in avr.mk, if included...
-ifndef CC
-CC = gcc
+#This isn't possible with "CC" since it's defined by default...
+#ifndef CC
+ifeq ($(origin CC),default)
+CC := gcc
 endif
 
 # There doesn't appear to be (installed) a regular objcopy or objdump
@@ -1085,7 +1087,7 @@ endif
 # *    and add a link at the pages above.
 # *
 # * This license added to the original file located at:
-# * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_commonCode_localized/_make/reallyCommon2.mk
+# * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_commonCode_localized/_make/reallyCommon2.mk
 # *
 # *    (Wow, that's a lot longer than I'd hoped).
 # *

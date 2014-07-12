@@ -14,6 +14,8 @@
 
 
 
+
+
 //rowSegBuffer...
 // This description from mainConfig.h:
 // RowBuffer (as opposed to rowSegBuffer) works by calculating each row's 
@@ -712,7 +714,7 @@ void rsb_drawPix(uint8_t rowNum)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/rowSegBuffer.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/rowSegBuffer.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

@@ -8,6 +8,8 @@
 
 
 
+
+
 //a/o v82:
 
 //The new idea for a bump-switch/hit-detector is simply a metal ball in a
@@ -145,7 +147,7 @@ SIGNAL(PCINT_vect)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_hitSensors/bumpSwitch.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_hitSensors/bumpSwitch.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

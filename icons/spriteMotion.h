@@ -8,6 +8,8 @@
 
 
 
+
+
 #ifndef __SPRITE_MOTION_H__
 #define __SPRITE_MOTION_H__
 
@@ -258,7 +260,7 @@ uint8_t fbQ_overlaySprite(sprite_t *p_theSprite, spriteState_t *state);
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/spriteMotion.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/spriteMotion.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

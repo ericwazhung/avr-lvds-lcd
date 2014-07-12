@@ -14,6 +14,8 @@
 
 
 
+
+
 // STOLEN FROM glColorTest2 (v3's is no longer functional)
 
 #define TO_GIMP_PALETTE TRUE
@@ -730,7 +732,7 @@ int main(void)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_tools/lvdsColorExperiments.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_tools/lvdsColorExperiments.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

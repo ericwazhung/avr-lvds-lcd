@@ -1,15 +1,7 @@
 Archive member included because of file (symbol)
 
-/opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
-                              _BUILD/main.o (__mulqi3)
-/opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
-                              _BUILD/main.o (__mulhi3)
-/opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
-                              _BUILD/main.o (__udivmodqi4)
-/opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
-                              _BUILD/main.o (__udivmodhi4)
 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
-                              _BUILD/main.o (__divmodhi4)
+                              _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o (__divmodhi4)
 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
                               _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o (__udivmodsi4)
 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
@@ -18,15 +10,13 @@ Archive member included because of file (symbol)
                               _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o (__do_copy_data)
 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
                               _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o (__do_clear_bss)
+/opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                              /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o) (__udivmodhi4)
 
 Allocating common symbols
 Common symbol       size              file
 
-nowSpriteState      0xe               _BUILD/main.o
-cameraState         0xe               _BUILD/main.o
 heartModulator      0x4               _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-wc_color            0x2               _BUILD/main.o
-frameBuffer         0x110             _BUILD/main.o
 
 Memory Configuration
 
@@ -46,6 +36,7 @@ LOAD _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
 LOAD _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
 LOAD _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 LOAD _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
+LOAD _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
 LOAD _BUILD/main.o
 START GROUP
 LOAD /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a
@@ -143,102 +134,54 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1ade
+.text           0x00000000      0xd4a
  *(.vectors)
  .vectors       0x00000000       0x26 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
                 0x00000000                __vectors
                 0x00000000                __vector_default
  *(.vectors)
  *(.progmem.gcc*)
- .progmem.gcc_sw_table
-                0x00000026       0x4a _BUILD/main.o
-                0x00000070                . = ALIGN (0x2)
-                0x00000070                __trampolines_start = .
+                0x00000026                . = ALIGN (0x2)
+                0x00000026                __trampolines_start = .
  *(.trampolines)
- .trampolines   0x00000070        0x0 linker stubs
+ .trampolines   0x00000026        0x0 linker stubs
  *(.trampolines*)
-                0x00000070                __trampolines_end = .
+                0x00000026                __trampolines_end = .
  *(.progmem*)
- .progmem.data  0x00000070      0x6ed _BUILD/main.o
-                0x00000070                spriteLUIGIRUNS
-                0x00000083                LuigiRunsFlip
-                0x00000086                LuigiRunsMotion
-                0x0000008c                LuigiRunsX
-                0x00000092                spriteMARIORUNS
-                0x000000a5                MarioRunsCamMotion
-                0x000000ab                MarioRunsMotion
-                0x000000b1                MarioRunsX
-                0x00000177                spriteLUIGI
-                0x0000018e                spriteMARIO
-                0x000001e5                spriteCLOUD
-                0x0000023c                spriteLEAF
-                0x0000024f                LeafCamMotion
-                0x00000255                LeafCamY
-                0x00000261                LeafMotion
-                0x00000267                LeafY
-                0x00000273                LeafX
-                0x0000027f                LeafLayer
-                0x00000285                LeafFlip
-                0x000002cf                spriteCOIN
-                0x000002e2                CoinMotion
-                0x000002e8                CoinY
-                0x000003f6                spriteGOOMBA
-                0x00000409                GoombaPA
-                0x00000413                GoombaLayer
-                0x0000041d                GoombaCamMotion
-                0x00000423                GoombaCamY
-                0x00000437                GoombaMotion
-                0x0000043d                GoombaY
-                0x00000451                GoombaFlip
-                0x000004b3                spriteSTAR
-                0x0000050e                spriteBIG
-                0x00000525                sprite1UP
-                0x0000057c                spriteDEADGOOMBA
-                0x0000058f                DeadGoombaCamMotion
-                0x00000595                DeadGoombaCamY
-                0x0000059a                DeadGoombaMotion
-                0x000005e4                spriteSOLID
-                0x0000063b                spriteQ
-                0x0000064e                QPaletteAdvance
-                0x000006a6                spriteFLOWER
-                0x000006b9                FlowerPA
-                0x0000070e                DefaultCamMotion
-                0x00000714                DefaultCamY
-                0x0000071e                DefaultLayer
-                0x00000723                DefaultMotion
-                0x00000729                DefaultY
-                0x00000733                NadaMotion
-                0x00000739                header
-                0x0000075e                . = ALIGN (0x2)
- *fill*         0x0000075d        0x1 
+ .progmem.data  0x00000026      0x102 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+                0x00000026                sineTable
+ .progmem.data  0x00000128      0x324 _BUILD/main.o
+                0x00000128                characters
+                0x00000428                header
+                0x0000044c                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x0000075e                __ctors_start = .
+                0x0000044c                __ctors_start = .
  *(.ctors)
-                0x0000075e                __ctors_end = .
-                0x0000075e                __dtors_start = .
+                0x0000044c                __ctors_end = .
+                0x0000044c                __dtors_start = .
  *(.dtors)
-                0x0000075e                __dtors_end = .
+                0x0000044c                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x0000075e        0x0 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-                0x0000075e                __init
+ .init0         0x0000044c        0x0 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+                0x0000044c                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x0000075e        0xc /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+ .init2         0x0000044c        0xc /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x0000076a       0x16 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
-                0x0000076a                __do_copy_data
- .init4         0x00000780       0x10 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
-                0x00000780                __do_clear_bss
+ .init4         0x00000458       0x16 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+                0x00000458                __do_copy_data
+ .init4         0x0000046e       0x10 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+                0x0000046e                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -249,217 +192,162 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000790        0x4 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+ .init9         0x0000047e        0x4 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
  *(.init9)
  *(.text)
- .text          0x00000794        0x2 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-                0x00000794                __vector_18
-                0x00000794                __vector_12
-                0x00000794                __bad_interrupt
-                0x00000794                __vector_6
-                0x00000794                __vector_3
-                0x00000794                __vector_11
-                0x00000794                __vector_13
-                0x00000794                __vector_17
-                0x00000794                __vector_7
-                0x00000794                __vector_5
-                0x00000794                __vector_4
-                0x00000794                __vector_9
-                0x00000794                __vector_15
-                0x00000794                __vector_8
-                0x00000794                __vector_10
-                0x00000794                __vector_16
-                0x00000794                __vector_1
- .text          0x00000796       0x4c _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
-                0x00000796                hfm_setPower
-                0x000007a8                hfm_setup
-                0x000007b2                hfm_nextOutput
- .text          0x000007e2      0x148 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
-                0x000007e2                timer_selectDivisor
-                0x0000082c                timer_setWGM
-                0x00000868                timer_init
-                0x00000892                timer_compareMatchIntSetup
- .text          0x0000092a      0x262 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-                0x0000092a                setHeartRate
-                0x00000954                getHeartRate
-                0x00000972                heartClear
-                0x0000097a                init_heartBeat
-                0x000009a2                set_heartBlink
-                0x000009a8                heartUpdate
-                0x00000b78                heartPinInputPoll
- .text          0x00000b8c      0x1c6 _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
-                0x00000b8c                tcnter_init
-                0x00000ba4                tcnter_overflowUpdate
-                0x00000c34                tcnter_update
-                0x00000cb0                tcnter_wait
-                0x00000d40                tcnter_get
- .text          0x00000d52      0xc48 _BUILD/main.o
-                0x00000d52                pll_enable
-                0x00000d76                hitSensor_init
-                0x00000d8e                setColor
-                0x00000dd8                frameBufferInit
-                0x00000dea                setSpriteSkyColorOverride
-                0x00000df4                getRawPixelVal
-                0x00000e3a                rawPixValToGimpColorVal
-                0x00000e5c                fbQ_repositionSprite
-                0x00000f50                fbQ_overlaySprite
-                0x000010b4                initSpriteStates
-                0x00001168                fbQuestion_hitDetected
-                0x00001248                __vector_2
-                0x00001294                prepNextSprite
-                0x000012f4                fbQ_drawBackground
-                0x00001336                fbQuestion_update
-                0x00001406                getSpritePalette
-                0x0000145a                getSpritePhase
-                0x000014a4                lcd_init
-                0x000014c2                lcd_update
-                0x00001820                restartFrameUpdate
-                0x0000184e                frameBufferUpdate
-                0x000018c6                __vector_14
-                0x0000196a                init_hsyncTimer
-                0x00001982                isNewFrame
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text          0x0000199a        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
-                0x0000199a                . = ALIGN (0x2)
+ .text          0x00000482        0x2 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+                0x00000482                __vector_18
+                0x00000482                __vector_12
+                0x00000482                __bad_interrupt
+                0x00000482                __vector_6
+                0x00000482                __vector_3
+                0x00000482                __vector_11
+                0x00000482                __vector_13
+                0x00000482                __vector_17
+                0x00000482                __vector_7
+                0x00000482                __vector_5
+                0x00000482                __vector_4
+                0x00000482                __vector_9
+                0x00000482                __vector_2
+                0x00000482                __vector_15
+                0x00000482                __vector_8
+                0x00000482                __vector_10
+                0x00000482                __vector_16
+                0x00000482                __vector_1
+ .text          0x00000484       0x4c _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
+                0x00000484                hfm_setPower
+                0x00000496                hfm_setup
+                0x000004a0                hfm_nextOutput
+ .text          0x000004d0      0x148 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
+                0x000004d0                timer_selectDivisor
+                0x0000051a                timer_setWGM
+                0x00000556                timer_init
+                0x00000580                timer_compareMatchIntSetup
+ .text          0x00000618      0x264 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
+                0x00000618                setHeartRate
+                0x00000642                getHeartRate
+                0x00000660                heartClear
+                0x00000668                init_heartBeat
+                0x00000690                set_heartBlink
+                0x00000696                heartUpdate
+                0x00000866                heartPinInputPoll
+ .text          0x0000087c      0x1c6 _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
+                0x0000087c                tcnter_init
+                0x00000894                tcnter_overflowUpdate
+                0x00000924                tcnter_update
+                0x000009a0                tcnter_wait
+                0x00000a30                tcnter_get
+ .text          0x00000a42       0x82 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+                0x00000a42                quadrantizeTheta
+                0x00000a74                sineRaw
+                0x00000aa0                sineRaw8
+ .text          0x00000ac4      0x1e2 _BUILD/main.o
+                0x00000ac4                pll_enable
+                0x00000ae8                lvds_timerInit
+                0x00000b36                lcd_init
+                0x00000b50                drawPix
+                0x00000b66                lcd_update
+                0x00000c0e                restartFrameUpdate
+                0x00000c16                __vector_14
+                0x00000c76                init_hsyncTimer
+                0x00000c8e                isNewFrame
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .text          0x00000ca6        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000ca6                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x0000199a       0x62 _BUILD/main.o
-                0x0000199a                main
+ .text.startup  0x00000ca6        0xe _BUILD/main.o
+                0x00000ca6                main
  .text.libgcc.mul
-                0x000019fc       0x12 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
-                0x000019fc                __mulqi3
+                0x00000cb4        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.div
-                0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
- .text.libgcc   0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
+                0x00000cb4       0x26 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000cb4                __divmodhi4
+                0x00000cb4                _div
+ .text.libgcc   0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.prologue
-                0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
+                0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.builtins
-                0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
+                0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.fmul
-                0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
+                0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.fixed
-                0x00001a0e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
+                0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
  .text.libgcc.mul
-                0x00001a0e       0x22 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
-                0x00001a0e                __mulhi3
+                0x00000cda        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.div
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
- .text.libgcc   0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
+                0x00000cda       0x44 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000cda                __udivmodsi4
+ .text.libgcc   0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.prologue
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.builtins
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fmul
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fixed
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
  .text.libgcc.mul
-                0x00001a30        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00001a30       0x18 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
-                0x00001a30                __udivmodqi4
- .text.libgcc   0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .text.libgcc   0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00001a48        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x00001a48       0x28 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
-                0x00001a48                __udivmodhi4
- .text.libgcc   0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x00001a70        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00001a70       0x26 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
-                0x00001a70                __divmodhi4
-                0x00001a70                _div
- .text.libgcc   0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
  .text.libgcc.mul
-                0x00001a96        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000d1e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  .text.libgcc.div
-                0x00001a96       0x44 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
-                0x00001a96                __udivmodsi4
- .text.libgcc   0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000d1e       0x28 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d1e                __udivmodhi4
+ .text.libgcc   0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  .text.libgcc.prologue
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  .text.libgcc.builtins
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  .text.libgcc.fmul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+                0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  .text.libgcc.fixed
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
- .text.libgcc.mul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.div
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc   0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.prologue
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.builtins
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.fmul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.fixed
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .text.libgcc.mul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.div
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc   0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.prologue
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.builtins
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.fmul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.fixed
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .text.libgcc.mul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc.div
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc.prologue
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc.builtins
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc.fmul
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
- .text.libgcc.fixed
-                0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
-                0x00001ada                . = ALIGN (0x2)
+                0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                0x00000d46                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001ada        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
-                0x00001ada                exit
-                0x00001ada                _exit
+ .fini9         0x00000d46        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+                0x00000d46                exit
+                0x00000d46                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -478,11 +366,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001ada        0x4 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .fini0         0x00000d46        0x4 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
  *(.fini0)
-                0x00001ade                _etext = .
+                0x00000d4a                _etext = .
 
-.data           0x00800060        0xa load address 0x00001ade
+.data           0x00800060        0x6 load address 0x00000d4a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
@@ -491,77 +379,62 @@ END GROUP
  .data          0x00800060        0x5 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
                 0x00800061                heartStepTime
  .data          0x00800065        0x0 _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
- .data          0x00800065        0x4 _BUILD/main.o
+ .data          0x00800065        0x0 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+ .data          0x00800065        0x1 _BUILD/main.o
                 0x00800065                updateFrame
-                0x00800066                nowIsReward
-                0x00800067                p_nowSprite
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .data          0x00800069        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .data          0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x0080006a                . = ALIGN (0x2)
- *fill*         0x00800069        0x1 
-                0x0080006a                _edata = .
-                0x0080006a                PROVIDE (__data_end, .)
+                0x00800066                . = ALIGN (0x2)
+                0x00800066                _edata = .
+                0x00800066                PROVIDE (__data_end, .)
 
-.bss            0x0080006a      0x156
-                0x0080006a                PROVIDE (__bss_start, .)
+.bss            0x00800066       0x1f
+                0x00800066                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080006a        0x0 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
- .bss           0x0080006a        0x0 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
- .bss           0x0080006a        0x0 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
- .bss           0x0080006a        0xb _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-                0x0080006a                heartBlink
- .bss           0x00800075        0xa _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
-                0x00800075                tcnter_lastOverflowTcnt
-                0x00800076                tcnter_updatesSinceOverflowUpdate
-                0x0080007a                tcnter_lastTcnt
-                0x0080007b                tcnter_myTcnter
- .bss           0x0080007f        0xf _BUILD/main.o
-                0x0080007f                frameCount
-                0x00800080                hsyncCount
-                0x00800082                vSync
-                0x00800083                dataEnable
-                0x00800084                qCount
-                0x00800085                callCount
-                0x00800086                skyOverrideSprite
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
- .bss           0x0080008e        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .bss           0x00800066        0x0 /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+ .bss           0x00800066        0x0 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
+ .bss           0x00800066        0x0 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
+ .bss           0x00800066        0xb _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
+                0x00800066                heartBlink
+ .bss           0x00800071        0xa _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
+                0x00800071                tcnter_lastOverflowTcnt
+                0x00800072                tcnter_updatesSinceOverflowUpdate
+                0x00800076                tcnter_lastTcnt
+                0x00800077                tcnter_myTcnter
+ .bss           0x0080007b        0x0 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+ .bss           0x0080007b        0x6 _BUILD/main.o
+                0x0080007b                frameCount
+                0x0080007c                hsyncCount
+                0x0080007e                vSync
+                0x0080007f                dataEnable
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .bss           0x00800081        0x0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x0080008e        0x4 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-                0x0080008e                heartModulator
- COMMON         0x00800092      0x12e _BUILD/main.o
-                0x00800092                nowSpriteState
-                0x008000a0                cameraState
-                0x008000ae                wc_color
-                0x008000b0                frameBuffer
-                0x008001c0                PROVIDE (__bss_end, .)
-                0x00001ade                __data_load_start = LOADADDR (.data)
-                0x00001ae8                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800081        0x4 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
+                0x00800081                heartModulator
+                0x00800085                PROVIDE (__bss_end, .)
+                0x00000d4a                __data_load_start = LOADADDR (.data)
+                0x00000d50                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008001c0        0x0
-                0x008001c0                PROVIDE (__noinit_start, .)
+.noinit         0x00800085        0x0
+                0x00800085                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008001c0                PROVIDE (__noinit_end, .)
-                0x008001c0                _end = .
-                0x008001c0                PROVIDE (__heap_start, .)
+                0x00800085                PROVIDE (__noinit_end, .)
+                0x00800085                _end = .
+                0x00800085                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -579,7 +452,7 @@ END GROUP
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x4ca4
+.stab           0x00000000     0x33cc
  *(.stab)
  .stab          0x00000000      0x5c4 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
  .stab          0x000005c4      0x840 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
@@ -588,30 +461,26 @@ END GROUP
                                 0xa14 (size before relaxing)
  .stab          0x00001650      0x63c _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
                                 0x804 (size before relaxing)
- .stab          0x00001c8c     0x26a0 _BUILD/main.o
-                               0x2880 (size before relaxing)
- .stab          0x0000432c       0xc0 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
-                                 0xcc (size before relaxing)
- .stab          0x000043ec      0x120 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
-                                0x12c (size before relaxing)
- .stab          0x0000450c       0xe4 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
-                                 0xf0 (size before relaxing)
- .stab          0x000045f0      0x15c /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
-                                0x168 (size before relaxing)
- .stab          0x0000474c      0x138 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
+ .stab          0x00001c8c      0x654 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+                                0x810 (size before relaxing)
+ .stab          0x000022e0      0xa38 _BUILD/main.o
+                                0xce4 (size before relaxing)
+ .stab          0x00002d18      0x138 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
                                 0x144 (size before relaxing)
- .stab          0x00004884      0x228 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
+ .stab          0x00002e50      0x228 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
                                 0x234 (size before relaxing)
- .stab          0x00004aac       0x6c /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
+ .stab          0x00003078       0x6c /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
                                  0x78 (size before relaxing)
- .stab          0x00004b18       0xd8 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
+ .stab          0x000030e4       0xd8 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
                                  0xe4 (size before relaxing)
- .stab          0x00004bf0       0xb4 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
+ .stab          0x000031bc       0xb4 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
                                  0xc0 (size before relaxing)
+ .stab          0x00003270      0x15c /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
+                                0x168 (size before relaxing)
 
-.stabstr        0x00000000     0x27ac
+.stabstr        0x00000000     0x1a37
  *(.stabstr)
- .stabstr       0x00000000     0x27ac _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
+ .stabstr       0x00000000     0x1a37 _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
 
 .stab.excl
  *(.stab.excl)
@@ -632,6 +501,7 @@ END GROUP
  .comment       0x00000000       0x12 _BUILD/_commonCode_localized/timerCommon/1.22/timerCommon.o
  .comment       0x00000000       0x12 _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
  .comment       0x00000000       0x12 _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
+ .comment       0x00000000       0x12 _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
  .comment       0x00000000       0x12 _BUILD/main.o
 
 .note.gnu.build-id
@@ -706,39 +576,6 @@ LOAD linker stubs
 Cross Reference Table
 
 Symbol                                            File
-CoinMotion                                        _BUILD/main.o
-CoinY                                             _BUILD/main.o
-DeadGoombaCamMotion                               _BUILD/main.o
-DeadGoombaCamY                                    _BUILD/main.o
-DeadGoombaMotion                                  _BUILD/main.o
-DefaultCamMotion                                  _BUILD/main.o
-DefaultCamY                                       _BUILD/main.o
-DefaultLayer                                      _BUILD/main.o
-DefaultMotion                                     _BUILD/main.o
-DefaultY                                          _BUILD/main.o
-FlowerPA                                          _BUILD/main.o
-GoombaCamMotion                                   _BUILD/main.o
-GoombaCamY                                        _BUILD/main.o
-GoombaFlip                                        _BUILD/main.o
-GoombaLayer                                       _BUILD/main.o
-GoombaMotion                                      _BUILD/main.o
-GoombaPA                                          _BUILD/main.o
-GoombaY                                           _BUILD/main.o
-LeafCamMotion                                     _BUILD/main.o
-LeafCamY                                          _BUILD/main.o
-LeafFlip                                          _BUILD/main.o
-LeafLayer                                         _BUILD/main.o
-LeafMotion                                        _BUILD/main.o
-LeafX                                             _BUILD/main.o
-LeafY                                             _BUILD/main.o
-LuigiRunsFlip                                     _BUILD/main.o
-LuigiRunsMotion                                   _BUILD/main.o
-LuigiRunsX                                        _BUILD/main.o
-MarioRunsCamMotion                                _BUILD/main.o
-MarioRunsMotion                                   _BUILD/main.o
-MarioRunsX                                        _BUILD/main.o
-NadaMotion                                        _BUILD/main.o
-QPaletteAdvance                                   _BUILD/main.o
 __bad_interrupt                                   /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __bss_end                                         /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
 __bss_start                                       /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
@@ -746,7 +583,7 @@ __data_end                                        /opt/local/lib/gcc/avr/4.8.2/a
 __data_load_start                                 /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
 __data_start                                      /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_copy_data.o)
 __divmodhi4                                       /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
-                                                  _BUILD/main.o
+                                                  _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
 __do_clear_bss                                    /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_clear_bss.o)
                                                   _BUILD/main.o
                                                   _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
@@ -756,16 +593,9 @@ __do_copy_data                                    /opt/local/lib/gcc/avr/4.8.2/a
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 __heap_end                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __init                                            /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-__mulhi3                                          /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulhi3.o)
-                                                  _BUILD/main.o
-__mulqi3                                          /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_mulqi3.o)
-                                                  _BUILD/main.o
 __stack                                           /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __udivmodhi4                                      /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodhi4.o)
                                                   /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
-                                                  _BUILD/main.o
-__udivmodqi4                                      /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodqi4.o)
-                                                  _BUILD/main.o
 __udivmodsi4                                      /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_udivmodsi4.o)
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 __vector_1                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
@@ -779,8 +609,7 @@ __vector_15                                       /opt/local/lib/gcc/avr/4.8.2/.
 __vector_16                                       /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __vector_17                                       /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __vector_18                                       /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-__vector_2                                        _BUILD/main.o
-                                                  /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
+__vector_2                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __vector_3                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __vector_4                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 __vector_5                                        /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
@@ -792,24 +621,13 @@ __vector_default                                  /opt/local/lib/gcc/avr/4.8.2/.
 __vectors                                         /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
 _div                                              /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_divmodhi4.o)
 _exit                                             /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
-callCount                                         _BUILD/main.o
-cameraState                                       _BUILD/main.o
+characters                                        _BUILD/main.o
 dataEnable                                        _BUILD/main.o
+drawPix                                           _BUILD/main.o
 exit                                              /opt/local/lib/gcc/avr/4.8.2/avr25/libgcc.a(_exit.o)
                                                   /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-fbQ_drawBackground                                _BUILD/main.o
-fbQ_overlaySprite                                 _BUILD/main.o
-fbQ_repositionSprite                              _BUILD/main.o
-fbQuestion_hitDetected                            _BUILD/main.o
-fbQuestion_update                                 _BUILD/main.o
-frameBuffer                                       _BUILD/main.o
-frameBufferInit                                   _BUILD/main.o
-frameBufferUpdate                                 _BUILD/main.o
 frameCount                                        _BUILD/main.o
 getHeartRate                                      _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-getRawPixelVal                                    _BUILD/main.o
-getSpritePalette                                  _BUILD/main.o
-getSpritePhase                                    _BUILD/main.o
 header                                            _BUILD/main.o
 heartBlink                                        _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 heartClear                                        _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
@@ -824,54 +642,31 @@ hfm_setPower                                      _BUILD/_commonCode_localized/h
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 hfm_setup                                         _BUILD/_commonCode_localized/hfModulation/1.00/hfModulation.o
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-hitSensor_init                                    _BUILD/main.o
 hsyncCount                                        _BUILD/main.o
-initSpriteStates                                  _BUILD/main.o
 init_heartBeat                                    _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
                                                   _BUILD/main.o
 init_hsyncTimer                                   _BUILD/main.o
 isNewFrame                                        _BUILD/main.o
 lcd_init                                          _BUILD/main.o
 lcd_update                                        _BUILD/main.o
+lvds_timerInit                                    _BUILD/main.o
 main                                              _BUILD/main.o
                                                   /opt/local/lib/gcc/avr/4.8.2/../../../../avr/lib/avr25/crttn861.o
-nowIsReward                                       _BUILD/main.o
-nowSpriteState                                    _BUILD/main.o
-p_nowSprite                                       _BUILD/main.o
 pll_enable                                        _BUILD/main.o
-prepNextSprite                                    _BUILD/main.o
-qCount                                            _BUILD/main.o
-rawPixValToGimpColorVal                           _BUILD/main.o
+quadrantizeTheta                                  _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
 restartFrameUpdate                                _BUILD/main.o
-setColor                                          _BUILD/main.o
 setHeartRate                                      _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
                                                   _BUILD/main.o
-setSpriteSkyColorOverride                         _BUILD/main.o
 set_heartBlink                                    _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
-skyOverrideSprite                                 _BUILD/main.o
-sprite1UP                                         _BUILD/main.o
-spriteBIG                                         _BUILD/main.o
-spriteCLOUD                                       _BUILD/main.o
-spriteCOIN                                        _BUILD/main.o
-spriteDEADGOOMBA                                  _BUILD/main.o
-spriteFLOWER                                      _BUILD/main.o
-spriteGOOMBA                                      _BUILD/main.o
-spriteLEAF                                        _BUILD/main.o
-spriteLUIGI                                       _BUILD/main.o
-spriteLUIGIRUNS                                   _BUILD/main.o
-spriteMARIO                                       _BUILD/main.o
-spriteMARIORUNS                                   _BUILD/main.o
-spriteQ                                           _BUILD/main.o
-spriteSOLID                                       _BUILD/main.o
-spriteSTAR                                        _BUILD/main.o
+sineRaw                                           _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+sineRaw8                                          _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
+sineTable                                         _BUILD/_commonCode_localized/sineTable/0.99/sineTable.o
 tcnter_get                                        _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
-                                                  _BUILD/main.o
 tcnter_init                                       _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 tcnter_lastOverflowTcnt                           _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
 tcnter_lastTcnt                                   _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
 tcnter_myTcnter                                   _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
-                                                  _BUILD/main.o
                                                   _BUILD/_commonCode_localized/heartbeat/1.50/heartbeat.o
 tcnter_overflowUpdate                             _BUILD/_commonCode_localized/tcnter/0.30/tcnter.o
                                                   _BUILD/main.o
@@ -888,4 +683,3 @@ timer_setWGM                                      _BUILD/_commonCode_localized/t
                                                   _BUILD/main.o
 updateFrame                                       _BUILD/main.o
 vSync                                             _BUILD/main.o
-wc_color                                          _BUILD/main.o

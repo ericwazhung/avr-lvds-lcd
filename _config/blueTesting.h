@@ -8,6 +8,8 @@
 
 
 
+
+
 //This file is to be #included in <project>/mainConfig.h when BLUE_TESTING
 //is true...
 
@@ -183,11 +185,36 @@
 //############################
 
 
+// NOTE: "BLUE" may be blue-green, and "BLACK" may be green
+
+
 // DE_BLUE displays solid blue on the screen
 // This gives a pretty good idea whether the display is even capable of
 // syncing. If you see *any* solid blue, (offset, or otherwise) then it's
 // quite likely this display can be synced with a little experimentation.
 // If it's solid blue and nothing else, then you lucked out!
+
+//This note can probably be ignored for now...
+
+// (Most displays, it seems, can handle DE_ACTIVE_DOTS fewer than the
+// actual number of dots in a row on the screen... For testing-purposes, it
+// might be wise to start with DE_ACTIVE_DOTS smaller than the display,
+// e.g. a 1024x768 display might be best tested with DE_ACTIVE_DOTS = 1000
+// For one thing, these display-functions probably take *longer* than the
+// actual DE_ACTIVE_DOTS, due to calculation-times, etc.
+// Also, it's helpful to see what the display's response is when DE is
+// deactivated... (and *where* the dots are completed)
+// e.g. the Samsung display continues to draw dots even after DE is
+// deactivated, sometimes repeating those from the above rows, sometimes
+// drawing the "green" that's a result of the green signal's being disabled
+// (and *floating* high)... The BoeHydis display, on the other hand,
+// displays black in the dots following DE's deactivation.)
+// For later tests, it's handy to see where the pixel-data completes, and
+// especially when developing in rowSegBuffer, etc. where pixel-data may be
+// continued off-screen...)
+
+//Take-away:
+// You may see *mostly blue* and a bit of black/green at the far-right...
 #define DE_BLUE TRUE
 
 
@@ -197,15 +224,17 @@
 // BLUE_VERT_BAR, BLUE_VERT_BAR_REVERSED, and BLUE_BORDER display "black" 
 // (or green) and "blue" in vertical columns... 
 // Again, a good test for the display's ability to sync
-// If you want to lose hope, read this: It's quite plausible that the
-// display may just be repeating one row's data, rather than actually
-// paying attention to each (identical) row's data... So cross your fingers
-// when you move on to BLUE_DIAG_BAR
 // These two display one column in blue and another in "black"
+// Similar to above, you may see a black/green column, a wider blue one,
+// then another black/green column... the third (at the right) is where DE
+// is deactivated (where pixel-data stops)
 //#define BLUE_VERT_BAR TRUE
 
 //This one makes more sense... it draws a blue bar roughly 1/3rd of the
 //screen-width at the left-edge...
+// Again, this may be viewed as blue->black/green->(black)
+// (it may appear solid-green at the right, but it's possible there's a
+// portion which just appears green due to DE being deactivated, as above)
 //#define BLUE_VERT_BAR_REVERSED TRUE
 
 
@@ -234,7 +263,16 @@
 // were sending stray data to the display which confused it.
 // (note a/o v90: How can DE_ACTIVE_DOTS be referred-to here, if it's not
 //  yet defined, in the #inclusion-hierarchy? TODO: Retest this.)
+// Again, this may be viewed as blue->green/black->blue->green/black
+// The fourth bar is where DE is deactivated.
 //#define BLUE_BORDER (DE_ACTIVE_DOTS/4) //341//10//20
+
+
+// NEW a/o v91:
+// BLUE_FRAME displays a blue frame around a black box
+// (BLUE_DIAG_BAR wasn't working with the LTN display?!)
+//#define BLUE_FRAME	TRUE
+
 
 
 
@@ -316,6 +354,8 @@
 //#define BLUE_DIAG_BAR_SCROLL TRUE
 
 
+
+// THE FOLLOWING HAVEN'T BEEN TESTED RECENTLY
 
 
 
@@ -538,7 +578,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/mainConfig.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_config/blueTesting.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

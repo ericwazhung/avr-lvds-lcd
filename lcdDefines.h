@@ -13,6 +13,8 @@
 
 
 
+
+
 //lcdDefines.h contains project-specific definitions (and redefinitions?)
 //  for functions/macros/constants/timing-values used by:
 //  _commonCode.../lcdStuff
@@ -42,7 +44,7 @@
 //Attempting to get new delay_Dots() here...
 #define FB_WIDTH	16
 #include _LCD_SPECIFIC_HEADER_
-#include _LCD_INTERFACE_CFILE_
+#include _LCD_INTERFACE_HEADER_
 
 
 //TODO: This needs to be more sophisticated...
@@ -77,13 +79,34 @@
 // No, it is *definitely* affecting the refresh-rate, but these white bars
 // still exist.
 // I've seen these before... what was the deal? carry-over from a previous row?
-#warning "REVISIT DOTS_TO_CYC MATH"
-#warning "DOTS_TO_CYC DOESN'T ROUND UP"
-#if(defined(PLL_SYSCLK) && PLL_SYSCLK)
-   #define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/4))
-#else
-   #define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/8))
-#endif
+ #warning "REVISIT DOTS_TO_CYC MATH"
+ #warning "DOTS_TO_CYC DOESN'T ROUND UP"
+ #if(defined(PLL_SYSCLK) && PLL_SYSCLK)
+   //#define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/4))
+	//Note from v66.51:
+	//GCC4.4 complied the above to the below (in assembly, of course)
+	//GCC4.8 compiled the above to mult/div function-calls, which were
+	//*exceedingly slow* such that each hsync was happening about 2.5x
+	//slower than it should've. Manually using shifts and subtract seems to
+	//have fixed the problem in GCC4.8
+	// NOTE thi is relevent ONLY when DOTS_TO_CYC's argument is a *variable*
+	// (constants would be handled during compile-time)
+	// e.g. BLUE_DIAG_BAR
+
+	//Note from implementation of v66.51 in v91:
+   //GCC4.8 compiles the above with mults and divs (when dots is variable)
+	// whereas 4.4 did shifts and subtracts
+	// shifts and subtracts worked fine, but mults and divs is WAY TOO SLOW
+	// for e.g. BLUE_DIAG_BAR
+	// (see v66.51)
+	#define DOTS_TO_CYC(dots) \
+		(((((dots)<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 2)
+	
+ #else
+   //#define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/8))
+	#define DOTS_TO_CYC(dots) \
+		(((((dots)<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 3)
+ #endif
 #endif //ifndef DOTS_TO_CYC 
 
 
@@ -92,6 +115,7 @@
 //a/o v81: delay_Dots may be defined elsewhere, e.g. in
 //_interfaces/6bitParallel.c, since there it might handle dot-clocking...
 #ifndef delay_Dots
+ #warning "Using DEFAULT delay_Dots -> delay_cyc"
  #define delay_Dots(numDots) delay_cyc(DOTS_TO_CYC(numDots))
 #endif
 
@@ -421,7 +445,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/lcdDefines.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/lcdDefines.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

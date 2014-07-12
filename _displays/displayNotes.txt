@@ -1,0 +1,87 @@
+as-of v91: 
+So far I've implemented 5 functionally-different displays:
+	* Samsung LTN121X1-L02
+	  (*TWO* models, with different revisions of the LVDS-receiver chip)
+		FPD-Link, 12.1in, 1024x768, DE-Only
+	* Chi Mei N121X5-L03(?)
+		FPD-Link, 12.1in, 1024x768, DE-Only
+	* BOEhydis HT12X21-240
+		FPD-Link, 12.1in, 1024x768, DE-Only
+	* Sony ACX705AKM-7
+		9-bit parallel, ~2in, 240x160
+		(3bits per color; separate Hsync, Vsync, and pixel-clock signals)
+
+
+So far, only *one* display has never worked with this system:
+	* IDTech IAXG01
+	  FPD-Link, 12.1in, 1024x768, NOT DE-Only
+	  (This display has the following note in the data-sheet:
+		"When there are invalid timing, Display appears black pattern.
+		 Synchronous Signal Defects and enter Auto Refresh for LCD Module
+		 protection Mode.")
+	  (Actually, I believe there was a time I had *something* displayed on
+		this screen, but it was LONG ago, and it never did sync up... It has
+		since bit-the-bucket.)
+
+
+IMPLEMENTING A NEW DISPLAY:
+	see, e.g., samsungLTN121X1_v6651.h which has different DE_ACTIVE_DOTS
+	for different modes... 
+	Ideally, every drawing function would match *exactly* the 
+	timing-parameters given in the selected _displays/ file, then things'd
+	work regardless  of the drawing-function... but AS-YET that's not yet
+	possible. Some drawing-functions take longer than others (especially in
+	BLUE_TESTING)
+
+
+
+SAMSUNG LTN121X1-L02:
+	Two models have been implemented in this system, with the following
+	receiver-chips:
+		LXD91810 VS242AC
+		LXD91810 VS252AG
+
+	As I recall, the AC required a faster bit-rate to sync-up properly
+	(notes exist elsewhere)
+	Thus, (now) the *default* setting is the fastest bit-rate possible for
+	this system (16MHz * 8PLL = 128Mbps, BUT the CPU frequency can be
+			nearly-doubled via OSCCAL, so it's *nearly* 256Mbps(?!)
+
+	
+	This display is nice in that it seems highly tolerant of very strange
+	timing-signals; huge horizontal-front-porches and 
+	very slow refresh-rates...
+	
+	* Works Well With rowSegBuffer
+	* Has *visible* refresh:
+		* Flickers at medium refresh-rates (e.g. 10Hz)
+		* Shows a visible scrolling-black line when refreshing at
+		  extremely-low refresh-rates (e.g. 1/5Hz with rowSegBuffer)
+
+	Apparently continues displaying dots at the end of DE (and/or repeats 
+		those from the previous row?)
+	 Nada + disableGreen -> green even though DE_ACTIVE_DOTS is too short.
+
+	Has a tendancy to repeat previous row if (?)...
+		Timing ain't right...?
+
+CHI MEI N121X5:
+	Has NO VISIBLE REFRESH (WOW!)
+
+BOEHYDIS HT12X21:
+	Visibility of refresh is *significantly* diminished compared to Samsung
+	BLUE_DIAG_BAR_SCROLL (in 66.51-63!) is no visible refresh AT ALL
+
+	Apparently stops displaying dots at the end of DE...
+		(Nada + disableGreen -> green on the LTN, but Black here...)
+
+SONY ACK705AKM-7:
+	This display DOES NOT HAVE a Data-Enable input.
+	Thus, it relies on a specific number of pixel-clocks from the edge of
+	the Hsync until data is displayed at the first pixel.
+
+	THUS: It has been found that the MCK (pixel-clock) input is tolerant of
+	varying pulse-widths (edge-sensitive, not timing-sensitive) and so
+	bit-banging of the pixel-clock has been implemented.
+
+

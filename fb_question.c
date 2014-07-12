@@ -14,6 +14,8 @@
 
 
 
+
+
 //fb_question is the good-ol' "Mario" Question-box, using a frameBuffer...
 //  It was created after seg_question, which was created after a
 //  frameBuffer-based method. Long convoluted story.
@@ -967,7 +969,7 @@ uint8_t drawSpriteRow(const __flash sprite_t *p_thisSprite, uint8_t qCount,
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/fb_question.c
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/fb_question.c
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

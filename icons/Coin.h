@@ -14,6 +14,8 @@
 
 
 
+
+
 #include "iconPacking.h"
 #include "defaultMotion.c"
 
@@ -288,7 +290,7 @@ uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/icons/Coin.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/Coin.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

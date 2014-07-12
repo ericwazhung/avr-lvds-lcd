@@ -10,6 +10,8 @@
 
 
 
+
+
 #ifndef __WRITECOLORDELAY_H__
 #define __WRITECOLORDELAY_H__
 
@@ -142,7 +144,7 @@
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/90-reGitting/_options/writeColorDelay.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/_options/writeColorDelay.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *
