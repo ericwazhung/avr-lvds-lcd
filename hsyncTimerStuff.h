@@ -61,7 +61,11 @@
 // TIMER0 DOES NOT HAVE CTC MODE in 16-bit mode
 // (So use the prescaler! Though, this limits the resolution...)
 #define DISPLAY_CYC_COUNT \
-   (T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC)
+   (MAKELONG(T_Hlow_CYC) + \
+	 MAKELONG(T_HD_CYC) + \
+	 MAKELONG(T_DE_CYC) + \
+	 MAKELONG(T_DH_CYC))
+
 // a/o v60:
 // Strange effecs using this in ROW_CALCULATION_CYCS with LVDS_PRESCALER=4
 // and PLL_SYSCLK
@@ -131,7 +135,7 @@
  #define ROW_CALCULATION_CYCS 40000UL //10000UL //0UL
 #else
  //#define ROW_CALCULATION_DELAY 9//7//5//2//1//10
- #define ROW_CALCULATION_CYCS   (8*DISPLAY_CYC_COUNT)
+ #define ROW_CALCULATION_CYCS   (MAKELONG(8)*DISPLAY_CYC_COUNT)
 #endif
 #endif
 
@@ -144,19 +148,14 @@
 
 
 //Attempt to determine the minimum prescaler necessary
-#if (!defined(HSYNC_TIMER_CLKDIV) && (TOTAL_CYC_COUNT > HSYNC_TIMER_MAX))
- //Adding +7 causes it to round up (hopefully)
- #define HSYNC_TIMER_TCNTS ((TOTAL_CYC_COUNT+7)/8)
- #define HSYNC_TIMER_CLKDIV   CLKDIV8
- #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+7)/8: Timer0 CLKDIV8"
+#ifndef HSYNC_TIMER_CLKDIV
 
+//TOTAL_CYC_COUNT_DIV#'s are only to be used here for calculation
 
- #if (HSYNC_TIMER_TCNTS > HSYNC_TIMER_MAX)
-  #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+63)/64: Timer0 CLKDIV64"
-  #define HSYNC_TIMER_TCNTS ((TOTAL_CYC_COUNT+63)/64)
-  #define HSYNC_TIMER_CLKDIV CLKDIV64
-
-  #if(defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
+//_A defines are either aligned or not-aligned, according to
+//ALIGN_TIMER_WITH_PIXCLK
+#if(defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
+ //THE FOLLOWING ARE OLD NOTES AND MAYBE NO LONGER RELEVENT (a/o v95)
    //Attempting interrupt/pixel alignment...
    // this is where we're at, right now.
    // a/o v59-13ish
@@ -165,70 +164,81 @@
    //We know that CLOCKCYCS is divisible by four... (the system clock)
    // so we just need to round to the nearest 7...
 	//a/o v62: Where does 4 come from? Is this an LVDS-Prescaler thing?
+ #define TOTAL_CYC_COUNT_DIV1 \
+	(ROUND_UP_TO(TOTAL_CYC_COUNT, 7))
+ #define TOTAL_CYC_COUNT_DIV8 \
+	(ROUND_UP_TO(TOTAL_CYC_COUNT, (8*7))/8)
+ #define TOTAL_CYC_COUNT_DIV64 \
+	(ROUND_UP_TO(TOTAL_CYC_COUNT, (64*7))/64)
+ #define TOTAL_CYC_COUNT_DIV256 \
+	(ROUND_UP_TO(TOTAL_CYC_COUNT, (256*7))/256)
+ #define TOTAL_CYC_COUNT_DIV1024 \
+	(ROUND_UP_TO(TOTAL_CYC_COUNT, (1024*7))/1024)
+#else
+ //Could use ROUND_UP_TO, here, as well...?
+ #define TOTAL_CYC_COUNT_DIV1		(TOTAL_CYC_COUNT)
+ #define TOTAL_CYC_COUNT_DIV8		((TOTAL_CYC_COUNT+7)/8)
+ #define TOTAL_CYC_COUNT_DIV64	((TOTAL_CYC_COUNT+63)/64)
+ #define TOTAL_CYC_COUNT_DIV256	((TOTAL_CYC_COUNT+255)/256)
+ #define TOTAL_CYC_COUNT_DIV1024	((TOTAL_CYC_COUNT+1023)/1024)
+#endif
 
-//   #define ROUND_TO(minVal, roundTo) \ //
-//      ((((minVal)+((roundTo)-1))/(roundTo))*(roundTo))
-
-   #define HSYNC_TIMER_TCNTS_A (ROUND_UP_TO(TOTAL_CYC_COUNT, 64*7)/64)
-
-
-   #if (HSYNC_TIMER_TCNTS_A <= HSYNC_TIMER_MAX)
-      #define HSYNC_TIMER_TCNTS ((HSYNC_TIMER_TCNTS_A))
-   #else
-      #warning "Rounded past HSYNC_TIMER_MAX"
-   #endif
-  #endif
-
-
-
-  #if ((HSYNC_TIMER_TCNTS > HSYNC_TIMER_MAX) || \
-		 (defined(ALIGN_TIMER_WITH_PIXCLK) && \
-		  		(HSYNC_TIMER_TCNTS_A > HSYNC_TIMER_MAX)))
-    #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+255)/256: Timer0 CLKDIV256"
-    #define HSYNC_TIMER_TCNTS ((TOTAL_CYC_COUNT+255)/256)
-    #define HSYNC_TIMER_CLKDIV CLKDIV256
-   
-    #if(defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
-     //#define CLOCKCYCS (HSYNC_TIMER_TCNTS * 256)
-     #define HSYNC_TIMER_TCNTS_B (ROUND_UP_TO(TOTAL_CYC_COUNT, 256*7)/256)
+//Check CLKDIV1
+#if (TOTAL_CYC_COUNT_DIV1 <= HSYNC_TIMER_MAX)	//CLKDIV1 is OK...
+ #warning "HSYNC_TIMER_TCNTS = TOTAL_CYC_COUNT: Timer0 CLKDIV1"
+ #define HSYNC_TIMER_CLKDIV	CLKDIV1
+ #define HSYNC_TIMER_TCNTS 	TOTAL_CYC_COUNT
 
 
-     #if (HSYNC_TIMER_TCNTS_B <= HSYNC_TIMER_MAX)
-      #define HSYNC_TIMER_TCNTS (HSYNC_TIMER_TCNTS_B)
-     #else
-      #warning "Rounded past HSYNC_TIMER_MAX"
-     #endif
-    #endif
+//Check CLKDIV8
+#elif (TOTAL_CYC_COUNT_DIV8 <= HSYNC_TIMER_MAX)
+ //Adding +7 causes it to round up (hopefully)
+ #define HSYNC_TIMER_CLKDIV   CLKDIV8
+ #define HSYNC_TIMER_TCNTS 	TOTAL_CYC_COUNT_DIV8
+ #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+7)/8: Timer0 CLKDIV8"
 
 
-    #if ((HSYNC_TIMER_TCNTS > HSYNC_TIMER_MAX) || \
-			(defined(ALIGN_TIMER_WITH_PIXCLK) && \
-			 		(HSYNC_TIMER_TCNTS_B > HSYNC_TIMER_MAX)))
-      #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+1023)/1024: Timer0 CLKDIV1024"
-      #define HSYNC_TIMER_TCNTS ((TOTAL_CYC_COUNT+1023)/1024)
-      #define HSYNC_TIMER_CLKDIV   CLKDIV1024
+//Check CLKDIV64
+#elif (TOTAL_CYC_COUNT_DIV64 <= HSYNC_TIMER_MAX)
+  #define HSYNC_TIMER_CLKDIV	CLKDIV64
+  #define HSYNC_TIMER_TCNTS	TOTAL_CYC_COUNT_DIV64
+  #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+63)/64: Timer0 CLKDIV64"
 
-      #if (defined(ALIGN_TIMER_WITH_PIXCLK) && ALIGN_TIMER_WITH_PIXCLK)
-       #define HSYNC_TIMER_TCNTS_C (ROUND_UP_TO(TOTAL_CYC_COUNT, 1024*7)/1024)
+//Check CLKDIV256
+#elif (TOTAL_CYC_COUNT_DIV256 <= HSYNC_TIMER_MAX)
+  #define HSYNC_TIMER_CLKDIV	CLKDIV256
+  #define HSYNC_TIMER_TCNTS	TOTAL_CYC_COUNT_DIV256
+  #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+255)/256: Timer0 CLKDIV64"
 
 
-       #if (HSYNC_TIMER_TCNTS_C <= HSYNC_TIMER_MAX)
-        #define HSYNC_TIMER_TCNTS (HSYNC_TIMER_TCNTS_C)
-       #else
-        #error "Rounded past HSYNC_TIMER_MAX"
-       #endif
-      #endif
-    #endif
-  #endif
- #endif
- #if (HSYNC_TIMER_TCNTS == 0)
-  #error "HSYNC_TIMER_OCRVAL == 0"
- #endif
-#else //Either it fit, or HSYNC_TIMER_CLKDIV was already defined...
+//Check CLKDIV1024
+#elif (TOTAL_CYC_COUNT_DIV1024 <= HSYNC_TIMER_MAX)
+  #define HSYNC_TIMER_CLKDIV	CLKDIV1024
+  #define HSYNC_TIMER_TCNTS	TOTAL_CYC_COUNT_DIV1024
+  #warning "HSYNC_TIMER_TCNTS = (TOTAL_CYC_COUNT+1023)/1024: Timer0 CLKDIV64"
+
+
+#else
+ #error "Unable to fit TOTAL_CYC_COUNT with timer-divisors 1,8,64,256, or 1024 into HSYNC_TIMER_MAX"
+#endif
+
+
+
+#else //HSYNC_TIMER_CLKDIV was already defined...
+ //But then, how do we know what TCNT to use...?
+ // This was the old...
  #define HSYNC_TIMER_TCNTS TOTAL_CYC_COUNT
- #ifndef HSYNC_TIMER_CLKDIV
-  #define HSYNC_TIMER_CLKDIV CLKDIV1
- #endif
+ #error "HSYNC_TIMER_TCNTS defaulting to TOTAL_CYC_COUNT, but check already-defined CLKDIV!"
+#endif //HSYNC_TIMER_CLKDIV defined/not defined tests...
+
+
+
+#if(HSYNC_TIMER_TCNTS <= 1)
+ #error "HSYNC_TIMER_TCNTS <= 1"
+ //Concerned about 1 for multiple reasons...
+ // A) TCNTER_SOURCE_OVERFLOW_VAL = HSYNC_TIMER_TCNTS - 1
+ // B) TODO: Do we need to consider that OCR=0 indicates immediate-match
+ //    whereas OCR=1 matches AFTER TCNT exits away from 1?
 #endif
 
 
@@ -282,7 +292,7 @@
  #else
   #error "WTF?"
  #endif
-#else
+#else //NOT SLOW_EVERYTHING_TEST
  #define HSYNC_TIMER_OCRVAL (HSYNC_TIMER_TCNTS-1)
 #endif
 

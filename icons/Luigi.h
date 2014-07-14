@@ -22,7 +22,14 @@ const static uint8_t pgm_paletteLUIGI[4*NUMPALETTES_MARIO] PROGMEM =
 {
 	37, //rgb8(141,157,255), //Yeah, this doesn't work at all.
 	rgb2(0,1,0), //rgb8(141,157, 60),
-	rgb2(3,3,3), //rgb2(2,0,0), //rgb8(255, 28, 60),
+//This should be fixed, now...
+//#ifdef __LVDS_H__
+	//Apparently lvds.h blue-val=3 -> 0 ?!
+//	rgb2(3,3,2), //rgb2(2,0,0), //rgb8(255, 28, 60),
+	//63,
+//#else
+	rgb2(3,3,3),
+//#endif
 	rgb8(255,157, 60) //Skin
 };
 

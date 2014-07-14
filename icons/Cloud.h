@@ -12,7 +12,7 @@
 
 #include "iconPacking.h"
 #include "defaultMotion.c"
-
+#include "Coin.h"	//for floating away like the coin...
 
 
 
@@ -46,7 +46,6 @@ const static uint8_t pgm_imageCLOUD[1][ICON_PACKED_BYTES] PROGMEM =
 
 #define NUMPALETTES_CLOUD 1
 
-
 const static uint8_t pgm_paletteCLOUD[4*NUMPALETTES_CLOUD] PROGMEM =
 {
 	37, //{  0,153,255},	//sky
@@ -55,15 +54,18 @@ const static uint8_t pgm_paletteCLOUD[4*NUMPALETTES_CLOUD] PROGMEM =
 	0,  //{141,157,255}  //unused
 };
 
+#define CloudMotion CoinMotion
+#define CLOUD_MOTIONS COIN_MOTIONS
+
 const __flash sprite_t spriteCLOUD =
       {
          pgm_imageCLOUD,
          pgm_maskCLOUD,
          pgm_paletteCLOUD,
          NUMPALETTES_CLOUD,
-         DEFAULT_MOTIONS,
+         CLOUD_MOTIONS,
          NadaFlip,
-         DefaultMotion,
+         CloudMotion,
          DefaultLayer,
          DefaultCamMotion,
          NULL,

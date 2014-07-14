@@ -6,7 +6,8 @@
  */
 
 
-
+#ifndef __COIN_H__
+#define __COIN_H__
 
 
 
@@ -183,8 +184,7 @@ const __flash sprite_t spriteCOIN =
 			pgm_maskCOIN, 
 			pgm_paletteCOIN, 
 			NUMPALETTES_COIN,
-			COIN_MOTIONS,
-#warning "COIN needs image-cycling!"
+			COIN_MOTIONS,     //Eh??? vvvvvvv
 			NadaFlip,			//THESE ARE NOT RIGHT, but need to be filled...
 			CoinMotion,
 			DefaultLayer,
@@ -228,6 +228,8 @@ uint8_t getRawPixelValCOIN(uint8_t spritePhase, uint8_t row, uint8_t col)
 }  
 */
 
+
+#endif //__COIN_H__
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be

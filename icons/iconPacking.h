@@ -42,9 +42,12 @@ typedef struct _BLAH_MOTION_
 } motion_t;
 
 
-
+//gPixelVal defines pixels as 0-47, (blue is either 0x00, 0x10, or 0x20,
+//NOT 0x30)
+//This should be changed somewhere TODO
+// Until then, if b==3, -> b==2
 #define rgb2(r,g,b) \
-	      (r | (g<<2) | (b<<4))
+	      (r | (g<<2) | (((b==3)?2:b)<<4))
 
 
 //Actually, this probably won't work right...

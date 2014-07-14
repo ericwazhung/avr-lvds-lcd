@@ -505,8 +505,11 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 
 			fbQ_drawBackground(&nowSpriteState);
 
-			fbQ_repositionSprite(&nowSpriteState);
-			fbQ_repositionSprite(&cameraState);
+			if(fbQ_repositionSprite(&nowSpriteState))
+				imageChangedTillRow = FB_HEIGHT;
+
+			if(fbQ_repositionSprite(&cameraState))
+				imageChangedTillRow = FB_HEIGHT;
 			// "otherSpriteState" needn't be repositioned, it's always
 			// SOLID (if used, only during a Reward)
 
@@ -517,26 +520,30 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 				{
 					//imageChangedTillRow =
 					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
-					fbQ_overlaySprite(&spriteSOLID, NULL); //&otherSpriteState);
+					if(fbQ_overlaySprite(&spriteSOLID, NULL))
+						imageChangedTillRow = FB_HEIGHT;
 
-					imageChangedTillRow =
-						fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+					//imageChangedTillRow =
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+						imageChangedTillRow = FB_HEIGHT;
 				}
 				else
 				{
-					imageChangedTillRow =
-						fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+					//imageChangedTillRow =
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+						imageChangedTillRow = FB_HEIGHT;
 				
 					//imageChangedTillRow =
 					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
-					fbQ_overlaySprite(&spriteSOLID, NULL); //&otherSpriteState);
-
+					if(fbQ_overlaySprite(&spriteSOLID, NULL))
+						imageChangedTillRow = FB_HEIGHT;
 				}
 			}
 			else //Not a reward, so only one sprite is drawn...
 			{
-				imageChangedTillRow =
-					fbQ_overlaySprite(p_nowSprite, &nowSpriteState);
+				//imageChangedTillRow =
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+						imageChangedTillRow = FB_HEIGHT;
 			}
 
 			qCount++;

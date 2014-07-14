@@ -16,7 +16,6 @@
 
 
 
-
 //lvds.c contains code/information/definitions regarding the 
 //  FPD-Link/"LVDS" implementation
 //  There's quite a bit of useful information here, but it's a long way

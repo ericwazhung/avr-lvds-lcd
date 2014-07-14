@@ -1280,10 +1280,16 @@ int main(void)
 #if(defined(FB_QUESTION) && FB_QUESTION)
 //THIS PROBABLY SHOULD BE REVISED...
 //_hitSensors/bumpSwitch.c handles it differently...
-#if (!defined(BUMP_SWITCH) || !BUMP_SWITCH)
+//#if (!defined(BUMP_SWITCH) || !BUMP_SWITCH)
+// I don't see why BUMP_SWITCH can't be true as well as
+// heartPinInputPoll...
+// But PIEZO_HIT_DETECTION is typically on the same pin as BUMP_SWITCH
 
 #if(!defined(__HEART_REMOVED__) || !(__HEART_REMOVED__))
 #if (defined(PIEZO_HIT_DETECTION) && PIEZO_HIT_DETECTION)
+#if (defined(BUMP_SWITCH) && BUMP_SWITCH)
+#error "BUMP_SWITCH and PIEZO_HIT_DETECTION can't *both* be enabled, currently"
+#endif
 		if(phd_update())				
 #else
 		if(!heartPinInputPoll())
@@ -1292,7 +1298,7 @@ int main(void)
 #endif
 #endif
 
-#endif
+//#endif
 
 //#if( (defined(FB_QUESTION) && FB_QUESTION) 
 //	  ||	(defined(FB_SMILEY) && FB_SMILEY) )

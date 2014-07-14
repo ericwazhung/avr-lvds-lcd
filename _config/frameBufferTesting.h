@@ -222,9 +222,9 @@
 //displays leave a ghost of the prior image. Thus, it's been designed to do
 //*two* refreshes upon each change, which is nice... but it's not
 //sophisticated enough to recognize when an image is about to change again,
-//in which case it shouldn't need to refresh-twice if, e.g. the image is
-//alternating (like the Star)
-// In other words, it's kinda seizure-inducing.
+//in which case it shouldn't need to refresh-twice if, e.g. the image
+//changes often (e.g. a stationary image that cycles through colors)
+// In other words, it can be kinda seizure-inducing.
 // In another design, with only a seldom-changing image, it'd be sweet.
 //This is loosely derived from _unusedIdeas/frameCountToDelay.c
 //If it's NOT TRUE, then the LCD refreshes occur back-to-back regardless of
@@ -240,24 +240,39 @@
 //THIS REQUIRES DMS_TIMER (as-implemented)
 // which is not available on ATTiny861, probably only due to
 // space-limitations... It could probably be re-added in the makefile...
-// I think we're there...
+// a/o v93: I think the timer-situation has been fixed with fb_timer_t...
 //#if (defined(__AVR_AT90PWM161__))
 
 
 //WITHOUT FB_REFRESH_ON_CHANGE, if the framebuffer-updater function (e.g.
 //tet_update() takes too long, there's nothing can be done to avoid the
-//image's being only partially-written in the middle of a refresh.
+//image's being only partially-written by the time of the next refresh.
 // This *despite* the fact, the framebuffer-updater function is only called
 // at the end of a frame.
 //
-// Alternatively (to avoid partial framebuffer refreshes) set this TRUE and
-// set REFRESH_ON_CHANGE_COUNT 1 and REFRESH_ON_CHANGE_DELAY = 0
+// Alternatively (to avoid partial framebuffer-loading before refreshes)
+// set this TRUE and set REFRESH_ON_CHANGE_COUNT 1 and 
+// REFRESH_ON_CHANGE_DELAY = 0
 // it should be roughly the same, but slightly slower because it pauses
 // refresh until after the framebuffer-updater function completes.
 #if(defined(FB_HEXCOLOR) && FB_HEXCOLOR)
  #define FB_REFRESH_ON_CHANGE FALSE
 #else
  //COMMENT OR UNCOMMENT AS DESIRED:
+ //NOTE: most of the FB_xxx tests no longer fully implement refreshOnChange
+ // (e.g. FB_QUESTION now handles multiple-overlapping sprites by drawing
+ //  each one on top of the other... Thus, there's currently no way to
+ //  detect whether a pixel has changed color since the last refresh, 
+ //  because it has likely changed colors two or three times in a single 
+ //  frame-buffer reload (between two refreshes). Thus, every
+ //  framebuffer-reload (which occurs at the end of every refresh) results
+ //  in another refresh... The effect is similar to 
+ //  REFRESH_ON_CHANGE_COUNT=1 REFRESH_ON_CHANGE_DELAY=0, described above.
+//   Ultimately, the change-detection code should be more sophisticated
+//   than just detecting whether a pixel has changed... e.g. if the
+//   sprite-layout/positions/palettes have changed THEN refresh. TODO)
+//   (Except, this TODO doesn't allow for PARTIAL_REFRESH... which isn't
+//   really used anyhow)
  #define FB_REFRESH_ON_CHANGE TRUE
 #endif
 

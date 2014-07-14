@@ -91,6 +91,8 @@
 	  (defined(BLUE_FRAME) && BLUE_FRAME) )
 	
  #define DE_ACTIVE_DOTS 1000
+#elif((defined(FB_QUESTION) && FB_QUESTION) )
+ #define DE_ACTIVE_DOTS	980
 #else
  #define DE_ACTIVE_DOTS   840//1024
 #endif

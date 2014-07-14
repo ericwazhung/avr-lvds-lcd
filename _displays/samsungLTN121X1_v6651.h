@@ -86,9 +86,13 @@
 //  rate...
 //#define DE_ACTIVE_DOTS   1024
 #if(defined(BLUE_FRAME) && BLUE_FRAME)
-#define DE_ACTIVE_DOTS   1000//1060//960//1024
+ #define DE_ACTIVE_DOTS   1000//1060//960//1024
+#elif(defined(FB_QUESTION) && FB_QUESTION)
+ //This found experimentally, in order to fill most of the display with the
+ //question-box...
+ #define DE_ACTIVE_DOTS 980
 #else
-#define DE_ACTIVE_DOTS   920//1060//960//1024
+ #define DE_ACTIVE_DOTS   920//1060//960//1024
 #endif
 
 
@@ -128,9 +132,21 @@
 // but all this suggests that rowCalculationCycs couldn't've possibly
 // worked... right? This seems so horrendously sensitive to timings, now!
 // (10 is too low, 100 seems fine)
+// (I think those notes were with DIAG_BAR, and might've had to do with how
+// much calculation-time was necessary?)
 #define DH_DOTS   100//100000//610//100//1000//1700//5000//1000//100//46
 
 
+#if(defined(FB_QUESTION) && FB_QUESTION)
+//These don't seem to have much effect with FB_QUESTION (and
+//REFRESH_ON_CHANGE)
+//Actually, is H_LOW_DOTS helping to determine last-pixel clearing time?
+// 100,10,10 seems to be relatively ghost-free
+// Or not...
+#define H_LOW_DOTS 1
+#define HD_DOTS	1
+#define DH_DOTS 1
+#endif
 
 //#define T_DH_CYC   DOTS_TO_CYC(DH_DOTS)
 
@@ -189,8 +205,26 @@
 // Back to newGCC
 // T_VD=1 worked for the stretched-thing, but 3 is necessary for FB_SMILEY
 #warning "These values/notes were untested with the new GCC4.8 and the new Delay_Dots() and should probably be revisited."
+#if(defined(FB_QUESTION) && FB_QUESTION)
+//Experimenting with above notes to see if we can reduce flicker...
+// 1,1,1 requires apparently three refreshes to clear the previous image
+//       (is flicker reduced?)
+// 1,1,100 takes two, doesn't seem noticeably more flickering
+// 100,1,1 seems relatively OK... even ? isn't ghosting. (maybe same as
+// above?)
+// 1,100,1 should be identical to 1,1,1, no? Since DV is the time between
+// refreshes anyhow...? Doesn't seem bad, but ? ghosts a bit.
+// DEFINITELY NOT the same as 1,1,1
+// SO, apparently, the duration between Vsync H->L and DataEnable
+// determines the amount of effort the display makes at clearing the
+// previous pixel values...?
+// But yet, 10,10,1 eems more ghosting than 10,1,1... Yep.
+#define T_VD 10//0
+#define T_DV 1
+#define T_Vlow 1//00
+#else
 #define T_Vlow 1//400//100//0
-
+#endif
 
 
 // IDTech Last Used: 768

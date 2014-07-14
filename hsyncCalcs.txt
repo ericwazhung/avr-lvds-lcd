@@ -1,0 +1,60 @@
+JiggyFour:~/cTools/macroExpansions meh$ ./macroSearch.sh
+TCNTER_SOURCE_OVERFLOW_VAL
+~/_avrProjects/LCDdirectLVDS/95-lookingIntoFunctionWriteColorDelays/_BUILD/main.o
+#define TCNTER_SOURCE_OVERFLOW_VAL HSYNC_TIMER_OCRVAL
+#define HSYNC_TIMER_OCRVAL (HSYNC_TIMER_TCNTS-1)
+#define HSYNC_TIMER_TCNTS TOTAL_CYC_COUNT_DIV64
+#define TOTAL_CYC_COUNT_DIV64 (ROUND_UP_TO(TOTAL_CYC_COUNT, (64*7))/64)
+#define TOTAL_CYC_COUNT ((0UL + ROW_CALCULATION_CYCS + DISPLAY_CYC_COUNT))
+#define ROW_CALCULATION_CYCS 0UL
+#define DISPLAY_CYC_COUNT (MAKELONG(T_Hlow_CYC) + MAKELONG(T_HD_CYC) +
+MAKELONG(T_DE_CYC) + MAKELONG(T_DH_CYC))
+#define T_Hlow_CYC DOTS_TO_CYC(H_LOW_DOTS)
+#define H_LOW_DOTS 100
+#define T_HD_CYC DOTS_TO_CYC(HD_DOTS)
+#define HD_DOTS 5
+#define T_DE_CYC DOTS_TO_CYC(DE_ACTIVE_DOTS)
+#define DE_ACTIVE_DOTS 840
+#define T_DH_CYC DOTS_TO_CYC(DH_DOTS)
+#define DH_DOTS 0
+#define ROUND_UP_TO(minVal,roundTo)
+((((minVal)+((roundTo)-1))/(roundTo))*(roundTo))
+#define DOTS_TO_CYC(dots)
+(((((MAKELONG(dots))<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 2)
+#define LVDS_PRESCALER 8
+#define MAKELONG(value) ((value) + 0L)
+#define DESHIFT(n) ( (n & (1<<15)) ? 15 : (n & (1<<14)) ? 14 : (n &
+(1<<13)) ? 13 : (n & (1<<12)) ? 12 : (n & (1<<11)) ? 11 : (n & (1<<10)) ?
+10 : (n & (1<<9)) ? 9 : (n & (1<<8)) ? 8 : (n & 128) ? 7 : (n & 64) ? 6 :
+(n & 32) ? 5 : (n & 16) ? 4 : (n & 8) ? 3 : (n & 4) ? 2 : (n & 2) ? 1 : (n
+& 1) ? 0 : 0 )
+
+#####################################
+Determining intermediate macro-values
+#####################################
+'LVDS_PRESCALER' = 8
+'DH_DOTS' = 0
+'T_DH_CYC' = 0
+'DE_ACTIVE_DOTS' = 840
+'T_DE_CYC' = 11760
+'HD_DOTS' = 5
+'T_HD_CYC' = 70
+'H_LOW_DOTS' = 100
+'T_Hlow_CYC' = 1400
+'DISPLAY_CYC_COUNT' = 13230
+'ROW_CALCULATION_CYCS' = 0
+'TOTAL_CYC_COUNT' = 13230
+'TOTAL_CYC_COUNT_DIV64' = 210
+'HSYNC_TIMER_TCNTS' = 210
+'HSYNC_TIMER_OCRVAL' = 209
+'TCNTER_SOURCE_OVERFLOW_VAL' = 209
+
+NOTE: when assigning a variable...
+ e.g. int16_t i = (1<<16)>>3...
+ Apparently it assumes all intermediate steps
+ are of the type declared...
+ ((int16_t)1)<<16 = 0!!!
+ 0>>3 = 0
+ THAT WILL NOT BE IMMEDIATELY VISIBLE HERE
+ So Be Careful.
+

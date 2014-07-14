@@ -99,13 +99,37 @@
 	// shifts and subtracts worked fine, but mults and divs is WAY TOO SLOW
 	// for e.g. BLUE_DIAG_BAR
 	// (see v66.51)
-	#define DOTS_TO_CYC(dots) \
-		(((((dots)<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 2)
+	//a/o v95 (attempting to revisit RowSegBuffer)
+	// without MAKELONG, LVDS_PRESCALER=8 causes this to overflow...
+	// yikes, that was hard to find... prompting development of
+	// macroSearch.sh WEEE
+	//WTF: dots+0ULL gives 0 ALWAYS?! WTF.
+//	#define DOTS_TO_CYC(dots) 
+//		(((((dots+0ULL)<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 2)
+/* PRIOR to MAKELONG:
+:840<<3
+ = 6720 (0x1a40 = 0b1 1010  0100 0000)
+:-840
+match
+ = 5880 (0x16f8 = 0b1 0110  1111 1000)
+:<<3
+match
+ = 47040 (0xb7c0 = 0b  1011 0111  1100 0000) //OVERFLOWED HERE
+:>>2
+match
+ = 11760 (0x2df0 = 0b10 1101  1111 0000)
+
+Because it was being written to an int16_t (in tcnter_compare_t)
+I guess it was treating all intermediate values as int16_t's as well,
+despite the fact they're being PREPROCESSED...
+*/
+#define DOTS_TO_CYC(dots) \
+		(((((MAKELONG(dots))<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 2)
 	
  #else
    //#define DOTS_TO_CYC(dots) ((((dots)*(7l)*(LVDS_PRESCALER))/8))
 	#define DOTS_TO_CYC(dots) \
-		(((((dots)<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 3)
+		(((((MAKELONG(dots))<<3)-dots)<<(DESHIFT(LVDS_PRESCALER))) >> 3)
  #endif
 #endif //ifndef DOTS_TO_CYC 
 

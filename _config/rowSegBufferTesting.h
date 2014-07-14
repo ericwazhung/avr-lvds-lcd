@@ -69,7 +69,7 @@
 //documentation-purposes...
 // //#define ROWSEGBUFFER_TESTING	TRUE
 
-
+#define LVDS_PRESCALER 8
 
 //THE REMAINDER IS STRAIGHT FROM mainConfig.h:
 
@@ -79,11 +79,11 @@
 //SEG_Watevers, below...
 //The ChiMei display seems to need higher bit-rates than the other display,
 //so remove the prescaler...
-#define LVDS_PRESCALER 1
+//#define LVDS_PRESCALER 1
 //Some math relies on a higher LVDS_PRESCALER value... There's an #error
 //regarding this, but it can be ignored in some cases... 
 // so let's ignore it.
-#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
+//#define LVDS_PRESCALER_ERROR_OVERRIDE TRUE
 #define ROW_CALCULATION_CYCS 0
 
 //From here-on I've done a ton of development with a particular display 
@@ -142,7 +142,7 @@
 //Draws a diagonal white line on a red background...
 // I think it's supposed to repeat three times and not fill the entire
 // screen... though it's been a long time since I've used this.
-#define SEG_LINE TRUE
+//#define SEG_LINE TRUE
 
 #if(defined(SEG_LINE) && SEG_LINE)
 
@@ -162,7 +162,7 @@
 // And that existing segments are automatically stretched if the next-added
 // segment is the same color.
 // This displays all available colors and shows the resolution capabilities
-#define SEG_SINE TRUE
+//#define SEG_SINE TRUE
 
 #if(defined(SEG_SINE) && SEG_SINE)
 #define ROW_CALCULATION_CYCS 40000UL
@@ -212,6 +212,7 @@
 // Demonstrates usage of program-memory-based images in rowSegBuffer... 
 //(16x16 pixels WOO!)
 // This is much less functional than FB_QUESTION
+//a/o v95 this is no longer functional.
 //#define SEG_QUESTION   TRUE
 
 //a/o v62:
@@ -240,7 +241,7 @@
 #define USE_ADC TRUE
 #endif
 
-
+//a/o v95, SEG_TET is no longer functional
 //#define SEG_TET TRUE
 // Look into SEG_TET case in loadRow for some configurables
 // (transparency overlay, etc).
@@ -279,7 +280,7 @@
 
 
 
-#endif //__FRAMEBUFFER_TESTING_H__
+#endif //__ROWSEGBUFFER_TESTING_H__
 
 
 /* mehPL:

@@ -43,8 +43,8 @@
 typedef struct _BLAH_STATUS_
 {
    //This'll have to be expanded for more motion-types (layer, etc)
-   int8_t position[2];
-   int8_t dir[2];
+   int8_t position[2];	//current position of the sprite
+   int8_t dir[2];			//current direction of the sprite motion
    uint8_t count;    //separate 'qCount' for each sprite... NYI
    const uint8_t *layer; //pointer to the first LAYER_BYTE in an array [1]
    const uint8_t *hFlip;   //pointer to the first FLIP_BYTE in an array [1]

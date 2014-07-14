@@ -495,7 +495,6 @@ void writeColor(uint8_t includeDEinit, uint8_t includeDelay,
    ocrd &= 0x07;                  //andi
                                  //out OCRD, out DT, out OCRA
 #else //NOT ROW_BUFFER (FRAMEBUFFER)
-
 //a/o v67: I didn't make very clear notes here, but have been using it for
 //quite some time. As I recall, the purpose of moving this to asm, instead
 //of just using switch() statements, is in order to assure that regardless
@@ -656,13 +655,12 @@ __asm__ __volatile__
    else //0x20, 0x30
       ocra=6;
 */
-
    //Each branch is 9 cycles...
 __asm__ __volatile__
    ( "mov   %0, %1   ; \n\t"  // ocra (blueVal) = colorVal          //1
      "andi  %0, 0x30 ; \n\t"  // ocra = ocra & 0x30                 //1
-     "brne  blu1tst_%=; \n\t" // if(ocra != 0x00) jump to red1test  //1`2
-     "ldi   %0, 0x04 ; \n\t"  // (ocra==0x00) add some delays       //1 .
+     "brne  blu1tst_%=; \n\t" // if(ocra != 0x00) jump to blu1test  //1`2
+     "ldi   %0, 0x04 ; \n\t"  // (ocra==0x04) add some delays       //1 .
      "nop            ; \n\t"  //                                    //1 .
      "nop            ; \n\t"  //                                    //1 .
      "nop            ; \n\t"  //                                    //1 .
@@ -672,7 +670,7 @@ __asm__ __volatile__
                               //  invocation, so the label won't be     .
                               //  mistaken from another invocation      .
      "cpi   %0, 0x10 ; \n\t"  // if(ocra-0x10 != 0)                 //  1
-     "brne  blu23_%= ; \n\t"  //   jump to red=2,3                  //  1`2
+     "brne  blu23_%= ; \n\t"  //   jump to blu=2,3                  //  1`2
      "ldi   %0, 0x05 ; \n\t"  // else ocra = 0x05                   //  1 .
      "rjmp  end_%=   ; \n\t"  //      jump to the end               //  2 .
    "blu23_%=:"                                                      //    .

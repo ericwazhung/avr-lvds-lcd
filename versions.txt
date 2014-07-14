@@ -851,3 +851,186 @@
   1   756566 Jul  9 04:09 89-newSprites 7_LuigiRuns.zip
   1   760684 Jul  9 04:43 89-newSprites 8_OK_priorToMehPL.zip
  12     1428 Jul  9 05:48 90-reGitting
+ 14     1496 Jul 10 05:32 90-reGitting
+ 12     1428 Jul  9 07:39 90-reGitting 0_gitted
+  1 12298777 Jul  9 06:34 90-reGitting 0_gitted.zip
+  1 12335052 Jul  9 07:57 90-reGitting 1_cleaningMainConfig.zip
+  1 12715120 Jul  9 08:26 90-reGitting 2_more.zip
+  1 12745222 Jul 10 01:44 90-reGitting 3__configDir.zip
+ 13     1462 Jul 10 04:48 90-reGitting 4_mainConfig_TESTING_optionsMovedTo_configDir
+  1 12729197 Jul 10 04:06 90-reGitting 4_mainConfig_TESTING_optionsMovedTo_configDir.zip
+  1 12730007 Jul 10 04:45 90-reGitting 5_moreConfigCleanup_slightlyLarger_WTF.zip
+  1 12730229 Jul 10 04:54 90-reGitting 6_ahSONY_TESTING-to-SONY_TESTING_CONFIG.zip
+  1 12743360 Jul 10 05:28 90-reGitting 7_experiemtsWithDE_BLUE_notWorking_backToFB_OK.zip
+ 13     1496 Jul 11 21:19 91-testingProcess
+  1   988797 Jul 10 15:33 91-testingProcess 0_tryingFBQ_onLTN_Overflow...lvdsIncludesFixed.zip
+  1  1005928 Jul 10 16:23 91-testingProcess 1_blueTestsToDIAG_BAR_OK_butNotDIAG_BAR.zip
+  1  1221276 Jul 10 16:39 91-testingProcess 2_blueBorder_DunQuiteWork.zip
+  1  1231061 Jul 10 17:59 91-testingProcess 3_ComparingSamsungValsWithTestValsIn66.51_same_stillNoGo.zip
+  1   872252 Jul 10 19:47 91-testingProcess 4_V6651COMPARE_stillNoGo.zip
+  1   877106 Jul 10 20:05 91-testingProcess 5_comparedDangNearEverything_wtf...diagScrollWorksIn66.51_notHere.zip
+  1   895080 Jul 10 21:52 91-testingProcess 6_delayCycUsingMultiplicationEh_MaybeTheProblem.zip
+  1   889007 Jul 10 22:15 91-testingProcess 7_lookingIntoDelayDotsAsACulprit_gcc48SwitchoverExposed.zip
+  1   878371 Jul 11 20:44 91-testingProcess 8_bigTakeawayFrom6651_lcdStuff0.80ncfDD6651+DOTS_TO_CYCShiftSubtract_notSyncing_needTimingsProbably.zip
+  1   894703 Jul 11 20:49 91-testingProcess 9_timingsFrom6651_betternPerfectAlignment_cool...DIAG_SCROLL_GCC48.zip
+ 13     1496 Jul 11 22:40 92-copyingChangesFrom66.51
+  1   916622 Jul 11 22:09 92-copyingChangesFrom66.51 0_copyOver_notYetComplete.zip
+  1   894172 Jul 11 22:17 92-copyingChangesFrom66.51 1_lvdsComparedAndCopied_stillCopyingChanges...andWorksWithBOE.zip
+  1   914673 Jul 11 22:20 92-copyingChangesFrom66.51 2_JUSTNOTICED_V6651COMPARE_WASENABLED_FORALLPRIOR_NowDisabled_HeartReturned_DIAG_SCROLL_StillPerfectlySmooth_onBOE.zip
+  1   896340 Jul 11 22:27 92-copyingChangesFrom66.51 3_mainComparedAndCopied_stillRuns.zip
+  1   896568 Jul 11 22:31 92-copyingChangesFrom66.51 4_mainConfigCopyOver_DELAY_LOOP_TRUE...stillOK.zip
+  1   896978 Jul 11 22:38 92-copyingChangesFrom66.51 5_AllV66.51-64changesFromV66_copiedOver_stillGood.zip
+  1   899322 Jul 11 22:41 92-copyingChangesFrom66.51 6_v6651delayCyc_toRemoveSignedOverflowWarning...stillPerfectWithBOE+GCC48.zip
+ 12     1462 Jul 12 06:49 93-checkingProcessAgain
+  1   912371 Jul 12 00:33 93-checkingProcessAgain 0_DE_BLUE+BOE_OK.zip
+  1  1188836 Jul 12 04:54 93-checkingProcessAgain 10_wrapFixed.zip
+  1  1231167 Jul 12 05:40 93-checkingProcessAgain 11_fbSmiley+fbHexColor=WorksOnLTN+Sony.zip
+  1  1282166 Jul 12 05:48 93-checkingProcessAgain 12_FB_QUESTION_onSony+LTNwithHEART_REMOVED.zip
+  1  1282563 Jul 12 05:51 93-checkingProcessAgain 13_notes.zip
+  1  1256608 Jul 12 05:57 93-checkingProcessAgain 14_rowBuffer_DoesSomnWithLTN_seemsToWork.zip
+  1  1236903 Jul 12 06:12 93-checkingProcessAgain 15_rowBufferActuallyWorksWithLTN_NotSony.zip
+  1  1186513 Jul 12 06:18 93-checkingProcessAgain 16_rowSegBufferStillSortaDoesSomething_LVDSPRESCALER+MoreMightNeedRevisiting_onLTN.zip
+  1  1064256 Jul 12 06:48 93-checkingProcessAgain 17_reMehPLed.zip
+  1  1374089 Jul 12 01:51 93-checkingProcessAgain 1_BOE_worksWithALlBLUETests...uptoAndIncludingDIAG_SCROLL.zip
+  1  1346341 Jul 12 02:27 93-checkingProcessAgain 2_SamsungBlueTestsAllGoodEXCEPT_blueFrame_WTF.zip
+  1  1344299 Jul 12 02:35 93-checkingProcessAgain 3_BLUE_FRAMEnowWorksWithSamsung...MoreDE_ACTIVE_DOTS.zip
+  1  1395919 Jul 12 02:46 93-checkingProcessAgain 4_SonyBLUE_noGo_FB_OK.zip
+  1  1257849 Jul 12 03:28 93-checkingProcessAgain 5_Sony_FBusesProperDelayDots_BLUEdoesnt_WTF.zip
+  1  1178679 Jul 12 03:48 93-checkingProcessAgain 6_DE_BLUE_finallyWorkingOnSony.zip
+  1  1193396 Jul 12 03:54 93-checkingProcessAgain 7_sonyBLUEtests_perfectUntilDIAG_BAR.zip
+  1  1207676 Jul 12 04:43 93-checkingProcessAgain 8_LCDSTUFF_USE_DOTS_TO_CYC_IN_DELAY_DOTS_fixesSonyInDIAG_BAR_ThisIsLocalizedLCDStuff.zip
+  1  1188789 Jul 12 04:46 93-checkingProcessAgain 9_sonySCROLL_OK_slightlyStrangeWraparound.zip
+ 14     1496 Jul 12 07:15 94-regitting
+  1 13113593 Jul 12 06:51 94-regitting 0_compliedAgainRetToGo...+.gitDir.zip
+  1 14171823 Jul 12 07:34 94-regitting 1_uploaded.zip
+ 13     1530 Jul 14 08:27 95-lookingIntoFunctionWriteColorDelays
+  1  1359257 Jul 12 07:40 95-lookingIntoFunctionWriteColorDelays 0_fbQ_7880Flashed.zip
+  1 14693677 Jul 12 23:19 95-lookingIntoFunctionWriteColorDelays 10_REFRESH_ON_CHANGEnotes.zip
+  1 14707119 Jul 13 04:48 95-lookingIntoFunctionWriteColorDelays 11_fbQ_REFRESH_ON_CHANGE_revisited_sortaOK.zip
+  1 14715204 Jul 13 17:21 95-lookingIntoFunctionWriteColorDelays 12_fixPaletteTestingOnNullSprite.zip
+  1  1397275 Jul 13 17:44 95-lookingIntoFunctionWriteColorDelays 13_fixFlipNotDetectedForREFRESH_ON_CHANGE.zip
+  1  1386788 Jul 13 17:52 95-lookingIntoFunctionWriteColorDelays 14_cloudFloatsLikeCoin.zip
+  1  1401112 Jul 13 17:58 95-lookingIntoFunctionWriteColorDelays 15_LuigiIsNowWhite-clothed_withLVDS_WTF_blue=3goesto0Eh.zip
+  1  1396646 Jul 13 18:34 95-lookingIntoFunctionWriteColorDelays 16_rgb2_b3tob2...NOTE_Only48ColorsInSprites_despite64colorDisplays.zip
+  1  1374944 Jul 13 18:40 95-lookingIntoFunctionWriteColorDelays 17_samsungBetter-Filled_inFBQ.zip
+  1  1376248 Jul 13 19:14 95-lookingIntoFunctionWriteColorDelays 18_LTN_timingExperimentsTowardReducedFlicker_FoundMoreGhostRemovalTechniques...LTNspecsOnBoeNotBad.zip
+  1  1390010 Jul 13 19:20 95-lookingIntoFunctionWriteColorDelays 19_boeSpecsNOGO_wtf.zip
+  1  1378893 Jul 12 07:45 95-lookingIntoFunctionWriteColorDelays 1_writeColorDelayFunction_7890Flash_WTF.zip
+  1  1390010 Jul 13 19:20 95-lookingIntoFunctionWriteColorDelays 20_boeSpecsNOGO_wtf.zip
+  1  1381502 Jul 13 19:28 95-lookingIntoFunctionWriteColorDelays 21_BoeBetter_nearlyNoVisibleRefresh.zip
+  1  1351855 Jul 13 19:31 95-lookingIntoFunctionWriteColorDelays 22_thereMayBeHopeForBoe+RowSegBuffer.zip
+  1  1307860 Jul 14 00:16 95-lookingIntoFunctionWriteColorDelays 23_SEG_LINE+BOE=doubledRowsAgainEh...DEfarBeyondEdge.zip
+  1  1124861 Jul 14 03:07 95-lookingIntoFunctionWriteColorDelays 24_LookingIntoLVDS_PRESCALER=8_forRowSegBuffer_matchingV52_OverflowInConstant_TCNTER_SOURCE_OVERFLOW_VAL__RewroteHSYNC_CLKDIVcalculator_stillNoGo.zip
+  1  1308023 Jul 14 03:20 95-lookingIntoFunctionWriteColorDelays 25_NoErrorWithLVDS_PRESCALER=1.zip
+  1  1301444 Jul 14 06:31 95-lookingIntoFunctionWriteColorDelays 26_SEG_LINE_WORKS_ON_BOE_afterLVDS_PRESCALER=8+macroSearch.sh...WITHDEFAULTFUSES_NOT_THOSE_IN_MAKEFILE.zip
+  1  1111216 Jul 14 06:40 95-lookingIntoFunctionWriteColorDelays 27_WTF_OverflowAgain_AllIChangedWasFUSE+PLLSYSCLKdisabled_eh.zip
+  1  1301615 Jul 14 06:50 95-lookingIntoFunctionWriteColorDelays 28_duh_DOTS_TO_CYC_wPLL_SYSCLK_wasAnotherCalculation_BUT_WhereAreMyLines...itWorkedOnce_WithDefaultFusesAndLVDS_PRESCALER=8AndPLL_SYSCLK=TRUE_butShouldntThatveBeenHalfWidthEh.zip
+  1  1316855 Jul 14 06:54 95-lookingIntoFunctionWriteColorDelays 29_OK_SameFusesAsBefore+PLL_SYSCLK_badMathSomewhere=nearlyFullScreenRSB.zip
+  1  1378066 Jul 12 07:47 95-lookingIntoFunctionWriteColorDelays 2_ahh_CalledFor161_fixed_7808Flash...saved72B_of2318UsedByWriteColor_functionizeWCeh.zip
+  1  1317062 Jul 14 06:57 95-lookingIntoFunctionWriteColorDelays 30_hokeyButInCode_makefile.zip
+  1  1392095 Jul 14 06:59 95-lookingIntoFunctionWriteColorDelays 31_returnToFBQ_NowAlignedWrong_WTF...RSBLedToMajorGhostingEh.zip
+  1  1393840 Jul 14 07:27 95-lookingIntoFunctionWriteColorDelays 32_AndNowFBQisCenteredRight.zip
+  1  1330984 Jul 14 07:41 95-lookingIntoFunctionWriteColorDelays 33_rowSegBufferWorksNow_andSwitchBackToFBQ_noProb_makeFuses...RSBHardOnPixelsEh.zip
+  1  1320565 Jul 14 07:54 95-lookingIntoFunctionWriteColorDelays 34_TestedAllROWSEGBUFFERoptions_pseudoFunctionalOnBOE_MostStretched.zip
+  1  1350631 Jul 12 07:59 95-lookingIntoFunctionWriteColorDelays 3_functionizedWriteColor_isOK_5806Flash.zip
+  1  1365443 Jul 12 08:21 95-lookingIntoFunctionWriteColorDelays 4_NoNeedForHeartRemovalNow.zip
+  1  1376926 Jul 12 08:28 95-lookingIntoFunctionWriteColorDelays 5_SONY_Inlined_6870Flash.zip
+  1  1373067 Jul 12 08:31 95-lookingIntoFunctionWriteColorDelays 6_notInlined_6542Flash.zip
+ 13     1462 Jul 14 08:09 95-lookingIntoFunctionWriteColorDelays 7_regitted
+  1 14587772 Jul 12 08:50 95-lookingIntoFunctionWriteColorDelays 7_regitted.zip
+  1 14687786 Jul 12 16:40 95-lookingIntoFunctionWriteColorDelays 8_fbQ_lookingIntoPinout.zip
+  1 14693364 Jul 12 17:57 95-lookingIntoFunctionWriteColorDelays 9_pinoutNotesATtiny861+FPD-link...+heartBumpSwitchAlways_fbQ.zip
+
+ 
+NOTE: Alongside much of the v90+ versions, were revisiting of
+older-versions, in order to reimplement functionality that had since
+broken... These are them: 
+ 
+ 
+ 10    1292 Jul 10 17:26 66.5-revisitingAOv91_fromv75.5
+ 10    1292 Jul 11 22:42 66.51-directFromOld
+  1 8527157 Jul 10 17:29 66.51-directFromOld 0_sameVer_worksFineWithBOE+FBQ.zip
+  1 8272125 Jul 10 20:52 66.51-directFromOld 10_HEART_NOT_REMOVED_OK.zip
+  1 8272092 Jul 10 20:56 66.51-directFromOld 11_FrigginGCC48KilledIt.zip
+  1 8325542 Jul 10 22:27 66.51-directFromOld 12_oldGCC+noScroll=OK.zip
+  1 8386909 Jul 10 23:49 66.51-directFromOld 13_Attempting_BLUE_FRAME_bothGCCs_wontVSync.zip
+  1 8386770 Jul 11 00:14 66.51-directFromOld 14_HowCanThisBeFunctionalWithFB_SMILEY_ButBLUE_FRAME_wontWork.zip
+  1 8395777 Jul 11 00:18 66.51-directFromOld 15_andSoResilient.zip
+  1 8349236 Jul 11 00:38 66.51-directFromOld 16_FULL_INIT_TESTS_seemsToHaveFixed+endisableGreen.zip
+  1 8547921 Jul 11 00:45 66.51-directFromOld 17_localized_seemsToWorkOKNow_FULL_INIT_TESTS.zip
+  1 8508458 Jul 11 00:46 66.51-directFromOld 18_WorksInBothGCCversions.zip
+  1 8508580 Jul 11 00:55 66.51-directFromOld 19_BlackIsSlightlyGreen_hmm.zip
+  1 8431410 Jul 10 17:34 66.51-directFromOld 1_oldAvrGCC_DiagScrollWorksWithBOE...stillLocalized.zip
+  1 8536613 Jul 11 01:03 66.51-directFromOld 20_everythingPriorToDIAG_OK_BothGCCs.zip
+  1 8527278 Jul 11 01:05 66.51-directFromOld 21_DIAG_OK_wOldGCC_notNew...beenLTNingForSomeTimeNow.zip
+  1 8551815 Jul 11 01:18 66.51-directFromOld 22_DiagStillOKwithOldGCC_butNotNew.zip
+  1 8553345 Jul 11 01:36 66.51-directFromOld 23_GCC48SeemsToUseMultDiv_whenLoopingWouldBeFaster_ShiftingDOTS_TO_CYC_todpSetupSeemsToHelp.zip
+  1 8553351 Jul 11 01:47 66.51-directFromOld 24_ButStretchedWithGCC48_DuplicatedRowsEh.zip
+  1 8483129 Jul 11 02:30 66.51-directFromOld 25_drawPixCompilesNearlyIdentical_maybedpSetupIsCausingMissedHsyncInts.zip
+  1 8478546 Jul 11 02:40 66.51-directFromOld 26_experimentingWithDH_DOTS_toSimulateRowCalcTimes_doesntHelp.zip
+  1 8478539 Jul 11 02:58 66.51-directFromOld 27_comparingAssembly_ThisIsWierd_PrettyMuchTheSame_butRowsAreDoubledEh.zip
+  1 8478645 Jul 11 03:07 66.51-directFromOld 28_WOW_refreshNearAsGoodAsChiMei_withLowVblank.zip
+  1 8476037 Jul 11 03:09 66.51-directFromOld 29_butLosesVsyncWithOldGCC+properDiagonal.zip
+  1 8388709 Jul 10 17:41 66.51-directFromOld 2_relocalized_onlyForCommonWarningNotAvailable_stillScrollsOK.zip
+  1 8459395 Jul 11 03:19 66.51-directFromOld 30_LTNtimingExperiments_interesting.zip
+  1 8459431 Jul 11 03:26 66.51-directFromOld 31_lastOfOldGCC+LTNTimingExperiments...stable.zip
+  1 8479335 Jul 11 03:38 66.51-directFromOld 32_GCC48_goodTiming_ButStillDoubledRows_ReviewedWarnings_stillDoubled.zip
+  1 8480959 Jul 11 03:49 66.51-directFromOld 33_volatilesStillDontHelp.zip
+  1 8780522 Jul 11 04:51 66.51-directFromOld 34_delayCyc_improvement_stillNoGo.zip
+  1 8855886 Jul 11 05:06 66.51-directFromOld 35_soMuch_stillNoGo_FB_SMILEY_worksFineForBothVersions.zip
+  1 8779099 Jul 11 05:21 66.51-directFromOld 36_experimentingWithHBlanks_noEffect_evenWhenZero.zip
+  1 8765761 Jul 11 05:27 66.51-directFromOld 37_Hblanks=0+oldGCC=VsyncProblem.zip
+  1 8759483 Jul 11 18:29 66.51-directFromOld 38_diagonal+LTN+oldGCC=OK.zip
+  1 8760738 Jul 11 18:46 66.51-directFromOld 39_BOEreqsDifferentTimingEh.zip
+  1 8248726 Jul 10 17:46 66.51-directFromOld 3_delocalized_commonWarningsHacked.zip
+  1 8811641 Jul 11 18:50 66.51-directFromOld 40_wasSoStable_couldntTellIfItWasRefreshing_SCROLLworks...oldGCC.zip
+  1 8825093 Jul 11 18:52 66.51-directFromOld 41_BOEisNearlySolidBlueDIAG_SCROLL+GCC48.zip
+  1 8825330 Jul 11 18:54 66.51-directFromOld 42_BOErowsIdentical_flashingGradient_DIAG_BAR+GCC48.zip
+  1 8822389 Jul 11 18:56 66.51-directFromOld 43_BOE+FRAME+GCC48=TinyWindow+noise.zip
+  1 8809505 Jul 11 18:57 66.51-directFromOld 44_BOE+FRAME+GCCold=TinyWindowFlashing.zip
+  1 1090036 Jul 11 19:01 66.51-directFromOld 45_TooManyDEActiveDots_nowOKGCCold.zip
+  1 1075556 Jul 11 19:05 66.51-directFromOld 46_DIAG_BAR+oldGCC+BOE_fewerActiveDotsStill_nowSyncs.zip
+  1 1081626 Jul 11 19:06 66.51-directFromOld 47_GCC48_stillFlashingGradient.zip
+  1 1082142 Jul 11 19:16 66.51-directFromOld 48_addingBlinkAroundLCDUpdate_causesSyncingStrangeness_zifItWasntStrangeEnough.zip
+  1 1079665 Jul 11 19:25 66.51-directFromOld 49_gccOld+blinkForScope_definitelyFaster2.5x...+BOEsyncsFine.zip
+  1 8248067 Jul 10 17:47 66.51-directFromOld 4_BLUE_DIAG_BAR_slightSyncingIssuesWithBOE.zip
+  1 1079213 Jul 11 19:28 66.51-directFromOld 50_BLUE_FRAME_syncsAboutTheSameForBothGCCs.zip
+  1 1095649 Jul 11 19:32 66.51-directFromOld 51_TestingDelayLoopAgain_roughlyTheSameWithGCC48.zip
+  1 1095313 Jul 11 19:36 66.51-directFromOld 52_attemptingNotUsingDOTS_TO_CYC_inCalc_sinceMults+Divs_Faster_actuallySameHsyncRateAsGCC48_butNoSync.zip
+  1 1099405 Jul 11 19:41 66.51-directFromOld 53_DOTS_TO_CYC_withoutMultDiv_withManualShiftSubtractShift_ProperSyncingTime_notSyncingQuite...GCC48.zip
+  1 1091885 Jul 11 19:43 66.51-directFromOld 54_GCCold_prettyOK_slightGlitchAtTop.zip
+  1 1088349 Jul 11 19:51 66.51-directFromOld 55_eitherDELAY_LOOPfixedTheUpperGlitch_orItsNotRefreshingAtAll_perfectlyStableGCCold.zip
+  1 1091549 Jul 11 19:52 66.51-directFromOld 56_GCC48AlsoNearlyPerfectlyStableWOOT.zip
+  1 1096450 Jul 11 20:00 66.51-directFromOld 57_DIAG_SCROLL_NotSyncing_BUT_NOTE_NoVisibleRefreshHereOrPriorVersion.zip
+  1 1099747 Jul 11 20:07 66.51-directFromOld 58_TryingToReuseBLUE_DIAG_BAR_forSCROLL_stationaryImageWTF.zip
+  1 1099756 Jul 11 20:07 66.51-directFromOld 59_TryingToReuseBLUE_DIAG_BAR_forSCROLL_stationaryImageWTF.zip
+  1 8243699 Jul 10 17:48 66.51-directFromOld 5_BLUE_BORDER_NOGOwBOE.zip
+  1 1100291 Jul 11 20:16 66.51-directFromOld 60_OK.zip
+  1 1100596 Jul 11 20:17 66.51-directFromOld 61_minorTweak_stillGood...GCC48.zip
+  1 1084017 Jul 11 20:18 66.51-directFromOld 62_+GCColdOK.zip
+  1 1083202 Jul 11 20:27 66.51-directFromOld 63_warningRemoval_okBothGCCs...StillBOE.zip
+  1 1135450 Jul 11 20:36 66.51-directFromOld 64_FB_SMILEY_OKwithBothGCCs...ReturningTo91Here_noteLocalizedLCDStuffHasChanged.zip
+  1 8262063 Jul 10 17:55 66.51-directFromOld 6_DIAG_SCROLL_stillOKwithLCDStuff0.80.zip
+  9    1224 Jul 11 18:41 66.51-directFromOld 7_DiagScrollStillOKwithBOE
+  1 8233804 Jul 10 20:27 66.51-directFromOld 7_DiagScrollStillOKwithBOE.zip
+  1 8245223 Jul 10 20:50 66.51-directFromOld 8_TimerCommon122_noProb.zip
+  1 8245236 Jul 10 20:51 66.51-directFromOld 9_heart1.30_ok.zip
+  7    1292 Jul 10 20:56 68.5-revisitingAOv91
+  1  916942 Jul 10 16:58 68.5-revisitingAOv91 0_backToTiny861_smileyOK.zip
+  1  627657 Jul 10 16:59 68.5-revisitingAOv91 1_delocalized.zip
+  1  642742 Jul 10 17:01 68.5-revisitingAOv91 2_lcdStuff0.80_OK.zip
+  1  577230 Jul 10 17:04 68.5-revisitingAOv91 3_BLUE_FRAME_SameProbAsV91_butFBisOK_weird.zip
+  1  555825 Jul 10 20:24 68.5-revisitingAOv91 4_border=nogoWithBOE_sameAs6651.zip
+  1  583205 Jul 10 20:25 68.5-revisitingAOv91 5_diagBar=NogoWBOE.zip
+  8    1258 Jul 10 17:16 75.5-revisitingAOv91
+  8    1258 Jul 10 17:25 76.5-revisitingATv91
+  1  763481 Jul 10 17:18 76.5-revisitingATv91 0_FBQ_WorksWithBOE.zip
+  1  675871 Jul 10 17:22 76.5-revisitingATv91 1_blueBorderSyncsWrong...BOE.zip
+ 2    476 Jul 14 00:46 47-DiagonalLine-RSB
+ 1 290498 Jul 14 00:33 47-DiagonalLine-RSB 0_directFromOld.zip
+ 1 280742 Jul 14 00:38 47-DiagonalLine-RSB 1_buildable_runsSortaOnBoe_TETRIS+SMILEY+LIFE.zip
+ 1 280432 Jul 14 00:44 47-DiagonalLine-RSB 2_CTRL-M_inMainFixed.zip
+ 3    510 Jul 14 07:58 52-stretchThoseSinePix
+ 1 312647 Jul 14 00:49 52-stretchThoseSinePix 0_lastBeforev95.zip
+ 1 304539 Jul 14 00:51 52-stretchThoseSinePix 1_buildableAOv95_RunsHalf-Width_onBOE_segSINE.zip
+ 1  70255 Jul 14 00:55 52-stretchThoseSinePix 2_makeFuse_FullWidth_DoubledRows_onBOE.zip

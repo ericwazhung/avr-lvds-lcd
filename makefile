@@ -66,6 +66,9 @@ CFLAGS += -Werror=uninitialized
 CFLAGS += -Werror=maybe-uninitialized
 
 # Uncomment this for macroExpander.sh
+# (Currently located in cTools/macroExpansions/macroExpander.sh)
+# Actually, use macroSearch.sh, instead. It's *way* faster, and more
+# functional.
 #CFLAGS += -E -dM
 
 ###### Listed Early-On because THIS IS BAD if it's TRUE
@@ -163,9 +166,34 @@ CFLAGS += -D'PROJINFO_SHORT=TRUE'
 # in *half* the screen-width (same height)
 
 # DON'T FORGET: If you change this, rerun 'make fuse'
-PLLSYSCLK = 1
 
-ifeq "$(PLLSYSCLK)" "1"
+#a/o v95:
+#Currently, ROW_SEG_BUFFER does not work with PLLSYSCLK
+# On some displays it just squishes the image horizontally into half the
+# display, on others (BOE) it causes syncing problems.
+# (Ultimately, PLLSYSCLK would probably allow for twice the row-seg-buffer
+# resolution, so it's in the works)
+# So, until then...
+ifeq "$(MAKE_MAINCONFIG__ROW_SEG_BUFFER)" "TRUE"
+#SOMETHING IS BROKEN:
+# The fuses need to be default, (not as overridden by PLLSYSCLK)
+# But PLL_SYSCLK needs to be true...
+#PLLSYSCLK = 1
+CFLAGS += -D'PLL_SYSCLK=TRUE'
+#OR MAYBE It has to do with FCPU??? and delay_loop_2, ish?
+# No Change
+FCPU = 16000000UL
+else
+#SERIOUSLY?! A FRIGGIN' TAB AT THE END.
+#PLLSYSCLK=1	
+PLLSYSCLK=1
+endif
+
+
+
+
+ifeq ($(PLLSYSCLK), 1)
+#ifeq "$(PLLSYSCLK)" "1"
 #This value is the same for the ATTiny861 and AT90PWM161
 FUSEL = 0xe1
 # Nominal:

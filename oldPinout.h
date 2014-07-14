@@ -6,41 +6,40 @@
  */
 
 
-// a/o v95:
-// This file was pieced together, long ago, from various sources.
-//
-// It's somewhat impossible to make an all-inclusive pinout file, at this
-// point, since there are so many different options.
-//
-// Pseudo-FPD-Link-compatible AVRs:
-// * ATtiny861		** implemented **
-// * AT90PWM161	** implemented ** 
-// (* AT90PWMxxx	Not difficult to implement using AT90PWM161 as a
-// 					 starting-point)
-// (* ATxmega(?)	Might work with *low-speed* LVDS/FPD-Link, as the
-// 					 dead-time generators don't run at PLL speeds)
-// 
-// Parallel-LCD-compatible AVRs (6-bit, implemented):
-// * ATtiny861		** implemented **
-// (* ANY!			Not difficult to port to another chip)
-//
-// Sensors:
-// * Piezo hit-detector   \  OPTIONALLY
-// * Bump-switch           > Used in FB_Question for "hit-detection"
-// * Momentary-pushbutton /
-// * Potentiometer        -  Used in some games (e.g. SEG_RACER)
-//                          (Also "BLUE_ADC" which is like an oscilloscope)
 
-// Pseudo-FPD-Link:	(see _interfaces/lvds(161).c/h for more info)
-//   (aka Pulse-Width-Banged FPD-Link/LVDS):
+
+
+
+
+
+
+
+
+
+// Huh, I thought there was a pinout file already... I guess this isn't
+// actually used as a header file, but might be soon.
 //
-//   The AVR's outputs are single-ended (either high or low), but LVDS
-//   requires differential voltages.
-//   So, we need a Buffer and an Inverter tied to the AVR's outputs.
-//
-//   It's probably best to use two XORs from the same chip for each
-//    LVDS channel, since different TTL chips may have slightly different
-//    timing/voltage-output characteristics. 
+// So, here I am trying to piece it all together from the code, and the PCB
+
+
+/*Just ignore this section.
+// Best to probably ignore the HEART pin-stuff in the makefile...
+// It's a bit confusing because:
+// A) The heart software has been removed (HEART_REMOVED=TRUE)
+//    (to save codespace)
+// B) The heart isn't soldered up on the latest board
+// C) "QUESTION" mode uses PB0 pulled-low as a button-input
+//    GENERALLY, I use the heart pin as an input, for such purposes...
+// D) GENERALLY, I use the heart pin on the programming-header
+//    as my programmer has a button on that pin for exactly these purposes
+*/
+
+
+
+//From main.c:
+//   It's probably best to use two XORs from the same chip for a single
+//    LVDS channel, since different chips may have slightly different
+//    characteristics. 
 //
 //   The entire circuit, thus, requires TWO 74LS86's 
 //    (four XORs apiece, two per LVDS channel, 8-total)
@@ -63,9 +62,7 @@
 //                +---/ /___-¯                                 |
 //                |        |
 //               GND      GND
-//
-// In my experiments:
-// The XOR outputs are wired directly to the LCDs' LVDS inputs
+// The XOR outputs are wired directly to the LCD's LVDS inputs
 // It's explained elsewhere, but these particular LS chips underdriven at
 //  3.3V and overloaded with 100ohms (in the LCD) causes damned-near 
 //  perfect voltage-levels for LVDS.
@@ -80,68 +77,52 @@
 //  I suppose if the voltage is too high, then you could use a resistor on
 //  each output (in series with the LCD inputs, as shown)... 
 //  Ideally the voltage across that resistor should be no more than +/- 1V
-//  probably 100ohms on each output pin?
+//  probably 100ohms on each pin?
 //  No promises, here...
 
-//###############################
-//#
-//# ATtiny861 + FPD-Link/LVDS
-//#
-//# OC1x outputs:
-//#  These might be listed differently in various places... I went through
-//#  many iterations, trying to find the most useful/versatile. Latest is:
-//#   (This has been pretty-well verified, e.g. lvds_timerInit())
-//#   PB3   OC1B -> LVDS-CLK           (RXclk)
-//#   PB2  /OC1B -> LVDS-"Green"       (RXin1) (OUTPUT IS INVERTED)
-//#   PB5   OC1D -> LVDS-"Red"         (RXin0)
-//#   PB1   OC1A -> LVDS-"D/V/H/Blue"  (RXin2)
-//#
-//# GREEN needs to be inverted... 
-//# Ihis is easily done by swapping the LCD's RXin1+ and RXin1- inputs 
-//# to the opposite outputs of the respective XORs
-//###############################
+// OC1x outputs:
+//  These might be listed differently in various places... I went through
+//  many iterations, trying to find the most useful/versatile. Latest is:
+//   (This has been pretty-well verified)
+//   PB3   OC1B -> LVDS-CLK
+//   PB2  /OC1B -> LVDS-"Green" (RXin1)
+//   PB5   OC1D -> LVDS-"Red"   (RXin0)
+//   PB1   OC1A -> LVDS-"D/V/H/Blue"  (RXin2)
 
 
 //###############################
-//#
-//#  ATtiny861 Programming Header (+FPD-Link/LVDS)
-//#
-//# I use a 6-pin single-row .1in connector for programming-headers...
-//# (yours may vary)
-//#
-//#          Typical Other Use       Pin   FPD-Link Use
-//#  -------------------------------------------------
-//# 1  GND
-//# 2  V+         
-//# 3  SCK   (polled_uar: Rx0)       PB2   FPD-Link Green (inverted)
-//# 4  MOSI  (polled_uat: Tx0)       PB0   "Button" which...?
-//# 5  /RST  
-//# 6  MISO  (Heart LED/pushbutton)  PB1   FPD-Link DVH/Blue
-//#
-//# Because the In-System-Programming pins (MISO/MOSI/SCK) are ALSO the
-//#  PWM outputs (OC1x), which are necessary for FPD-Link, the
-//#  programming-header pins can not be used for their "typical other use"
-//#
+// GREEN needs to be inverted... this is easily done by swapping the 
+//  RXin1+ and RXin1- out of the respective XORs to the LCD
 //###############################
 
+/* From lvds_timerInit() in main.c:
+   setoutPORT(PB1, PORTB); //+OC1A, DVH/BLUE, MISO (usually heart)
+   setoutPORT(PB2, PORTB); //-OC1B, -GREEN    (INVERTED) SCK
+   setoutPORT(PB3, PORTB); //+OC1B Clock (OC1B, not inverted)
+   setoutPORT(PB5, PORTB); //+OC1D, RED
+*/
+
+
+
+//Programming Header SIP (yours may vary)
+// 1  GND
+// 2  V+
+// 3  SCK   PB2  Green                 (Usually polled_uar: Rx0)
+// 4  MOSI  PB0  "Button" which...?    (Usually polled_uat: Tx0)
+// 5  /RST  
+// 6  MISO  PB1  DVH/Blue              (Usually Heart)
 
 // A/O v80: THIS IS NO LONGER ALWAYS THE RELEVENT PINOUT
 //          e.g. if using the parallel Sony LCD, check
 //          _interfaces/6bitParallel.c for the pinout.
 
-
-//###############################
-//#
-//#    ATtiny861 + FPD-Link/LVDS   Full Pinout:
-//#
 // Also, why are there two "Button" inputs?
-// As far as I'm aware the only button that's implemented is PA6
 //
 //  TO LCD Buffers
 //   |                       ATtiny861
 //   V                       ____________________
 //                         |         |_|        |
-//       "Button" / MOSI --|  1 PB0      PA0 20 |-- 
+//         Button / MOSI --|  1 PB0      PA0 20 |-- 
 // DVHBlue (OC1A) / MISO --|  2 PB1      PA1 19 |-- 
 // -Green (/OC1B) / SCK  --|  3 PB2      PA2 18 |-- 
 // Clock   (OC1B)  --------|  4 PB3      PA3 17 |-- 
@@ -152,13 +133,6 @@
 //                       --|  9 PB6      PA6 12 |-- ---- Heartbeat/Button
 //                /Reset --| 10 PB7      PA7 11 |-- <--.
 //                         |____________________|      |
-//                                                     |
-//     PA7 is wired differently depending on the purpose:
-//                    PA7 = ADC6/AIN1... used for the BUMP_SENSOR in 
-//                                       FB_QUESTION...
-//                                       Also PIEZO_HIT_DETECTOR.
-//                                       Also Potentiometer for SEG_RACER.
-//                                                     |
 //                                                     |  VCC
 //                                                     |   |
 //                                                     |   \  Potentiometer
@@ -166,31 +140,13 @@
 //                                                         \  for "Racer"
 //                                                         |  control
 //                                                        GND
-//
-// (It can be left completely unwired in intial-testing)
-//
-// HEARTBEAT is ALSO used as a momentary-pushbutton "hit-detector"
-// for FB_QUESTION. 
-
-//#######################################
-//#
-//# Heartbeat LED + Momentary Pushbutton:
-//#
-//# (Typically connected to the same pin as the programming-header's MISO
-//#  so a pushbutton can be easily-added to any project... But that's 
-//#  not always possible.)
-//#
-//#  AVR            LED           
-//#  Pin ><-----+---|<|---/\/\/\----< +V
-//#             |
-//#             O |
-//#               |-
-//#             O |
-//#             |
-//#            GND
-//#
-//#######################################
-
+//     Wired differently depending on the purpose:
+//                    PA7 = ADC6/AIN1... used for the bump-sensor in 
+//                                       FB_QUESTION...
+//                                       Unfortunately, it's probably not
+//                                       particularly repeatable, as it's
+//                                       highly analog and highly dependent
+//                                       on the hardware used. 
 
 //This bit has been added to _commonCode.../piezoHitDetector...
 // FOR FB_QUESTION:
@@ -220,8 +176,8 @@
 // best-off replacing it with a button.
 //
 
-// Heartbeat's momentary pushbutton input is used in "SEG_QUESTION" mode. 
-// Shorting the pin to ground momentarily causes the image to change.
+// Button is used in "SEG_QUESTION" mode. Shorting the pin to ground
+// momentarily causes the image to change.
 
 
 

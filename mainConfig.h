@@ -96,13 +96,13 @@
 // There're a few options for this display... I'll try to consolidate
 // them, soon. Until then, select one... If it doesn't work, try another.
 //Try _v6651 first, it's the last-tested
-#define _LCD_SPECIFIC_HEADER_   "_displays/samsungLTN121X1_v6651.h"
+//#define _LCD_SPECIFIC_HEADER_   "_displays/samsungLTN121X1_v6651.h"
 //#define _LCD_SPECIFIC_HEADER_   "_displays/samsungLTN121X1.h"
 //#define _LCD_SPECIFIC_HEADER_   "_displays/samsungNogo.h"
 
 //Boe Hydis HD12X21:
 // 1024x768, 12.1in
-//#define _LCD_SPECIFIC_HEADER_   "_displays/boeHydisHT12X21.h"
+#define _LCD_SPECIFIC_HEADER_   "_displays/boeHydisHT12X21.h"
 
 //Sony ACX705AKM:
 // 240x160, ~2in (parallel-interfaced)
@@ -264,7 +264,7 @@
 //BLUE_TESTING is pretty much the simplest signal that can be sent, so it's
 //likely to work with a display, if the display is capable of being
 //worked-with. START HERE.
-#define BLUE_TESTING	TRUE
+//#define BLUE_TESTING	TRUE
 
 
 
@@ -273,7 +273,7 @@
 //If BLUE_TESTING works, then FRAMEBUFFER_TESTING likely will, as well...
 //This gives a (usually) 16x16 framebuffer stretched across the entire
 //screen.
-//#define FRAMEBUFFER_TESTING	TRUE
+#define FRAMEBUFFER_TESTING	TRUE
 
 
 

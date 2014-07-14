@@ -27,8 +27,14 @@ uint8_t getSpritePalette(const __flash sprite_t *p_thisSprite, uint8_t spritePha
 
 //This can also be used for repositioning the camera...
 //THIS ASSUMES it's only called ONCE per count...
-void fbQ_repositionSprite(spriteState_t *state)
+//Currently returns TRUE if a change has been detected
+// (FOR REFRESH_ON_CHANGE)
+uint8_t fbQ_repositionSprite(spriteState_t *state)
 {
+	//This isn't particularly-well-implemented
+	// (for REFRESH_ON_CHANGE)
+	// since, e.g., the camera could move along with the sprite...
+	uint8_t changeDetected = FALSE;
    uint8_t axis;
 
    for(axis=0; axis<=1; axis++)
@@ -66,11 +72,27 @@ void fbQ_repositionSprite(spriteState_t *state)
       motion *= (-1);
 
    state->position[axis] += motion;
+
+	if(motion)
+		changeDetected = TRUE;
    }
 
-	state->paletteNum += GET_PALETTE_ADVANCE(state->sprite->p_paletteAdvance,
-																			state->count);
-	state->paletteNum %= state->sprite->numPalettes;
+	//e.g. the camera...
+	if(state->sprite != NULL)
+	{
+		uint8_t oldPaletteNum = state->paletteNum;
+
+		uint8_t paletteAdvance = 
+		  GET_PALETTE_ADVANCE(state->sprite->p_paletteAdvance, state->count);
+
+		state->paletteNum += paletteAdvance;
+		state->paletteNum %= state->sprite->numPalettes;
+
+		if(state->paletteNum != oldPaletteNum)
+			changeDetected = TRUE;
+	}
+
+	return changeDetected;
 }
 
 
@@ -83,7 +105,9 @@ void fbQ_repositionSprite(spriteState_t *state)
 uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *state)     
 																//int8_t *spritePosition)
 {
-   uint8_t imageChangedTillRow=0;
+   //uint8_t imageChangedTillRow=0;
+	// doesn't really work any longer, since overlays happen multiplely
+   uint8_t changeOccurred = FALSE;
 
    //It's too confusing with the camera having its own position, so e.g.
    //camCol=0, if it were used here, would NOT BE THE SAME as the column in
@@ -97,7 +121,7 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 	uint8_t paletteForColor = 0;
 
 	int8_t position[2] = {0,0};
-	uint8_t * hFlip = NULL;
+	uint8_t * p_hFlip = NULL;
 	uint8_t count = 0;
 
 	//An unchanging sprite, e.g. SOLID in the background of a Reward...
@@ -107,12 +131,27 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 		position[0] = state->position[0];
 		position[1] = state->position[1];
 		//hFlip = state->sprite->p_hFlip;	//6404
-		hFlip = state->hFlip;					//6382
+		p_hFlip = state->hFlip;					//6382
 		count = state->count;
 		paletteForColor = state->paletteNum;
 	}
 
-
+	uint8_t thisHFlip = GET_FLIP(p_hFlip, count);
+	if(count > 0)
+	{
+		//Check if the flip-state has changed...
+		if(GET_FLIP(p_hFlip, count-1) != thisHFlip)
+			changeOccurred = TRUE;
+	}
+	else	//count 0, what to do...?
+	{
+		//Could always assume a change-occurred on count-0
+		// but what about solid + reward in background?
+		//Could compare to the last element in the hFlip array
+		// in case of cycling...
+		// (currently no sprites cycle hFlips)
+		//I guess I'll just leave it alone.
+	}
 
    for(frameRow = 0; frameRow<FB_HEIGHT; frameRow++)
    {
@@ -136,7 +175,7 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
          int8_t spriteCol =
             (position[0] - cameraState.position[0]) + frameCol;
             
-         if(GET_FLIP(hFlip, count))
+         if(thisHFlip) //GET_FLIP(p_hFlip, count))
             spriteCol=(FB_WIDTH-1)-spriteCol;
             
          //The sky's already been drawn...
@@ -168,10 +207,12 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
       
       //For now we're just going to presume that the framebuffer 
       // has changed each time...
-      imageChangedTillRow = frameRow;
+      //imageChangedTillRow = frameRow;
    }  
    
-   return imageChangedTillRow;
+	//The only thing in here that should affect a graphical change is
+	//hFlip...
+   return changeOccurred; //imageChangedTillRow;
    
 }  
 
