@@ -7,8 +7,6 @@
 
 
 
-#ifndef __SOLID_H__
-#define __SOLID_H__
 
 
 
@@ -16,6 +14,10 @@
 
 
 
+
+
+#ifndef __FROG_H__
+#define __FROG_H__
 
 #include "iconPacking.h"
 #include "defaultMotion.c"
@@ -24,58 +26,75 @@
 // Super Mario Brothers
 // Converted for use here using The Gimp -> Save as Header File
 // And hand-manipulated into this form for viewability/usability here
+// NAH UH!... That message from other sprites just to show how much fun I
+// had *entering it by hand* here. WEE!
+// (eyeballed from images on the web)
 
-#define SOLIDR0 ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-#define SOLIDR1 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR2 ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDR3 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR4 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR5 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR6 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR7 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR8 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR9 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRA ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRB ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRC ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRD ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDRE ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRF ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
+//This makes it appear more frog-like with big back-feet
+// (the default image shows the back-feet as black outlines, but this
+// doesn't work too well, since it's on top of the question/solid box which
+// also has a black outline... so share that outline for the frog's feet)
+#define FROG_MYHACK	TRUE
 
-//37 (sky), 2, not-used, 0
+#define FROGR0 ROWPACK(0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0)
+#define FROGR1 ROWPACK(0,0,1,2,2,2,1,0,0,1,2,2,2,1,0,0)
+#define FROGR2 ROWPACK(0,0,1,2,1,1,1,1,1,1,1,1,2,1,0,0)
+#define FROGR3 ROWPACK(0,1,1,2,1,1,2,2,2,2,1,1,2,1,1,0)
+#define FROGR4 ROWPACK(1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1)
+#define FROGR5 ROWPACK(1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1)
+#define FROGR6 ROWPACK(1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1)
+#define FROGR7 ROWPACK(0,1,1,2,2,2,2,2,2,2,2,2,2,1,1,0)
+#define FROGR8 ROWPACK(0,0,0,1,1,2,2,2,2,2,2,1,1,0,0,0)
+#define FROGR9 ROWPACK(0,1,1,2,1,1,1,1,1,1,1,1,2,1,1,0)
+#define FROGRA ROWPACK(1,2,2,1,2,2,2,2,2,2,2,2,1,2,2,1)
+#define FROGRB ROWPACK(1,2,2,2,1,2,1,2,2,1,2,1,2,2,2,1)
+#define FROGRC ROWPACK(1,2,1,2,1,2,1,2,2,1,2,1,2,1,2,1)
+#if(!defined(FROG_MYHACK) || !FROG_MYHACK)
+#define FROGRD ROWPACK(0,1,2,1,1,2,1,2,2,1,2,1,1,2,1,0)
+#define FROGRE ROWPACK(0,0,1,2,1,2,2,1,1,2,2,1,2,1,0,0)
+#define FROGRF ROWPACK(0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0)
+#else //MYHACK
+#define FROGRD ROWPACK(1,2,2,1,1,2,1,2,2,1,2,1,1,2,2,1)
+#define FROGRE ROWPACK(0,1,1,2,1,2,1,1,1,1,2,1,2,1,1,0)
+#define FROGRF ROWPACK(1,2,2,2,1,2,2,1,1,2,2,1,2,2,2,1)
+#endif
+const static uint8_t pgm_imageFROG[1][ICON_PACKED_BYTES] PROGMEM = 
+	{ IMAGE_INIT(FROG) };
 
-const static uint8_t pgm_imageSOLID[1][ICON_PACKED_BYTES] PROGMEM =
-	{ IMAGE_INIT(SOLID) };
 
 
-#define pgm_maskSOLID	NULL
-//static uint8_t pgm_maskSOLID[ICON_MASK_BYTES]; // PROGMEM =
-//  MASK_INIT(GETNAMED(QUESTION));
+#define pgm_maskFROG	NULL
+//static uint8_t pgm_maskFROG[ICON_MASK_BYTES]; // PROGMEM =
+//	MASK_INIT(FROG);
 
 
-#define NUMPALETTES_SOLID 1
+#define NUMPALETTES_FROG	1
 
+//1up Mapping: 0->37 (sky/mask) 1->7, 2->4 3->47
 //gimpPixelValToLColor should probably be taken into account.
-const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
-   { 37, 2, 0, 0}; 
+const static uint8_t pgm_paletteFROG[4*NUMPALETTES_FROG] PROGMEM = 
+	{ 37, //Sky
+		0,	//Black outline 
+	  rgb2(0,3,0), //Brown stolen from Leaf
+	  rgb2(3,3,3)  //White (unused)
+  	};
 
-const __flash sprite_t spriteSOLID =
-      {
-			pgm_imageSOLID, 
-			pgm_maskSOLID, 
-			pgm_paletteSOLID, 
-			NUMPALETTES_SOLID,
-			8,
+const __flash sprite_t spriteFROG = 
+		{ 
+			pgm_imageFROG, 
+			pgm_maskFROG, 
+			pgm_paletteFROG, 
+			NUMPALETTES_FROG,
+			DEFAULT_MOTIONS,
 			NadaFlip,
-			NadaMotion,
-			NadaLayer,
-			NadaCamMotion,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
 			NULL,
 			1
 		};
 
-#endif //__SOLID_H__
-
+#endif
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -138,7 +157,7 @@ const __flash sprite_t spriteSOLID =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/Solid.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/1up.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

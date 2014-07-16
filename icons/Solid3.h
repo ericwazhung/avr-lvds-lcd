@@ -6,9 +6,9 @@
  */
 
 
+#ifndef __SOLID3_H__
+#define __SOLID3_H__
 
-#ifndef __SOLID_H__
-#define __SOLID_H__
 
 
 
@@ -19,52 +19,56 @@
 
 #include "iconPacking.h"
 #include "defaultMotion.c"
-
+#include "Question3.h"	//for palette
 // This image-data was generated from screenshots from Nintendo's 
 // Super Mario Brothers
 // Converted for use here using The Gimp -> Save as Header File
 // And hand-manipulated into this form for viewability/usability here
 
-#define SOLIDR0 ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-#define SOLIDR1 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR2 ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDR3 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR4 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR5 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR6 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR7 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR8 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR9 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRA ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRB ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRC ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRD ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDRE ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRF ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
+#define SOLID3R0 ROWPACK(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+#define SOLID3R1 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R2 ROWPACK(1,3,1,3,3,3,3,3,3,3,3,3,3,1,3,1)
+#define SOLID3R3 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R4 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R5 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R6 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R7 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R8 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3R9 ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3RA ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3RB ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3RC ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3RD ROWPACK(1,3,1,3,3,3,3,3,3,3,3,3,3,1,3,1)
+#define SOLID3RE ROWPACK(1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1)
+#define SOLID3RF ROWPACK(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
 
 //37 (sky), 2, not-used, 0
 
-const static uint8_t pgm_imageSOLID[1][ICON_PACKED_BYTES] PROGMEM =
-	{ IMAGE_INIT(SOLID) };
+const static uint8_t pgm_imageSOLID3[1][ICON_PACKED_BYTES] PROGMEM =
+	{ IMAGE_INIT(SOLID3) };
 
 
-#define pgm_maskSOLID	NULL
-//static uint8_t pgm_maskSOLID[ICON_MASK_BYTES]; // PROGMEM =
+#define pgm_maskSOLID3	NULL
+//static uint8_t pgm_maskSOLID3[ICON_MASK_BYTES]; // PROGMEM =
 //  MASK_INIT(GETNAMED(QUESTION));
 
 
-#define NUMPALETTES_SOLID 1
+#define NUMPALETTES_SOLID3 1
 
+#define pgm_paletteSOLID3	pgm_paletteQUESTION3
 //gimpPixelValToLColor should probably be taken into account.
-const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
-   { 37, 2, 0, 0}; 
-
-const __flash sprite_t spriteSOLID =
+/*	const static uint8_t pgm_paletteSOLID3[4*NUMPALETTES_SOLID3] PROGMEM =
+   { 37, 
+		0,	//Black
+		rgb2(3,1,1), //Peach, unused
+		rgb2, 0, 0}; 
+*/
+const __flash sprite_t spriteSOLID3 =
       {
-			pgm_imageSOLID, 
-			pgm_maskSOLID, 
-			pgm_paletteSOLID, 
-			NUMPALETTES_SOLID,
+			pgm_imageSOLID3, 
+			pgm_maskSOLID3, 
+			pgm_paletteSOLID3, 
+			NUMPALETTES_SOLID3,
 			8,
 			NadaFlip,
 			NadaMotion,
@@ -74,8 +78,7 @@ const __flash sprite_t spriteSOLID =
 			1
 		};
 
-#endif //__SOLID_H__
-
+#endif //__SOLID3_H__
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be

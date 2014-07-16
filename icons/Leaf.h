@@ -14,23 +14,50 @@
 #include "iconPacking.h"
 #include "spriteMotion.h"
 
+//#define FANCY_LEAF	TRUE
+//#define SLIGHTLY_FANCY_LEAF	TRUE
 
+
+#if(defined(FANCY_LEAF) && FANCY_LEAF)
+//Attempting to make it more visually-appealing, with shading
+// but this is ugly
+#define LEAFR0 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+#define LEAFR1 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2)
+#define LEAFR2 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,2)
+#define LEAFR3 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,2)
+#define LEAFR4 ROWPACK(0,0,0,0,0,0,0,0,0,2,2,2,2,3,2,2)
+#define LEAFR5 ROWPACK(0,0,0,0,0,0,0,2,2,1,1,1,2,2,2,0)
+#define LEAFR6 ROWPACK(0,0,0,0,0,2,2,1,1,1,2,2,3,1,1,2)
+#define LEAFR7 ROWPACK(0,0,0,0,2,1,1,1,2,2,2,3,1,1,3,2)
+#define LEAFR8 ROWPACK(0,0,0,2,1,2,2,2,3,3,2,3,1,1,3,2)
+#define LEAFR9 ROWPACK(0,0,2,2,2,1,2,3,1,1,2,3,1,3,2,0)
+#define LEAFRA ROWPACK(2,2,2,1,1,1,2,3,1,2,1,1,1,3,2,0)
+#define LEAFRB ROWPACK(2,1,1,1,1,2,1,1,1,1,1,1,3,2,0,0)
+#define LEAFRC ROWPACK(0,2,2,1,1,1,1,1,1,1,3,3,2,0,0,0)
+#define LEAFRD ROWPACK(0,0,2,2,2,1,1,1,3,3,2,2,2,0,0,0)
+#define LEAFRE ROWPACK(0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0)
+#define LEAFRF ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+#else
+//This is directly from a screenshot of SMB3, level 1...
+// Except it only had two colors (black and dark-red)
+// Vein-colors have been changed with SLIGHTLY_FANCY_LEAF = TRUE
 #define LEAFR0 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 #define LEAFR1 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2)
 #define LEAFR2 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,2)
 #define LEAFR3 ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,2)
 #define LEAFR4 ROWPACK(0,0,0,0,0,0,0,0,0,2,2,2,2,1,2,2)
-#define LEAFR5 ROWPACK(0,0,0,0,0,0,0,2,2,1,1,1,2,2,2,0)
-#define LEAFR6 ROWPACK(0,0,0,0,0,2,2,1,1,1,2,2,1,1,1,2)
-#define LEAFR7 ROWPACK(0,0,0,0,2,1,1,1,2,2,2,1,1,1,1,2)
-#define LEAFR8 ROWPACK(0,0,0,2,1,2,2,2,1,1,2,1,1,1,1,2)
-#define LEAFR9 ROWPACK(0,0,2,2,2,1,2,1,1,1,2,1,1,1,2,0)
-#define LEAFRA ROWPACK(2,2,2,1,1,1,2,1,1,2,1,1,1,1,2,0)
-#define LEAFRB ROWPACK(2,1,1,1,1,2,1,1,1,1,1,1,1,2,0,0)
+#define LEAFR5 ROWPACK(0,0,0,0,0,0,0,2,2,1,1,1,3,2,2,0)
+#define LEAFR6 ROWPACK(0,0,0,0,0,2,2,1,1,1,3,3,1,1,1,2)
+#define LEAFR7 ROWPACK(0,0,0,0,2,1,1,1,3,3,3,1,1,1,1,2)
+#define LEAFR8 ROWPACK(0,0,0,2,1,3,3,3,1,1,3,1,1,1,1,2)
+#define LEAFR9 ROWPACK(0,0,2,3,3,1,3,1,1,1,3,1,1,1,2,0)
+#define LEAFRA ROWPACK(2,2,3,1,1,1,3,1,1,3,1,1,1,1,2,0)
+#define LEAFRB ROWPACK(2,1,1,1,1,3,1,1,1,1,1,1,1,2,0,0)
 #define LEAFRC ROWPACK(0,2,2,1,1,1,1,1,1,1,1,1,2,0,0,0)
 #define LEAFRD ROWPACK(0,0,2,2,2,1,1,1,1,1,2,2,2,0,0,0)
 #define LEAFRE ROWPACK(0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0)
 #define LEAFRF ROWPACK(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+#endif //Leaf Selection
 
 const static uint8_t pgm_imageLEAF[1][ICON_PACKED_BYTES] PROGMEM =
 	{ IMAGE_INIT(LEAF) };
@@ -44,7 +71,13 @@ const static uint8_t pgm_paletteLEAF[4*NUMPALETTES_LEAF] PROGMEM =
 	37, //sky, stolen from Question...
 	rgb2(2,0,0), // 2,0,0 determined from Gimp
 	rgb2(0,0,0), // 0,0,0 = black
+#if(defined(SLIGHTLY_FANCY_LEAF) && SLIGHTLY_FANCY_LEAF)
+	rgb2(1,0,0)	//7//Shading (if used) added by me
+#elif(defined(FANCY_LEAF) && FANCY_LEAF)
+	rgb2(1,0,0)	//7//Shading (if used) added by me
+#else
 	rgb2(0,0,0)
+#endif
 };
 
 

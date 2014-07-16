@@ -14,7 +14,7 @@
 #define __DEFAULT_MOTION_C__
 
 
-#include "spriteMotion.c"
+#include "spriteMotion.h"
 
 //This is used by most sprites
 
@@ -89,13 +89,19 @@ const uint8_t DefaultY[MOTION_BYTES(DEFAULT_MOTIONS)] MOTION_MEM =
 
 const __flash motion_t DefaultMotion[2] = { {0, NULL}, {-16, DefaultY} };
 
-const uint8_t DefaultLayer[LAYER_BYTES(DEFAULT_MOTIONS)] LAYER_MEM =
+//This can still be used for motions up to 64 steps long...
+// since the important part is background until the sprite's on top...
+//(maybe default doesn't need to be ever foreground, in which case
+//NadaLayer would be background...?)
+const uint8_t DefaultLayer[LAYER_BYTES(64)] LAYER_MEM =
 {
    PACK_LAYER_BYTE(_BG,_BG,_BG,_BG,_BG,_BG,_BG,_BG),
    PACK_LAYER_BYTE(_BG,_BG,_BG,_BG,_BG,_BG,_BG,_BG),
 
    PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
-   
+	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+   PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
+   PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
 	PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
    PACK_LAYER_BYTE(_FG,_FG,_FG,_FG,_FG,_FG,_FG,_FG),
 };

@@ -139,13 +139,19 @@
 // these options enabled that shouldn't be default...
 // e.g. "AUTO_HIT" or random-override.
 // Again, many options are later in this file...
-//a/o v93: This has been developed heavily alongside the Sony display, and
-//works great.
-// Previously it was developed-heavily alongside the lvds displays, and
-// works great, as well.
+//
+// ALSO optionally comment/uncomment MARIO3, below
+// (If it's too big, make sure to comment-out MARIO3)
 #define FB_QUESTION	TRUE
 
-
+#if(defined(FB_QUESTION) && FB_QUESTION)
+//MARIO3 enables BOTH sprites from Super Mario Bros AND Super Mario Bros 3
+// (The question-box randomly switches between v3 and v1, and rewards the
+// appropriate version's sprites)
+// MARIO3 increases codesize somewhat dramatically, so if you're running
+// out of space, leave this commented-out...
+#define MARIO3	TRUE
+#endif
 
 
 

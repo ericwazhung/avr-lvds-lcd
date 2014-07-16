@@ -7,8 +7,6 @@
 
 
 
-#ifndef __SOLID_H__
-#define __SOLID_H__
 
 
 
@@ -16,66 +14,49 @@
 
 
 
+
+
+#ifndef __SOLIDBUMP_H__
+#define __SOLIDBUMP_H__
 
 #include "iconPacking.h"
 #include "defaultMotion.c"
-
-// This image-data was generated from screenshots from Nintendo's 
-// Super Mario Brothers
-// Converted for use here using The Gimp -> Save as Header File
-// And hand-manipulated into this form for viewability/usability here
-
-#define SOLIDR0 ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-#define SOLIDR1 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR2 ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDR3 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR4 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR5 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR6 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR7 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR8 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR9 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRA ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRB ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRC ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRD ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDRE ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRF ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-
-//37 (sky), 2, not-used, 0
-
-const static uint8_t pgm_imageSOLID[1][ICON_PACKED_BYTES] PROGMEM =
-	{ IMAGE_INIT(SOLID) };
+#include "Solid.h"
 
 
-#define pgm_maskSOLID	NULL
-//static uint8_t pgm_maskSOLID[ICON_MASK_BYTES]; // PROGMEM =
-//  MASK_INIT(GETNAMED(QUESTION));
+#define SOLIDBUMP_SPRITES	1
+//#define SOLIDBUMP_MOTIONS	5
+#define SOLIDBUMP_MOTIONS	3
+
+const uint8_t SolidBumpY[MOTION_BYTES(SOLIDBUMP_MOTIONS)] MOTION_MEM =
+{
+	//PACK_MOTION_BYTE( 2, 1, DIR_TOGGLE, 1),
+	//PACK_MOTION_BYTE( 2, 0, 0, 0)
+	PACK_MOTION_BYTE( 2, DIR_TOGGLE, 2, 0),
+	//PACK_MOTION_BYTE( 2, 0, 0, 0)
+};
 
 
-#define NUMPALETTES_SOLID 1
+const __flash motion_t SolidBumpMotion[2] =
+	{ {0, NULL}, {0, SolidBumpY} };
 
-//gimpPixelValToLColor should probably be taken into account.
-const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
-   { 37, 2, 0, 0}; 
 
-const __flash sprite_t spriteSOLID =
-      {
+const __flash sprite_t spriteSOLIDBUMP = 
+		{ 
 			pgm_imageSOLID, 
 			pgm_maskSOLID, 
 			pgm_paletteSOLID, 
 			NUMPALETTES_SOLID,
-			8,
+			SOLIDBUMP_MOTIONS,
 			NadaFlip,
+			SolidBumpMotion,
+			DefaultLayer,	//Now handles up to 64 motions...
 			NadaMotion,
-			NadaLayer,
-			NadaCamMotion,
 			NULL,
-			1
+			SOLIDBUMP_SPRITES
 		};
 
-#endif //__SOLID_H__
-
+#endif
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -138,7 +119,7 @@ const __flash sprite_t spriteSOLID =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/Solid.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/1up.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

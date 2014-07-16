@@ -262,7 +262,7 @@ uint8_t getGimpColorVal(const __flash sprite_t *sprite, uint8_t palette, uint8_t
 
 
 #include "spriteMotion.h"
-#include "spriteMotion.c"
+//#include "spriteMotion.c"
 
 
 #endif

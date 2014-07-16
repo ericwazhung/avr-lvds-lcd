@@ -123,6 +123,7 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 	int8_t position[2] = {0,0};
 	uint8_t * p_hFlip = NULL;
 	uint8_t count = 0;
+	uint8_t spriteImageNum = 0;
 
 	//An unchanging sprite, e.g. SOLID in the background of a Reward...
 	// (when NULL)
@@ -134,6 +135,49 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 		p_hFlip = state->hFlip;					//6382
 		count = state->count;
 		paletteForColor = state->paletteNum;
+		
+		//If this sprite is recently-selected... make sure it's drawn
+		// (a/o QUESTION3 which currently has a totalCount of 1)
+		if(count == 0)
+			changeOccurred = TRUE;
+
+
+		spriteImageNum = (state->count)%(p_theSprite->numImages);
+//#if FALSE
+#ifdef __QUESTION3_H__
+		if(p_theSprite == &spriteQUESTION3)
+		{
+			//upon first-call after prepNextSprite, count will be 0
+			// Draw the '?' first, then overlap it with the frame...
+			if((state->count)%2 == 0)
+			{
+				//This gets confusing
+				//We're using count to indicate which image to draw
+				// and using recursion (at the beginning) to do-so
+				// first-call will always be even
+				//				  will increment count to odd
+				//            will call overlaySprite() with odd
+				//                      ---> will draw bottom-sprite with odd
+				//            will continue with count odd (but UNTESTED AGAIN)
+				//	
+				state->count++;
+				if(fbQ_overlaySprite(p_theSprite, state))
+					changeOccurred = TRUE;
+				//NOW (despite count, now, being odd) draw the top-sprite
+				// (FRAME)
+				spriteImageNum = 1;
+				changeOccurred = TRUE;
+			}
+			else	//odd-count, so draw the bottom-sprite first ('?')
+			{
+				//state->count = 0;
+				//count = 0;
+				spriteImageNum = 0;
+				changeOccurred = TRUE;
+			}
+
+		}
+#endif
 	}
 
 	uint8_t thisHFlip = GET_FLIP(p_hFlip, count);
@@ -152,6 +196,10 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 		// (currently no sprites cycle hFlips)
 		//I guess I'll just leave it alone.
 	}
+
+	//Sprite always cycles through the images, one with each redraw...
+	if(p_theSprite->numImages > 1)
+		changeOccurred = TRUE;
 
    for(frameRow = 0; frameRow<FB_HEIGHT; frameRow++)
    {
@@ -172,9 +220,28 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
       for(frameCol = 0; frameCol<FB_WIDTH; frameCol++)
       {
       
-         int8_t spriteCol =
-            (position[0] - cameraState.position[0]) + frameCol;
-            
+         int8_t spriteCol;
+		  
+#ifdef __QUESTION3_H__
+			//Count is odd, so we're drawing the '?', which needs shifting...
+			if((p_theSprite == &spriteQUESTION3) && (count%2 == 1))
+			{
+				//Scroll left-to-right
+				// ??? Is there any issue with this going negative?
+				spriteCol =
+           		((position[0] - cameraState.position[0]) + frameCol - count)
+			  			% FB_WIDTH;
+				//We want it to wrap...
+				if(spriteCol < 0)
+					spriteCol += FB_WIDTH;
+			}
+			else
+#endif
+			{
+				spriteCol =
+            	(position[0] - cameraState.position[0]) + frameCol;
+			}
+
          if(thisHFlip) //GET_FLIP(p_hFlip, count))
             spriteCol=(FB_WIDTH-1)-spriteCol;
             
@@ -186,7 +253,8 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
 		  //cycle-through the images; one with each redraw...
          uint8_t colorData = getRawPixelVal(p_theSprite, spriteRow,
                                             spriteCol, 
-											(state->count)%(p_theSprite->numImages));
+															spriteImageNum);
+		  //									(state->count)%(p_theSprite->numImages));
                                                          
          //The sky is always, now, as I recall, 0...     
          // so use it as a mask.
@@ -209,7 +277,18 @@ uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *st
       // has changed each time...
       //imageChangedTillRow = frameRow;
    }  
-   
+  
+/* MOVED TO TOP
+	//This for sprites that have two overlapping images
+	// (e.g. QUESTION3)
+	// Possibly also Flower, at some point...?
+	if( (p_theSprite == &spriteQUESTION3) && (state != NULL) )
+	{
+		//draw the "top" sprite, next (e.g. the FRAME)
+		state->count++;
+	}
+*/
+
 	//The only thing in here that should affect a graphical change is
 	//hFlip...
    return changeOccurred; //imageChangedTillRow;

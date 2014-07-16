@@ -7,8 +7,6 @@
 
 
 
-#ifndef __SOLID_H__
-#define __SOLID_H__
 
 
 
@@ -16,6 +14,10 @@
 
 
 
+
+
+#ifndef __FLUTE_H__
+#define __FLUTE_H__
 
 #include "iconPacking.h"
 #include "defaultMotion.c"
@@ -24,58 +26,66 @@
 // Super Mario Brothers
 // Converted for use here using The Gimp -> Save as Header File
 // And hand-manipulated into this form for viewability/usability here
+// NAH UH!... That message from other sprites just to show how much fun I
+// had *entering it by hand* here. WEE!
+// (eyeballed from images on the web)
+// heh, apparently I'm off by a pixel, somewhere... too wide?
+#define FLUTER0 ROWPACK(0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0)
+#define FLUTER1 ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTER2 ROWPACK(0,0,0,0,0,1,3,2,2,2,1,0,0,0,0,0)
+#define FLUTER3 ROWPACK(0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0)
+#define FLUTER4 ROWPACK(0,0,0,0,0,1,3,3,3,3,1,0,0,0,0,0)
+#define FLUTER5 ROWPACK(0,0,0,0,0,1,3,3,2,2,1,0,0,0,0,0)
+#define FLUTER6 ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTER7 ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTER8 ROWPACK(0,0,0,0,0,1,3,3,2,2,1,0,0,0,0,0)
+#define FLUTER9 ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTERA ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTERB ROWPACK(0,0,0,0,0,1,3,3,2,2,1,0,0,0,0,0)
+#define FLUTERC ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTERD ROWPACK(0,0,0,0,0,1,3,1,1,2,1,0,0,0,0,0)
+#define FLUTERE ROWPACK(0,0,0,0,0,1,3,2,2,2,1,0,0,0,0,0)
+#define FLUTERF ROWPACK(0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0)
 
-#define SOLIDR0 ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-#define SOLIDR1 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR2 ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDR3 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR4 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR5 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR6 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR7 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR8 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDR9 ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRA ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRB ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRC ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRD ROWPACK(3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3)
-#define SOLIDRE ROWPACK(3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3)
-#define SOLIDRF ROWPACK(0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0)
-
-//37 (sky), 2, not-used, 0
-
-const static uint8_t pgm_imageSOLID[1][ICON_PACKED_BYTES] PROGMEM =
-	{ IMAGE_INIT(SOLID) };
-
-
-#define pgm_maskSOLID	NULL
-//static uint8_t pgm_maskSOLID[ICON_MASK_BYTES]; // PROGMEM =
-//  MASK_INIT(GETNAMED(QUESTION));
+const static uint8_t pgm_imageFLUTE[1][ICON_PACKED_BYTES] PROGMEM = 
+	{ IMAGE_INIT(FLUTE) };
 
 
-#define NUMPALETTES_SOLID 1
 
+#define pgm_maskFLUTE	NULL
+//static uint8_t pgm_maskFLUTE[ICON_MASK_BYTES]; // PROGMEM =
+//	MASK_INIT(FLUTE);
+
+
+#define NUMPALETTES_FLUTE	1
+
+//1up Mapping: 0->37 (sky/mask) 1->7, 2->4 3->47
 //gimpPixelValToLColor should probably be taken into account.
-const static uint8_t pgm_paletteSOLID[4*NUMPALETTES_SOLID] PROGMEM =
-   { 37, 2, 0, 0}; 
+const static uint8_t pgm_paletteFLUTE[4*NUMPALETTES_FLUTE] PROGMEM = 
+	{ 37, //Sky
+		0,	//Black outline 
+#warning "WTF, isn't FOUR_SHADES true? Shouldn't this be non-white?!"
+	  //rgb2(3,2,2), //Shading
+	  rgb2(3,1,1),
+	  rgb2(3,3,3)  //White
+  	};
 
-const __flash sprite_t spriteSOLID =
-      {
-			pgm_imageSOLID, 
-			pgm_maskSOLID, 
-			pgm_paletteSOLID, 
-			NUMPALETTES_SOLID,
-			8,
+const __flash sprite_t spriteFLUTE = 
+		{ 
+			pgm_imageFLUTE, 
+			pgm_maskFLUTE, 
+			pgm_paletteFLUTE, 
+			NUMPALETTES_FLUTE,
+			DEFAULT_MOTIONS,
 			NadaFlip,
-			NadaMotion,
-			NadaLayer,
-			NadaCamMotion,
+			DefaultMotion,
+			DefaultLayer,
+			DefaultCamMotion,
 			NULL,
 			1
 		};
 
-#endif //__SOLID_H__
-
+#endif
 
 /* mehPL:
  *    I would love to believe in a world where licensing shouldn't be
@@ -138,7 +148,7 @@ const __flash sprite_t spriteSOLID =
  *    and add a link at the pages above.
  *
  * This license added to the original file located at:
- * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/Solid.h
+ * /Users/meh/_avrProjects/LCDdirectLVDS/93-checkingProcessAgain/icons/1up.h
  *
  *    (Wow, that's a lot longer than I'd hoped).
  *

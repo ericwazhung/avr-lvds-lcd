@@ -21,23 +21,68 @@
 // Converted for use here using The Gimp -> Save as Header File
 // And hand-manipulated into this form for viewability/usability here
 
-#define CLOUDR0 ROWPACK(0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0)
-#define CLOUDR1 ROWPACK(0,0,2,1,1,1,1,1,1,1,1,1,1,2,0,0)
-#define CLOUDR2 ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,1,2,0)
-#define CLOUDR3 ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,1,2,0)
-#define CLOUDR4 ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,1,2,0)
-#define CLOUDR5 ROWPACK(2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2)
-#define CLOUDR6 ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2)
-#define CLOUDR7 ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2)
-#define CLOUDR8 ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2)
-#define CLOUDR9 ROWPACK(2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2)
-#define CLOUDRA ROWPACK(2,1,2,1,1,1,1,1,1,1,1,1,1,2,1,2)
-#define CLOUDRB ROWPACK(0,2,1,1,1,2,1,1,1,1,2,1,1,1,2,0)
-#define CLOUDRC ROWPACK(0,2,1,1,1,1,2,2,2,2,1,1,1,1,2,0)
-#define CLOUDRD ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,1,2,0)
-#define CLOUDRE ROWPACK(0,0,2,1,1,1,1,2,2,1,1,1,1,2,0,0)
-#define CLOUDRF ROWPACK(0,0,0,2,2,2,2,0,0,2,2,2,2,0,0,0)
+// Adding shading per
+// https://www.etsy.com/listing/86501537/8bit-super-mario-ornament
+// (Was this a Mario3 thing?)
+// But keeping the "cheeks" for now...
+#define CLOUD_SHADED	TRUE
+// Also, the face is higher...
+#define CLOUD_SHIFTED TRUE
+// Now cheeks are optional in CLOUD_SHIFTED (not in !CLOUD_SHIFTED)
+//#define CLOUD_CHEEKS TRUE
 
+//So, apparently, MARIO1 is CLOUD_SHADED=FALSE, CLOUD_SHIFTED=FALSE
+//MARIO3 is CLOUD_SHADED=TRUE, CLOUD_SHIFTED=TRUE, CLOUD_CHEEKS=FALSE
+
+#define CLOUDR0       ROWPACK(0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0)
+#define CLOUDR1       ROWPACK(0,0,2,1,1,1,1,1,1,1,1,1,3,2,0,0)
+#define CLOUDR2       ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,3,2,0)
+#define CLOUDR3       ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,3,2,0)
+#define CLOUDR4       ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,1,3,2,0)
+#define CLOUDFOREHEAD ROWPACK(2,1,1,1,1,1,1,1,1,1,1,1,1,1,3,2)
+#define CLOUDEYES1    ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,3,2)
+#define CLOUDEYES2    ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,3,2)
+#define CLOUDEYES3    ROWPACK(2,1,1,1,1,1,2,1,1,2,1,1,1,1,3,2)
+#define CLOUDNOSE     ROWPACK(2,1,1,1,1,1,1,1,1,1,1,1,1,1,3,2)
+#define CLOUDCHEEKS   ROWPACK(2,1,2,1,1,1,1,1,1,1,1,1,1,2,3,2)
+#define CLOUDSMILE1A  ROWPACK(0,2,1,1,1,2,1,1,1,1,2,1,1,3,2,0)
+#define CLOUDSMILE1B  ROWPACK(0,2,1,1,1,1,2,2,2,2,1,1,1,3,2,0)
+#define CLOUDRD       ROWPACK(0,2,3,1,1,1,1,3,3,1,1,1,3,3,2,0)
+#define CLOUDRE       ROWPACK(0,0,2,3,3,3,3,2,2,3,3,3,3,2,0,0)
+#define CLOUDRF       ROWPACK(0,0,0,2,2,2,2,0,0,2,2,2,2,0,0,0)
+
+//Yeah, this would be easier to understand if it was just a copy-paste
+// but this was more of a challenge, weee!
+#define CLOUDSMILE2A   ROWPACK(2,1,1,1,1,2,1,1,1,1,2,1,1,1,3,2)
+//With cheeks:
+#define CLOUDSMILE2AC  ROWPACK(2,1,2,1,1,2,1,1,1,1,2,1,1,2,3,2)
+#define CLOUDSMILE2B   ROWPACK(0,2,1,1,1,1,2,2,2,2,1,1,1,3,2,0)
+#define CLOUDCHIN      ROWPACK(0,2,1,1,1,1,1,1,1,1,1,1,3,3,2,0)
+
+#if(!defined(CLOUD_SHIFTED) || !CLOUD_SHIFTED)
+#define CLOUDR5 CLOUDFOREHEAD
+#define CLOUDR6 CLOUDEYES1
+#define CLOUDR7 CLOUDEYES2
+#define CLOUDR8 CLOUDEYES3
+#define CLOUDR9 CLOUDNOSE
+#define CLOUDRA CLOUDCHEEKS
+#define CLOUDRB CLOUDSMILE1A
+#define CLOUDRC CLOUDSMILE1B
+#else
+#define CLOUDR5 CLOUDEYES1
+#define CLOUDR6 CLOUDEYES2
+#define CLOUDR7 CLOUDEYES3
+#define CLOUDR8 CLOUDNOSE
+#define CLOUDR9 CLOUDNOSE
+#if(defined(CLOUD_CHEEKS) && CLOUD_CHEEKS)
+#define CLOUDRA CLOUDSMILE2AC
+#else
+#define CLOUDRA CLOUDSMILE2A
+#endif
+
+#define CLOUDRB CLOUDSMILE2B
+#define CLOUDRC CLOUDCHIN
+#endif
 
 const static uint8_t pgm_imageCLOUD[1][ICON_PACKED_BYTES] PROGMEM =
 	{ IMAGE_INIT(CLOUD) };
@@ -51,7 +96,13 @@ const static uint8_t pgm_paletteCLOUD[4*NUMPALETTES_CLOUD] PROGMEM =
 	37, //{  0,153,255},	//sky
 	47, //{255,255,255},	//white
 	0,  //{  0, 24, 60}, //black
-	0,  //{141,157,255}  //unused
+#if(defined(CLOUD_SHADED) && CLOUD_SHADED)
+	rgb2(2,2,3),  //This should be more blue-gray than gray
+						//Since BLUE is 0,1,2 (2==3)
+						//{141,157,255}  //unused
+#else
+	47,  //{141,157,255}  //unused
+#endif
 };
 
 #define CloudMotion CoinMotion

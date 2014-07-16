@@ -11,7 +11,7 @@
 
 
 
-
+// DUH! It's called "Power-Ups"
 
 
 
@@ -50,24 +50,47 @@
 
 
 
-//These are not included in NUM_ICONS
-   #include "icons/Question.h"
-   #include "icons/Solid.h"
-   #include "icons/GoombaDead.h"
+//Include Question3.h to include all mario3 sprites...
+#if(defined(MARIO3) && MARIO3)
+//#warning "MARIO3 is TRUE, but its #inclusion is commented-out"
+#include "icons/Question3.h"
+#endif
 
-   //These are included in NUM_ICONS
+//Currently it's not possible to only include Mario3...
+// This MUST be included.
+#include "icons/Question.h"
+
+
+   #include "icons/Solid.h"
+	#include "icons/SolidBump.h"
+   #include "icons/Goomba.h"
+   #include "icons/GoombaDead.h"
    #include "icons/1up.h"
    #include "icons/Biggie.h"
    #include "icons/StarV.h"
    #include "icons/FlowerPowerV.h"
-   #include "icons/Goomba.h"
    #include "icons/Coin.h"
-	#include "icons/Leaf.h"
 	#include "icons/Cloud.h"
 	#include "icons/Mario.h"
 	#include "icons/Luigi.h"
 	#include "icons/MarioRuns.h"
 	#include "icons/LuigiRuns.h"
+#ifdef __QUESTION3_H__
+	#include "icons/Solid3.h"
+	#include "icons/SolidBump3.h"
+	#include "icons/Leaf.h"
+	#include "icons/TanookiSuit.h"
+	#include "icons/Frog.h"
+	#include "icons/Boot.h"
+	#include "icons/Hammer.h"
+	#include "icons/PWing.h"
+//	#include "icons/Flute.h"	//Too Phallic for my liking...
+// If it wasn't extending from the box, maybe it'd be different.
+	#include "icons/MusicBox.h"
+#endif
+	//This needs to be included AFTER Question3.h if used...
+	// (and FlowerPowerV.h)...
+	#include "icons/spriteMotion.c"
 //a/o v77
 //APPARENTLY NUM_ICONS is no longer used.
 //Excluding Solid and Question, etc...
@@ -82,7 +105,10 @@
 //hack in the first place.
 //#define MOTION_BIGGIE TRUE	//RANDOM_OVERRIDE's gotta be 2
 //These are from hitDetected()
-//#define RANDOM_OVERRIDE 8//32//2//Biggie //5//Leaf  //4 //8 //0 //4
+//THIS MUST NOW BE considered WITH the mario-version
+// (e.g. RANDOM_OVERRIDE_Q to &spriteQ or &spriteQUESTION3 as appropriate)
+//#define RANDOM_OVERRIDE 10//15//Cloud5//8//32//2//Biggie //5//Leaf  //4 //8 //0 //4
+//#define RANDOM_OVERRIDE_Q	&spriteQ //UESTION3
 
 //Stalls at the first sprite (initilized in p_selectedSprite, below)
 //#define STAY_ON_IT	TRUE
@@ -102,54 +128,106 @@
 //this is just a counter to help throw in some additional randomness...
 uint8_t callCount = 0;
 
-uint8_t qCount = 0;
+//uint8_t qCount = 0;
 //sprite_t *p_selectedSprite = &spriteLEAF; //COIN; //GOOMBA; //FLOWER; //&spriteQ;
 
 //a/o v84: nextSprite is hokily used as selectedSprite...
 // This needs to be changed.
 //sprite_t *p_nextSprite = &spriteLEAF; //NULL;
-const __flash sprite_t *p_nowSprite = &spriteLEAF; //NULL;
+const __flash sprite_t *p_nowSprite = &spriteQ;//UESTION3; 
+//&spriteLEAF; //NULL;
 //This indicates whether we're in a "Reward"
 // e.g. to draw SOLID in the background
-uint8_t nowIsReward = TRUE;
+// 1 = SOLID
+// 3 = SOLID3
+uint8_t nowIsReward = FALSE; //TRUE;
 
 
 void initSpriteStates(const __flash sprite_t *newSprite);
 
+//#define FB_ENABLE_PAUSE	TRUE
+
+#if(defined(FB_ENABLE_PAUSE)	&& FB_ENABLE_PAUSE)
+#warning "FB_ENABLE_PAUSE is TRUE... this is for debugging and isn't well-implemented. DO NOT USE in an installation!"
+uint8_t fb_paused = FALSE;
+#endif
+
+uint8_t pseudoRandom(void)
+{
+	return (HSYNC_TIMER_TCNT + callCount + nowSpriteState.count);
+}
+
+uint8_t qVersion = 1;
+
+
+#warning "qVersion and nowIsReward could probably be merged..."
 
 void fbQuestion_hitDetected(void)
 {
+	uint8_t selectedQ = 0;
 
-	if( (p_nowSprite == &spriteQ)
-//#if (!defined(IMMEDIATE) || !IMMEDIATE)
-//	    && (p_nextSprite == NULL)
-//#endif
-	  )
+	if( p_nowSprite == &spriteQ)
+		selectedQ = 1;
+#ifdef __QUESTION3_H__
+	else if (p_nowSprite == &spriteQUESTION3)
+		selectedQ = 3;
+#endif
+
+#ifdef __QUESTION3_H__
+	if(selectedQ == 3)
+	{
+		qVersion = selectedQ;
+		p_nowSprite = &spriteSOLIDBUMP3;
+	}
+	else
+#endif	
+	if(selectedQ)
+	{
+		qVersion = selectedQ;
+		p_nowSprite = &spriteSOLIDBUMP;
+	}
+	//As-is, the last frame (in blue, indicating death) is only visible
+	//briefly before scroll-back-to-question starts...
+	// so there's no reason to test for KILLABLE
+	// since it can't be killed when it's scrolling.
+	// There's probably a tiny fraction of a second window where it is
+	// possible to hit it when it's blue, and kill it... but it's TINY.
+	else if((p_nowSprite == &spriteGOOMBA)
+			&& ((nowSpriteState.count > 16) && (nowSpriteState.count < 62)))
+	{
+		p_nowSprite = &spriteDEADGOOMBA;
+	}
+#if(defined(FB_ENABLE_PAUSE)	&& FB_ENABLE_PAUSE)
+	else
+	{
+		fb_paused = !fb_paused;
+		return;
+	}
+#endif
+
+	initSpriteStates(p_nowSprite);
+}
+
+void prepReward(void)
+{
+	if(qVersion == 1)
 	{
 		uint8_t hitReward;
 		//Just trying to get some randomness up in hea
 #if (defined(RANDOM_OVERRIDE))
 		hitReward = RANDOM_OVERRIDE;
-#elif (defined(HSYNC_TIMER_TCNT))
+#else
 		static uint8_t lastReward;
 		
 		do
 		{
-			hitReward = (HSYNC_TIMER_TCNT + callCount + qCount)%12;
+			//hitReward = 
+				//(HSYNC_TIMER_TCNT + callCount + nowSpriteState.count)%20;
+			hitReward = pseudoRandom()%12;
 			//Don't allow double-goombas
 		} while ((lastReward == 4) && (hitReward == 4));
 
 		lastReward = hitReward;
-#else
- #error "HSYNC_TIMER_TCNT should be available for randomness..."
-#if 0
-		//These guys don't have enough randomness to avoid call-count...
- #if (defined(__ADC_H__))
-		hitReward = ((adc_getValue()*3+callCount+qCount))%8;
- #else
-		hitReward = (callCount+qCount)%8;
- #endif
-#endif
 #endif
 
 		switch(hitReward)
@@ -169,9 +247,6 @@ void fbQuestion_hitDetected(void)
 			case 4:
 				p_nowSprite = &spriteGOOMBA;
 				break;
-			case 5:
-				p_nowSprite = &spriteLEAF;
-				break;
 			case 6:
 				p_nowSprite = &spriteCLOUD;
 				break;
@@ -181,42 +256,65 @@ void fbQuestion_hitDetected(void)
 			case 8:
 				p_nowSprite = &spriteLUIGI;
 				break;
-//			case 9:
-//				p_nowSprite = &spriteMARIORUNS;
+			default:
+				p_nowSprite = &spriteCOIN;
+				break;
+		}
+		//qCount = 0;
+		nowIsReward = qVersion; //selectedQ; // TRUE;
+		initSpriteStates(p_nowSprite);
+	}
+#ifdef __QUESTION3_H__
+	else if(qVersion == 3)
+	{
+		uint8_t hitReward;
+		//Just trying to get some randomness up in hea
+#if (defined(RANDOM_OVERRIDE))
+		hitReward = RANDOM_OVERRIDE;
+#else
+		
+		hitReward = pseudoRandom()%12;
+#endif
+
+		switch(hitReward)
+		{
+			case 0:
+				p_nowSprite = &spriteLEAF;
+				break;
+			case 1:
+				p_nowSprite = &spriteCLOUD;
+				break;
+			case 2:
+				p_nowSprite = &spriteTANOOKI;
+				break;
+			case 3:
+				p_nowSprite = &spriteFROG;
+				break;
+			case 4:
+				p_nowSprite = &spriteBOOT;
+				break;
+			case 5:
+				p_nowSprite = &spriteHAMMER;
+				break;
+			case 6:
+				p_nowSprite = &spritePWING;
+				break;
+//			case 7:
+//				p_nowSprite = &spriteFLUTE;
+//				break;
+			case 8:
+				p_nowSprite = &spriteMUSICBOX;
 				break;
 			default:
 				p_nowSprite = &spriteCOIN;
 				break;
 		}
 		//qCount = 0;
-		nowIsReward = TRUE;
+		nowIsReward = qVersion; //selectedQ; // TRUE;
 		initSpriteStates(p_nowSprite);
 	}
-/* This was nice with the old scroll-up method, but with the new method,
- * it's too hokey... (can smash it before it's visible)
-	else if( (p_nextSprite == &spriteGOOMBA)
-		      && (qCount > 4) )
-	{
-		p_nextSprite = &spriteDEADGOOMBA;
-	}
-*/
-	//As-is, the last frame (in blue, indicating death) is only visible
-	//briefly before scroll-back-to-question starts...
-	// so there's no reason to test for KILLABLE
-	// since it can't be killed when it's scrolling.
-	// There's probably a tiny fraction of a second window where it is
-	// possible to hit it when it's blue, and kill it... but it's TINY.
-	else if((p_nowSprite == &spriteGOOMBA)
-				&& ((qCount > 16) && (qCount < 62)))
-//				&& (p_nextSprite == NULL) )
-//			   && ((qCount > 0) && (qCount < 16)) )
-//			   && (qCount < GOOMBA_KILLABLE_QCOUNT) )
-	{
-		//qCount = 0;
-		nowIsReward = TRUE;
-		p_nowSprite = &spriteDEADGOOMBA;
-		initSpriteStates(p_nowSprite);
-	}
+#endif //__QUESTION3_H__
+
 
 }
 
@@ -239,23 +337,25 @@ void prepNextSprite(void)
 {
 	//a/o v84:
 	// The new plan is to have a defined path...
-	// Q -> Hit -> "Reward" -> Solid -> Q
+	// Q -> SolidBump -> "Reward" -> Solid -> Q
 		
 	// CURRENTLY: "Hit" is NYI so:
 	// Q -> "Reward" -> Solid -> Q
 
-	// ALSO: Goomba/GoombaDead needs to be reimplemented
-
-	// Also, we've been using p_nextSprite as the current sprite for some
-	// time. It should probably be renamed to selectedSprite, and the old
-	// p_selectedSprite should probably be removed entirely.
-	// IOW: There's no need for "nextSprite" in the new method.
-
 	// Q Loops...
+
+	uint8_t selectedQ = 0;
+
 	if(p_nowSprite == &spriteQ)
+		selectedQ = 1;
+#ifdef __QUESTION3_H__
+	else if(p_nowSprite == &spriteQUESTION3)
+		selectedQ = 3;
+#endif
+
+	if(selectedQ)
 	{
 		//Do nothing for Q... until a hit arrives
-		// qCount is reset by the caller, so it just loops
 		// nowIsReward should already be FALSE
 		
 		// If AUTO_HIT is true, then "after" Question-box "completes"
@@ -263,32 +363,61 @@ void prepNextSprite(void)
 	  #if(defined(AUTO_HIT) && AUTO_HIT)
 		fbQuestion_hitDetected();
 	  #else
-		return;
+		//return;
      #endif
+	}
+	// SolidBump -> "reward"
+	else if( (p_nowSprite == &spriteSOLIDBUMP)
+#ifdef __QUESTION3_H__
+			|| (p_nowSprite == &spriteSOLIDBUMP3)
+#endif
+			)
+	{
+		prepReward();
 	}
 	// Mario -> MarioRuns
 	else if(p_nowSprite == &spriteMARIO)
 	{
-		nowIsReward = TRUE;
+		//nowIsReward = TRUE;
 		p_nowSprite = &spriteMARIORUNS;
 	}
 	// Luigi -> LuigiRuns
 	else if(p_nowSprite == &spriteLUIGI)
 	{
-		nowIsReward = TRUE;
+		//nowIsReward = TRUE;
 		p_nowSprite = &spriteLUIGIRUNS;
 	}
 	// Solid -> Q
-	else if(p_nowSprite == &spriteSOLID)
+	else if((p_nowSprite == &spriteSOLID)
+#ifdef __QUESTION3_H__
+		|| (p_nowSprite == &spriteSOLID3)
+#endif
+		)
 	{
 		nowIsReward = FALSE;
-		p_nowSprite = &spriteQ;
+#if(!defined(RANDOM_OVERRIDE))
+ #ifdef __QUESTION3_H__
+		if(pseudoRandom()&0x01)
+			p_nowSprite = &spriteQUESTION3;
+		else
+ #endif//__QUESTION3_H__
+			p_nowSprite = &spriteQ;
+#else	//RANDOM_OVERRIDE
+		p_nowSprite = RANDOM_OVERRIDE_Q;
+#endif
 	}
 	// "Reward" -> Solid
 	else
 	{
+#ifdef __QUESTION3_H__
+		if(nowIsReward == 3)
+			p_nowSprite = &spriteSOLID3;
+		else
+#endif
+			p_nowSprite = &spriteSOLID;
+
 		nowIsReward = FALSE;
-		p_nowSprite = &spriteSOLID;
+//		p_nowSprite = &spriteSOLID;
 	}	
 
 	initSpriteStates(p_nowSprite);
@@ -296,7 +425,7 @@ void prepNextSprite(void)
 
 void initSpriteStates(const __flash sprite_t *newSprite)
 {
-	qCount = 0;
+	//qCount = 0;
 	//.count is handled by qCount... but let's init it anyhow.
 	
 	p_nowSprite = newSprite;
@@ -452,6 +581,14 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 	//last row that was changed...
 	int8_t imageChangedTillRow = -1;
 
+
+#if(defined(FB_ENABLE_PAUSE)	&& FB_ENABLE_PAUSE)
+	if(fb_paused)
+		return -1;
+#endif	
+
+
+
 	//This is just used for helping to throw in some randomness for the next
 	//sprite after a hit...
 	callCount++;
@@ -492,14 +629,12 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 		{
 #if(defined(AUTO_KILL_GOOMBA) && AUTO_KILL_GOOMBA)
 			if( (p_nowSprite == &spriteGOOMBA)
-				 && (qCount >= 60) )
+				 && (nowSpriteState.count >= 60) )
 				fbQuestion_hitDetected();
 #endif
 
 
 
-			nowSpriteState.count = qCount;
-			cameraState.count = qCount;
 			//Override for now...
 			//otherSpriteState.count=0;
 
@@ -512,15 +647,32 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 				imageChangedTillRow = FB_HEIGHT;
 			// "otherSpriteState" needn't be repositioned, it's always
 			// SOLID (if used, only during a Reward)
-
-			if(nowIsReward)
+/*
+			if(p_nowSprite == &spriteQUESTION3)
 			{
+				fbQ_overlaySprite(&spriteQUESTION3, NULL);
+
+				fbQ_overlaySprite(&(spriteQUESTION3[1]), NULL);
+
+				imageChangedTillRow = FB_HEIGHT;
+			}
+*/			if(nowIsReward)
+			{
+				sprite_t * nextSolid;
+
+#ifdef __QUESTION3_H__
+				if(nowIsReward == 3)
+					nextSolid = &spriteSOLID3;
+				else
+#endif
+					nextSolid = &spriteSOLID;
+
 				//0 is foreground, so it should be drawn last
 				if(!GET_LAYER(nowSpriteState.layer, nowSpriteState.count))
 				{
 					//imageChangedTillRow =
 					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
-					if(fbQ_overlaySprite(&spriteSOLID, NULL))
+					if(fbQ_overlaySprite(nextSolid, NULL))
 						imageChangedTillRow = FB_HEIGHT;
 
 					//imageChangedTillRow =
@@ -535,18 +687,21 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 				
 					//imageChangedTillRow =
 					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
-					if(fbQ_overlaySprite(&spriteSOLID, NULL))
+					if(fbQ_overlaySprite(nextSolid, NULL))
 						imageChangedTillRow = FB_HEIGHT;
 				}
 			}
 			else //Not a reward, so only one sprite is drawn...
+					//E.G. SOLID, 'Q' or QUESTION3... right?
 			{
 				//imageChangedTillRow =
 					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
 						imageChangedTillRow = FB_HEIGHT;
 			}
 
-			qCount++;
+			//qCount++;
+			nowSpriteState.count++;// = qCount;
+			cameraState.count = nowSpriteState.count;
 			//Could, e.g., test for a hard-coded value...
 /*#if(defined(MOTION_BIGGIE) && MOTION_BIGGIE)
 			if(qCount >= (sizeof(DefaultY)*4))
@@ -554,9 +709,9 @@ int8_t fbQuestion_update(void) //uint8_t triggerDetected)
 			if(qCount >= (sizeof(LeafX)*4))
 #endif
 */
-			if(qCount >= p_nowSprite->totalCount)
+			if(nowSpriteState.count >= p_nowSprite->totalCount)
 			{
-				qCount = 0;
+				//qCount = 0;
 				prepNextSprite();
 /*
 #define LEAF_REPEAT	TRUE

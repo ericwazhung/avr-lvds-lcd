@@ -1,0 +1,5147 @@
+
+_BUILD/LCDdirectLVDS.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00001f2e  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00001f2e  00001fc2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000154  0080006a  0080006a  00001fcc  2**0
+                  ALLOC
+  3 .stab         00004f44  00000000  00000000  00001fcc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00002c2d  00000000  00000000  00006f10  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      00000011  00000000  00000000  00009b3d  2**0
+                  CONTENTS, READONLY
+  6 .debug_info   000004b0  00000000  00000000  00009b4e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000470  00000000  00000000  00009ffe  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000001d  00000000  00000000  0000a46e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000001a3  00000000  00000000  0000a48b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	c2 c5       	rjmp	.+2948   	; 0xb86 <__ctors_end>
+       2:	dc c5       	rjmp	.+3000   	; 0xbbc <__bad_interrupt>
+       4:	3d cc       	rjmp	.-1926   	; 0xfffff880 <__eeprom_end+0xff7ef880>
+       6:	da c5       	rjmp	.+2996   	; 0xbbc <__bad_interrupt>
+       8:	d9 c5       	rjmp	.+2994   	; 0xbbc <__bad_interrupt>
+       a:	d8 c5       	rjmp	.+2992   	; 0xbbc <__bad_interrupt>
+       c:	d7 c5       	rjmp	.+2990   	; 0xbbc <__bad_interrupt>
+       e:	d6 c5       	rjmp	.+2988   	; 0xbbc <__bad_interrupt>
+      10:	d5 c5       	rjmp	.+2986   	; 0xbbc <__bad_interrupt>
+      12:	d4 c5       	rjmp	.+2984   	; 0xbbc <__bad_interrupt>
+      14:	d3 c5       	rjmp	.+2982   	; 0xbbc <__bad_interrupt>
+      16:	d2 c5       	rjmp	.+2980   	; 0xbbc <__bad_interrupt>
+      18:	d1 c5       	rjmp	.+2978   	; 0xbbc <__bad_interrupt>
+      1a:	d0 c5       	rjmp	.+2976   	; 0xbbc <__bad_interrupt>
+      1c:	a3 ce       	rjmp	.-698    	; 0xfffffd64 <__eeprom_end+0xff7efd64>
+      1e:	ce c5       	rjmp	.+2972   	; 0xbbc <__bad_interrupt>
+      20:	cd c5       	rjmp	.+2970   	; 0xbbc <__bad_interrupt>
+      22:	cc c5       	rjmp	.+2968   	; 0xbbc <__bad_interrupt>
+      24:	cb c5       	rjmp	.+2966   	; 0xbbc <__bad_interrupt>
+      26:	6e cc       	rjmp	.-1828   	; 0xfffff904 <__eeprom_end+0xff7ef904>
+      28:	70 cc       	rjmp	.-1824   	; 0xfffff90a <__eeprom_end+0xff7ef90a>
+      2a:	72 cc       	rjmp	.-1820   	; 0xfffff910 <__eeprom_end+0xff7ef910>
+      2c:	74 cc       	rjmp	.-1816   	; 0xfffff916 <__eeprom_end+0xff7ef916>
+      2e:	76 cc       	rjmp	.-1812   	; 0xfffff91c <__eeprom_end+0xff7ef91c>
+      30:	a4 cc       	rjmp	.-1720   	; 0xfffff97a <__eeprom_end+0xff7ef97a>
+      32:	8e cc       	rjmp	.-1764   	; 0xfffff950 <__eeprom_end+0xff7ef950>
+      34:	76 cc       	rjmp	.-1812   	; 0xfffff922 <__eeprom_end+0xff7ef922>
+      36:	78 cc       	rjmp	.-1808   	; 0xfffff928 <__eeprom_end+0xff7ef928>
+      38:	88 cc       	rjmp	.-1776   	; 0xfffff94a <__eeprom_end+0xff7ef94a>
+      3a:	8a cc       	rjmp	.-1772   	; 0xfffff950 <__eeprom_end+0xff7ef950>
+      3c:	8c cc       	rjmp	.-1768   	; 0xfffff956 <__eeprom_end+0xff7ef956>
+      3e:	8e cc       	rjmp	.-1764   	; 0xfffff95c <__eeprom_end+0xff7ef95c>
+      40:	90 cc       	rjmp	.-1760   	; 0xfffff962 <__eeprom_end+0xff7ef962>
+      42:	92 cc       	rjmp	.-1756   	; 0xfffff968 <__eeprom_end+0xff7ef968>
+      44:	94 cc       	rjmp	.-1752   	; 0xfffff96e <__eeprom_end+0xff7ef96e>
+      46:	99 cc       	rjmp	.-1742   	; 0xfffff97a <__eeprom_end+0xff7ef97a>
+      48:	95 cc       	rjmp	.-1750   	; 0xfffff974 <__eeprom_end+0xff7ef974>
+      4a:	f1 cd       	rjmp	.-1054   	; 0xfffffc2e <__eeprom_end+0xff7efc2e>
+      4c:	f0 cd       	rjmp	.-1056   	; 0xfffffc2e <__eeprom_end+0xff7efc2e>
+      4e:	ef cd       	rjmp	.-1058   	; 0xfffffc2e <__eeprom_end+0xff7efc2e>
+      50:	ee cd       	rjmp	.-1060   	; 0xfffffc2e <__eeprom_end+0xff7efc2e>
+      52:	ef cd       	rjmp	.-1058   	; 0xfffffc32 <__eeprom_end+0xff7efc32>
+      54:	ee cd       	rjmp	.-1060   	; 0xfffffc32 <__eeprom_end+0xff7efc32>
+      56:	ed cd       	rjmp	.-1062   	; 0xfffffc32 <__eeprom_end+0xff7efc32>
+      58:	dd cd       	rjmp	.-1094   	; 0xfffffc14 <__eeprom_end+0xff7efc14>
+      5a:	dc cd       	rjmp	.-1096   	; 0xfffffc14 <__eeprom_end+0xff7efc14>
+      5c:	db cd       	rjmp	.-1098   	; 0xfffffc14 <__eeprom_end+0xff7efc14>
+      5e:	dc cd       	rjmp	.-1096   	; 0xfffffc18 <__eeprom_end+0xff7efc18>
+      60:	db cd       	rjmp	.-1098   	; 0xfffffc18 <__eeprom_end+0xff7efc18>
+      62:	da cd       	rjmp	.-1100   	; 0xfffffc18 <__eeprom_end+0xff7efc18>
+      64:	db cd       	rjmp	.-1098   	; 0xfffffc1c <__eeprom_end+0xff7efc1c>
+      66:	da cd       	rjmp	.-1100   	; 0xfffffc1c <__eeprom_end+0xff7efc1c>
+      68:	d9 cd       	rjmp	.-1102   	; 0xfffffc1c <__eeprom_end+0xff7efc1c>
+      6a:	f7 cd       	rjmp	.-1042   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+      6c:	f6 cd       	rjmp	.-1044   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+      6e:	f5 cd       	rjmp	.-1046   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+      70:	04 ce       	rjmp	.-1016   	; 0xfffffc7a <__eeprom_end+0xff7efc7a>
+      72:	03 ce       	rjmp	.-1018   	; 0xfffffc7a <__eeprom_end+0xff7efc7a>
+      74:	f4 cd       	rjmp	.-1048   	; 0xfffffc5e <__eeprom_end+0xff7efc5e>
+      76:	f3 cd       	rjmp	.-1050   	; 0xfffffc5e <__eeprom_end+0xff7efc5e>
+      78:	00 ce       	rjmp	.-1024   	; 0xfffffc7a <__eeprom_end+0xff7efc7a>
+      7a:	ff cd       	rjmp	.-1026   	; 0xfffffc7a <__eeprom_end+0xff7efc7a>
+      7c:	ee cd       	rjmp	.-1060   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+      7e:	ed cd       	rjmp	.-1062   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+      80:	ec cd       	rjmp	.-1064   	; 0xfffffc5a <__eeprom_end+0xff7efc5a>
+
+00000082 <__trampolines_end>:
+      82:	99 00       	.word	0x0099	; ????
+      84:	00 00       	nop
+      86:	95 00       	.word	0x0095	; ????
+      88:	01 28       	or	r0, r1
+      8a:	00 00       	nop
+      8c:	4c 0b       	sbc	r20, r28
+      8e:	44 0b       	sbc	r20, r20
+      90:	34 0b       	sbc	r19, r20
+      92:	00 00       	nop
+      94:	03 25       	eor	r16, r3
+
+00000095 <pgm_paletteMUSICBOX>:
+      95:	25 00 17 2f                                         %../
+
+00000099 <pgm_imageMUSICBOX>:
+      99:	00 55 01 00 50 af 16 00 f4 aa 6a 00 bd aa aa 01     .U..P.....j.....
+      a9:	55 55 55 01 fd ff ff 01 fd 57 d5 51 fd f7 df 11     UUU......W.Q....
+      b9:	fd 57 d5 11 fd f7 df 15 fd f7 df 01 7d f5 d5 01     .W..........}...
+      c9:	5d 75 d5 01 5d 7d f5 01 fd ff ff 01 55 55 55 01     ]u..]}......UUU.
+      d9:	00 55 01 00 50 af 16 00 f4 aa 6a 00 bd aa aa 01     .U..P.....j.....
+      e9:	55 55 55 01 fd ff ff 01 fd 57 d5 01 fd f7 df 01     UUU......W......
+      f9:	fd 57 d5 51 fd f7 df 05 fd f7 df 01 7d f5 d5 01     .W.Q........}...
+     109:	5d 75 d5 01 5d 7d f5 01 fd ff ff 01 55 55 55 01     ]u..]}......UUU.
+     119:	00 55 01 00 50 af 16 00 f4 aa 6a 00 bd aa aa 01     .U..P.....j.....
+     129:	55 55 55 01 fd ff ff 01 fd 57 d5 01 fd f7 df 01     UUU......W......
+     139:	fd 57 d5 01 fd f7 df 15 fd f7 df 11 7d f5 d5 51     .W..........}..Q
+     149:	5d 75 d5 01 5d 7d f5 01 fd ff ff 01 55 55 55 01     ]u..]}......UUU.
+
+00000159 <spritePWING>:
+     159:	70 01 00 00 6c 01 01 28 00 00 4c 0b 44 0b 34 0b     p...l..(..L.D.4.
+     169:	00 00 01                                            ...
+
+0000016c <pgm_palettePWING>:
+     16c:	25 00 07 2f                                         %../
+
+00000170 <pgm_imagePWING>:
+     170:	00 00 54 15 00 50 fd 5f 00 f5 ff 7f 40 ff ff 7f     ..T..P._....@...
+     180:	d0 ff ff 1f f4 ff ff 07 b4 ea ff 1d bd ae 7f 1f     ................
+     190:	bd ae ff 07 bd ea ff 1d bd fe 7f 1f bd fe ff 07     ................
+     1a0:	f4 ff ff 07 f4 ff ff 01 d0 ff 5f 00 40 55 05 00     .........._.@U..
+
+000001b0 <spriteHAMMER>:
+     1b0:	c7 01 00 00 c3 01 01 28 00 00 4c 0b 44 0b 34 0b     .......(..L.D.4.
+     1c0:	00 00 01                                            ...
+
+000001c3 <pgm_paletteHAMMER>:
+     1c3:	25 00 02 2f                                         %../
+
+000001c7 <pgm_imageHAMMER>:
+     1c7:	00 54 55 54 40 f5 7f fd d0 5f 55 5d 74 55 55 55     .TUT@...._U]tUUU
+     1d7:	54 55 55 55 f5 55 55 55 5d 55 55 54 14 50 55 54     TUUU.UUU]UUT.PUT
+     1e7:	00 40 1a 00 00 40 1a 00 00 40 1a 00 00 40 1a 00     .@...@...@...@..
+     1f7:	00 40 1a 00 00 40 1a 00 00 40 1a 00 00 00 05 00     .@...@...@......
+
+00000207 <spriteBOOT>:
+     207:	51 02 00 00 4d 02 01 34 00 00 2d 02 44 0b 1a 02     Q...M..4..-.D...
+     217:	00 00 02                                            ...
+
+0000021a <BootCamMotion>:
+     21a:	00 00 00 00 20 02                                   .... .
+
+00000220 <BootCamY>:
+     220:	55 55 55 55 00 00 00 00 03 55 55 55 55              UUUU.....UUUU
+
+0000022d <BootMotion>:
+     22d:	00 40 02 f0 33 02                                   .@..3.
+
+00000233 <BootY>:
+     233:	aa aa aa aa b8 bb bb bb bb bb 00 00 00              .............
+
+00000240 <BootX>:
+     240:	00 00 00 03 54 54 54 54 54 54 00 00 00              ....TTTTTT...
+
+0000024d <pgm_paletteBOOT>:
+     24d:	25 00 0c 2f                                         %../
+
+00000251 <pgm_imageBOOT>:
+     251:	50 55 55 15 94 aa aa 56 a4 aa aa 5a a4 aa aa 5a     PUU....V...Z...Z
+     261:	a4 aa aa 56 54 55 55 7d 90 aa aa 7d 90 aa aa 75     ...VTUU}...}...u
+     271:	54 a5 6a 7f a5 9a aa 75 a9 aa aa 7d a9 aa aa 7d     T.j....u...}...}
+     281:	a9 aa aa 56 a9 aa aa 5a a5 aa aa 56 54 55 55 15     ...V...Z...VTUU.
+     291:	50 55 55 15 94 aa aa 56 a4 aa aa 5a a4 aa aa 5a     PUU....V...Z...Z
+     2a1:	a4 aa aa 5a 54 55 55 55 90 aa aa 55 90 aa aa 7d     ...ZTUUU...U...}
+     2b1:	54 a5 6a 7f a5 9a aa 7d a9 aa aa 55 a9 aa aa 5a     T.j....}...U...Z
+     2c1:	a9 aa aa 5a a9 aa aa 5a a5 aa aa 56 54 55 55 15     ...Z...Z...VTUU.
+
+000002d1 <spriteFROG>:
+     2d1:	e8 02 00 00 e4 02 01 28 00 00 4c 0b 44 0b 34 0b     .......(..L.D.4.
+     2e1:	00 00 01                                            ...
+
+000002e4 <pgm_paletteFROG>:
+     2e4:	25 00 0c 2f                                         %../
+
+000002e8 <pgm_imageFROG>:
+     2e8:	40 05 50 01 90 1a a4 06 90 55 55 06 94 a5 5a 16     @.P......UU...Z.
+     2f8:	a9 aa aa 6a a9 9a a6 6a a9 aa aa 6a 94 aa aa 16     ...j...j...j....
+     308:	40 a9 6a 01 94 55 55 16 69 aa aa 69 a9 99 66 6a     @.j..UU.i..i..fj
+     318:	99 99 66 66 69 99 66 69 94 59 65 16 a9 69 69 6a     ..ffi.fi.Ye..iij
+
+00000328 <spriteTANOOKI>:
+     328:	3f 03 00 00 3b 03 01 28 00 00 4c 0b 44 0b 34 0b     ?...;..(..L.D.4.
+     338:	00 00 01                                            ...
+
+0000033b <pgm_paletteTANOOKI>:
+     33b:	25 00 02 2f                                         %../
+
+0000033f <pgm_imageTANOOKI>:
+     33f:	00 05 50 00 40 5f f5 01 40 aa aa 01 90 76 9d 06     ..P.@_..@....v..
+     34f:	90 75 5d 06 90 56 95 06 40 6a a9 01 00 a5 5a 00     .u]..V..@j....Z.
+     35f:	50 aa aa 05 a4 fa af 1a a9 fe bf 6a 69 fe bf 69     P..........ji..i
+     36f:	7d fa af 7d 54 aa aa 15 40 7f fd 01 00 55 55 00     }..}T...@....UU.
+
+0000037f <spriteLEAF>:
+     37f:	d2 03 00 00 ce 03 01 30 c8 03 a4 03 c2 03 92 03     .......0........
+     38f:	00 00 01                                            ...
+
+00000392 <LeafCamMotion>:
+     392:	00 00 00 00 98 03                                   ......
+
+00000398 <LeafCamY>:
+     398:	55 55 55 55 57 55 55 44 44 04 00 00                 UUUUWUUDD...
+
+000003a4 <LeafMotion>:
+     3a4:	00 b6 03 f0 aa 03                                   ......
+
+000003aa <LeafY>:
+     3aa:	aa aa aa aa 57 55 55 55 55 55 55 55                 ....WUUUUUUU
+
+000003b6 <LeafX>:
+     3b6:	00 00 00 00 ea aa ea aa ea aa ea aa                 ............
+
+000003c2 <LeafLayer>:
+     3c2:	ff ff 00 00 00 00                                   ......
+
+000003c8 <LeafFlip>:
+     3c8:	00 00 f8 07 f8 07                                   ......
+
+000003ce <pgm_paletteLEAF>:
+     3ce:	25 02 00 00                                         %...
+
+000003d2 <pgm_imageLEAF>:
+     3d2:	00 00 00 00 00 00 00 a0 00 00 00 98 00 00 00 98     ................
+     3e2:	00 00 a8 a6 00 80 56 2b 00 68 f5 95 00 56 7f 95     ......V+.h...V..
+     3f2:	80 fd 75 95 e0 77 75 25 7a 75 5d 25 56 5d 55 09     ..u..wu%zu]%V]U.
+     402:	68 55 55 02 a0 56 a5 02 00 aa 2a 00 00 00 00 00     hUU..V....*.....
+
+00000412 <spriteSOLIDBUMP3>:
+     412:	38 04 00 00 b0 0a 01 03 00 00 d4 09 44 0b 5c 0b     8...........D.\.
+     422:	00 00 01                                            ...
+
+00000425 <spriteSOLID3>:
+     425:	38 04 00 00 b0 0a 01 08 00 00 5c 0b 00 00 5c 0b     8.........\...\.
+     435:	00 00 01                                            ...
+
+00000438 <pgm_imageSOLID3>:
+     438:	55 55 55 55 fd ff ff 7f dd ff ff 77 fd ff ff 7f     UUUU.......w....
+     448:	fd ff ff 7f fd ff ff 7f fd ff ff 7f fd ff ff 7f     ................
+     458:	fd ff ff 7f fd ff ff 7f fd ff ff 7f fd ff ff 7f     ................
+     468:	fd ff ff 7f dd ff ff 77 fd ff ff 7f 55 55 55 55     .......w....UUUU
+
+00000478 <spriteLUIGIRUNS>:
+     478:	bf 04 00 00 92 05 01 18 8b 04 8e 04 46 0b ad 04     ............F...
+     488:	00 00 03                                            ...
+
+0000048b <LuigiRunsFlip>:
+     48b:	ff ff ff                                            ...
+
+0000048e <LuigiRunsMotion>:
+     48e:	00 94 04 10 56 0b                                   ....V.
+
+00000494 <LuigiRunsX>:
+     494:	ab aa 02 00 00 00                                   ......
+
+0000049a <spriteMARIORUNS>:
+     49a:	bf 04 00 00 a9 05 01 18 00 00 b3 04 46 0b ad 04     ............F...
+     4aa:	00 00 03                                            ...
+
+000004ad <MarioRunsCamMotion>:
+     4ad:	00 00 00 10 3e 0b                                   ....>.
+
+000004b3 <MarioRunsMotion>:
+     4b3:	00 b9 04 10 56 0b                                   ....V.
+
+000004b9 <MarioRunsX>:
+     4b9:	aa aa 00 00 00 00                                   ......
+
+000004bf <pgm_imageMARIORUNS>:
+     4bf:	00 00 00 00 00 a8 0a 00 00 aa aa 02 00 d5 37 00     ..............7.
+     4cf:	40 f7 f7 03 40 d7 df 0f 40 fd 57 01 00 fc ff 00     @...@...@.W.....
+     4df:	00 55 c6 00 c0 55 f5 03 f0 56 f5 00 50 aa 2a 00     .U...U...V..P.*.
+     4ef:	90 aa 2a 00 94 8a 0a 00 04 50 01 00 00 50 05 00     ..*......P...P..
+     4ff:	00 a8 0a 00 00 aa aa 02 00 d5 37 00 40 f7 f7 03     ..........7.@...
+     50f:	40 d7 df 0f 40 fd 57 01 00 fc ff 00 50 a5 05 00     @...@.W.....P...
+     51f:	5f a5 56 3f 3f e5 6a 3d 0f aa 2a 04 80 aa aa 05     _.V??.j=..*.....
+     52f:	a0 aa aa 05 94 0a a8 05 54 00 00 00 50 01 00 00     ........T...P...
+     53f:	00 a8 0a 00 00 aa aa 02 00 d5 37 00 40 f7 f7 03     ..........7.@...
+     54f:	40 d7 df 0f 40 fd 57 01 00 fc ff 00 00 65 05 00     @...@.W......e..
+     55f:	40 95 16 00 40 a5 eb 00 40 95 aa 00 80 f5 ab 00     @...@...@.......
+     56f:	00 f6 2a 00 00 a8 15 00 00 54 55 00 00 54 01 00     ..*......TU..T..
+
+0000057f <spriteLUIGI>:
+     57f:	ad 05 00 00 92 05 01 10 00 00 4c 0b 44 0b 34 0b     ..........L.D.4.
+     58f:	00 00 01                                            ...
+
+00000592 <pgm_paletteLUIGI>:
+     592:	25 04 2f 07                                         %./.
+
+00000596 <spriteMARIO>:
+     596:	ad 05 00 00 a9 05 01 10 00 00 4c 0b 44 0b 34 0b     ..........L.D.4.
+     5a6:	00 00 01                                            ...
+
+000005a9 <pgm_paletteMARIO>:
+     5a9:	25 05 02 07                                         %...
+
+000005ad <pgm_imageMARIO>:
+     5ad:	00 a8 0a 00 00 aa aa 02 00 d5 37 00 40 f7 f7 03     ..........7.@...
+     5bd:	40 d7 df 0f 40 fd 57 01 00 fc ff 00 00 65 05 00     @...@.W......e..
+     5cd:	40 65 59 01 50 a5 5a 05 f0 b9 6e 0f f0 ab ea 0f     @eY.P.Z...n.....
+     5dd:	f0 aa aa 0f 00 2a a8 00 40 05 50 01 50 05 50 05     .....*..@.P.P.P.
+
+000005ed <spriteCLOUD>:
+     5ed:	04 06 00 00 00 06 01 28 00 00 57 06 44 0b 34 0b     .......(..W.D.4.
+     5fd:	00 00 01                                            ...
+
+00000600 <pgm_paletteCLOUD>:
+     600:	25 2f 00 2a                                         %/.*
+
+00000604 <pgm_imageCLOUD>:
+     604:	80 aa aa 02 60 55 55 0b 58 55 55 2d 58 55 55 2d     ....`UU.XUU-XUU-
+     614:	58 55 55 2d 56 65 59 b5 56 65 59 b5 56 65 59 b5     XUU-VeY.VeY.VeY.
+     624:	56 55 55 b5 56 55 55 b5 56 59 65 b5 58 a5 5a 2d     VUU.VUU.VYe.X.Z-
+     634:	58 55 55 2f 78 d5 57 2f e0 bf fe 0b 80 2a a8 02     XUU/x.W/.....*..
+
+00000644 <spriteCOIN>:
+     644:	6b 06 00 00 67 06 01 28 00 00 57 06 44 0b 34 0b     k...g..(..W.D.4.
+     654:	00 00 04                                            ...
+
+00000657 <CoinMotion>:
+     657:	00 00 00 f0 5d 06                                   ....].
+
+0000065d <CoinY>:
+     65d:	aa aa aa aa 55 aa aa aa aa aa                       ....U.....
+
+00000667 <pgm_paletteCOIN>:
+     667:	25 02 07 2f                                         %../
+
+0000066b <pgm_imageCOIN>:
+     66b:	00 00 00 00 00 80 02 00 00 a0 0a 00 00 a8 2a 00     ..............*.
+     67b:	00 e8 29 00 00 ba a6 00 00 ba a6 00 00 ba a6 00     ..).............
+     68b:	00 ba a6 00 00 ba a6 00 00 ba a6 00 00 e8 29 00     ..............).
+     69b:	00 a8 2a 00 00 a0 0a 00 00 80 02 00 00 00 00 00     ..*.............
+     6ab:	00 00 00 00 00 80 01 00 00 80 01 00 00 60 05 00     .............`..
+     6bb:	00 60 05 00 00 60 05 00 00 60 05 00 00 70 05 00     .`...`...`...p..
+     6cb:	00 70 05 00 00 60 05 00 00 60 05 00 00 60 05 00     .p...`...`...`..
+     6db:	00 60 05 00 00 80 01 00 00 80 01 00 00 00 00 00     .`..............
+     6eb:	00 00 00 00 00 80 00 00 00 80 00 00 00 80 00 00     ................
+     6fb:	00 80 00 00 00 80 00 00 00 80 00 00 00 c0 00 00     ................
+     70b:	00 c0 00 00 00 80 00 00 00 80 00 00 00 80 00 00     ................
+     71b:	00 80 00 00 00 80 00 00 00 80 00 00 00 00 00 00     ................
+     72b:	00 00 00 00 00 c0 01 00 00 c0 01 00 00 f0 07 00     ................
+     73b:	00 f0 07 00 00 f0 07 00 00 f0 07 00 00 f0 07 00     ................
+     74b:	00 f0 07 00 00 f0 07 00 00 f0 07 00 00 f0 07 00     ................
+     75b:	00 f0 07 00 00 c0 01 00 00 c0 01 00 00 00 00 00     ................
+
+0000076b <spriteSTAR>:
+     76b:	86 07 00 00 7e 07 02 28 00 00 4c 0b 44 0b 34 0b     ....~..(..L.D.4.
+     77b:	d9 07 01                                            ...
+
+0000077e <pgm_paletteSTAR>:
+     77e:	25 07 02 00 25 02 00 00                             %...%...
+
+00000786 <pgm_imageSTAR>:
+     786:	00 40 01 00 00 40 01 00 00 50 05 00 00 50 05 00     .@...@...P...P..
+     796:	00 54 15 00 54 55 55 15 54 65 59 15 50 65 59 05     .T..TUU.TeY.PeY.
+     7a6:	40 65 59 01 00 55 55 00 00 55 55 00 40 55 55 01     @eY..UU..UU.@UU.
+     7b6:	40 55 55 01 40 15 54 01 50 01 40 05 50 00 00 05     @UU.@.T.P.@.P...
+
+000007c6 <spriteFLOWER>:
+     7c6:	ee 07 00 00 de 07 03 28 00 00 4c 0b 44 0b 34 0b     .......(..L.D.4.
+     7d6:	d9 07 01                                            ...
+
+000007d9 <FlowerPA>:
+     7d9:	ff ff ff ff ff                                      .....
+
+000007de <pgm_paletteFLOWER>:
+     7de:	25 2f 07 04 25 17 02 00 25 07 05 02 25 04 00 00     %/..%...%...%...
+
+000007ee <pgm_imageFLOWER>:
+     7ee:	00 55 55 00 50 55 55 05 54 aa aa 15 a5 fe bf 5a     .UU.PUU.T......Z
+     7fe:	a5 fe bf 5a 54 aa aa 15 50 55 55 05 00 55 55 00     ...ZT...PUU..UU.
+     80e:	00 40 01 00 15 40 01 54 54 40 01 15 54 41 41 15     .@...@.TT@..TAA.
+     81e:	50 45 51 05 50 45 51 05 40 55 55 01 00 50 05 00     PEQ.PEQ.@UU..P..
+
+0000082e <spriteBIG>:
+     82e:	5c 08 00 00 41 08 01 28 00 00 4c 0b 44 0b 34 0b     \...A..(..L.D.4.
+     83e:	00 00 01                                            ...
+
+00000841 <pgm_paletteBIG>:
+     841:	25 07 02 2f                                         %../
+
+00000845 <sprite1UP>:
+     845:	5c 08 00 00 58 08 01 28 00 00 4c 0b 44 0b 34 0b     \...X..(..L.D.4.
+     855:	00 00 01                                            ...
+
+00000858 <pgm_palette1UP>:
+     858:	25 07 04 2f                                         %../
+
+0000085c <pgm_imageSHROOM>:
+     85c:	00 50 05 00 00 54 29 00 00 55 aa 00 40 55 aa 02     .P...T)..U..@U..
+     86c:	50 55 a9 05 94 5a 55 15 a4 6a 55 15 a5 6a 55 5a     PU...ZU..jU..jUZ
+     87c:	a5 6a 55 6a 95 5a 55 69 55 55 55 55 a4 fe bf 1a     .jUj.ZUiUUUU....
+     88c:	00 ff ff 00 00 ff df 00 00 ff df 00 00 fc 37 00     ..............7.
+
+0000089c <spriteDEADGOOMBA>:
+     89c:	c4 08 00 00 c0 08 01 14 00 00 ba 08 00 00 af 08     ................
+     8ac:	00 00 01                                            ...
+
+000008af <DeadGoombaCamMotion>:
+     8af:	00 00 00 10 b5 08                                   ......
+
+000008b5 <DeadGoombaCamY>:
+     8b5:	03 55 55 55 55                                      .UUUU
+
+000008ba <DeadGoombaMotion>:
+     8ba:	00 00 00 10 00 00                                   ......
+
+000008c0 <pgm_paletteDEADGOOMBA>:
+     8c0:	25 02 27 00                                         %.'.
+
+000008c4 <pgm_imageDEADGOOMBA>:
+     8c4:	00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+     8d4:	00 00 00 00 00 00 00 00 00 00 00 00 00 50 05 00     .............P..
+     8e4:	40 55 55 01 d4 5f f5 17 a5 fa af 5a 55 55 55 55     @UU.._.....ZUUUU
+     8f4:	80 aa aa 02 80 aa aa 02 f0 0f f0 3f 00 00 00 00     ...........?....
+
+00000904 <spriteGOOMBA>:
+     904:	81 09 00 00 69 09 06 50 5f 09 45 09 21 09 2b 09     ....i..P_.E.!.+.
+     914:	17 09 01                                            ...
+
+00000917 <GoombaPA>:
+     917:	00 00 01 00 04 10 80 00 01 00                       ..........
+
+00000921 <GoombaLayer>:
+     921:	ff ff 00 00 00 00 00 00 00 00                       ..........
+
+0000092b <GoombaCamMotion>:
+     92b:	00 00 00 00 31 09                                   ....1.
+
+00000931 <GoombaCamY>:
+     931:	55 55 55 55 00 00 03 00 00 00 00 00 00 00 00 00     UUUU............
+     941:	55 55 55 55                                         UUUU
+
+00000945 <GoombaMotion>:
+     945:	00 00 00 f0 4b 09                                   ....K.
+
+0000094b <GoombaY>:
+     94b:	aa aa aa aa 00 00 00 00 00 00 00 00 00 00 00 00     ................
+     95b:	00 00 00 00                                         ....
+
+0000095f <GoombaFlip>:
+     95f:	aa aa aa aa aa aa aa aa ff ff                       ..........
+
+00000969 <pgm_paletteGOOMBA>:
+     969:	25 02 27 00 04 02 27 00 05 02 27 00 07 02 27 00     %.'...'...'...'.
+     979:	03 01 26 00 00 20 01 20                             ..&.. . 
+
+00000981 <pgm_imageGOOMBA>:
+     981:	00 50 05 00 00 54 15 00 00 55 55 00 40 55 55 01     .P...T...UU.@UU.
+     991:	d0 57 d5 07 54 5e b5 15 54 fe bf 15 55 6e b9 55     .W..T^..T...Un.U
+     9a1:	55 6a a9 55 55 55 55 55 54 a9 6a 15 00 aa aa 00     Uj.UUUUUT.j.....
+     9b1:	00 aa aa 0f c0 ab fa 3f c0 af fe 3f 00 bf ff 0f     .......?...?....
+
+000009c1 <spriteSOLIDBUMP>:
+     9c1:	f2 09 00 00 ee 09 01 03 00 00 d4 09 44 0b 5c 0b     ............D.\.
+     9d1:	00 00 01                                            ...
+
+000009d4 <SolidBumpMotion>:
+     9d4:	00 00 00 00 da 09                                   ......
+
+000009da <SolidBumpY>:
+     9da:	2e                                                  .
+
+000009db <spriteSOLID>:
+     9db:	f2 09 00 00 ee 09 01 08 00 00 5c 0b 00 00 5c 0b     ..........\...\.
+     9eb:	00 00 01                                            ...
+
+000009ee <pgm_paletteSOLID>:
+     9ee:	25 02 00 00                                         %...
+
+000009f2 <pgm_imageSOLID>:
+     9f2:	fc ff ff 3f 57 55 55 d5 77 55 55 dd 57 55 55 d5     ...?WUU.wUU.WUU.
+     a02:	57 55 55 d5 57 55 55 d5 57 55 55 d5 57 55 55 d5     WUU.WUU.WUU.WUU.
+     a12:	57 55 55 d5 57 55 55 d5 57 55 55 d5 57 55 55 d5     WUU.WUU.WUU.WUU.
+     a22:	57 55 55 d5 77 55 55 dd 57 55 55 d5 fc ff ff 3f     WUU.wUU.WUU....?
+
+00000a32 <spriteQ>:
+     a32:	5d 0a 00 00 4d 0a 04 3c 00 00 5c 0b 00 00 5c 0b     ]...M..<..\...\.
+     a42:	45 0a 01                                            E..
+
+00000a45 <QPaletteAdvance>:
+     a45:	a8 82 2a a8 82 2a a8 02                             ..*..*..
+
+00000a4d <pgm_paletteQ>:
+     a4d:	25 02 07 00 25 02 02 00 25 02 01 00 25 02 02 00     %...%...%...%...
+
+00000a5d <pgm_imageQ>:
+     a5d:	54 55 55 15 a9 aa aa ea b9 aa aa ee a9 56 a5 ea     TUU..........V..
+     a6d:	a9 f5 97 ea a9 b5 d6 ea a9 b5 d6 ea a9 be d5 ea     ................
+     a7d:	a9 6a fd ea a9 6a ad ea a9 aa af ea a9 6a a9 ea     .j...j.......j..
+     a8d:	a9 6a ad ea b9 aa af ee a9 aa aa ea ff ff ff ff     .j..............
+
+00000a9d <spriteQUESTION3>:
+     a9d:	b4 0a 00 00 b0 0a 01 10 00 00 5c 0b 00 00 5c 0b     ..........\...\.
+     aad:	00 00 01                                            ...
+
+00000ab0 <pgm_paletteQUESTION3>:
+     ab0:	25 00 17 07                                         %...
+
+00000ab4 <pgm_imageQUESTION3>:
+     ab4:	ff ff ff ff ff ff ff ff ff ff ff ff ff aa ea ff     ................
+     ac4:	bf aa aa ff bf 5a a9 fd ff d5 ab fd ff af 6a fd     .....Z........j.
+     ad4:	ff af 56 ff ff 7f f5 ff ff af fe ff ff af f6 ff     ..V.............
+     ae4:	ff 7f f5 ff ff ff ff ff ff ff ff ff ff ff ff ff     ................
+     af4:	55 55 55 55 a9 aa aa 6a 19 00 00 44 09 00 00 40     UUUU...j...D...@
+     b04:	09 00 00 40 09 00 00 40 09 00 00 40 09 00 00 40     ...@...@...@...@
+     b14:	09 00 00 40 09 00 00 40 09 00 00 40 09 00 00 40     ...@...@...@...@
+     b24:	09 00 00 40 19 00 00 44 09 00 00 40 55 55 55 55     ...@...D...@UUUU
+
+00000b34 <DefaultCamMotion>:
+     b34:	00 00 00 00 3a 0b                                   ....:.
+
+00000b3a <DefaultCamY>:
+     b3a:	55 55 55 55 00 03 55 55 55 55                       UUUU..UUUU
+
+00000b44 <DefaultLayer>:
+     b44:	ff ff 00 00 00 00 00 00                             ........
+
+00000b4c <DefaultMotion>:
+     b4c:	00 00 00 f0 52 0b                                   ....R.
+
+00000b52 <DefaultY>:
+     b52:	aa aa aa aa 00 00 00 00 00 00                       ..........
+
+00000b5c <NadaMotion>:
+     b5c:	00 00 00 00 00 00                                   ......
+
+00000b62 <header>:
+     b62:	4c 43 44 64 69 72 65 63 74 4c 56 44 53 39 38 20     LCDdirectLVDS98 
+     b72:	32 30 31 34 2d 30 37 2d 31 36 20 30 36 3a 35 32     2014-07-16 06:52
+     b82:	3a 32 30 00                                         :20.
+
+00000b86 <__ctors_end>:
+     b86:	11 24       	eor	r1, r1
+     b88:	1f be       	out	0x3f, r1	; 63
+     b8a:	cf e5       	ldi	r28, 0x5F	; 95
+     b8c:	d2 e0       	ldi	r29, 0x02	; 2
+     b8e:	de bf       	out	0x3e, r29	; 62
+     b90:	cd bf       	out	0x3d, r28	; 61
+
+00000b92 <__do_copy_data>:
+     b92:	10 e0       	ldi	r17, 0x00	; 0
+     b94:	a0 e6       	ldi	r26, 0x60	; 96
+     b96:	b0 e0       	ldi	r27, 0x00	; 0
+     b98:	ee e2       	ldi	r30, 0x2E	; 46
+     b9a:	ff e1       	ldi	r31, 0x1F	; 31
+     b9c:	02 c0       	rjmp	.+4      	; 0xba2 <__do_copy_data+0x10>
+     b9e:	05 90       	lpm	r0, Z+
+     ba0:	0d 92       	st	X+, r0
+     ba2:	aa 36       	cpi	r26, 0x6A	; 106
+     ba4:	b1 07       	cpc	r27, r17
+     ba6:	d9 f7       	brne	.-10     	; 0xb9e <__do_copy_data+0xc>
+
+00000ba8 <__do_clear_bss>:
+     ba8:	11 e0       	ldi	r17, 0x01	; 1
+     baa:	aa e6       	ldi	r26, 0x6A	; 106
+     bac:	b0 e0       	ldi	r27, 0x00	; 0
+     bae:	01 c0       	rjmp	.+2      	; 0xbb2 <.do_clear_bss_start>
+
+00000bb0 <.do_clear_bss_loop>:
+     bb0:	1d 92       	st	X+, r1
+
+00000bb2 <.do_clear_bss_start>:
+     bb2:	ae 3b       	cpi	r26, 0xBE	; 190
+     bb4:	b1 07       	cpc	r27, r17
+     bb6:	e1 f7       	brne	.-8      	; 0xbb0 <.do_clear_bss_loop>
+     bb8:	27 d9       	rcall	.-3506   	; 0xfffffe08 <__eeprom_end+0xff7efe08>
+     bba:	b7 c9       	rjmp	.-3218   	; 0xffffff2a <__eeprom_end+0xff7eff2a>
+
+00000bbc <__bad_interrupt>:
+     bbc:	21 ca       	rjmp	.-3006   	; 0x0 <__vectors>
+
+00000bbe <hfm_setPower>:
+// This needs to be set, initially! 
+//   either init it in the hfm variable declaration
+//   or use hfm_setup (ideal)
+// however, sometimes it needs to be variable, thus hfm_setup (above)
+void hfm_setPower(hfm_t	*modulator, uint8_t power)
+{
+     bbe:	fc 01       	movw	r30, r24
+	//Don't allow power values > 1, otherwise who knows what'll happen...
+	//(This is probably unnecessary, but whatev)
+	//It's not, actually, if power's greater than maxPower, the values never reset
+	// This is trouble, e.g. in heartbeat, where modulator.power is read
+	if(power <= (modulator->maxPower))
+     bc0:	82 81       	ldd	r24, Z+2	; 0x02
+     bc2:	86 17       	cp	r24, r22
+     bc4:	10 f0       	brcs	.+4      	; 0xbca <hfm_setPower+0xc>
+		modulator->power = power;
+     bc6:	63 83       	std	Z+3, r22	; 0x03
+     bc8:	08 95       	ret
+	else
+		modulator->power = modulator->maxPower;
+     bca:	82 81       	ldd	r24, Z+2	; 0x02
+     bcc:	83 83       	std	Z+3, r24	; 0x03
+     bce:	08 95       	ret
+
+00000bd0 <hfm_setup>:
+//Mainly just for setting up the maxPower (divisor)
+// [can] use hfm_setPower otherwise...
+// can't tell how to get away without using hfm_setup once
+void hfm_setup(hfm_t *modulator, uint8_t power, uint8_t maxPower)
+{
+	modulator->desiredSum = 0;
+     bd0:	fc 01       	movw	r30, r24
+     bd2:	11 82       	std	Z+1, r1	; 0x01
+     bd4:	10 82       	st	Z, r1
+	modulator->maxPower = maxPower;
+     bd6:	42 83       	std	Z+2, r20	; 0x02
+	hfm_setPower(modulator, power);
+     bd8:	f2 cf       	rjmp	.-28     	; 0xbbe <hfm_setPower>
+
+00000bda <hfm_nextOutput>:
+}
+
+//Returns 0 if the "output" should be "off" in this cycle
+//		  1 if the "output" should be "on"  in this cycle
+uint8_t hfm_nextOutput(hfm_t *modulator)
+{
+     bda:	fc 01       	movw	r30, r24
+	// IF desired == 255, we want it never to clr...
+	//		but running will be 0 the first time
+	//		and we'll therefore if... set == good
+	//		and later we'll runningSum == desiredSum (above) 
+	//    and reset and if again
+	if(modulator->desiredSum > 0)
+     bdc:	80 81       	ld	r24, Z
+     bde:	91 81       	ldd	r25, Z+1	; 0x01
+     be0:	18 16       	cp	r1, r24
+     be2:	19 06       	cpc	r1, r25
+     be4:	4c f4       	brge	.+18     	; 0xbf8 <hfm_nextOutput+0x1e>
+	{
+		(modulator->desiredSum) -= (modulator->maxPower); //0xff;
+     be6:	80 81       	ld	r24, Z
+     be8:	91 81       	ldd	r25, Z+1	; 0x01
+     bea:	22 81       	ldd	r18, Z+2	; 0x02
+     bec:	82 1b       	sub	r24, r18
+     bee:	91 09       	sbc	r25, r1
+     bf0:	91 83       	std	Z+1, r25	; 0x01
+     bf2:	80 83       	st	Z, r24
+		toReturn = TRUE;
+     bf4:	81 e0       	ldi	r24, 0x01	; 1
+     bf6:	01 c0       	rjmp	.+2      	; 0xbfa <hfm_nextOutput+0x20>
+	}
+	else	//avg == desired is handled at the start... (except 0-case which works here too)
+	{
+		//Don't modify runningSum, wait until desiredSum catches up...
+		toReturn = FALSE;
+     bf8:	80 e0       	ldi	r24, 0x00	; 0
+	}
+	
+	(modulator->desiredSum) += (modulator->power);
+     bfa:	20 81       	ld	r18, Z
+     bfc:	31 81       	ldd	r19, Z+1	; 0x01
+     bfe:	93 81       	ldd	r25, Z+3	; 0x03
+     c00:	29 0f       	add	r18, r25
+     c02:	31 1d       	adc	r19, r1
+     c04:	31 83       	std	Z+1, r19	; 0x01
+     c06:	20 83       	st	Z, r18
+		modulator->runningSum = 0;
+		modulator->desiredSum = 0;
+	}
+*/	
+	return toReturn;
+}
+     c08:	08 95       	ret
+
+00000c0a <timer_selectDivisor>:
+ #else
+	uint8_t csbits;
+  #if defined(CSOBS)
+	if(timerNum == 0 || timerNum == 1 || timerNum == 3)//IS_CSTYP(timerNum) || IS_CSOBS(timerNum))
+  #else
+	if(IS_CSTYP(timerNum))
+     c0a:	82 30       	cpi	r24, 0x02	; 2
+     c0c:	08 f5       	brcc	.+66     	; 0xc50 <timer_selectDivisor+0x46>
+  #endif
+	{
+		switch(clockDiv)
+     c0e:	66 30       	cpi	r22, 0x06	; 6
+     c10:	79 f0       	breq	.+30     	; 0xc30 <timer_selectDivisor+0x26>
+     c12:	30 f4       	brcc	.+12     	; 0xc20 <timer_selectDivisor+0x16>
+     c14:	66 23       	and	r22, r22
+     c16:	51 f0       	breq	.+20     	; 0xc2c <timer_selectDivisor+0x22>
+     c18:	63 30       	cpi	r22, 0x03	; 3
+     c1a:	d1 f4       	brne	.+52     	; 0xc50 <timer_selectDivisor+0x46>
+		{
+			case CLKDIV1:
+				csbits = CSTYP_DIV1;	
+				break;
+			case CLKDIV8:
+				csbits = CSTYP_DIV8;
+     c1c:	92 e0       	ldi	r25, 0x02	; 2
+     c1e:	0b c0       	rjmp	.+22     	; 0xc36 <timer_selectDivisor+0x2c>
+	if(timerNum == 0 || timerNum == 1 || timerNum == 3)//IS_CSTYP(timerNum) || IS_CSOBS(timerNum))
+  #else
+	if(IS_CSTYP(timerNum))
+  #endif
+	{
+		switch(clockDiv)
+     c20:	68 30       	cpi	r22, 0x08	; 8
+     c22:	41 f0       	breq	.+16     	; 0xc34 <timer_selectDivisor+0x2a>
+     c24:	6a 30       	cpi	r22, 0x0A	; 10
+     c26:	a1 f4       	brne	.+40     	; 0xc50 <timer_selectDivisor+0x46>
+				break;
+			case CLKDIV256:
+				csbits = CSTYP_DIV256;	
+				break;
+			case CLKDIV1024:
+				csbits = CSTYP_DIV1024; 
+     c28:	95 e0       	ldi	r25, 0x05	; 5
+				break;
+     c2a:	05 c0       	rjmp	.+10     	; 0xc36 <timer_selectDivisor+0x2c>
+  #endif
+	{
+		switch(clockDiv)
+		{
+			case CLKDIV1:
+				csbits = CSTYP_DIV1;	
+     c2c:	91 e0       	ldi	r25, 0x01	; 1
+     c2e:	03 c0       	rjmp	.+6      	; 0xc36 <timer_selectDivisor+0x2c>
+				break;
+			case CLKDIV8:
+				csbits = CSTYP_DIV8;
+				break;
+			case CLKDIV64:
+				csbits = CSTYP_DIV64;	
+     c30:	93 e0       	ldi	r25, 0x03	; 3
+				break;
+     c32:	01 c0       	rjmp	.+2      	; 0xc36 <timer_selectDivisor+0x2c>
+			case CLKDIV256:
+				csbits = CSTYP_DIV256;	
+     c34:	94 e0       	ldi	r25, 0x04	; 4
+	}
+  #endif
+	else 
+		return 1;	
+
+	switch(timerNum)
+     c36:	81 30       	cpi	r24, 0x01	; 1
+     c38:	29 f0       	breq	.+10     	; 0xc44 <timer_selectDivisor+0x3a>
+	{
+		//Assume Timer0 and Timer1 exist (see setWGM)
+		case 0:
+			writeMasked(csbits, CSMASK, T0_CSReg);
+     c3a:	83 b7       	in	r24, 0x33	; 51
+     c3c:	88 7f       	andi	r24, 0xF8	; 248
+     c3e:	89 2b       	or	r24, r25
+     c40:	83 bf       	out	0x33, r24	; 51
+     c42:	04 c0       	rjmp	.+8      	; 0xc4c <timer_selectDivisor+0x42>
+			break;
+		case 1:
+			writeMasked(csbits, CSMASK, T1_CSReg);
+     c44:	8f b5       	in	r24, 0x2f	; 47
+     c46:	88 7f       	andi	r24, 0xF8	; 248
+     c48:	89 2b       	or	r24, r25
+     c4a:	8f bd       	out	0x2f, r24	; 47
+		default:
+			return 1;
+			break;
+	}
+	
+	return 0;
+     c4c:	80 e0       	ldi	r24, 0x00	; 0
+		case 0:
+			writeMasked(csbits, CSMASK, T0_CSReg);
+			break;
+		case 1:
+			writeMasked(csbits, CSMASK, T1_CSReg);
+			break;
+     c4e:	08 95       	ret
+						return 1;	
+				}
+				else
+					return 1;
+			  #else
+				return 1;
+     c50:	81 e0       	ldi	r24, 0x01	; 1
+			break;
+	}
+	
+	return 0;
+ #endif
+}
+     c52:	08 95       	ret
+
+00000c54 <timer_setWGM>:
+//	wgmLb *= 0xff;
+//	wgmHb *= 0xff;
+
+	//Make sure the chosen WGM will be written to the WGM bits properly, as implemented below...
+	// Only modes 0-3 are implemented...
+	if(wgm > 0x03)
+     c54:	64 30       	cpi	r22, 0x04	; 4
+     c56:	d0 f4       	brcc	.+52     	; 0xc8c <timer_setWGM+0x38>
+		return 1;
+	
+	switch(timerNum)
+     c58:	88 23       	and	r24, r24
+     c5a:	19 f0       	breq	.+6      	; 0xc62 <timer_setWGM+0xe>
+     c5c:	81 30       	cpi	r24, 0x01	; 1
+     c5e:	49 f0       	breq	.+18     	; 0xc72 <timer_setWGM+0x1e>
+     c60:	15 c0       	rjmp	.+42     	; 0xc8c <timer_setWGM+0x38>
+ #ifdef _AVR_IOTNx61_H_
+			//TinyX61s' Timer0 is an exception...
+			// It only has WGM00, which serves the same functionality as
+			// most others' WGM01 (when their WGM00 == 0)
+			// (No PWM)
+			if(wgmLb)
+     c62:	60 fd       	sbrc	r22, 0
+     c64:	13 c0       	rjmp	.+38     	; 0xc8c <timer_setWGM+0x38>
+#if(!defined(TIMER_SETWGM_UNUSED) || !TIMER_SETWGM_UNUSED)
+uint8_t timer_setWGM(uint8_t timerNum, uint8_t wgm)
+{
+#if(!defined(__AVR_AT90PWM161__))
+	uint8_t wgmLb = getbit(0, wgm);
+	uint8_t wgmHb = getbit(1, wgm);
+     c66:	66 95       	lsr	r22
+			// (No PWM)
+			if(wgmLb)
+				return 1;
+
+			//Whatever .stab is, this single change reduces it by 36Bytes
+			writebit(WGM00, T0_WGMReg, wgmHb);
+     c68:	11 f0       	breq	.+4      	; 0xc6e <timer_setWGM+0x1a>
+     c6a:	a8 9a       	sbi	0x15, 0	; 21
+     c6c:	0d c0       	rjmp	.+26     	; 0xc88 <timer_setWGM+0x34>
+     c6e:	a8 98       	cbi	0x15, 0	; 21
+     c70:	0b c0       	rjmp	.+22     	; 0xc88 <timer_setWGM+0x34>
+//			wgmLb=0;
+//			wgmHb=0;
+//			if(wgm == WGM_PHASE_PWM)
+//				wgmLb = 0xff;
+
+			switch(wgm)
+     c72:	61 30       	cpi	r22, 0x01	; 1
+     c74:	19 f4       	brne	.+6      	; 0xc7c <timer_setWGM+0x28>
+					wgmHb = 0;
+					break;
+			}
+
+			//NOTE: TinyX61s' WGM bits are both in TCCR1D (very unusual)
+			writebit(WGM10, TCCR1D, wgmLb);
+     c76:	86 b5       	in	r24, 0x26	; 38
+     c78:	81 60       	ori	r24, 0x01	; 1
+     c7a:	02 c0       	rjmp	.+4      	; 0xc80 <timer_setWGM+0x2c>
+     c7c:	86 b5       	in	r24, 0x26	; 38
+     c7e:	8e 7f       	andi	r24, 0xFE	; 254
+     c80:	86 bd       	out	0x26, r24	; 38
+			writebit(WGM11, TCCR1D, wgmHb);
+     c82:	86 b5       	in	r24, 0x26	; 38
+     c84:	8d 7f       	andi	r24, 0xFD	; 253
+     c86:	86 bd       	out	0x26, r24	; 38
+		default:
+			return 1;
+			break;
+	}
+	
+	return 0;
+     c88:	80 e0       	ldi	r24, 0x00	; 0
+     c8a:	08 95       	ret
+//	wgmHb *= 0xff;
+
+	//Make sure the chosen WGM will be written to the WGM bits properly, as implemented below...
+	// Only modes 0-3 are implemented...
+	if(wgm > 0x03)
+		return 1;
+     c8c:	81 e0       	ldi	r24, 0x01	; 1
+     c8e:	08 95       	ret
+
+00000c90 <timer_init>:
+
+//Roughly equivalent to the ol' Init_timerX(clkDiv, wgm)
+//Return 0 if no error...
+#if (!defined(TIMER_INIT_UNUSED) || !TIMER_INIT_UNUSED)
+uint8_t timer_init(uint8_t timerNum, uint8_t clockDiv, uint8_t wgm)
+{
+     c90:	cf 93       	push	r28
+     c92:	df 93       	push	r29
+     c94:	c8 2f       	mov	r28, r24
+     c96:	d6 2f       	mov	r29, r22
+	//set the waveform mode
+	ERR_HANDLE_NUM(1,				\
+     c98:	64 2f       	mov	r22, r20
+     c9a:	dc df       	rcall	.-72     	; 0xc54 <timer_setWGM>
+     c9c:	88 23       	and	r24, r24
+     c9e:	11 f0       	breq	.+4      	; 0xca4 <timer_init+0x14>
+     ca0:	80 61       	ori	r24, 0x10	; 16
+     ca2:	08 c0       	rjmp	.+16     	; 0xcb4 <timer_init+0x24>
+		timer_setWGM(timerNum, wgm)	);
+
+	//select the clock
+	ERR_HANDLE_NUM(2,							\
+     ca4:	6d 2f       	mov	r22, r29
+     ca6:	8c 2f       	mov	r24, r28
+     ca8:	b0 df       	rcall	.-160    	; 0xc0a <timer_selectDivisor>
+     caa:	88 23       	and	r24, r24
+     cac:	11 f0       	breq	.+4      	; 0xcb2 <timer_init+0x22>
+     cae:	80 62       	ori	r24, 0x20	; 32
+     cb0:	01 c0       	rjmp	.+2      	; 0xcb4 <timer_init+0x24>
+		timer_selectDivisor(timerNum, clockDiv)	);
+		
+	return 0;
+     cb2:	80 e0       	ldi	r24, 0x00	; 0
+}
+     cb4:	df 91       	pop	r29
+     cb6:	cf 91       	pop	r28
+     cb8:	08 95       	ret
+
+00000cba <timer_compareMatchIntSetup>:
+uint8_t timer_compareMatchIntSetup(uint8_t timerNum, uint8_t outputChannel,
+	  												uint8_t enable)
+{
+	uint8_t channelNum;
+
+	if(timerNum >= MAXTIMERS)
+     cba:	84 30       	cpi	r24, 0x04	; 4
+     cbc:	08 f0       	brcs	.+2      	; 0xcc0 <timer_compareMatchIntSetup+0x6>
+     cbe:	42 c0       	rjmp	.+132    	; 0xd44 <timer_compareMatchIntSetup+0x8a>
+		return 1;
+
+	if(outputChannel >= 2) //MAXCHANNELSPERTIMER)
+     cc0:	62 30       	cpi	r22, 0x02	; 2
+     cc2:	08 f0       	brcs	.+2      	; 0xcc6 <timer_compareMatchIntSetup+0xc>
+     cc4:	41 c0       	rjmp	.+130    	; 0xd48 <timer_compareMatchIntSetup+0x8e>
+		return 2;
+
+	//writebit (used later) does not currently handle TRUE and FALSE properly, just 0 and 1...
+	// this should be fixed now...
+	if(enable)
+     cc6:	91 e0       	ldi	r25, 0x01	; 1
+     cc8:	41 11       	cpse	r20, r1
+     cca:	01 c0       	rjmp	.+2      	; 0xcce <timer_compareMatchIntSetup+0x14>
+     ccc:	90 e0       	ldi	r25, 0x00	; 0
+		enable = 1;
+	
+	//For the sake of our brute-force switch statement...
+	//Combine the timer number and channel into a single variable...
+	//The high nibble contains the timer number, and the low contains the channel number (A=0,B=1)
+	channelNum = (timerNum<<4) + outputChannel;
+     cce:	82 95       	swap	r24
+     cd0:	80 7f       	andi	r24, 0xF0	; 240
+     cd2:	86 0f       	add	r24, r22
+
+	//Don't clear interrupts before disabling this one, or that defeats the purpose!
+	// But do clear so we don't get unexpected overflows on init
+	if(enable)
+     cd4:	99 23       	and	r25, r25
+     cd6:	09 f0       	breq	.+2      	; 0xcda <timer_compareMatchIntSetup+0x20>
+		cli();
+     cd8:	f8 94       	cli
+	
+	switch(channelNum)
+     cda:	81 30       	cpi	r24, 0x01	; 1
+     cdc:	81 f0       	breq	.+32     	; 0xcfe <timer_compareMatchIntSetup+0x44>
+     cde:	28 f0       	brcs	.+10     	; 0xcea <timer_compareMatchIntSetup+0x30>
+     ce0:	80 31       	cpi	r24, 0x10	; 16
+     ce2:	b9 f0       	breq	.+46     	; 0xd12 <timer_compareMatchIntSetup+0x58>
+     ce4:	81 31       	cpi	r24, 0x11	; 17
+     ce6:	f9 f0       	breq	.+62     	; 0xd26 <timer_compareMatchIntSetup+0x6c>
+     ce8:	31 c0       	rjmp	.+98     	; 0xd4c <timer_compareMatchIntSetup+0x92>
+			break;
+	   #endif
+	   #if defined(OCIE0A)
+		case 0x00:
+//			setbit(OCIE0A, T0_TIMSK);
+			writebit(OCIE0A, T0_TIMSK, enable);
+     cea:	89 b7       	in	r24, 0x39	; 57
+     cec:	99 23       	and	r25, r25
+     cee:	11 f0       	breq	.+4      	; 0xcf4 <timer_compareMatchIntSetup+0x3a>
+     cf0:	80 61       	ori	r24, 0x10	; 16
+     cf2:	01 c0       	rjmp	.+2      	; 0xcf6 <timer_compareMatchIntSetup+0x3c>
+     cf4:	8f 7e       	andi	r24, 0xEF	; 239
+     cf6:	89 bf       	out	0x39, r24	; 57
+			// My OCD bit me in the ass, this was set to TIMSK by mistake(?)
+			setbit(OCF0A, T0_TIFR);
+     cf8:	88 b7       	in	r24, 0x38	; 56
+     cfa:	80 61       	ori	r24, 0x10	; 16
+     cfc:	1d c0       	rjmp	.+58     	; 0xd38 <timer_compareMatchIntSetup+0x7e>
+			break;
+	   #endif
+	   #if defined(OCIE0B)
+		case 0x01:
+//			setbit(OCIE0B, T0_TIMSK);
+			writebit(OCIE0B, T0_TIMSK, enable);
+     cfe:	89 b7       	in	r24, 0x39	; 57
+     d00:	99 23       	and	r25, r25
+     d02:	11 f0       	breq	.+4      	; 0xd08 <timer_compareMatchIntSetup+0x4e>
+     d04:	88 60       	ori	r24, 0x08	; 8
+     d06:	01 c0       	rjmp	.+2      	; 0xd0a <timer_compareMatchIntSetup+0x50>
+     d08:	87 7f       	andi	r24, 0xF7	; 247
+     d0a:	89 bf       	out	0x39, r24	; 57
+			// As was this...
+			setbit(OCF0B, T0_TIFR);
+     d0c:	88 b7       	in	r24, 0x38	; 56
+     d0e:	88 60       	ori	r24, 0x08	; 8
+     d10:	13 c0       	rjmp	.+38     	; 0xd38 <timer_compareMatchIntSetup+0x7e>
+			break;
+	   #endif
+	   #if defined(OCIE1A)
+		case 0x10:
+//			setbit(OCIE1A, T1_TIMSK);
+			writebit(OCIE1A, T1_TIMSK, enable);
+     d12:	89 b7       	in	r24, 0x39	; 57
+     d14:	99 23       	and	r25, r25
+     d16:	11 f0       	breq	.+4      	; 0xd1c <timer_compareMatchIntSetup+0x62>
+     d18:	80 64       	ori	r24, 0x40	; 64
+     d1a:	01 c0       	rjmp	.+2      	; 0xd1e <timer_compareMatchIntSetup+0x64>
+     d1c:	8f 7b       	andi	r24, 0xBF	; 191
+     d1e:	89 bf       	out	0x39, r24	; 57
+			setbit(OCF1A, T1_TIFR);
+     d20:	88 b7       	in	r24, 0x38	; 56
+     d22:	80 64       	ori	r24, 0x40	; 64
+     d24:	09 c0       	rjmp	.+18     	; 0xd38 <timer_compareMatchIntSetup+0x7e>
+			break;
+	   #endif
+	   #if defined(OCIE1B)
+		case 0x11:
+//			setbit(OCIE1B, T1_TIMSK);
+			writebit(OCIE1B, T1_TIMSK, enable);
+     d26:	89 b7       	in	r24, 0x39	; 57
+     d28:	99 23       	and	r25, r25
+     d2a:	11 f0       	breq	.+4      	; 0xd30 <timer_compareMatchIntSetup+0x76>
+     d2c:	80 62       	ori	r24, 0x20	; 32
+     d2e:	01 c0       	rjmp	.+2      	; 0xd32 <timer_compareMatchIntSetup+0x78>
+     d30:	8f 7d       	andi	r24, 0xDF	; 223
+     d32:	89 bf       	out	0x39, r24	; 57
+			setbit(OCF1B, T1_TIFR);
+     d34:	88 b7       	in	r24, 0x38	; 56
+     d36:	80 62       	ori	r24, 0x20	; 32
+     d38:	88 bf       	out	0x38, r24	; 56
+			break;
+	}
+	
+	//Don't reenable interrupts here if disabling... just leave them as they were....
+	// but do enable for init...
+	if(enable)
+     d3a:	99 23       	and	r25, r25
+     d3c:	41 f0       	breq	.+16     	; 0xd4e <timer_compareMatchIntSetup+0x94>
+		sei();
+     d3e:	78 94       	sei
+	
+	return 0;
+     d40:	90 e0       	ldi	r25, 0x00	; 0
+     d42:	05 c0       	rjmp	.+10     	; 0xd4e <timer_compareMatchIntSetup+0x94>
+	  												uint8_t enable)
+{
+	uint8_t channelNum;
+
+	if(timerNum >= MAXTIMERS)
+		return 1;
+     d44:	91 e0       	ldi	r25, 0x01	; 1
+     d46:	03 c0       	rjmp	.+6      	; 0xd4e <timer_compareMatchIntSetup+0x94>
+
+	if(outputChannel >= 2) //MAXCHANNELSPERTIMER)
+		return 2;
+     d48:	92 e0       	ldi	r25, 0x02	; 2
+     d4a:	01 c0       	rjmp	.+2      	; 0xd4e <timer_compareMatchIntSetup+0x94>
+			setbit(OCF3B, T3_TIFR);
+			break;
+	   #endif
+	  #endif
+		default:
+			return 3;
+     d4c:	93 e0       	ldi	r25, 0x03	; 3
+	// but do enable for init...
+	if(enable)
+		sei();
+	
+	return 0;
+}
+     d4e:	89 2f       	mov	r24, r25
+     d50:	08 95       	ret
+
+00000d52 <setHeartRate>:
+
+void setHeartRate(uint8_t rate)
+{
+//	heartRate = rate;
+	
+	if(rate == 0)
+     d52:	81 11       	cpse	r24, r1
+     d54:	01 c0       	rjmp	.+2      	; 0xd58 <setHeartRate+0x6>
+		rate = 1;
+     d56:	81 e0       	ldi	r24, 0x01	; 1
+		
+    heartStepTime = (HEARTSTEPTIME/rate);
+     d58:	28 2f       	mov	r18, r24
+     d5a:	30 e0       	ldi	r19, 0x00	; 0
+     d5c:	40 e0       	ldi	r20, 0x00	; 0
+     d5e:	50 e0       	ldi	r21, 0x00	; 0
+     d60:	60 ee       	ldi	r22, 0xE0	; 224
+     d62:	79 e7       	ldi	r23, 0x79	; 121
+     d64:	80 e0       	ldi	r24, 0x00	; 0
+     d66:	90 e0       	ldi	r25, 0x00	; 0
+     d68:	be d8       	rcall	.-3716   	; 0xfffffee6 <__eeprom_end+0xff7efee6>
+     d6a:	20 93 61 00 	sts	0x0061, r18
+     d6e:	30 93 62 00 	sts	0x0062, r19
+     d72:	40 93 63 00 	sts	0x0063, r20
+     d76:	50 93 64 00 	sts	0x0064, r21
+     d7a:	08 95       	ret
+
+00000d7c <getHeartRate>:
+
+#if (!defined(HEART_GETRATE_UNUSED) || !HEART_GETRATE_UNUSED)
+//This function takes about 20 bytes
+uint8_t getHeartRate(void)
+{
+	 return (uint8_t)(HEARTSTEPTIME/heartStepTime);
+     d7c:	20 91 61 00 	lds	r18, 0x0061
+     d80:	30 91 62 00 	lds	r19, 0x0062
+     d84:	40 91 63 00 	lds	r20, 0x0063
+     d88:	50 91 64 00 	lds	r21, 0x0064
+     d8c:	60 ee       	ldi	r22, 0xE0	; 224
+     d8e:	79 e7       	ldi	r23, 0x79	; 121
+     d90:	80 e0       	ldi	r24, 0x00	; 0
+     d92:	90 e0       	ldi	r25, 0x00	; 0
+     d94:	a8 d8       	rcall	.-3760   	; 0xfffffee6 <__eeprom_end+0xff7efee6>
+     d96:	82 2f       	mov	r24, r18
+}
+     d98:	08 95       	ret
+
+00000d9a <heartClear>:
+ #endif
+#endif
+
+void heartClear(void)
+{
+	hfm_setPower(&heartModulator, 0);
+     d9a:	60 e0       	ldi	r22, 0x00	; 0
+     d9c:	8e e8       	ldi	r24, 0x8E	; 142
+     d9e:	90 e0       	ldi	r25, 0x00	; 0
+     da0:	0e cf       	rjmp	.-484    	; 0xbbe <hfm_setPower>
+
+00000da2 <init_heartBeat>:
+	//DDR = H,out
+	setoutVar(heartBeatPin, heartPIN);
+#else
+void init_heartBeat(void)
+{
+	clrpinPORT(HEART_PINNUM, HEART_PINPORT);
+     da2:	de 98       	cbi	0x1b, 6	; 27
+	setoutPORT(HEART_PINNUM, HEART_PINPORT);
+     da4:	d6 9a       	sbi	0x1a, 6	; 26
+#endif
+
+
+
+//	hfm_setPower(&heartModulator, 0);
+	hfm_setup(&heartModulator, 0, HEART_MAXBRIGHT);
+     da6:	4f ef       	ldi	r20, 0xFF	; 255
+     da8:	60 e0       	ldi	r22, 0x00	; 0
+     daa:	8e e8       	ldi	r24, 0x8E	; 142
+     dac:	90 e0       	ldi	r25, 0x00	; 0
+     dae:	10 df       	rcall	.-480    	; 0xbd0 <hfm_setup>
+//	heartRate = rate;
+	
+	if(rate == 0)
+		rate = 1;
+		
+    heartStepTime = (HEARTSTEPTIME/rate);
+     db0:	80 ee       	ldi	r24, 0xE0	; 224
+     db2:	99 e7       	ldi	r25, 0x79	; 121
+     db4:	a0 e0       	ldi	r26, 0x00	; 0
+     db6:	b0 e0       	ldi	r27, 0x00	; 0
+     db8:	80 93 61 00 	sts	0x0061, r24
+     dbc:	90 93 62 00 	sts	0x0062, r25
+     dc0:	a0 93 63 00 	sts	0x0063, r26
+     dc4:	b0 93 64 00 	sts	0x0064, r27
+	init_dmsTimer();
+ #endif
+
+#elif(defined(HEART_TCNTER_UPDATES_AND_INIT) && \
+		HEART_TCNTER_UPDATES_AND_INIT)
+	tcnter_init();
+     dc8:	f6 c0       	rjmp	.+492    	; 0xfb6 <tcnter_init>
+
+00000dca <set_heartBlink>:
+uint8_t heartBlink = 0;
+//#define TOGGLETIME	(250*DMS_MS)
+
+void set_heartBlink(uint8_t count)
+{
+	heartBlink = count;
+     dca:	80 93 6a 00 	sts	0x006A, r24
+     dce:	08 95       	ret
+
+00000dd0 <heartUpdate>:
+#endif
+
+//This function takes about 186 bytes
+// Really?! Or is hfm not compiled if it's not used?
+uint8_t heartUpdate(void)
+{	
+     dd0:	0f 93       	push	r16
+     dd2:	1f 93       	push	r17
+	static dms6sec_t lastTime = 0;
+ #elif ( _HEART_TCNTER_ )
+	static myTcnter_t lastTime = 0;
+
+  #if (HEART_TCNTER_UPDATES_AND_INIT)
+	tcnter_update();
+     dd4:	44 d1       	rcall	.+648    	; 0x105e <tcnter_update>
+
+static __inline__
+uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+										uint8_t dontAllowCumulation)
+{
+   tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+     dd6:	80 91 7b 00 	lds	r24, 0x007B
+     dda:	90 91 7c 00 	lds	r25, 0x007C
+     dde:	a0 91 7d 00 	lds	r26, 0x007D
+     de2:	b0 91 7e 00 	lds	r27, 0x007E
+     de6:	40 91 71 00 	lds	r20, 0x0071
+     dea:	50 91 72 00 	lds	r21, 0x0072
+     dee:	60 91 73 00 	lds	r22, 0x0073
+     df2:	70 91 74 00 	lds	r23, 0x0074
+     df6:	84 1b       	sub	r24, r20
+     df8:	95 0b       	sbc	r25, r21
+     dfa:	a6 0b       	sbc	r26, r22
+     dfc:	b7 0b       	sbc	r27, r23
+
+   if(thisDelta >= deltaTime)
+     dfe:	40 91 61 00 	lds	r20, 0x0061
+     e02:	50 91 62 00 	lds	r21, 0x0062
+     e06:	60 91 63 00 	lds	r22, 0x0063
+     e0a:	70 91 64 00 	lds	r23, 0x0064
+     e0e:	84 17       	cp	r24, r20
+     e10:	95 07       	cpc	r25, r21
+     e12:	a6 07       	cpc	r26, r22
+     e14:	b7 07       	cpc	r27, r23
+     e16:	68 f1       	brcs	.+90     	; 0xe72 <heartUpdate+0xa2>
+   {
+		if(dontAllowCumulation)
+      	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+      else
+			*startTime = tcnter_myTcnter;
+     e18:	80 91 7b 00 	lds	r24, 0x007B
+     e1c:	90 91 7c 00 	lds	r25, 0x007C
+     e20:	a0 91 7d 00 	lds	r26, 0x007D
+     e24:	b0 91 7e 00 	lds	r27, 0x007E
+     e28:	80 93 71 00 	sts	0x0071, r24
+     e2c:	90 93 72 00 	sts	0x0072, r25
+     e30:	a0 93 73 00 	sts	0x0073, r26
+     e34:	b0 93 74 00 	sts	0x0074, r27
+#if (!defined(_WDT_DISABLE_) || !_WDT_DISABLE_)
+	//Woot! Saved two bytes!
+	wdt_reset();
+#endif
+
+	desired = (uint8_t)(heartModulator.power);
+     e38:	80 91 91 00 	lds	r24, 0x0091
+
+	desired += direction;
+     e3c:	60 91 60 00 	lds	r22, 0x0060
+     e40:	77 27       	eor	r23, r23
+     e42:	67 fd       	sbrc	r22, 7
+     e44:	70 95       	com	r23
+     e46:	68 0f       	add	r22, r24
+     e48:	71 1d       	adc	r23, r1
+	
+	//Slightly slower not to have these internal to above, but also safer...
+	
+	if(desired >= HEART_MAXBRIGHT)
+     e4a:	6f 3f       	cpi	r22, 0xFF	; 255
+     e4c:	71 05       	cpc	r23, r1
+     e4e:	34 f0       	brlt	.+12     	; 0xe5c <heartUpdate+0x8c>
+	{
+		desired = HEART_MAXBRIGHT;
+		direction = -1;
+     e50:	8f ef       	ldi	r24, 0xFF	; 255
+     e52:	80 93 60 00 	sts	0x0060, r24
+	
+	//Slightly slower not to have these internal to above, but also safer...
+	
+	if(desired >= HEART_MAXBRIGHT)
+	{
+		desired = HEART_MAXBRIGHT;
+     e56:	6f ef       	ldi	r22, 0xFF	; 255
+     e58:	70 e0       	ldi	r23, 0x00	; 0
+     e5a:	08 c0       	rjmp	.+16     	; 0xe6c <heartUpdate+0x9c>
+		direction = -1;
+	}	
+
+	if(desired <= 0)
+     e5c:	16 16       	cp	r1, r22
+     e5e:	17 06       	cpc	r1, r23
+     e60:	2c f0       	brlt	.+10     	; 0xe6c <heartUpdate+0x9c>
+	{
+		desired = 0;
+		direction = +1;
+     e62:	81 e0       	ldi	r24, 0x01	; 1
+     e64:	80 93 60 00 	sts	0x0060, r24
+		direction = -1;
+	}	
+
+	if(desired <= 0)
+	{
+		desired = 0;
+     e68:	60 e0       	ldi	r22, 0x00	; 0
+     e6a:	70 e0       	ldi	r23, 0x00	; 0
+//	dms6sec_t currentTime;
+	
+//	currentTime = dmsGetTime();
+
+	if(heart_isItTime(&lastTime, heartStepTime, HEART_PRECISE))
+		hfm_setPower(&heartModulator, getNextDesired());
+     e6c:	8e e8       	ldi	r24, 0x8E	; 142
+     e6e:	90 e0       	ldi	r25, 0x00	; 0
+     e70:	a6 de       	rcall	.-692    	; 0xbbe <hfm_setPower>
+	//determine whether the LED should be on or off based on the HFM
+	// return TRUE if the pin is available as an input
+	uint8_t ledVal;
+
+#if (!defined(HEART_BLINK_UNUSED) || !HEART_BLINK_UNUSED)
+	if(heartBlink)
+     e72:	80 91 6a 00 	lds	r24, 0x006A
+     e76:	88 23       	and	r24, r24
+     e78:	09 f4       	brne	.+2      	; 0xe7c <heartUpdate+0xac>
+     e7a:	83 c0       	rjmp	.+262    	; 0xf82 <heartUpdate+0x1b2>
+     e7c:	98 2f       	mov	r25, r24
+     e7e:	9f 70       	andi	r25, 0x0F	; 15
+	
+
+	uint8_t thisNibble = heartBlink;
+
+	//If both nibbles are filled, process them as specified
+	if((heartBlink & 0xf0) && (heartBlink & 0x0f))
+     e80:	28 2f       	mov	r18, r24
+     e82:	20 7f       	andi	r18, 0xF0	; 240
+     e84:	31 f0       	breq	.+12     	; 0xe92 <heartUpdate+0xc2>
+     e86:	91 11       	cpse	r25, r1
+     e88:	07 c0       	rjmp	.+14     	; 0xe98 <heartUpdate+0xc8>
+	// to avoid long delays and hopefully make it easier to determine which
+	// nibble is filled...
+	else if(heartBlink & 0x0f)
+		highNibble = 0;
+	else if(heartBlink & 0xf0)
+		highNibble = 1;
+     e8a:	21 e0       	ldi	r18, 0x01	; 1
+     e8c:	20 93 70 00 	sts	0x0070, r18
+     e90:	03 c0       	rjmp	.+6      	; 0xe98 <heartUpdate+0xc8>
+	{	//Fall through and toggle...
+	}
+	//Otherwise just process the one that's filled
+	// to avoid long delays and hopefully make it easier to determine which
+	// nibble is filled...
+	else if(heartBlink & 0x0f)
+     e92:	91 11       	cpse	r25, r1
+		highNibble = 0;
+     e94:	10 92 70 00 	sts	0x0070, r1
+	else if(heartBlink & 0xf0)
+		highNibble = 1;
+
+	//Fill the appropriate nibble for blinking...
+	if(highNibble)
+     e98:	e0 91 70 00 	lds	r30, 0x0070
+     e9c:	ee 23       	and	r30, r30
+     e9e:	19 f0       	breq	.+6      	; 0xea6 <heartUpdate+0xd6>
+		thisNibble = (thisNibble & 0xf0) >> 4;
+     ea0:	82 95       	swap	r24
+     ea2:	8f 70       	andi	r24, 0x0F	; 15
+     ea4:	01 c0       	rjmp	.+2      	; 0xea8 <heartUpdate+0xd8>
+	else
+		thisNibble = (thisNibble & 0x0f);
+     ea6:	89 2f       	mov	r24, r25
+
+#if(HEART_USES_TIMER)
+	//Blink the proper number of times
+	if((toggleCount>>1) < thisNibble)
+     ea8:	40 91 6f 00 	lds	r20, 0x006F
+     eac:	94 2f       	mov	r25, r20
+     eae:	96 95       	lsr	r25
+     eb0:	00 91 6b 00 	lds	r16, 0x006B
+     eb4:	10 91 6c 00 	lds	r17, 0x006C
+     eb8:	20 91 6d 00 	lds	r18, 0x006D
+     ebc:	30 91 6e 00 	lds	r19, 0x006E
+     ec0:	98 17       	cp	r25, r24
+     ec2:	30 f5       	brcc	.+76     	; 0xf10 <heartUpdate+0x140>
+
+static __inline__
+uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+										uint8_t dontAllowCumulation)
+{
+   tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+     ec4:	80 91 7b 00 	lds	r24, 0x007B
+     ec8:	90 91 7c 00 	lds	r25, 0x007C
+     ecc:	a0 91 7d 00 	lds	r26, 0x007D
+     ed0:	b0 91 7e 00 	lds	r27, 0x007E
+     ed4:	80 1b       	sub	r24, r16
+     ed6:	91 0b       	sbc	r25, r17
+     ed8:	a2 0b       	sbc	r26, r18
+     eda:	b3 0b       	sbc	r27, r19
+
+   if(thisDelta >= deltaTime)
+     edc:	80 32       	cpi	r24, 0x20	; 32
+     ede:	91 4a       	sbci	r25, 0xA1	; 161
+     ee0:	a7 40       	sbci	r26, 0x07	; 7
+     ee2:	b1 05       	cpc	r27, r1
+     ee4:	08 f4       	brcc	.+2      	; 0xee8 <heartUpdate+0x118>
+     ee6:	48 c0       	rjmp	.+144    	; 0xf78 <heartUpdate+0x1a8>
+   {
+		if(dontAllowCumulation)
+      	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+      else
+			*startTime = tcnter_myTcnter;
+     ee8:	80 91 7b 00 	lds	r24, 0x007B
+     eec:	90 91 7c 00 	lds	r25, 0x007C
+     ef0:	a0 91 7d 00 	lds	r26, 0x007D
+     ef4:	b0 91 7e 00 	lds	r27, 0x007E
+     ef8:	80 93 6b 00 	sts	0x006B, r24
+     efc:	90 93 6c 00 	sts	0x006C, r25
+     f00:	a0 93 6d 00 	sts	0x006D, r26
+     f04:	b0 93 6e 00 	sts	0x006E, r27
+	{
+		if(heart_isItTime(&lastToggleTime, TOGGLETIME, HEART_PRECISE))
+			toggleCount++;
+     f08:	4f 5f       	subi	r20, 0xFF	; 255
+     f0a:	40 93 6f 00 	sts	0x006F, r20
+     f0e:	34 c0       	rjmp	.+104    	; 0xf78 <heartUpdate+0x1a8>
+
+static __inline__
+uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+										uint8_t dontAllowCumulation)
+{
+   tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+     f10:	40 91 7b 00 	lds	r20, 0x007B
+     f14:	50 91 7c 00 	lds	r21, 0x007C
+     f18:	60 91 7d 00 	lds	r22, 0x007D
+     f1c:	70 91 7e 00 	lds	r23, 0x007E
+     f20:	40 1b       	sub	r20, r16
+     f22:	51 0b       	sbc	r21, r17
+     f24:	62 0b       	sbc	r22, r18
+     f26:	73 0b       	sbc	r23, r19
+	}
+	else if(heart_isItTime(&lastToggleTime, 
+     f28:	80 e0       	ldi	r24, 0x00	; 0
+     f2a:	99 e0       	ldi	r25, 0x09	; 9
+     f2c:	ad e3       	ldi	r26, 0x3D	; 61
+     f2e:	b0 e0       	ldi	r27, 0x00	; 0
+     f30:	0e 2e       	mov	r0, r30
+     f32:	04 c0       	rjmp	.+8      	; 0xf3c <heartUpdate+0x16c>
+     f34:	88 0f       	add	r24, r24
+     f36:	99 1f       	adc	r25, r25
+     f38:	aa 1f       	adc	r26, r26
+     f3a:	bb 1f       	adc	r27, r27
+     f3c:	0a 94       	dec	r0
+     f3e:	d2 f7       	brpl	.-12     	; 0xf34 <heartUpdate+0x164>
+
+   if(thisDelta >= deltaTime)
+     f40:	48 17       	cp	r20, r24
+     f42:	59 07       	cpc	r21, r25
+     f44:	6a 07       	cpc	r22, r26
+     f46:	7b 07       	cpc	r23, r27
+     f48:	b8 f0       	brcs	.+46     	; 0xf78 <heartUpdate+0x1a8>
+   {
+		if(dontAllowCumulation)
+      	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+      else
+			*startTime = tcnter_myTcnter;
+     f4a:	80 91 7b 00 	lds	r24, 0x007B
+     f4e:	90 91 7c 00 	lds	r25, 0x007C
+     f52:	a0 91 7d 00 	lds	r26, 0x007D
+     f56:	b0 91 7e 00 	lds	r27, 0x007E
+     f5a:	80 93 6b 00 	sts	0x006B, r24
+     f5e:	90 93 6c 00 	sts	0x006C, r25
+     f62:	a0 93 6d 00 	sts	0x006D, r26
+     f66:	b0 93 6e 00 	sts	0x006E, r27
+						((((uint32_t)TOGGLETIME) * 8)<<(highNibble)),
+						HEART_PRECISE))
+	{
+		toggleCount = 0;
+     f6a:	10 92 6f 00 	sts	0x006F, r1
+		//Only valid if both nibbles are filled (see above)
+		highNibble = !highNibble;
+     f6e:	81 e0       	ldi	r24, 0x01	; 1
+     f70:	e1 11       	cpse	r30, r1
+     f72:	80 e0       	ldi	r24, 0x00	; 0
+     f74:	80 93 70 00 	sts	0x0070, r24
+		//Only valid if both nibbles are filled (see above)
+		highNibble = !highNibble;
+	}
+#endif
+	//(actually, the new value, at this point... but will be the last soon)
+	return !getbit(0, toggleCount);
+     f78:	80 91 6f 00 	lds	r24, 0x006F
+     f7c:	80 95       	com	r24
+     f7e:	81 70       	andi	r24, 0x01	; 1
+     f80:	03 c0       	rjmp	.+6      	; 0xf88 <heartUpdate+0x1b8>
+ #endif
+		//ledVal = blinkHeart((dms6sec_t)currentTime);
+	}
+	else
+#endif
+		ledVal = hfm_nextOutput(&heartModulator);
+     f82:	8e e8       	ldi	r24, 0x8E	; 142
+     f84:	90 e0       	ldi	r25, 0x00	; 0
+     f86:	29 de       	rcall	.-942    	; 0xbda <hfm_nextOutput>
+
+	if(ledVal)
+     f88:	88 23       	and	r24, r24
+     f8a:	21 f0       	breq	.+8      	; 0xf94 <heartUpdate+0x1c4>
+			setoutVar(heartBeatPin, heartPIN);
+			setpinVar(heartBeatPin, heartPIN);
+		}
+#else
+ #if (HEART_LEDCONNECTION == LED_DIRECT_HIGH)
+		setinPORT(HEART_PINNUM, HEART_PINPORT);
+     f8c:	d6 98       	cbi	0x1a, 6	; 26
+		setpuPORT(HEART_PINNUM, HEART_PINPORT);
+     f8e:	de 9a       	sbi	0x1b, 6	; 27
+		setpinPORT(HEART_PINNUM, HEART_PINPORT);
+ #else
+	#error "Not Handled..."
+ #endif
+#endif
+		return TRUE;
+     f90:	81 e0       	ldi	r24, 0x01	; 1
+     f92:	03 c0       	rjmp	.+6      	; 0xf9a <heartUpdate+0x1ca>
+		//PORT = L
+		clrpinVar(heartBeatPin, heartPIN);
+		//DDR = H,out
+		setoutVar(heartBeatPin, heartPIN);
+#else
+		clrpinPORT(HEART_PINNUM, HEART_PINPORT);
+     f94:	de 98       	cbi	0x1b, 6	; 27
+		setoutPORT(HEART_PINNUM, HEART_PINPORT);
+     f96:	d6 9a       	sbi	0x1a, 6	; 26
+#endif
+		return FALSE;
+     f98:	80 e0       	ldi	r24, 0x00	; 0
+	}
+}
+     f9a:	1f 91       	pop	r17
+     f9c:	0f 91       	pop	r16
+     f9e:	08 95       	ret
+
+00000fa0 <heartPinInputPoll>:
+	   asm("nop;");
+	}
+
+	pinState = getpinVar(heartBeatPin, heartPIN);
+#else
+	setinPORT(HEART_PINNUM, HEART_PINPORT);
+     fa0:	d6 98       	cbi	0x1a, 6	; 26
+	setpuPORT(HEART_PINNUM, HEART_PINPORT);
+     fa2:	de 9a       	sbi	0x1b, 6	; 27
+     fa4:	8f ef       	ldi	r24, 0xFF	; 255
+	//Insert a delay to allow the pull-up to rise...
+	uint8_t delay;
+	for(delay = 0; delay < HEART_PULLUP_DELAY; delay++)
+	{
+		//Necessary or this'll be optimised-out
+		asm("nop;");
+     fa6:	00 00       	nop
+     fa8:	81 50       	subi	r24, 0x01	; 1
+	setinPORT(HEART_PINNUM, HEART_PINPORT);
+	setpuPORT(HEART_PINNUM, HEART_PINPORT);
+
+	//Insert a delay to allow the pull-up to rise...
+	uint8_t delay;
+	for(delay = 0; delay < HEART_PULLUP_DELAY; delay++)
+     faa:	e9 f7       	brne	.-6      	; 0xfa6 <heartPinInputPoll+0x6>
+	{
+		//Necessary or this'll be optimised-out
+		asm("nop;");
+	}
+
+	pinState = getpinPORT(HEART_PINNUM, HEART_PINPORT);
+     fac:	89 b3       	in	r24, 0x19	; 25
+	// to assure valid/safe values of PORT and DDR...
+	//Return the pin to the heartbeat
+//	setoutVar(heartBeatPin, heartPIN);
+
+	return pinState;
+}
+     fae:	86 fb       	bst	r24, 6
+     fb0:	88 27       	eor	r24, r24
+     fb2:	80 f9       	bld	r24, 0
+     fb4:	08 95       	ret
+
+00000fb6 <tcnter_init>:
+	//What if the timer is 16bit (do they default as such?)
+	timer_setWGM(TCNTER_AVRTIMER_NUM, WGM_NORMAL); //Necessary?
+	timer_selectDivisor(TCNTER_AVRTIMER_NUM, TCNTER_AVRTIMER_CLKDIV);
+#endif
+
+	tcnter_lastTcnt = TCNTER_SOURCE_VAR;
+     fb6:	82 b7       	in	r24, 0x32	; 50
+     fb8:	80 93 7a 00 	sts	0x007A, r24
+	tcnter_myTcnter = 0;
+     fbc:	10 92 7b 00 	sts	0x007B, r1
+     fc0:	10 92 7c 00 	sts	0x007C, r1
+     fc4:	10 92 7d 00 	sts	0x007D, r1
+     fc8:	10 92 7e 00 	sts	0x007E, r1
+     fcc:	08 95       	ret
+
+00000fce <tcnter_overflowUpdate>:
+// (and after the actual overflow)... and therefore could be called at
+// slightly different (+/-) times WRT the actual overflow...
+TCNTER_INLINEABLE
+void tcnter_overflowUpdate(void)
+{
+	tcnter_source_t thisTcnt = TCNTER_SOURCE_VAR;
+     fce:	e2 b7       	in	r30, 0x32	; 50
+	tcnter_compare_t deltaTcnt;
+
+
+	//If tcnter_update() has been called inbetween, just treat this like a
+	//normal tcnter_update()	
+	if(tcnter_updatesSinceOverflowUpdate)
+     fd0:	40 91 76 00 	lds	r20, 0x0076
+     fd4:	50 91 77 00 	lds	r21, 0x0077
+     fd8:	60 91 78 00 	lds	r22, 0x0078
+     fdc:	70 91 79 00 	lds	r23, 0x0079
+     fe0:	8e 2f       	mov	r24, r30
+     fe2:	90 e0       	ldi	r25, 0x00	; 0
+     fe4:	45 2b       	or	r20, r21
+     fe6:	46 2b       	or	r20, r22
+     fe8:	47 2b       	or	r20, r23
+     fea:	71 f0       	breq	.+28     	; 0x1008 <tcnter_overflowUpdate+0x3a>
+	{
+		//wrap-around can be handled here...
+		// (This shouldn't happen, right? Since overflowUpdate is called?)
+		if(thisTcnt < tcnter_lastTcnt)
+     fec:	40 91 7a 00 	lds	r20, 0x007A
+     ff0:	e4 17       	cp	r30, r20
+     ff2:	18 f4       	brcc	.+6      	; 0xffa <tcnter_overflowUpdate+0x2c>
+			deltaTcnt = (tcnter_compare_t)(TCNTER_SOURCE_OVERFLOW_VAL);
+     ff4:	2d ee       	ldi	r18, 0xED	; 237
+     ff6:	30 e0       	ldi	r19, 0x00	; 0
+     ff8:	02 c0       	rjmp	.+4      	; 0xffe <tcnter_overflowUpdate+0x30>
+		else
+			deltaTcnt = 0;
+     ffa:	20 e0       	ldi	r18, 0x00	; 0
+     ffc:	30 e0       	ldi	r19, 0x00	; 0
+
+		deltaTcnt += (tcnter_compare_t)thisTcnt
+						- (tcnter_compare_t)tcnter_lastTcnt;
+     ffe:	84 1b       	sub	r24, r20
+    1000:	91 09       	sbc	r25, r1
+		if(thisTcnt < tcnter_lastTcnt)
+			deltaTcnt = (tcnter_compare_t)(TCNTER_SOURCE_OVERFLOW_VAL);
+		else
+			deltaTcnt = 0;
+
+		deltaTcnt += (tcnter_compare_t)thisTcnt
+    1002:	82 0f       	add	r24, r18
+    1004:	93 1f       	adc	r25, r19
+    1006:	06 c0       	rjmp	.+12     	; 0x1014 <tcnter_overflowUpdate+0x46>
+		deltaTcnt = TCNTER_SOURCE_OVERFLOW_VAL;
+
+		//This should probably be small, e.g. +-1 WRT the last overflowUpdate
+		// since it likely occurs in the overflow interrupt.
+		deltaTcnt += (tcnter_compare_t)thisTcnt
+						- (tcnter_compare_t)tcnter_lastOverflowTcnt;
+    1008:	20 91 75 00 	lds	r18, 0x0075
+    100c:	82 1b       	sub	r24, r18
+    100e:	91 09       	sbc	r25, r1
+		//Any error will be subtracted later...
+		deltaTcnt = TCNTER_SOURCE_OVERFLOW_VAL;
+
+		//This should probably be small, e.g. +-1 WRT the last overflowUpdate
+		// since it likely occurs in the overflow interrupt.
+		deltaTcnt += (tcnter_compare_t)thisTcnt
+    1010:	83 51       	subi	r24, 0x13	; 19
+    1012:	9f 4f       	sbci	r25, 0xFF	; 255
+
+	}
+
+
+	//Add the delta to myTcnter
+	tcnter_myTcnter += deltaTcnt;
+    1014:	40 91 7b 00 	lds	r20, 0x007B
+    1018:	50 91 7c 00 	lds	r21, 0x007C
+    101c:	60 91 7d 00 	lds	r22, 0x007D
+    1020:	70 91 7e 00 	lds	r23, 0x007E
+    1024:	aa 27       	eor	r26, r26
+    1026:	97 fd       	sbrc	r25, 7
+    1028:	a0 95       	com	r26
+    102a:	ba 2f       	mov	r27, r26
+    102c:	84 0f       	add	r24, r20
+    102e:	95 1f       	adc	r25, r21
+    1030:	a6 1f       	adc	r26, r22
+    1032:	b7 1f       	adc	r27, r23
+    1034:	80 93 7b 00 	sts	0x007B, r24
+    1038:	90 93 7c 00 	sts	0x007C, r25
+    103c:	a0 93 7d 00 	sts	0x007D, r26
+    1040:	b0 93 7e 00 	sts	0x007E, r27
+	
+	//And prep for the next call...
+	tcnter_updatesSinceOverflowUpdate = 0;
+    1044:	10 92 76 00 	sts	0x0076, r1
+    1048:	10 92 77 00 	sts	0x0077, r1
+    104c:	10 92 78 00 	sts	0x0078, r1
+    1050:	10 92 79 00 	sts	0x0079, r1
+	tcnter_lastTcnt = thisTcnt;
+    1054:	e0 93 7a 00 	sts	0x007A, r30
+	tcnter_lastOverflowTcnt = thisTcnt;
+    1058:	e0 93 75 00 	sts	0x0075, r30
+    105c:	08 95       	ret
+
+0000105e <tcnter_update>:
+//  (how could it take *more* instructions?!)
+//   trying to shuffle registers?
+//TCNTER_INLINEABLE
+void tcnter_update(void)
+{
+	tcnter_source_t thisTcnt = TCNTER_SOURCE_VAR;	//e.g. TCNT0
+    105e:	22 b7       	in	r18, 0x32	; 50
+	
+	tcnter_compare_t deltaTcnt = (tcnter_compare_t)thisTcnt 
+										- (tcnter_compare_t)tcnter_lastTcnt;
+    1060:	30 91 7a 00 	lds	r19, 0x007A
+//TCNTER_INLINEABLE
+void tcnter_update(void)
+{
+	tcnter_source_t thisTcnt = TCNTER_SOURCE_VAR;	//e.g. TCNT0
+	
+	tcnter_compare_t deltaTcnt = (tcnter_compare_t)thisTcnt 
+    1064:	82 2f       	mov	r24, r18
+    1066:	90 e0       	ldi	r25, 0x00	; 0
+    1068:	83 1b       	sub	r24, r19
+    106a:	91 09       	sbc	r25, r1
+	// and update() is called after, at TCNT=1
+	// update won't increment, and the updatesSinceOverflow, if allowed to
+	// be incremented, would indicate to overflowUpdate that it should treat
+	// the next overflow as a normal update, which may well occur at, again,
+	// TCNT=1, which would result in a non-advancement at all.
+	if(thisTcnt == tcnter_lastOverflowTcnt)
+    106c:	40 91 75 00 	lds	r20, 0x0075
+    1070:	24 17       	cp	r18, r20
+    1072:	91 f1       	breq	.+100    	; 0x10d8 <tcnter_update+0x7a>
+		return;
+
+	tcnter_updatesSinceOverflowUpdate++;
+    1074:	40 91 76 00 	lds	r20, 0x0076
+    1078:	50 91 77 00 	lds	r21, 0x0077
+    107c:	60 91 78 00 	lds	r22, 0x0078
+    1080:	70 91 79 00 	lds	r23, 0x0079
+    1084:	4f 5f       	subi	r20, 0xFF	; 255
+    1086:	5f 4f       	sbci	r21, 0xFF	; 255
+    1088:	6f 4f       	sbci	r22, 0xFF	; 255
+    108a:	7f 4f       	sbci	r23, 0xFF	; 255
+    108c:	40 93 76 00 	sts	0x0076, r20
+    1090:	50 93 77 00 	sts	0x0077, r21
+    1094:	60 93 78 00 	sts	0x0078, r22
+    1098:	70 93 79 00 	sts	0x0079, r23
+#endif
+	
+	// Handle wrap-around...
+	if (thisTcnt < tcnter_lastTcnt)
+    109c:	23 17       	cp	r18, r19
+    109e:	10 f4       	brcc	.+4      	; 0x10a4 <tcnter_update+0x46>
+		deltaTcnt += (tcnter_compare_t)(TCNTER_SOURCE_OVERFLOW_VAL);
+    10a0:	83 51       	subi	r24, 0x13	; 19
+    10a2:	9f 4f       	sbci	r25, 0xFF	; 255
+
+	tcnter_lastTcnt = thisTcnt;
+    10a4:	20 93 7a 00 	sts	0x007A, r18
+
+	tcnter_myTcnter += (tcnter_t)deltaTcnt;
+    10a8:	40 91 7b 00 	lds	r20, 0x007B
+    10ac:	50 91 7c 00 	lds	r21, 0x007C
+    10b0:	60 91 7d 00 	lds	r22, 0x007D
+    10b4:	70 91 7e 00 	lds	r23, 0x007E
+    10b8:	aa 27       	eor	r26, r26
+    10ba:	97 fd       	sbrc	r25, 7
+    10bc:	a0 95       	com	r26
+    10be:	ba 2f       	mov	r27, r26
+    10c0:	84 0f       	add	r24, r20
+    10c2:	95 1f       	adc	r25, r21
+    10c4:	a6 1f       	adc	r26, r22
+    10c6:	b7 1f       	adc	r27, r23
+    10c8:	80 93 7b 00 	sts	0x007B, r24
+    10cc:	90 93 7c 00 	sts	0x007C, r25
+    10d0:	a0 93 7d 00 	sts	0x007D, r26
+    10d4:	b0 93 7e 00 	sts	0x007E, r27
+    10d8:	08 95       	ret
+
+000010da <tcnter_wait>:
+	DPRINT("tcnter_init()\n");
+}
+
+
+void tcnter_wait(myTcnter_t tcnts)
+{
+    10da:	8f 92       	push	r8
+    10dc:	9f 92       	push	r9
+    10de:	af 92       	push	r10
+    10e0:	bf 92       	push	r11
+    10e2:	cf 92       	push	r12
+    10e4:	df 92       	push	r13
+    10e6:	ef 92       	push	r14
+    10e8:	ff 92       	push	r15
+    10ea:	cf 93       	push	r28
+    10ec:	df 93       	push	r29
+    10ee:	00 d0       	rcall	.+0      	; 0x10f0 <tcnter_wait+0x16>
+    10f0:	00 d0       	rcall	.+0      	; 0x10f2 <tcnter_wait+0x18>
+    10f2:	cd b7       	in	r28, 0x3d	; 61
+    10f4:	de b7       	in	r29, 0x3e	; 62
+
+//Inlined: Saved 40B
+TCNTER_INLINEABLE
+tcnter_t tcnter_get(void)
+{
+	return tcnter_myTcnter;
+    10f6:	c0 90 7b 00 	lds	r12, 0x007B
+    10fa:	d0 90 7c 00 	lds	r13, 0x007C
+    10fe:	e0 90 7d 00 	lds	r14, 0x007D
+    1102:	f0 90 7e 00 	lds	r15, 0x007E
+
+static __inline__
+uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+										uint8_t dontAllowCumulation)
+{
+   tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+    1106:	80 90 7b 00 	lds	r8, 0x007B
+    110a:	90 90 7c 00 	lds	r9, 0x007C
+    110e:	a0 90 7d 00 	lds	r10, 0x007D
+    1112:	b0 90 7e 00 	lds	r11, 0x007E
+    1116:	8c 18       	sub	r8, r12
+    1118:	9d 08       	sbc	r9, r13
+    111a:	ae 08       	sbc	r10, r14
+    111c:	bf 08       	sbc	r11, r15
+
+   if(thisDelta >= deltaTime)
+    111e:	86 16       	cp	r8, r22
+    1120:	97 06       	cpc	r9, r23
+    1122:	a8 06       	cpc	r10, r24
+    1124:	b9 06       	cpc	r11, r25
+    1126:	b8 f0       	brcs	.+46     	; 0x1156 <tcnter_wait+0x7c>
+   {
+		if(dontAllowCumulation)
+      	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+    1128:	80 91 7b 00 	lds	r24, 0x007B
+    112c:	90 91 7c 00 	lds	r25, 0x007C
+    1130:	a0 91 7d 00 	lds	r26, 0x007D
+    1134:	b0 91 7e 00 	lds	r27, 0x007E
+	while(!tcnter_isItTime(&startTime, tcnts))
+	{
+		tcnter_update();
+		//asm("nop;");
+	}
+}
+    1138:	0f 90       	pop	r0
+    113a:	0f 90       	pop	r0
+    113c:	0f 90       	pop	r0
+    113e:	0f 90       	pop	r0
+    1140:	df 91       	pop	r29
+    1142:	cf 91       	pop	r28
+    1144:	ff 90       	pop	r15
+    1146:	ef 90       	pop	r14
+    1148:	df 90       	pop	r13
+    114a:	cf 90       	pop	r12
+    114c:	bf 90       	pop	r11
+    114e:	af 90       	pop	r10
+    1150:	9f 90       	pop	r9
+    1152:	8f 90       	pop	r8
+    1154:	08 95       	ret
+{
+	myTcnter_t startTime = tcnter_get();
+
+	while(!tcnter_isItTime(&startTime, tcnts))
+	{
+		tcnter_update();
+    1156:	69 83       	std	Y+1, r22	; 0x01
+    1158:	7a 83       	std	Y+2, r23	; 0x02
+    115a:	8b 83       	std	Y+3, r24	; 0x03
+    115c:	9c 83       	std	Y+4, r25	; 0x04
+    115e:	7f df       	rcall	.-258    	; 0x105e <tcnter_update>
+    1160:	69 81       	ldd	r22, Y+1	; 0x01
+    1162:	7a 81       	ldd	r23, Y+2	; 0x02
+    1164:	8b 81       	ldd	r24, Y+3	; 0x03
+    1166:	9c 81       	ldd	r25, Y+4	; 0x04
+    1168:	ce cf       	rjmp	.-100    	; 0x1106 <tcnter_wait+0x2c>
+
+0000116a <tcnter_get>:
+
+//Inlined: Saved 40B
+TCNTER_INLINEABLE
+tcnter_t tcnter_get(void)
+{
+	return tcnter_myTcnter;
+    116a:	60 91 7b 00 	lds	r22, 0x007B
+    116e:	70 91 7c 00 	lds	r23, 0x007C
+    1172:	80 91 7d 00 	lds	r24, 0x007D
+    1176:	90 91 7e 00 	lds	r25, 0x007E
+}
+    117a:	08 95       	ret
+
+0000117c <hitSensor_init>:
+
+void hitSensor_init(void)
+{
+	
+	//Enable the pin as an input, pulled-up
+	setinpuPORT(BUMP_SENSOR_PIN, BUMP_SENSOR_PORT);
+    117c:	d7 98       	cbi	0x1a, 7	; 26
+    117e:	df 9a       	sbi	0x1b, 7	; 27
+	//The default PCMSK value is NON-ZERO!
+	//Since the PCINT_vect is (so far) exclusively used for the bump-sensor
+	// disable all the other PCINTs
+	//Enable the corresponding Pin-Change pin...
+	//setbit(BUMP_SENSOR_PCINT, BUMP_SENSOR_PCMSK);
+	BUMP_SENSOR_PCMSK = (1<<BUMP_SENSOR_PCINT);
+    1180:	80 e8       	ldi	r24, 0x80	; 128
+    1182:	83 bd       	out	0x23, r24	; 35
+
+	//The other PCMSK register also has defaults with certain pins enabled
+	// and stupidly (?) the PCMSK# doesn't correspond to the PCIE#
+	BUMP_SENSOR_NOTMY_PCMSK = 0;
+    1184:	12 bc       	out	0x22, r1	; 34
+
+	//Clear the Pin-Change interrupt (probably not necessary)
+	setbit(PCIF, GIFR);
+    1186:	8a b7       	in	r24, 0x3a	; 58
+    1188:	80 62       	ori	r24, 0x20	; 32
+    118a:	8a bf       	out	0x3a, r24	; 58
+
+	//Enable the Pin-Change interrupt
+	// (They are *all* disabled by default)
+	setbit(BUMP_SENSOR_PCIE, GIMSK);
+    118c:	8b b7       	in	r24, 0x3b	; 59
+    118e:	80 62       	ori	r24, 0x20	; 32
+    1190:	8b bf       	out	0x3b, r24	; 59
+    1192:	08 95       	ret
+
+00001194 <pll_enable>:
+   // The benefit of such high PWM frequency is the low RC values necessary
+   //  for filtering to DC.
+	// From the ATtiny861 manual:
+	// "To change Timer/Counter1 to the async mode follow this procedure"
+   // 1: Enable the PLL
+   setbit(PLLE, PLLCSR);
+    1194:	89 b5       	in	r24, 0x29	; 41
+    1196:	82 60       	ori	r24, 0x02	; 2
+    1198:	89 bd       	out	0x29, r24	; 41
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+    119a:	8f e8       	ldi	r24, 0x8F	; 143
+    119c:	91 e0       	ldi	r25, 0x01	; 1
+    119e:	01 97       	sbiw	r24, 0x01	; 1
+    11a0:	f1 f7       	brne	.-4      	; 0x119e <pll_enable+0xa>
+    11a2:	00 c0       	rjmp	.+0      	; 0x11a4 <pll_enable+0x10>
+    11a4:	00 00       	nop
+   // 2: Wait 100us for the PLL to stabilize
+   // (can't use dmsWait since the timer updating the dmsCount hasn't yet been started!)
+   _delay_us(100);
+//   dmsWait(1);
+   // 3: Poll PLOCK until it is set...
+   while(!getbit(PLOCK, PLLCSR))
+    11a6:	09 b4       	in	r0, 0x29	; 41
+    11a8:	00 fc       	sbrc	r0, 0
+    11aa:	02 c0       	rjmp	.+4      	; 0x11b0 <pll_enable+0x1c>
+   {
+      asm("nop");
+    11ac:	00 00       	nop
+    11ae:	fb cf       	rjmp	.-10     	; 0x11a6 <pll_enable+0x12>
+   }
+
+//The PWM161 doesn't have a PCKE bit.
+#if(!defined(__AVR_AT90PWM161__))
+   // 4: Set the PCKE bit to enable async mode
+   setbit(PCKE, PLLCSR);
+    11b0:	89 b5       	in	r24, 0x29	; 41
+    11b2:	84 60       	ori	r24, 0x04	; 4
+    11b4:	89 bd       	out	0x29, r24	; 41
+    11b6:	08 95       	ret
+
+000011b8 <lvds_timerInit>:
+   //Timer1 is used for LVDS (in PLL clocking mode)
+  
+     //pll_enable();   
+   
+   //We want it to count 7 bits, 0-6 and reset at 7
+   OCR1C = 6;
+    11b8:	86 e0       	ldi	r24, 0x06	; 6
+    11ba:	8b bd       	out	0x2b, r24	; 43
+
+   //We want the clock to go low at TCNT=0 and high at TCNT=4
+   CLOCK_OCR = 3; //2; //3;
+    11bc:	83 e0       	ldi	r24, 0x03	; 3
+    11be:	8c bd       	out	0x2c, r24	; 44
+   //PLL is 4MHz*8 = 32MHz
+   // then TimerClockDivisor=8 gives 4MHz
+   pll_enable();
+   #define SLOW_LVDS_TEST TRUE
+#elif (defined(OSCCAL_VAL))
+   OSCCAL = OSCCAL_VAL;
+    11c0:	8f ef       	ldi	r24, 0xFF	; 255
+    11c2:	81 bf       	out	0x31, r24	; 49
+   //  (horizontally... pre LVDS_PRESCALER affecting DOTS_TO_CYC)
+   //  so accessing *all* pixels in a row would make it even slower...
+   // Further, it didn't seem to be paying attention to the fact that
+   // the same pixels are drawn on multiple rows...
+   // WTF? (the image was scaled, proportionately! 1pix x 1pix)
+   pll_enable();
+    11c4:	e7 df       	rcall	.-50     	; 0x1194 <pll_enable>
+   pll_enable();
+   //#warning "The PLL configuration code is not in here yet!"
+#endif
+
+   //Set the Timer1 clock prescaler...
+   writeMasked(CSBITS, 
+    11c6:	8f b5       	in	r24, 0x2f	; 47
+    11c8:	80 7f       	andi	r24, 0xF0	; 240
+    11ca:	81 60       	ori	r24, 0x01	; 1
+    11cc:	8f bd       	out	0x2f, r24	; 47
+               TCCR1B);
+
+   //Set the DeadTime prescaler (no prescaling, same speed as TCNT1)...
+   // Allegedly this is prescaled from the PCK (or CK)
+   //    NOT from the Timer1 prescaler...
+   writeMasked(DTPSBITS,
+    11ce:	8f b5       	in	r24, 0x2f	; 47
+    11d0:	8f 7c       	andi	r24, 0xCF	; 207
+    11d2:	8f bd       	out	0x2f, r24	; 47
+ 
+   //FastPWM
+//Now Handled in lvds_xxxOnCompare():
+
+   //These are also written below (excluding PWM1D)
+   setbit(PWM1A, TCCR1A);  //Enable PWM on OC1A for DVH
+    11d4:	80 b7       	in	r24, 0x30	; 48
+    11d6:	82 60       	ori	r24, 0x02	; 2
+    11d8:	80 bf       	out	0x30, r24	; 48
+                           //Need to do the same for other channels
+  
+   setbit(PWM1B, TCCR1A);  //Enable PWM on OC1B for CLOCK 
+    11da:	80 b7       	in	r24, 0x30	; 48
+    11dc:	81 60       	ori	r24, 0x01	; 1
+    11de:	80 bf       	out	0x30, r24	; 48
+
+   setbit(PWM1D, TCCR1C);
+    11e0:	87 b5       	in	r24, 0x27	; 39
+    11e2:	81 60       	ori	r24, 0x01	; 1
+    11e4:	87 bd       	out	0x27, r24	; 39
+
+   //PWM1D is not in TCCR1A...
+
+   setoutPORT(PB1, PORTB);   //+OC1A, DVH/BLUE, MISO (usually heart)
+    11e6:	b9 9a       	sbi	0x17, 1	; 23
+//   setoutPORT(PB0, PORTB);   //-OC1A    MOSI unused
+   setoutPORT(PB2, PORTB); //-OC1B, -GREEN    (INVERTED) SCK
+    11e8:	ba 9a       	sbi	0x17, 2	; 23
+   setoutPORT(PB3, PORTB); //+OC1B Clock (OC1B, not inverted)
+    11ea:	bb 9a       	sbi	0x17, 3	; 23
+   setoutPORT(PB5, PORTB); //+OC1D, RED
+    11ec:	bd 9a       	sbi	0x17, 5	; 23
+
+
+   writeMasked(((0<<WGM11) | (0<<WGM10)), //FastPWM (combined with above)
+    11ee:	86 b5       	in	r24, 0x26	; 38
+    11f0:	8c 7f       	andi	r24, 0xFC	; 252
+    11f2:	86 bd       	out	0x26, r24	; 38
+//            | (0<<COM1B1) | (1<<COM1B0) 
+//            | (1<<PWM1A) | (1<<PWM1B) )
+//#define lvds_ComplementaryClrOnCompare() \ //
+   //Do TCCR1C first, because it contains shadow-bits of TCCR1A that I
+   // don't want to have to rewrite...
+   TCCR1C = ( (1<<COM1D1) | (0<<COM1D0)
+    11f4:	89 e0       	ldi	r24, 0x09	; 9
+    11f6:	87 bd       	out	0x27, r24	; 39
+ clock is affected by Dead-Times... Still a bit vague.
+*/
+//	TCCR1A = ( (0<<COM1A1) | (1<<COM1A0) 
+//            | (1<<COM1B1) | (0<<COM1B0) //Don't use complementary for CLK
+//            | (1<<PWM1A) | (1<<PWM1B) );
+	lvds_disableGreen_MakeClockInsensitiveToDT();
+    11f8:	83 e6       	ldi	r24, 0x63	; 99
+    11fa:	80 bf       	out	0x30, r24	; 48
+	// //Make sure Green is off...
+	// DT1 = 3;
+
+
+
+    Nada_init();
+    11fc:	80 e3       	ldi	r24, 0x30	; 48
+    11fe:	84 bd       	out	0x24, r24	; 36
+    1200:	84 e0       	ldi	r24, 0x04	; 4
+    1202:	8d bd       	out	0x2d, r24	; 45
+    1204:	08 95       	ret
+
+00001206 <setColor>:
+//This was #if'd into existence with IMAGE_BUFFER, but since it's only been
+// used with frameBuffer, and since IMAGE_BUFFER is somewhat entangled with
+// newer stuff, I'm putting it here and NOT including this file, (yet)
+void setColor(uint8_t red, uint8_t green, uint8_t blue, 
+               uint8_t row, uint8_t col)
+{
+    1206:	0f 93       	push	r16
+    1208:	a8 2f       	mov	r26, r24
+    120a:	36 2f       	mov	r19, r22
+   red = (red > 3) ? 3 : red;
+   green = (green > 3) ? 3 : green;
+   blue = (blue > 3) ? 3 : blue;
+
+   frameBuffer[row][col] = red | ((green)<<2) | ((blue)<<4);
+    120c:	82 2f       	mov	r24, r18
+    120e:	90 e0       	ldi	r25, 0x00	; 0
+    1210:	61 e1       	ldi	r22, 0x11	; 17
+    1212:	70 e0       	ldi	r23, 0x00	; 0
+    1214:	24 d6       	rcall	.+3144   	; 0x1e5e <__mulhi3>
+    1216:	fc 01       	movw	r30, r24
+    1218:	e0 0f       	add	r30, r16
+    121a:	f1 1d       	adc	r31, r1
+    121c:	e2 55       	subi	r30, 0x52	; 82
+    121e:	ff 4f       	sbci	r31, 0xFF	; 255
+void setColor(uint8_t red, uint8_t green, uint8_t blue, 
+               uint8_t row, uint8_t col)
+{
+   red = (red > 3) ? 3 : red;
+   green = (green > 3) ? 3 : green;
+   blue = (blue > 3) ? 3 : blue;
+    1220:	44 30       	cpi	r20, 0x04	; 4
+    1222:	08 f0       	brcs	.+2      	; 0x1226 <setColor+0x20>
+    1224:	43 e0       	ldi	r20, 0x03	; 3
+
+   frameBuffer[row][col] = red | ((green)<<2) | ((blue)<<4);
+    1226:	50 e0       	ldi	r21, 0x00	; 0
+    1228:	84 e0       	ldi	r24, 0x04	; 4
+    122a:	44 0f       	add	r20, r20
+    122c:	55 1f       	adc	r21, r21
+    122e:	8a 95       	dec	r24
+    1230:	e1 f7       	brne	.-8      	; 0x122a <setColor+0x24>
+// used with frameBuffer, and since IMAGE_BUFFER is somewhat entangled with
+// newer stuff, I'm putting it here and NOT including this file, (yet)
+void setColor(uint8_t red, uint8_t green, uint8_t blue, 
+               uint8_t row, uint8_t col)
+{
+   red = (red > 3) ? 3 : red;
+    1232:	8a 2f       	mov	r24, r26
+    1234:	a4 30       	cpi	r26, 0x04	; 4
+    1236:	08 f0       	brcs	.+2      	; 0x123a <setColor+0x34>
+    1238:	83 e0       	ldi	r24, 0x03	; 3
+   green = (green > 3) ? 3 : green;
+   blue = (blue > 3) ? 3 : blue;
+
+   frameBuffer[row][col] = red | ((green)<<2) | ((blue)<<4);
+    123a:	48 2b       	or	r20, r24
+// newer stuff, I'm putting it here and NOT including this file, (yet)
+void setColor(uint8_t red, uint8_t green, uint8_t blue, 
+               uint8_t row, uint8_t col)
+{
+   red = (red > 3) ? 3 : red;
+   green = (green > 3) ? 3 : green;
+    123c:	63 2f       	mov	r22, r19
+    123e:	34 30       	cpi	r19, 0x04	; 4
+    1240:	08 f0       	brcs	.+2      	; 0x1244 <setColor+0x3e>
+    1242:	63 e0       	ldi	r22, 0x03	; 3
+   blue = (blue > 3) ? 3 : blue;
+
+   frameBuffer[row][col] = red | ((green)<<2) | ((blue)<<4);
+    1244:	66 0f       	add	r22, r22
+    1246:	66 0f       	add	r22, r22
+    1248:	64 2b       	or	r22, r20
+    124a:	60 83       	st	Z, r22
+}
+    124c:	0f 91       	pop	r16
+    124e:	08 95       	ret
+
+00001250 <frameBufferInit>:
+// This stuff was located in main() before the while loop...
+// #if !COLOR_BAR_SCROLL... (which is *nearly every case* including 
+//  RowSegBuffer, etc)
+// it's long-since been commented-out...
+void frameBufferInit(void)
+{
+    1250:	ee eb       	ldi	r30, 0xBE	; 190
+    1252:	f0 e0       	ldi	r31, 0x00	; 0
+	//_W in FB_WIDTH is a hack for equal-length pixels, see frameBuffer's
+	//definition, above.
+	uint8_t i;
+	for(i=0; i<FB_HEIGHT; i++)
+		frameBuffer[i][FB_WIDTH] = FB_END_OF_ROW_COLOR;
+    1254:	8f e3       	ldi	r24, 0x3F	; 63
+    1256:	80 83       	st	Z, r24
+    1258:	71 96       	adiw	r30, 0x11	; 17
+void frameBufferInit(void)
+{
+	//_W in FB_WIDTH is a hack for equal-length pixels, see frameBuffer's
+	//definition, above.
+	uint8_t i;
+	for(i=0; i<FB_HEIGHT; i++)
+    125a:	91 e0       	ldi	r25, 0x01	; 1
+    125c:	ee 3c       	cpi	r30, 0xCE	; 206
+    125e:	f9 07       	cpc	r31, r25
+    1260:	d1 f7       	brne	.-12     	; 0x1256 <frameBufferInit+0x6>
+//               ), r, c);
+      }
+   }
+*/
+
+}
+    1262:	08 95       	ret
+
+00001264 <writeColorDelay>:
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+    1264:	8f e0       	ldi	r24, 0x0F	; 15
+    1266:	90 e0       	ldi	r25, 0x00	; 0
+    1268:	01 97       	sbiw	r24, 0x01	; 1
+    126a:	f1 f7       	brne	.-4      	; 0x1268 <writeColorDelay+0x4>
+    126c:	08 95       	ret
+
+0000126e <writeColor>:
+#else
+ #define FOUR_SHADES_NOPS "\n\t"
+#endif
+
+   //Each branch is 9 cycles... (12 with FOUR_SHADES)
+__asm__ __volatile__
+    126e:	84 2f       	mov	r24, r20
+    1270:	83 70       	andi	r24, 0x03	; 3
+    1272:	41 f4       	brne	.+16     	; 0x1284 <red1tst_197>
+    1274:	80 e0       	ldi	r24, 0x00	; 0
+    1276:	00 00       	nop
+    1278:	00 00       	nop
+    127a:	00 00       	nop
+    127c:	00 00       	nop
+    127e:	00 00       	nop
+    1280:	00 00       	nop
+    1282:	0d c0       	rjmp	.+26     	; 0x129e <end_197>
+
+00001284 <red1tst_197>:
+    1284:	81 30       	cpi	r24, 0x01	; 1
+    1286:	29 f4       	brne	.+10     	; 0x1292 <red23_197>
+    1288:	00 00       	nop
+    128a:	00 00       	nop
+    128c:	00 00       	nop
+    128e:	83 e0       	ldi	r24, 0x03	; 3
+    1290:	06 c0       	rjmp	.+12     	; 0x129e <end_197>
+
+00001292 <red23_197>:
+    1292:	82 30       	cpi	r24, 0x02	; 2
+    1294:	11 f4       	brne	.+4      	; 0x129a <red3_197>
+    1296:	84 e0       	ldi	r24, 0x04	; 4
+    1298:	02 c0       	rjmp	.+4      	; 0x129e <end_197>
+
+0000129a <red3_197>:
+    129a:	86 e0       	ldi	r24, 0x06	; 6
+    129c:	00 00       	nop
+
+0000129e <end_197>:
+      dt=1;
+   else //0x06, 0x0C
+      dt=3;
+*/
+   //Each branch is 9 cycles... (12 with FOUR_SHADES)
+__asm__ __volatile__
+    129e:	94 2f       	mov	r25, r20
+    12a0:	9c 70       	andi	r25, 0x0C	; 12
+    12a2:	41 f4       	brne	.+16     	; 0x12b4 <grn4tst_198>
+    12a4:	90 e0       	ldi	r25, 0x00	; 0
+    12a6:	00 00       	nop
+    12a8:	00 00       	nop
+    12aa:	00 00       	nop
+    12ac:	00 00       	nop
+    12ae:	00 00       	nop
+    12b0:	00 00       	nop
+    12b2:	0d c0       	rjmp	.+26     	; 0x12ce <end_198>
+
+000012b4 <grn4tst_198>:
+    12b4:	94 30       	cpi	r25, 0x04	; 4
+    12b6:	29 f4       	brne	.+10     	; 0x12c2 <grn8C_198>
+    12b8:	91 e0       	ldi	r25, 0x01	; 1
+    12ba:	00 00       	nop
+    12bc:	00 00       	nop
+    12be:	00 00       	nop
+    12c0:	06 c0       	rjmp	.+12     	; 0x12ce <end_198>
+
+000012c2 <grn8C_198>:
+    12c2:	98 30       	cpi	r25, 0x08	; 8
+    12c4:	11 f4       	brne	.+4      	; 0x12ca <grn3_198>
+    12c6:	92 e0       	ldi	r25, 0x02	; 2
+    12c8:	02 c0       	rjmp	.+4      	; 0x12ce <end_198>
+
+000012ca <grn3_198>:
+    12ca:	93 e0       	ldi	r25, 0x03	; 3
+    12cc:	00 00       	nop
+
+000012ce <end_198>:
+      ocra=5;
+   else //0x20, 0x30
+      ocra=6;
+*/
+   //Each branch is 9 cycles...
+__asm__ __volatile__
+    12ce:	44 2f       	mov	r20, r20
+    12d0:	40 73       	andi	r20, 0x30	; 48
+    12d2:	29 f4       	brne	.+10     	; 0x12de <blu1tst_199>
+    12d4:	44 e0       	ldi	r20, 0x04	; 4
+    12d6:	00 00       	nop
+    12d8:	00 00       	nop
+    12da:	00 00       	nop
+    12dc:	06 c0       	rjmp	.+12     	; 0x12ea <end_199>
+
+000012de <blu1tst_199>:
+    12de:	40 31       	cpi	r20, 0x10	; 16
+    12e0:	11 f4       	brne	.+4      	; 0x12e6 <blu23_199>
+    12e2:	45 e0       	ldi	r20, 0x05	; 5
+    12e4:	02 c0       	rjmp	.+4      	; 0x12ea <end_199>
+
+000012e6 <blu23_199>:
+    12e6:	46 e0       	ldi	r20, 0x06	; 6
+    12e8:	00 00       	nop
+
+000012ea <end_199>:
+     //,  "d0"  (ocra)     //ocra is also used for andi, and is %2
+   );
+
+#endif //SETTING vs. FRAMEBUFFER
+
+   DT1 = dt;
+    12ea:	94 bd       	out	0x24, r25	; 36
+   OCR1D = ocrd;
+    12ec:	8a bd       	out	0x2a, r24	; 42
+   OCR1A = ocra;
+    12ee:	4d bd       	out	0x2d, r20	; 45
+
+	if(includeDelay)
+    12f0:	61 11       	cpse	r22, r1
+		writeColorDelay();
+    12f2:	b8 cf       	rjmp	.-144    	; 0x1264 <writeColorDelay>
+    12f4:	08 95       	ret
+
+000012f6 <nonRSB_drawPix>:
+	return wc_color;
+}
+
+
+static __inline__ void nonRSB_drawPix(uint16_t rowNum)
+{
+    12f6:	cf 93       	push	r28
+    12f8:	df 93       	push	r29
+#endif
+
+#if(defined(ROW_BUFFER) && ROW_BUFFER)
+   wc_color = &(rowBuffer[0]);
+#else
+	rowNum = rowNum*FB_HEIGHT / V_COUNT;
+    12fa:	24 e0       	ldi	r18, 0x04	; 4
+    12fc:	88 0f       	add	r24, r24
+    12fe:	99 1f       	adc	r25, r25
+    1300:	2a 95       	dec	r18
+    1302:	e1 f7       	brne	.-8      	; 0x12fc <nonRSB_drawPix+0x6>
+    1304:	60 e0       	ldi	r22, 0x00	; 0
+    1306:	73 e0       	ldi	r23, 0x03	; 3
+    1308:	c7 d5       	rcall	.+2958   	; 0x1e98 <__udivmodhi4>
+	//function doesn't make them occur in that order.
+	//In fact, the first writeColor... maybe I'm mistaken.
+#if(defined(WC_SETUP) && WC_SETUP)
+	uint8_t * color = wc_color;
+#else
+	uint8_t * color = writeColor_drawPixSetup(rowNum);
+    130a:	cb 01       	movw	r24, r22
+    130c:	61 e1       	ldi	r22, 0x11	; 17
+    130e:	70 e0       	ldi	r23, 0x00	; 0
+    1310:	a6 d5       	rcall	.+2892   	; 0x1e5e <__mulhi3>
+    1312:	ec 01       	movw	r28, r24
+    1314:	c2 55       	subi	r28, 0x52	; 82
+    1316:	df 4f       	sbci	r29, 0xFF	; 255
+   // it's not entirely likely this will be predictable
+   // it may try to recalculate the Z register between writeBlues...
+   // hopefully not, for now. I should probably assemblify this
+//      writeColor(FALSE,FALSE, *(color+0));
+	//a/o v71, see a/o v67, plus new notes... TRUE is handy!
+      writeColor(TRUE,FALSE, *(color+0));
+    1318:	48 81       	ld	r20, Y
+    131a:	60 e0       	ldi	r22, 0x00	; 0
+    131c:	81 e0       	ldi	r24, 0x01	; 1
+    131e:	a7 df       	rcall	.-178    	; 0x126e <writeColor>
+
+		lvds_enableGreen_MakeClockSensitiveToDT();
+    1320:	83 e5       	ldi	r24, 0x53	; 83
+    1322:	80 bf       	out	0x30, r24	; 48
+    1324:	81 e1       	ldi	r24, 0x11	; 17
+    1326:	90 e0       	ldi	r25, 0x00	; 0
+    1328:	01 97       	sbiw	r24, 0x01	; 1
+    132a:	f1 f7       	brne	.-4      	; 0x1328 <nonRSB_drawPix+0x32>
+#if(!defined(FB_WIDTH) || (FB_WIDTH > 64) || FB_WIDTH < 2)
+ #error "FB_WIDTH needs to be a defined value from 2 to 64"
+#else
+
+#if(FB_WIDTH>=(2))
+  writeColor(FALSE,TRUE, *(color+1));
+    132c:	49 81       	ldd	r20, Y+1	; 0x01
+    132e:	61 e0       	ldi	r22, 0x01	; 1
+    1330:	80 e0       	ldi	r24, 0x00	; 0
+    1332:	9d df       	rcall	.-198    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(3))
+  writeColor(FALSE,TRUE, *(color+2));
+    1334:	4a 81       	ldd	r20, Y+2	; 0x02
+    1336:	61 e0       	ldi	r22, 0x01	; 1
+    1338:	80 e0       	ldi	r24, 0x00	; 0
+    133a:	99 df       	rcall	.-206    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(4))
+  writeColor(FALSE,TRUE, *(color+3));
+    133c:	4b 81       	ldd	r20, Y+3	; 0x03
+    133e:	61 e0       	ldi	r22, 0x01	; 1
+    1340:	80 e0       	ldi	r24, 0x00	; 0
+    1342:	95 df       	rcall	.-214    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(5))
+  writeColor(FALSE,TRUE, *(color+4));
+    1344:	4c 81       	ldd	r20, Y+4	; 0x04
+    1346:	61 e0       	ldi	r22, 0x01	; 1
+    1348:	80 e0       	ldi	r24, 0x00	; 0
+    134a:	91 df       	rcall	.-222    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(6))
+  writeColor(FALSE,TRUE, *(color+5));
+    134c:	4d 81       	ldd	r20, Y+5	; 0x05
+    134e:	61 e0       	ldi	r22, 0x01	; 1
+    1350:	80 e0       	ldi	r24, 0x00	; 0
+    1352:	8d df       	rcall	.-230    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(7))
+  writeColor(FALSE,TRUE, *(color+6));
+    1354:	4e 81       	ldd	r20, Y+6	; 0x06
+    1356:	61 e0       	ldi	r22, 0x01	; 1
+    1358:	80 e0       	ldi	r24, 0x00	; 0
+    135a:	89 df       	rcall	.-238    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(8))
+  writeColor(FALSE,TRUE, *(color+7));
+    135c:	4f 81       	ldd	r20, Y+7	; 0x07
+    135e:	61 e0       	ldi	r22, 0x01	; 1
+    1360:	80 e0       	ldi	r24, 0x00	; 0
+    1362:	85 df       	rcall	.-246    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(9))
+  writeColor(FALSE,TRUE, *(color+8));
+    1364:	48 85       	ldd	r20, Y+8	; 0x08
+    1366:	61 e0       	ldi	r22, 0x01	; 1
+    1368:	80 e0       	ldi	r24, 0x00	; 0
+    136a:	81 df       	rcall	.-254    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(10))
+  writeColor(FALSE,TRUE, *(color+9));
+    136c:	49 85       	ldd	r20, Y+9	; 0x09
+    136e:	61 e0       	ldi	r22, 0x01	; 1
+    1370:	80 e0       	ldi	r24, 0x00	; 0
+    1372:	7d df       	rcall	.-262    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(11))
+  writeColor(FALSE,TRUE, *(color+10));
+    1374:	4a 85       	ldd	r20, Y+10	; 0x0a
+    1376:	61 e0       	ldi	r22, 0x01	; 1
+    1378:	80 e0       	ldi	r24, 0x00	; 0
+    137a:	79 df       	rcall	.-270    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(12))
+  writeColor(FALSE,TRUE, *(color+11));
+    137c:	4b 85       	ldd	r20, Y+11	; 0x0b
+    137e:	61 e0       	ldi	r22, 0x01	; 1
+    1380:	80 e0       	ldi	r24, 0x00	; 0
+    1382:	75 df       	rcall	.-278    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(13))
+  writeColor(FALSE,TRUE, *(color+12));
+    1384:	4c 85       	ldd	r20, Y+12	; 0x0c
+    1386:	61 e0       	ldi	r22, 0x01	; 1
+    1388:	80 e0       	ldi	r24, 0x00	; 0
+    138a:	71 df       	rcall	.-286    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(14))
+  writeColor(FALSE,TRUE, *(color+13));
+    138c:	4d 85       	ldd	r20, Y+13	; 0x0d
+    138e:	61 e0       	ldi	r22, 0x01	; 1
+    1390:	80 e0       	ldi	r24, 0x00	; 0
+    1392:	6d df       	rcall	.-294    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(15))
+  writeColor(FALSE,TRUE, *(color+14));
+    1394:	4e 85       	ldd	r20, Y+14	; 0x0e
+    1396:	61 e0       	ldi	r22, 0x01	; 1
+    1398:	80 e0       	ldi	r24, 0x00	; 0
+    139a:	69 df       	rcall	.-302    	; 0x126e <writeColor>
+#endif
+#if(FB_WIDTH>=(16))
+  writeColor(FALSE,TRUE, *(color+15));
+    139c:	4f 85       	ldd	r20, Y+15	; 0x0f
+    139e:	61 e0       	ldi	r22, 0x01	; 1
+    13a0:	80 e0       	ldi	r24, 0x00	; 0
+    13a2:	65 df       	rcall	.-310    	; 0x126e <writeColor>
+*/		//This could probably be optimized a bit... maybe just using *one*
+		//SRAM location, instead of using one at the end of each row...
+		// but this should be pretty much guaranteed to be the same length
+		// since it uses the same convention.
+		// Looks close to right, but it could be an illusion ;)
+		writeColor(FALSE,FALSE, *(color+FB_WIDTH));
+    13a4:	48 89       	ldd	r20, Y+16	; 0x10
+    13a6:	60 e0       	ldi	r22, 0x00	; 0
+    13a8:	80 e0       	ldi	r24, 0x00	; 0
+    13aa:	61 df       	rcall	.-318    	; 0x126e <writeColor>
+		// Setting this here indicates where the drawing has completed
+		// This is handy for determining timing, stretching, etc...
+		//OCR1D = 6; //0;
+		//fullRed();
+		// Now that we're using WHITE, use noRed instead
+		noRed();
+    13ac:	1a bc       	out	0x2a, r1	; 42
+      // Since Nada, V, and H DT's might be bad for clocking.
+//		TCCR1A = ( (0<<COM1A1) | (1<<COM1A0)
+//         | (1<<COM1B1) | (0<<COM1B0)
+//         | (1<<PWM1A) | (1<<PWM1B) );
+
+		lvds_disableGreen_MakeClockInsensitiveToDT();
+    13ae:	83 e6       	ldi	r24, 0x63	; 99
+    13b0:	80 bf       	out	0x30, r24	; 48
+
+      //fullBlue();
+      //Nada_fromDEonly();
+		Nada_init();
+    13b2:	80 e3       	ldi	r24, 0x30	; 48
+    13b4:	84 bd       	out	0x24, r24	; 36
+    13b6:	84 e0       	ldi	r24, 0x04	; 4
+    13b8:	8d bd       	out	0x2d, r24	; 45
+}
+    13ba:	df 91       	pop	r29
+    13bc:	cf 91       	pop	r28
+    13be:	08 95       	ret
+
+000013c0 <setSpriteSkyColorOverride>:
+const __flash sprite_t *skyOverrideSprite = NULL;
+//uint8_t skyOverridePalette;
+
+void setSpriteSkyColorOverride(const __flash sprite_t *sprite) //, uint8_t palette)
+{
+	skyOverrideSprite = sprite;
+    13c0:	90 93 87 00 	sts	0x0087, r25
+    13c4:	80 93 86 00 	sts	0x0086, r24
+    13c8:	08 95       	ret
+
+000013ca <getRawPixelVal>:
+uint8_t getRawPixelVal(const __flash sprite_t *sprite, uint8_t row, 
+														uint8_t col, uint8_t imageNum)
+{
+
+	return
+		(((pgm_read_byte((uint8_t *)(&(sprite->p_image[imageNum][ \
+    13ca:	30 e0       	ldi	r19, 0x00	; 0
+    13cc:	56 e0       	ldi	r21, 0x06	; 6
+    13ce:	22 0f       	add	r18, r18
+    13d0:	33 1f       	adc	r19, r19
+    13d2:	5a 95       	dec	r21
+    13d4:	e1 f7       	brne	.-8      	; 0x13ce <getRawPixelVal+0x4>
+    13d6:	fc 01       	movw	r30, r24
+    13d8:	a5 91       	lpm	r26, Z+
+    13da:	b5 91       	lpm	r27, Z+
+    13dc:	a2 0f       	add	r26, r18
+    13de:	b3 1f       	adc	r27, r19
+    13e0:	70 e0       	ldi	r23, 0x00	; 0
+    13e2:	66 0f       	add	r22, r22
+    13e4:	77 1f       	adc	r23, r23
+    13e6:	66 0f       	add	r22, r22
+    13e8:	77 1f       	adc	r23, r23
+    13ea:	84 2f       	mov	r24, r20
+    13ec:	86 95       	lsr	r24
+    13ee:	86 95       	lsr	r24
+    13f0:	68 0f       	add	r22, r24
+    13f2:	71 1d       	adc	r23, r1
+    13f4:	a6 0f       	add	r26, r22
+    13f6:	b7 1f       	adc	r27, r23
+    13f8:	fd 01       	movw	r30, r26
+    13fa:	84 91       	lpm	r24, Z
+					(row)*PACKED_BYTES_PER_ROW + (col)/PIXELS_PER_PACKAGE])))\
+		  )>>((col)%PIXELS_PER_PACKAGE)*(PACKED_BITS_PER_PIXEL))&0x03);
+    13fc:	90 e0       	ldi	r25, 0x00	; 0
+    13fe:	43 70       	andi	r20, 0x03	; 3
+    1400:	44 0f       	add	r20, r20
+    1402:	02 c0       	rjmp	.+4      	; 0x1408 <getRawPixelVal+0x3e>
+    1404:	95 95       	asr	r25
+    1406:	87 95       	ror	r24
+    1408:	4a 95       	dec	r20
+    140a:	e2 f7       	brpl	.-8      	; 0x1404 <getRawPixelVal+0x3a>
+}
+    140c:	83 70       	andi	r24, 0x03	; 3
+    140e:	08 95       	ret
+
+00001410 <rawPixValToGimpColorVal>:
+
+uint8_t rawPixValToGimpColorVal(uint8_t rawPixelVal, const __flash sprite_t *sprite, 
+																			uint8_t palette)
+{
+	return 
+	pgm_read_byte(
+    1410:	6c 5f       	subi	r22, 0xFC	; 252
+    1412:	7f 4f       	sbci	r23, 0xFF	; 255
+    1414:	50 e0       	ldi	r21, 0x00	; 0
+    1416:	44 0f       	add	r20, r20
+    1418:	55 1f       	adc	r21, r21
+    141a:	44 0f       	add	r20, r20
+    141c:	55 1f       	adc	r21, r21
+    141e:	48 0f       	add	r20, r24
+    1420:	51 1d       	adc	r21, r1
+    1422:	fb 01       	movw	r30, r22
+    1424:	85 91       	lpm	r24, Z+
+    1426:	95 91       	lpm	r25, Z+
+    1428:	84 0f       	add	r24, r20
+    142a:	95 1f       	adc	r25, r21
+    142c:	fc 01       	movw	r30, r24
+    142e:	84 91       	lpm	r24, Z
+			(uint8_t *)(&(sprite->p_palette[ (palette)*4 + rawPixelVal ])));
+}
+    1430:	08 95       	ret
+
+00001432 <fbQ_repositionSprite>:
+//This can also be used for repositioning the camera...
+//THIS ASSUMES it's only called ONCE per count...
+//Currently returns TRUE if a change has been detected
+// (FOR REFRESH_ON_CHANGE)
+uint8_t fbQ_repositionSprite(spriteState_t *state)
+{
+    1432:	ff 92       	push	r15
+    1434:	0f 93       	push	r16
+    1436:	1f 93       	push	r17
+    1438:	cf 93       	push	r28
+    143a:	df 93       	push	r29
+    143c:	dc 01       	movw	r26, r24
+      state->position[axis] = startPos;
+      state->dir[axis] = 1;
+   }
+	*/
+
+   int8_t motion = GET_MOTION(state->motion[axis].motion, state->count);
+    143e:	19 96       	adiw	r26, 0x09	; 9
+    1440:	0d 91       	ld	r16, X+
+    1442:	1c 91       	ld	r17, X
+    1444:	1a 97       	sbiw	r26, 0x0a	; 10
+    1446:	ec 01       	movw	r28, r24
+    1448:	20 e0       	ldi	r18, 0x00	; 0
+    144a:	30 e0       	ldi	r19, 0x00	; 0
+uint8_t fbQ_repositionSprite(spriteState_t *state)
+{
+	//This isn't particularly-well-implemented
+	// (for REFRESH_ON_CHANGE)
+	// since, e.g., the camera could move along with the sprite...
+	uint8_t changeDetected = FALSE;
+    144c:	f1 2c       	mov	r15, r1
+    144e:	c9 01       	movw	r24, r18
+    1450:	63 e0       	ldi	r22, 0x03	; 3
+    1452:	70 e0       	ldi	r23, 0x00	; 0
+    1454:	04 d5       	rcall	.+2568   	; 0x1e5e <__mulhi3>
+    1456:	f8 01       	movw	r30, r16
+    1458:	e8 0f       	add	r30, r24
+    145a:	f9 1f       	adc	r31, r25
+    145c:	31 96       	adiw	r30, 0x01	; 1
+      state->position[axis] = startPos;
+      state->dir[axis] = 1;
+   }
+	*/
+
+   int8_t motion = GET_MOTION(state->motion[axis].motion, state->count);
+    145e:	05 90       	lpm	r0, Z+
+    1460:	f4 91       	lpm	r31, Z
+    1462:	e0 2d       	mov	r30, r0
+    1464:	ad 01       	movw	r20, r26
+    1466:	42 0f       	add	r20, r18
+    1468:	53 1f       	adc	r21, r19
+    146a:	30 97       	sbiw	r30, 0x00	; 0
+    146c:	c9 f0       	breq	.+50     	; 0x14a0 <fbQ_repositionSprite+0x6e>
+    146e:	14 96       	adiw	r26, 0x04	; 4
+    1470:	8c 91       	ld	r24, X
+    1472:	14 97       	sbiw	r26, 0x04	; 4
+    1474:	98 2f       	mov	r25, r24
+    1476:	96 95       	lsr	r25
+    1478:	96 95       	lsr	r25
+    147a:	e9 0f       	add	r30, r25
+    147c:	f1 1d       	adc	r31, r1
+    147e:	e4 91       	lpm	r30, Z
+    1480:	f0 e0       	ldi	r31, 0x00	; 0
+    1482:	83 70       	andi	r24, 0x03	; 3
+    1484:	88 0f       	add	r24, r24
+    1486:	02 c0       	rjmp	.+4      	; 0x148c <fbQ_repositionSprite+0x5a>
+    1488:	f5 95       	asr	r31
+    148a:	e7 95       	ror	r30
+    148c:	8a 95       	dec	r24
+    148e:	e2 f7       	brpl	.-8      	; 0x1488 <fbQ_repositionSprite+0x56>
+    1490:	8e 2f       	mov	r24, r30
+    1492:	83 70       	andi	r24, 0x03	; 3
+   if(motion == DIR_TOGGLE)
+    1494:	83 30       	cpi	r24, 0x03	; 3
+    1496:	29 f4       	brne	.+10     	; 0x14a2 <fbQ_repositionSprite+0x70>
+   {
+      state->dir[axis] = -state->dir[axis];
+    1498:	fa 01       	movw	r30, r20
+    149a:	82 81       	ldd	r24, Z+2	; 0x02
+    149c:	81 95       	neg	r24
+    149e:	82 83       	std	Z+2, r24	; 0x02
+      state->position[axis] = startPos;
+      state->dir[axis] = 1;
+   }
+	*/
+
+   int8_t motion = GET_MOTION(state->motion[axis].motion, state->count);
+    14a0:	80 e0       	ldi	r24, 0x00	; 0
+   {
+      state->dir[axis] = -state->dir[axis];
+      motion = 0;
+   }
+
+   motion *= state->dir[axis];
+    14a2:	fa 01       	movw	r30, r20
+    14a4:	62 81       	ldd	r22, Z+2	; 0x02
+    14a6:	d2 d4       	rcall	.+2468   	; 0x1e4c <__mulqi3>
+
+   //Considering having LeafX be more like acceleration...?
+   // e.g. motion: 1, 0, 0, DIR_TOGGLE -> motionX = 1 1 1 0(-)
+   //(-= because we want +1 to shift right)
+   if(axis == 0)
+    14a8:	21 11       	cpse	r18, r1
+    14aa:	01 c0       	rjmp	.+2      	; 0x14ae <fbQ_repositionSprite+0x7c>
+      motion *= (-1);
+    14ac:	81 95       	neg	r24
+
+   state->position[axis] += motion;
+    14ae:	98 81       	ld	r25, Y
+    14b0:	98 0f       	add	r25, r24
+    14b2:	99 93       	st	Y+, r25
+
+	if(motion)
+    14b4:	88 23       	and	r24, r24
+    14b6:	11 f0       	breq	.+4      	; 0x14bc <fbQ_repositionSprite+0x8a>
+		changeDetected = TRUE;
+    14b8:	ff 24       	eor	r15, r15
+    14ba:	f3 94       	inc	r15
+    14bc:	2f 5f       	subi	r18, 0xFF	; 255
+    14be:	3f 4f       	sbci	r19, 0xFF	; 255
+	// (for REFRESH_ON_CHANGE)
+	// since, e.g., the camera could move along with the sprite...
+	uint8_t changeDetected = FALSE;
+   uint8_t axis;
+
+   for(axis=0; axis<=1; axis++)
+    14c0:	22 30       	cpi	r18, 0x02	; 2
+    14c2:	31 05       	cpc	r19, r1
+    14c4:	21 f6       	brne	.-120    	; 0x144e <fbQ_repositionSprite+0x1c>
+	if(motion)
+		changeDetected = TRUE;
+   }
+
+	//e.g. the camera...
+	if(state->sprite != NULL)
+    14c6:	1b 96       	adiw	r26, 0x0b	; 11
+    14c8:	2d 91       	ld	r18, X+
+    14ca:	3c 91       	ld	r19, X
+    14cc:	1c 97       	sbiw	r26, 0x0c	; 12
+    14ce:	21 15       	cp	r18, r1
+    14d0:	31 05       	cpc	r19, r1
+    14d2:	69 f1       	breq	.+90     	; 0x152e <fbQ_repositionSprite+0xfc>
+	{
+		uint8_t oldPaletteNum = state->paletteNum;
+    14d4:	1d 96       	adiw	r26, 0x0d	; 13
+    14d6:	4c 91       	ld	r20, X
+    14d8:	1d 97       	sbiw	r26, 0x0d	; 13
+
+		uint8_t paletteAdvance = 
+		  GET_PALETTE_ADVANCE(state->sprite->p_paletteAdvance, state->count);
+    14da:	f9 01       	movw	r30, r18
+    14dc:	70 96       	adiw	r30, 0x10	; 16
+    14de:	05 90       	lpm	r0, Z+
+    14e0:	f4 91       	lpm	r31, Z
+    14e2:	e0 2d       	mov	r30, r0
+	//e.g. the camera...
+	if(state->sprite != NULL)
+	{
+		uint8_t oldPaletteNum = state->paletteNum;
+
+		uint8_t paletteAdvance = 
+    14e4:	30 97       	sbiw	r30, 0x00	; 0
+    14e6:	99 f0       	breq	.+38     	; 0x150e <fbQ_repositionSprite+0xdc>
+		  GET_PALETTE_ADVANCE(state->sprite->p_paletteAdvance, state->count);
+    14e8:	14 96       	adiw	r26, 0x04	; 4
+    14ea:	8c 91       	ld	r24, X
+    14ec:	14 97       	sbiw	r26, 0x04	; 4
+    14ee:	98 2f       	mov	r25, r24
+    14f0:	96 95       	lsr	r25
+    14f2:	96 95       	lsr	r25
+    14f4:	96 95       	lsr	r25
+    14f6:	e9 0f       	add	r30, r25
+    14f8:	f1 1d       	adc	r31, r1
+    14fa:	e4 91       	lpm	r30, Z
+    14fc:	f0 e0       	ldi	r31, 0x00	; 0
+    14fe:	87 70       	andi	r24, 0x07	; 7
+    1500:	02 c0       	rjmp	.+4      	; 0x1506 <fbQ_repositionSprite+0xd4>
+    1502:	f5 95       	asr	r31
+    1504:	e7 95       	ror	r30
+    1506:	8a 95       	dec	r24
+    1508:	e2 f7       	brpl	.-8      	; 0x1502 <fbQ_repositionSprite+0xd0>
+	//e.g. the camera...
+	if(state->sprite != NULL)
+	{
+		uint8_t oldPaletteNum = state->paletteNum;
+
+		uint8_t paletteAdvance = 
+    150a:	e1 70       	andi	r30, 0x01	; 1
+    150c:	01 c0       	rjmp	.+2      	; 0x1510 <fbQ_repositionSprite+0xde>
+    150e:	e0 e0       	ldi	r30, 0x00	; 0
+		  GET_PALETTE_ADVANCE(state->sprite->p_paletteAdvance, state->count);
+
+		state->paletteNum += paletteAdvance;
+    1510:	8e 2f       	mov	r24, r30
+    1512:	84 0f       	add	r24, r20
+    1514:	1d 96       	adiw	r26, 0x0d	; 13
+    1516:	8c 93       	st	X, r24
+    1518:	1d 97       	sbiw	r26, 0x0d	; 13
+		state->paletteNum %= state->sprite->numPalettes;
+    151a:	f9 01       	movw	r30, r18
+    151c:	36 96       	adiw	r30, 0x06	; 6
+    151e:	64 91       	lpm	r22, Z
+    1520:	af d4       	rcall	.+2398   	; 0x1e80 <__udivmodqi4>
+    1522:	1d 96       	adiw	r26, 0x0d	; 13
+    1524:	9c 93       	st	X, r25
+
+		if(state->paletteNum != oldPaletteNum)
+    1526:	94 17       	cp	r25, r20
+    1528:	11 f0       	breq	.+4      	; 0x152e <fbQ_repositionSprite+0xfc>
+			changeDetected = TRUE;
+    152a:	ff 24       	eor	r15, r15
+    152c:	f3 94       	inc	r15
+	}
+
+	return changeDetected;
+}
+    152e:	8f 2d       	mov	r24, r15
+    1530:	df 91       	pop	r29
+    1532:	cf 91       	pop	r28
+    1534:	1f 91       	pop	r17
+    1536:	0f 91       	pop	r16
+    1538:	ff 90       	pop	r15
+    153a:	08 95       	ret
+
+0000153c <fbQ_overlaySprite>:
+//determined by its motionStuff... (repositionSprite() needs to be called
+//prior)
+//Eventually will return the rowNum for REFRESH_ON_CHANGE, etc...
+uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *state)     
+																//int8_t *spritePosition)
+{
+    153c:	2f 92       	push	r2
+    153e:	3f 92       	push	r3
+    1540:	4f 92       	push	r4
+    1542:	5f 92       	push	r5
+    1544:	6f 92       	push	r6
+    1546:	7f 92       	push	r7
+    1548:	8f 92       	push	r8
+    154a:	9f 92       	push	r9
+    154c:	af 92       	push	r10
+    154e:	bf 92       	push	r11
+    1550:	cf 92       	push	r12
+    1552:	df 92       	push	r13
+    1554:	ef 92       	push	r14
+    1556:	ff 92       	push	r15
+    1558:	0f 93       	push	r16
+    155a:	1f 93       	push	r17
+    155c:	cf 93       	push	r28
+    155e:	df 93       	push	r29
+    1560:	00 d0       	rcall	.+0      	; 0x1562 <fbQ_overlaySprite+0x26>
+    1562:	00 d0       	rcall	.+0      	; 0x1564 <fbQ_overlaySprite+0x28>
+    1564:	1f 92       	push	r1
+    1566:	cd b7       	in	r28, 0x3d	; 61
+    1568:	de b7       	in	r29, 0x3e	; 62
+    156a:	9d 83       	std	Y+5, r25	; 0x05
+    156c:	8c 83       	std	Y+4, r24	; 0x04
+    156e:	ab 01       	movw	r20, r22
+    1570:	42 96       	adiw	r24, 0x12	; 18
+    1572:	7c 01       	movw	r14, r24
+	uint8_t count = 0;
+	uint8_t spriteImageNum = 0;
+
+	//An unchanging sprite, e.g. SOLID in the background of a Reward...
+	// (when NULL)
+	if (state != NULL)
+    1574:	61 15       	cp	r22, r1
+    1576:	71 05       	cpc	r23, r1
+    1578:	09 f4       	brne	.+2      	; 0x157c <fbQ_overlaySprite+0x40>
+    157a:	61 c0       	rjmp	.+194    	; 0x163e <fbQ_overlaySprite+0x102>
+	{
+		position[0] = state->position[0];
+    157c:	db 01       	movw	r26, r22
+    157e:	3c 90       	ld	r3, X
+		position[1] = state->position[1];
+    1580:	11 96       	adiw	r26, 0x01	; 1
+    1582:	bc 91       	ld	r27, X
+    1584:	b9 83       	std	Y+1, r27	; 0x01
+		//hFlip = state->sprite->p_hFlip;	//6404
+		p_hFlip = state->hFlip;					//6382
+    1586:	fb 01       	movw	r30, r22
+    1588:	07 81       	ldd	r16, Z+7	; 0x07
+    158a:	10 85       	ldd	r17, Z+8	; 0x08
+		count = state->count;
+    158c:	a4 80       	ldd	r10, Z+4	; 0x04
+		paletteForColor = state->paletteNum;
+    158e:	45 84       	ldd	r4, Z+13	; 0x0d
+		
+		//If this sprite is recently-selected... make sure it's drawn
+		// (a/o QUESTION3 which currently has a totalCount of 1)
+		if(count == 0)
+    1590:	31 e0       	ldi	r19, 0x01	; 1
+    1592:	a1 10       	cpse	r10, r1
+    1594:	30 e0       	ldi	r19, 0x00	; 0
+			changeOccurred = TRUE;
+
+
+		spriteImageNum = (state->count)%(p_theSprite->numImages);
+    1596:	f7 01       	movw	r30, r14
+    1598:	64 91       	lpm	r22, Z
+    159a:	8a 2d       	mov	r24, r10
+    159c:	71 d4       	rcall	.+2274   	; 0x1e80 <__udivmodqi4>
+    159e:	59 2e       	mov	r5, r25
+//#if FALSE
+#ifdef __QUESTION3_H__
+		if(p_theSprite == &spriteQUESTION3)
+    15a0:	8c 81       	ldd	r24, Y+4	; 0x04
+    15a2:	9d 81       	ldd	r25, Y+5	; 0x05
+    15a4:	8d 59       	subi	r24, 0x9D	; 157
+    15a6:	9a 40       	sbci	r25, 0x0A	; 10
+    15a8:	79 f4       	brne	.+30     	; 0x15c8 <fbQ_overlaySprite+0x8c>
+		{
+			//upon first-call after prepNextSprite, count will be 0
+			// Draw the '?' first, then overlap it with the frame...
+			if((state->count)%2 == 0)
+    15aa:	a0 fc       	sbrc	r10, 0
+    15ac:	0b c0       	rjmp	.+22     	; 0x15c4 <fbQ_overlaySprite+0x88>
+				//				  will increment count to odd
+				//            will call overlaySprite() with odd
+				//                      ---> will draw bottom-sprite with odd
+				//            will continue with count odd (but UNTESTED AGAIN)
+				//	
+				state->count++;
+    15ae:	81 e0       	ldi	r24, 0x01	; 1
+    15b0:	8a 0d       	add	r24, r10
+    15b2:	fa 01       	movw	r30, r20
+    15b4:	84 83       	std	Z+4, r24	; 0x04
+				if(fbQ_overlaySprite(p_theSprite, state))
+    15b6:	ba 01       	movw	r22, r20
+    15b8:	8d e9       	ldi	r24, 0x9D	; 157
+    15ba:	9a e0       	ldi	r25, 0x0A	; 10
+    15bc:	bf df       	rcall	.-130    	; 0x153c <fbQ_overlaySprite>
+					changeOccurred = TRUE;
+				//NOW (despite count, now, being odd) draw the top-sprite
+				// (FRAME)
+				spriteImageNum = 1;
+    15be:	55 24       	eor	r5, r5
+    15c0:	53 94       	inc	r5
+    15c2:	01 c0       	rjmp	.+2      	; 0x15c6 <fbQ_overlaySprite+0x8a>
+			}
+			else	//odd-count, so draw the bottom-sprite first ('?')
+			{
+				//state->count = 0;
+				//count = 0;
+				spriteImageNum = 0;
+    15c4:	51 2c       	mov	r5, r1
+				changeOccurred = TRUE;
+    15c6:	31 e0       	ldi	r19, 0x01	; 1
+
+		}
+#endif
+	}
+
+	uint8_t thisHFlip = GET_FLIP(p_hFlip, count);
+    15c8:	01 15       	cp	r16, r1
+    15ca:	11 05       	cpc	r17, r1
+    15cc:	61 f1       	breq	.+88     	; 0x1626 <fbQ_overlaySprite+0xea>
+    15ce:	8a 2d       	mov	r24, r10
+    15d0:	86 95       	lsr	r24
+    15d2:	86 95       	lsr	r24
+    15d4:	86 95       	lsr	r24
+    15d6:	f8 01       	movw	r30, r16
+    15d8:	e8 0f       	add	r30, r24
+    15da:	f1 1d       	adc	r31, r1
+    15dc:	e4 91       	lpm	r30, Z
+    15de:	f0 e0       	ldi	r31, 0x00	; 0
+    15e0:	8a 2d       	mov	r24, r10
+    15e2:	87 70       	andi	r24, 0x07	; 7
+    15e4:	02 c0       	rjmp	.+4      	; 0x15ea <fbQ_overlaySprite+0xae>
+    15e6:	f5 95       	asr	r31
+    15e8:	e7 95       	ror	r30
+    15ea:	8a 95       	dec	r24
+    15ec:	e2 f7       	brpl	.-8      	; 0x15e6 <fbQ_overlaySprite+0xaa>
+    15ee:	2e 2f       	mov	r18, r30
+    15f0:	21 70       	andi	r18, 0x01	; 1
+    15f2:	72 2e       	mov	r7, r18
+	if(count > 0)
+    15f4:	aa 20       	and	r10, r10
+    15f6:	51 f1       	breq	.+84     	; 0x164c <fbQ_overlaySprite+0x110>
+	{
+		//Check if the flip-state has changed...
+		if(GET_FLIP(p_hFlip, count-1) != thisHFlip)
+    15f8:	8a 2d       	mov	r24, r10
+    15fa:	90 e0       	ldi	r25, 0x00	; 0
+    15fc:	01 97       	sbiw	r24, 0x01	; 1
+    15fe:	fc 01       	movw	r30, r24
+    1600:	23 e0       	ldi	r18, 0x03	; 3
+    1602:	f5 95       	asr	r31
+    1604:	e7 95       	ror	r30
+    1606:	2a 95       	dec	r18
+    1608:	e1 f7       	brne	.-8      	; 0x1602 <fbQ_overlaySprite+0xc6>
+    160a:	e0 0f       	add	r30, r16
+    160c:	f1 1f       	adc	r31, r17
+    160e:	e4 91       	lpm	r30, Z
+    1610:	f0 e0       	ldi	r31, 0x00	; 0
+    1612:	87 70       	andi	r24, 0x07	; 7
+    1614:	99 27       	eor	r25, r25
+    1616:	02 c0       	rjmp	.+4      	; 0x161c <fbQ_overlaySprite+0xe0>
+    1618:	f5 95       	asr	r31
+    161a:	e7 95       	ror	r30
+    161c:	8a 95       	dec	r24
+    161e:	e2 f7       	brpl	.-8      	; 0x1618 <fbQ_overlaySprite+0xdc>
+    1620:	e1 70       	andi	r30, 0x01	; 1
+    1622:	ff 27       	eor	r31, r31
+    1624:	05 c0       	rjmp	.+10     	; 0x1630 <fbQ_overlaySprite+0xf4>
+
+		}
+#endif
+	}
+
+	uint8_t thisHFlip = GET_FLIP(p_hFlip, count);
+    1626:	71 2c       	mov	r7, r1
+	if(count > 0)
+    1628:	aa 20       	and	r10, r10
+    162a:	81 f0       	breq	.+32     	; 0x164c <fbQ_overlaySprite+0x110>
+	{
+		//Check if the flip-state has changed...
+		if(GET_FLIP(p_hFlip, count-1) != thisHFlip)
+    162c:	e0 e0       	ldi	r30, 0x00	; 0
+    162e:	f0 e0       	ldi	r31, 0x00	; 0
+    1630:	87 2d       	mov	r24, r7
+    1632:	90 e0       	ldi	r25, 0x00	; 0
+    1634:	e8 17       	cp	r30, r24
+    1636:	f9 07       	cpc	r31, r25
+    1638:	49 f0       	breq	.+18     	; 0x164c <fbQ_overlaySprite+0x110>
+			changeOccurred = TRUE;
+    163a:	31 e0       	ldi	r19, 0x01	; 1
+    163c:	07 c0       	rjmp	.+14     	; 0x164c <fbQ_overlaySprite+0x110>
+
+   //I can't recall how this used to work...
+//   uint8_t paletteForColor = getSpritePalette(p_theSprite, 0, 0);
+	uint8_t paletteForColor = 0;
+
+	int8_t position[2] = {0,0};
+    163e:	19 82       	std	Y+1, r1	; 0x01
+    1640:	31 2c       	mov	r3, r1
+	uint8_t * p_hFlip = NULL;
+	uint8_t count = 0;
+	uint8_t spriteImageNum = 0;
+    1642:	51 2c       	mov	r5, r1
+   //int8_t camRow, camCol;
+   int8_t frameRow, frameCol;
+
+   //I can't recall how this used to work...
+//   uint8_t paletteForColor = getSpritePalette(p_theSprite, 0, 0);
+	uint8_t paletteForColor = 0;
+    1644:	41 2c       	mov	r4, r1
+
+	int8_t position[2] = {0,0};
+	uint8_t * p_hFlip = NULL;
+	uint8_t count = 0;
+    1646:	a1 2c       	mov	r10, r1
+
+		}
+#endif
+	}
+
+	uint8_t thisHFlip = GET_FLIP(p_hFlip, count);
+    1648:	71 2c       	mov	r7, r1
+uint8_t fbQ_overlaySprite(const __flash sprite_t *p_theSprite, spriteState_t *state)     
+																//int8_t *spritePosition)
+{
+   //uint8_t imageChangedTillRow=0;
+	// doesn't really work any longer, since overlays happen multiplely
+   uint8_t changeOccurred = FALSE;
+    164a:	30 e0       	ldi	r19, 0x00	; 0
+		// (currently no sprites cycle hFlips)
+		//I guess I'll just leave it alone.
+	}
+
+	//Sprite always cycles through the images, one with each redraw...
+	if(p_theSprite->numImages > 1)
+    164c:	f7 01       	movw	r30, r14
+    164e:	84 91       	lpm	r24, Z
+    1650:	82 30       	cpi	r24, 0x02	; 2
+    1652:	08 f0       	brcs	.+2      	; 0x1656 <fbQ_overlaySprite+0x11a>
+		changeOccurred = TRUE;
+    1654:	31 e0       	ldi	r19, 0x01	; 1
+    1656:	be ea       	ldi	r27, 0xAE	; 174
+    1658:	eb 2e       	mov	r14, r27
+    165a:	b0 e0       	ldi	r27, 0x00	; 0
+    165c:	fb 2e       	mov	r15, r27
+
+   for(frameRow = 0; frameRow<FB_HEIGHT; frameRow++)
+    165e:	21 2c       	mov	r2, r1
+      
+         int8_t spriteCol;
+		  
+#ifdef __QUESTION3_H__
+			//Count is odd, so we're drawing the '?', which needs shifting...
+			if((p_theSprite == &spriteQUESTION3) && (count%2 == 1))
+    1660:	fa 2d       	mov	r31, r10
+    1662:	f1 70       	andi	r31, 0x01	; 1
+    1664:	fa 83       	std	Y+2, r31	; 0x02
+			{
+				//Scroll left-to-right
+				// ??? Is there any issue with this going negative?
+				spriteCol =
+           		((position[0] - cameraState.position[0]) + frameCol - count)
+    1666:	c3 2c       	mov	r12, r3
+    1668:	dd 24       	eor	r13, r13
+    166a:	c7 fc       	sbrc	r12, 7
+    166c:	d0 94       	com	r13
+    166e:	b1 2c       	mov	r11, r1
+			  			% FB_WIDTH;
+    1670:	10 e1       	ldi	r17, 0x10	; 16
+    1672:	81 2e       	mov	r8, r17
+    1674:	91 2c       	mov	r9, r1
+	if(p_theSprite->numImages > 1)
+		changeOccurred = TRUE;
+
+   for(frameRow = 0; frameRow<FB_HEIGHT; frameRow++)
+   {
+      int8_t spriteRow =
+    1676:	80 91 a1 00 	lds	r24, 0x00A1
+    167a:	69 80       	ldd	r6, Y+1	; 0x01
+    167c:	68 1a       	sub	r6, r24
+    167e:	62 0c       	add	r6, r2
+         (position[1] - cameraState.position[1]) + frameRow;
+         
+      //The sky's already been drawn...
+      if((spriteRow >= FB_HEIGHT) || (spriteRow < 0))
+    1680:	2f e0       	ldi	r18, 0x0F	; 15
+    1682:	26 15       	cp	r18, r6
+    1684:	08 f4       	brcc	.+2      	; 0x1688 <fbQ_overlaySprite+0x14c>
+    1686:	51 c0       	rjmp	.+162    	; 0x172a <fbQ_overlaySprite+0x1ee>
+         continue;
+        
+	  	if(p_theSprite == &spriteFLOWER)
+    1688:	4c 81       	ldd	r20, Y+4	; 0x04
+    168a:	5d 81       	ldd	r21, Y+5	; 0x05
+    168c:	46 5c       	subi	r20, 0xC6	; 198
+    168e:	57 40       	sbci	r21, 0x07	; 7
+    1690:	29 f4       	brne	.+10     	; 0x169c <fbQ_overlaySprite+0x160>
+		{	
+			if(spriteRow >= 8)
+    1692:	97 e0       	ldi	r25, 0x07	; 7
+    1694:	96 15       	cp	r25, r6
+    1696:	14 f4       	brge	.+4      	; 0x169c <fbQ_overlaySprite+0x160>
+				paletteForColor = NUMPALETTES_FLOWER-1;
+    1698:	a3 e0       	ldi	r26, 0x03	; 3
+    169a:	4a 2e       	mov	r4, r26
+    169c:	00 e0       	ldi	r16, 0x00	; 0
+    169e:	10 e0       	ldi	r17, 0x00	; 0
+    16a0:	80 91 a0 00 	lds	r24, 0x00A0
+      
+         int8_t spriteCol;
+		  
+#ifdef __QUESTION3_H__
+			//Count is odd, so we're drawing the '?', which needs shifting...
+			if((p_theSprite == &spriteQUESTION3) && (count%2 == 1))
+    16a4:	ac 81       	ldd	r26, Y+4	; 0x04
+    16a6:	bd 81       	ldd	r27, Y+5	; 0x05
+    16a8:	ad 59       	subi	r26, 0x9D	; 157
+    16aa:	ba 40       	sbci	r27, 0x0A	; 10
+    16ac:	a9 f4       	brne	.+42     	; 0x16d8 <fbQ_overlaySprite+0x19c>
+    16ae:	fa 81       	ldd	r31, Y+2	; 0x02
+    16b0:	ff 23       	and	r31, r31
+    16b2:	91 f0       	breq	.+36     	; 0x16d8 <fbQ_overlaySprite+0x19c>
+			{
+				//Scroll left-to-right
+				// ??? Is there any issue with this going negative?
+				spriteCol =
+           		((position[0] - cameraState.position[0]) + frameCol - count)
+    16b4:	a6 01       	movw	r20, r12
+    16b6:	48 1b       	sub	r20, r24
+    16b8:	51 09       	sbc	r21, r1
+    16ba:	87 fd       	sbrc	r24, 7
+    16bc:	53 95       	inc	r21
+    16be:	ca 01       	movw	r24, r20
+    16c0:	80 0f       	add	r24, r16
+    16c2:	91 1f       	adc	r25, r17
+    16c4:	8a 19       	sub	r24, r10
+    16c6:	9b 09       	sbc	r25, r11
+			  			% FB_WIDTH;
+    16c8:	b4 01       	movw	r22, r8
+    16ca:	fa d3       	rcall	.+2036   	; 0x1ec0 <__divmodhi4>
+			//Count is odd, so we're drawing the '?', which needs shifting...
+			if((p_theSprite == &spriteQUESTION3) && (count%2 == 1))
+			{
+				//Scroll left-to-right
+				// ??? Is there any issue with this going negative?
+				spriteCol =
+    16cc:	48 2f       	mov	r20, r24
+           		((position[0] - cameraState.position[0]) + frameCol - count)
+			  			% FB_WIDTH;
+				//We want it to wrap...
+				if(spriteCol < 0)
+    16ce:	87 ff       	sbrs	r24, 7
+    16d0:	06 c0       	rjmp	.+12     	; 0x16de <fbQ_overlaySprite+0x1a2>
+					spriteCol += FB_WIDTH;
+    16d2:	40 e1       	ldi	r20, 0x10	; 16
+    16d4:	48 0f       	add	r20, r24
+    16d6:	03 c0       	rjmp	.+6      	; 0x16de <fbQ_overlaySprite+0x1a2>
+			}
+			else
+#endif
+			{
+				spriteCol =
+    16d8:	43 2d       	mov	r20, r3
+    16da:	48 1b       	sub	r20, r24
+    16dc:	40 0f       	add	r20, r16
+            	(position[0] - cameraState.position[0]) + frameCol;
+			}
+
+         if(thisHFlip) //GET_FLIP(p_hFlip, count))
+    16de:	77 20       	and	r7, r7
+    16e0:	19 f0       	breq	.+6      	; 0x16e8 <fbQ_overlaySprite+0x1ac>
+            spriteCol=(FB_WIDTH-1)-spriteCol;
+    16e2:	5f e0       	ldi	r21, 0x0F	; 15
+    16e4:	54 1b       	sub	r21, r20
+    16e6:	45 2f       	mov	r20, r21
+            
+         //The sky's already been drawn...
+         if((spriteCol >= FB_WIDTH) || (spriteCol < 0))
+    16e8:	40 31       	cpi	r20, 0x10	; 16
+    16ea:	c8 f4       	brcc	.+50     	; 0x171e <fbQ_overlaySprite+0x1e2>
+            continue;
+           
+		  //As it stands, a multi-image sprite is assumed to always
+		  //cycle-through the images; one with each redraw...
+         uint8_t colorData = getRawPixelVal(p_theSprite, spriteRow,
+    16ec:	25 2d       	mov	r18, r5
+    16ee:	66 2d       	mov	r22, r6
+    16f0:	8c 81       	ldd	r24, Y+4	; 0x04
+    16f2:	9d 81       	ldd	r25, Y+5	; 0x05
+    16f4:	3b 83       	std	Y+3, r19	; 0x03
+    16f6:	69 de       	rcall	.-814    	; 0x13ca <getRawPixelVal>
+															spriteImageNum);
+		  //									(state->count)%(p_theSprite->numImages));
+                                                         
+         //The sky is always, now, as I recall, 0...     
+         // so use it as a mask.
+         if(colorData == 0)
+    16f8:	3b 81       	ldd	r19, Y+3	; 0x03
+    16fa:	88 23       	and	r24, r24
+    16fc:	81 f0       	breq	.+32     	; 0x171e <fbQ_overlaySprite+0x1e2>
+            continue; 
+
+
+
+			colorData = rawPixValToGimpColorVal(colorData,
+    16fe:	44 2d       	mov	r20, r4
+    1700:	6c 81       	ldd	r22, Y+4	; 0x04
+    1702:	7d 81       	ldd	r23, Y+5	; 0x05
+    1704:	85 de       	rcall	.-758    	; 0x1410 <rawPixValToGimpColorVal>
+                                                p_theSprite,
+                                                paletteForColor);
+         colorData = gimpPixelValToLColor(colorData);
+    1706:	48 2f       	mov	r20, r24
+    1708:	40 73       	andi	r20, 0x30	; 48
+    170a:	50 e0       	ldi	r21, 0x00	; 0
+    170c:	3b 81       	ldd	r19, Y+3	; 0x03
+    170e:	40 32       	cpi	r20, 0x20	; 32
+    1710:	51 05       	cpc	r21, r1
+    1712:	0c f0       	brlt	.+2      	; 0x1716 <fbQ_overlaySprite+0x1da>
+    1714:	80 5f       	subi	r24, 0xF0	; 240
+    1716:	f7 01       	movw	r30, r14
+    1718:	e0 0f       	add	r30, r16
+    171a:	f1 1f       	adc	r31, r17
+         
+         frameBuffer[frameRow][frameCol] = colorData;
+    171c:	80 83       	st	Z, r24
+    171e:	0f 5f       	subi	r16, 0xFF	; 255
+    1720:	1f 4f       	sbci	r17, 0xFF	; 255
+			if(spriteRow >= 8)
+				paletteForColor = NUMPALETTES_FLOWER-1;
+		}
+
+      //Don't need to do this if the row is not in the sprite...
+      for(frameCol = 0; frameCol<FB_WIDTH; frameCol++)
+    1722:	00 31       	cpi	r16, 0x10	; 16
+    1724:	11 05       	cpc	r17, r1
+    1726:	09 f0       	breq	.+2      	; 0x172a <fbQ_overlaySprite+0x1ee>
+    1728:	bb cf       	rjmp	.-138    	; 0x16a0 <fbQ_overlaySprite+0x164>
+    172a:	23 94       	inc	r2
+    172c:	81 e1       	ldi	r24, 0x11	; 17
+    172e:	e8 0e       	add	r14, r24
+    1730:	f1 1c       	adc	r15, r1
+
+	//Sprite always cycles through the images, one with each redraw...
+	if(p_theSprite->numImages > 1)
+		changeOccurred = TRUE;
+
+   for(frameRow = 0; frameRow<FB_HEIGHT; frameRow++)
+    1732:	90 e1       	ldi	r25, 0x10	; 16
+    1734:	29 12       	cpse	r2, r25
+    1736:	9f cf       	rjmp	.-194    	; 0x1676 <fbQ_overlaySprite+0x13a>
+
+	//The only thing in here that should affect a graphical change is
+	//hFlip...
+   return changeOccurred; //imageChangedTillRow;
+   
+}  
+    1738:	83 2f       	mov	r24, r19
+    173a:	0f 90       	pop	r0
+    173c:	0f 90       	pop	r0
+    173e:	0f 90       	pop	r0
+    1740:	0f 90       	pop	r0
+    1742:	0f 90       	pop	r0
+    1744:	df 91       	pop	r29
+    1746:	cf 91       	pop	r28
+    1748:	1f 91       	pop	r17
+    174a:	0f 91       	pop	r16
+    174c:	ff 90       	pop	r15
+    174e:	ef 90       	pop	r14
+    1750:	df 90       	pop	r13
+    1752:	cf 90       	pop	r12
+    1754:	bf 90       	pop	r11
+    1756:	af 90       	pop	r10
+    1758:	9f 90       	pop	r9
+    175a:	8f 90       	pop	r8
+    175c:	7f 90       	pop	r7
+    175e:	6f 90       	pop	r6
+    1760:	5f 90       	pop	r5
+    1762:	4f 90       	pop	r4
+    1764:	3f 90       	pop	r3
+    1766:	2f 90       	pop	r2
+    1768:	08 95       	ret
+
+0000176a <pseudoRandom>:
+uint8_t fb_paused = FALSE;
+#endif
+
+uint8_t pseudoRandom(void)
+{
+	return (HSYNC_TIMER_TCNT + callCount + nowSpriteState.count);
+    176a:	82 b7       	in	r24, 0x32	; 50
+    176c:	90 91 85 00 	lds	r25, 0x0085
+    1770:	89 0f       	add	r24, r25
+    1772:	90 91 96 00 	lds	r25, 0x0096
+}
+    1776:	89 0f       	add	r24, r25
+    1778:	08 95       	ret
+
+0000177a <initSpriteStates>:
+void initSpriteStates(const __flash sprite_t *newSprite)
+{
+	//qCount = 0;
+	//.count is handled by qCount... but let's init it anyhow.
+	
+	p_nowSprite = newSprite;
+    177a:	90 93 68 00 	sts	0x0068, r25
+    177e:	80 93 67 00 	sts	0x0067, r24
+	
+	
+	
+	
+	nowSpriteState.sprite = p_nowSprite;
+    1782:	90 93 9e 00 	sts	0x009E, r25
+    1786:	80 93 9d 00 	sts	0x009D, r24
+	nowSpriteState.count = 0;
+    178a:	10 92 96 00 	sts	0x0096, r1
+	nowSpriteState.hFlip = p_nowSprite->p_hFlip;
+    178e:	fc 01       	movw	r30, r24
+    1790:	38 96       	adiw	r30, 0x08	; 8
+    1792:	25 91       	lpm	r18, Z+
+    1794:	35 91       	lpm	r19, Z+
+    1796:	30 93 9a 00 	sts	0x009A, r19
+    179a:	20 93 99 00 	sts	0x0099, r18
+	nowSpriteState.motion = p_nowSprite->p_motion;
+    179e:	fc 01       	movw	r30, r24
+    17a0:	3a 96       	adiw	r30, 0x0a	; 10
+    17a2:	05 90       	lpm	r0, Z+
+    17a4:	f4 91       	lpm	r31, Z
+    17a6:	e0 2d       	mov	r30, r0
+    17a8:	f0 93 9c 00 	sts	0x009C, r31
+    17ac:	e0 93 9b 00 	sts	0x009B, r30
+	//Origin is lower-left, but nextSpritePosition is upper-left...
+	nowSpriteState.position[0] = -(nowSpriteState.motion[0].startPosition);
+    17b0:	24 91       	lpm	r18, Z
+    17b2:	21 95       	neg	r18
+    17b4:	20 93 92 00 	sts	0x0092, r18
+	nowSpriteState.position[1] = nowSpriteState.motion[1].startPosition;
+    17b8:	33 96       	adiw	r30, 0x03	; 3
+    17ba:	24 91       	lpm	r18, Z
+    17bc:	20 93 93 00 	sts	0x0093, r18
+	nowSpriteState.dir[0] = 1;
+    17c0:	41 e0       	ldi	r20, 0x01	; 1
+    17c2:	40 93 94 00 	sts	0x0094, r20
+	nowSpriteState.dir[1] = 1;
+    17c6:	40 93 95 00 	sts	0x0095, r20
+
+	nowSpriteState.layer = p_nowSprite->p_layer;
+    17ca:	fc 01       	movw	r30, r24
+    17cc:	3c 96       	adiw	r30, 0x0c	; 12
+    17ce:	25 91       	lpm	r18, Z+
+    17d0:	35 91       	lpm	r19, Z+
+    17d2:	30 93 98 00 	sts	0x0098, r19
+    17d6:	20 93 97 00 	sts	0x0097, r18
+	nowSpriteState.paletteNum = 0;
+    17da:	10 92 9f 00 	sts	0x009F, r1
+
+
+	//No sprite associated with the camera...
+	cameraState.sprite = NULL;
+    17de:	10 92 ac 00 	sts	0x00AC, r1
+    17e2:	10 92 ab 00 	sts	0x00AB, r1
+	cameraState.count = 0;
+    17e6:	10 92 a4 00 	sts	0x00A4, r1
+	cameraState.hFlip = NadaFlip;
+    17ea:	10 92 a8 00 	sts	0x00A8, r1
+    17ee:	10 92 a7 00 	sts	0x00A7, r1
+	cameraState.motion = p_nowSprite->p_camMotion;
+    17f2:	fc 01       	movw	r30, r24
+    17f4:	3e 96       	adiw	r30, 0x0e	; 14
+    17f6:	05 90       	lpm	r0, Z+
+    17f8:	f4 91       	lpm	r31, Z
+    17fa:	e0 2d       	mov	r30, r0
+    17fc:	f0 93 aa 00 	sts	0x00AA, r31
+    1800:	e0 93 a9 00 	sts	0x00A9, r30
+	cameraState.position[0] = -(cameraState.motion[0].startPosition);
+    1804:	84 91       	lpm	r24, Z
+    1806:	81 95       	neg	r24
+    1808:	80 93 a0 00 	sts	0x00A0, r24
+	cameraState.position[1] = cameraState.motion[1].startPosition;
+    180c:	33 96       	adiw	r30, 0x03	; 3
+    180e:	84 91       	lpm	r24, Z
+    1810:	80 93 a1 00 	sts	0x00A1, r24
+	cameraState.dir[0] = 1;
+    1814:	40 93 a2 00 	sts	0x00A2, r20
+	cameraState.dir[1] = 1;
+    1818:	40 93 a3 00 	sts	0x00A3, r20
+
+	cameraState.layer = NadaLayer;
+    181c:	10 92 a6 00 	sts	0x00A6, r1
+    1820:	10 92 a5 00 	sts	0x00A5, r1
+	cameraState.paletteNum = 0;
+    1824:	10 92 ad 00 	sts	0x00AD, r1
+    1828:	08 95       	ret
+
+0000182a <fbQuestion_hitDetected>:
+
+void fbQuestion_hitDetected(void)
+{
+	uint8_t selectedQ = 0;
+
+	if( p_nowSprite == &spriteQ)
+    182a:	80 91 67 00 	lds	r24, 0x0067
+    182e:	90 91 68 00 	lds	r25, 0x0068
+    1832:	2a e0       	ldi	r18, 0x0A	; 10
+    1834:	82 33       	cpi	r24, 0x32	; 50
+    1836:	92 07       	cpc	r25, r18
+    1838:	91 f0       	breq	.+36     	; 0x185e <fbQuestion_hitDetected+0x34>
+		selectedQ = 1;
+#ifdef __QUESTION3_H__
+	else if (p_nowSprite == &spriteQUESTION3)
+    183a:	2a e0       	ldi	r18, 0x0A	; 10
+    183c:	8d 39       	cpi	r24, 0x9D	; 157
+    183e:	92 07       	cpc	r25, r18
+    1840:	a1 f4       	brne	.+40     	; 0x186a <fbQuestion_hitDetected+0x40>
+#endif
+
+#ifdef __QUESTION3_H__
+	if(selectedQ == 3)
+	{
+		qVersion = selectedQ;
+    1842:	83 e0       	ldi	r24, 0x03	; 3
+    1844:	80 93 66 00 	sts	0x0066, r24
+		p_nowSprite = &spriteSOLIDBUMP3;
+    1848:	82 e1       	ldi	r24, 0x12	; 18
+    184a:	94 e0       	ldi	r25, 0x04	; 4
+	// There's probably a tiny fraction of a second window where it is
+	// possible to hit it when it's blue, and kill it... but it's TINY.
+	else if((p_nowSprite == &spriteGOOMBA)
+			&& ((nowSpriteState.count > 16) && (nowSpriteState.count < 62)))
+	{
+		p_nowSprite = &spriteDEADGOOMBA;
+    184c:	90 93 68 00 	sts	0x0068, r25
+    1850:	80 93 67 00 	sts	0x0067, r24
+		fb_paused = !fb_paused;
+		return;
+	}
+#endif
+
+	initSpriteStates(p_nowSprite);
+    1854:	80 91 67 00 	lds	r24, 0x0067
+    1858:	90 91 68 00 	lds	r25, 0x0068
+    185c:	8e cf       	rjmp	.-228    	; 0x177a <initSpriteStates>
+	}
+	else
+#endif	
+	if(selectedQ)
+	{
+		qVersion = selectedQ;
+    185e:	81 e0       	ldi	r24, 0x01	; 1
+    1860:	80 93 66 00 	sts	0x0066, r24
+		p_nowSprite = &spriteSOLIDBUMP;
+    1864:	81 ec       	ldi	r24, 0xC1	; 193
+    1866:	99 e0       	ldi	r25, 0x09	; 9
+    1868:	f1 cf       	rjmp	.-30     	; 0x184c <fbQuestion_hitDetected+0x22>
+	//briefly before scroll-back-to-question starts...
+	// so there's no reason to test for KILLABLE
+	// since it can't be killed when it's scrolling.
+	// There's probably a tiny fraction of a second window where it is
+	// possible to hit it when it's blue, and kill it... but it's TINY.
+	else if((p_nowSprite == &spriteGOOMBA)
+    186a:	84 50       	subi	r24, 0x04	; 4
+    186c:	99 40       	sbci	r25, 0x09	; 9
+    186e:	91 f7       	brne	.-28     	; 0x1854 <fbQuestion_hitDetected+0x2a>
+			&& ((nowSpriteState.count > 16) && (nowSpriteState.count < 62)))
+    1870:	80 91 96 00 	lds	r24, 0x0096
+    1874:	81 51       	subi	r24, 0x11	; 17
+    1876:	8d 32       	cpi	r24, 0x2D	; 45
+    1878:	68 f7       	brcc	.-38     	; 0x1854 <fbQuestion_hitDetected+0x2a>
+	{
+		p_nowSprite = &spriteDEADGOOMBA;
+    187a:	8c e9       	ldi	r24, 0x9C	; 156
+    187c:	98 e0       	ldi	r25, 0x08	; 8
+    187e:	e6 cf       	rjmp	.-52     	; 0x184c <fbQuestion_hitDetected+0x22>
+
+00001880 <__vector_2>:
+
+}
+
+
+SIGNAL(PCINT_vect)
+{
+    1880:	1f 92       	push	r1
+    1882:	0f 92       	push	r0
+    1884:	0f b6       	in	r0, 0x3f	; 63
+    1886:	0f 92       	push	r0
+    1888:	11 24       	eor	r1, r1
+    188a:	2f 93       	push	r18
+    188c:	3f 93       	push	r19
+    188e:	4f 93       	push	r20
+    1890:	5f 93       	push	r21
+    1892:	6f 93       	push	r22
+    1894:	7f 93       	push	r23
+    1896:	8f 93       	push	r24
+    1898:	9f 93       	push	r25
+    189a:	af 93       	push	r26
+    189c:	bf 93       	push	r27
+    189e:	ef 93       	push	r30
+    18a0:	ff 93       	push	r31
+	fbQuestion_hitDetected();	
+    18a2:	c3 df       	rcall	.-122    	; 0x182a <fbQuestion_hitDetected>
+	//BOUNCE is INHERENT
+	//So clear the interrupt again, even though it was cleared upon entry of
+	//the interrupt-vector
+	// (Will this prevent reentry to this interrupt if the bounce occurred
+	// before it exitted and sei()ed at the end?
+	setbit(PCIF, GIFR);
+    18a4:	8a b7       	in	r24, 0x3a	; 58
+    18a6:	80 62       	ori	r24, 0x20	; 32
+    18a8:	8a bf       	out	0x3a, r24	; 58
+}
+    18aa:	ff 91       	pop	r31
+    18ac:	ef 91       	pop	r30
+    18ae:	bf 91       	pop	r27
+    18b0:	af 91       	pop	r26
+    18b2:	9f 91       	pop	r25
+    18b4:	8f 91       	pop	r24
+    18b6:	7f 91       	pop	r23
+    18b8:	6f 91       	pop	r22
+    18ba:	5f 91       	pop	r21
+    18bc:	4f 91       	pop	r20
+    18be:	3f 91       	pop	r19
+    18c0:	2f 91       	pop	r18
+    18c2:	0f 90       	pop	r0
+    18c4:	0f be       	out	0x3f, r0	; 63
+    18c6:	0f 90       	pop	r0
+    18c8:	1f 90       	pop	r1
+    18ca:	18 95       	reti
+
+000018cc <prepReward>:
+
+	initSpriteStates(p_nowSprite);
+}
+
+void prepReward(void)
+{
+    18cc:	cf 93       	push	r28
+	if(qVersion == 1)
+    18ce:	80 91 66 00 	lds	r24, 0x0066
+    18d2:	81 30       	cpi	r24, 0x01	; 1
+    18d4:	61 f5       	brne	.+88     	; 0x192e <prepReward+0x62>
+		
+		do
+		{
+			//hitReward = 
+				//(HSYNC_TIMER_TCNT + callCount + nowSpriteState.count)%20;
+			hitReward = pseudoRandom()%12;
+    18d6:	cc e0       	ldi	r28, 0x0C	; 12
+    18d8:	48 df       	rcall	.-368    	; 0x176a <pseudoRandom>
+    18da:	6c 2f       	mov	r22, r28
+    18dc:	d1 d2       	rcall	.+1442   	; 0x1e80 <__udivmodqi4>
+    18de:	89 2f       	mov	r24, r25
+			//Don't allow double-goombas
+		} while ((lastReward == 4) && (hitReward == 4));
+    18e0:	90 91 89 00 	lds	r25, 0x0089
+    18e4:	94 30       	cpi	r25, 0x04	; 4
+    18e6:	59 f0       	breq	.+22     	; 0x18fe <prepReward+0x32>
+
+		lastReward = hitReward;
+    18e8:	80 93 89 00 	sts	0x0089, r24
+#endif
+
+		switch(hitReward)
+    18ec:	90 e0       	ldi	r25, 0x00	; 0
+    18ee:	89 30       	cpi	r24, 0x09	; 9
+    18f0:	91 05       	cpc	r25, r1
+    18f2:	08 f0       	brcs	.+2      	; 0x18f6 <prepReward+0x2a>
+    18f4:	42 c0       	rjmp	.+132    	; 0x197a <prepReward+0xae>
+    18f6:	fc 01       	movw	r30, r24
+    18f8:	ed 5e       	subi	r30, 0xED	; 237
+    18fa:	ff 4f       	sbci	r31, 0xFF	; 255
+    18fc:	09 94       	ijmp
+		{
+			//hitReward = 
+				//(HSYNC_TIMER_TCNT + callCount + nowSpriteState.count)%20;
+			hitReward = pseudoRandom()%12;
+			//Don't allow double-goombas
+		} while ((lastReward == 4) && (hitReward == 4));
+    18fe:	84 30       	cpi	r24, 0x04	; 4
+    1900:	59 f3       	breq	.-42     	; 0x18d8 <prepReward+0xc>
+    1902:	f2 cf       	rjmp	.-28     	; 0x18e8 <prepReward+0x1c>
+#endif
+
+		switch(hitReward)
+		{
+			case 0:
+				p_nowSprite = &spriteFLOWER;
+    1904:	86 ec       	ldi	r24, 0xC6	; 198
+    1906:	97 e0       	ldi	r25, 0x07	; 7
+    1908:	3a c0       	rjmp	.+116    	; 0x197e <prepReward+0xb2>
+				break;
+			case 1:
+				p_nowSprite = &sprite1UP;
+    190a:	85 e4       	ldi	r24, 0x45	; 69
+    190c:	98 e0       	ldi	r25, 0x08	; 8
+    190e:	37 c0       	rjmp	.+110    	; 0x197e <prepReward+0xb2>
+				break;
+			case 2:
+				p_nowSprite = &spriteBIG;
+    1910:	8e e2       	ldi	r24, 0x2E	; 46
+    1912:	98 e0       	ldi	r25, 0x08	; 8
+    1914:	34 c0       	rjmp	.+104    	; 0x197e <prepReward+0xb2>
+				break;
+			case 3:
+				p_nowSprite = &spriteSTAR;
+    1916:	8b e6       	ldi	r24, 0x6B	; 107
+    1918:	97 e0       	ldi	r25, 0x07	; 7
+    191a:	31 c0       	rjmp	.+98     	; 0x197e <prepReward+0xb2>
+				break;
+			case 4:
+				p_nowSprite = &spriteGOOMBA;
+    191c:	84 e0       	ldi	r24, 0x04	; 4
+    191e:	99 e0       	ldi	r25, 0x09	; 9
+    1920:	2e c0       	rjmp	.+92     	; 0x197e <prepReward+0xb2>
+				break;
+			case 6:
+				p_nowSprite = &spriteCLOUD;
+				break;
+			case 7:
+				p_nowSprite = &spriteMARIO;
+    1922:	86 e9       	ldi	r24, 0x96	; 150
+    1924:	95 e0       	ldi	r25, 0x05	; 5
+    1926:	2b c0       	rjmp	.+86     	; 0x197e <prepReward+0xb2>
+				break;
+			case 8:
+				p_nowSprite = &spriteLUIGI;
+    1928:	8f e7       	ldi	r24, 0x7F	; 127
+    192a:	95 e0       	ldi	r25, 0x05	; 5
+    192c:	28 c0       	rjmp	.+80     	; 0x197e <prepReward+0xb2>
+		//qCount = 0;
+		nowIsReward = qVersion; //selectedQ; // TRUE;
+		initSpriteStates(p_nowSprite);
+	}
+#ifdef __QUESTION3_H__
+	else if(qVersion == 3)
+    192e:	83 30       	cpi	r24, 0x03	; 3
+    1930:	a1 f5       	brne	.+104    	; 0x199a <prepReward+0xce>
+		//Just trying to get some randomness up in hea
+#if (defined(RANDOM_OVERRIDE))
+		hitReward = RANDOM_OVERRIDE;
+#else
+		
+		hitReward = pseudoRandom()%12;
+    1932:	1b df       	rcall	.-458    	; 0x176a <pseudoRandom>
+    1934:	6c e0       	ldi	r22, 0x0C	; 12
+    1936:	a4 d2       	rcall	.+1352   	; 0x1e80 <__udivmodqi4>
+#endif
+
+		switch(hitReward)
+    1938:	89 2f       	mov	r24, r25
+    193a:	90 e0       	ldi	r25, 0x00	; 0
+    193c:	89 30       	cpi	r24, 0x09	; 9
+    193e:	91 05       	cpc	r25, r1
+    1940:	e0 f4       	brcc	.+56     	; 0x197a <prepReward+0xae>
+    1942:	fc 01       	movw	r30, r24
+    1944:	e4 5e       	subi	r30, 0xE4	; 228
+    1946:	ff 4f       	sbci	r31, 0xFF	; 255
+    1948:	09 94       	ijmp
+		{
+			case 0:
+				p_nowSprite = &spriteLEAF;
+    194a:	8f e7       	ldi	r24, 0x7F	; 127
+    194c:	93 e0       	ldi	r25, 0x03	; 3
+    194e:	17 c0       	rjmp	.+46     	; 0x197e <prepReward+0xb2>
+				break;
+			case 1:
+				p_nowSprite = &spriteCLOUD;
+    1950:	8d ee       	ldi	r24, 0xED	; 237
+    1952:	95 e0       	ldi	r25, 0x05	; 5
+    1954:	14 c0       	rjmp	.+40     	; 0x197e <prepReward+0xb2>
+				break;
+			case 2:
+				p_nowSprite = &spriteTANOOKI;
+    1956:	88 e2       	ldi	r24, 0x28	; 40
+    1958:	93 e0       	ldi	r25, 0x03	; 3
+    195a:	11 c0       	rjmp	.+34     	; 0x197e <prepReward+0xb2>
+				break;
+			case 3:
+				p_nowSprite = &spriteFROG;
+    195c:	81 ed       	ldi	r24, 0xD1	; 209
+    195e:	92 e0       	ldi	r25, 0x02	; 2
+    1960:	0e c0       	rjmp	.+28     	; 0x197e <prepReward+0xb2>
+				break;
+			case 4:
+				p_nowSprite = &spriteBOOT;
+    1962:	87 e0       	ldi	r24, 0x07	; 7
+    1964:	92 e0       	ldi	r25, 0x02	; 2
+    1966:	0b c0       	rjmp	.+22     	; 0x197e <prepReward+0xb2>
+				break;
+			case 5:
+				p_nowSprite = &spriteHAMMER;
+    1968:	80 eb       	ldi	r24, 0xB0	; 176
+    196a:	91 e0       	ldi	r25, 0x01	; 1
+    196c:	08 c0       	rjmp	.+16     	; 0x197e <prepReward+0xb2>
+				break;
+			case 6:
+				p_nowSprite = &spritePWING;
+    196e:	89 e5       	ldi	r24, 0x59	; 89
+    1970:	91 e0       	ldi	r25, 0x01	; 1
+    1972:	05 c0       	rjmp	.+10     	; 0x197e <prepReward+0xb2>
+				break;
+//			case 7:
+//				p_nowSprite = &spriteFLUTE;
+//				break;
+			case 8:
+				p_nowSprite = &spriteMUSICBOX;
+    1974:	82 e8       	ldi	r24, 0x82	; 130
+    1976:	90 e0       	ldi	r25, 0x00	; 0
+    1978:	02 c0       	rjmp	.+4      	; 0x197e <prepReward+0xb2>
+				break;
+			default:
+				p_nowSprite = &spriteCOIN;
+    197a:	84 e4       	ldi	r24, 0x44	; 68
+    197c:	96 e0       	ldi	r25, 0x06	; 6
+    197e:	90 93 68 00 	sts	0x0068, r25
+    1982:	80 93 67 00 	sts	0x0067, r24
+				break;
+		}
+		//qCount = 0;
+		nowIsReward = qVersion; //selectedQ; // TRUE;
+    1986:	80 91 66 00 	lds	r24, 0x0066
+    198a:	80 93 84 00 	sts	0x0084, r24
+		initSpriteStates(p_nowSprite);
+    198e:	80 91 67 00 	lds	r24, 0x0067
+    1992:	90 91 68 00 	lds	r25, 0x0068
+	}
+#endif //__QUESTION3_H__
+
+
+}
+    1996:	cf 91       	pop	r28
+				p_nowSprite = &spriteCOIN;
+				break;
+		}
+		//qCount = 0;
+		nowIsReward = qVersion; //selectedQ; // TRUE;
+		initSpriteStates(p_nowSprite);
+    1998:	f0 ce       	rjmp	.-544    	; 0x177a <initSpriteStates>
+	}
+#endif //__QUESTION3_H__
+
+
+}
+    199a:	cf 91       	pop	r28
+    199c:	08 95       	ret
+
+0000199e <prepNextSprite>:
+
+	// Q Loops...
+
+	uint8_t selectedQ = 0;
+
+	if(p_nowSprite == &spriteQ)
+    199e:	80 91 67 00 	lds	r24, 0x0067
+    19a2:	90 91 68 00 	lds	r25, 0x0068
+    19a6:	2a e0       	ldi	r18, 0x0A	; 10
+    19a8:	82 33       	cpi	r24, 0x32	; 50
+    19aa:	92 07       	cpc	r25, r18
+    19ac:	69 f0       	breq	.+26     	; 0x19c8 <prepNextSprite+0x2a>
+		selectedQ = 1;
+#ifdef __QUESTION3_H__
+	else if(p_nowSprite == &spriteQUESTION3)
+    19ae:	2a e0       	ldi	r18, 0x0A	; 10
+    19b0:	8d 39       	cpi	r24, 0x9D	; 157
+    19b2:	92 07       	cpc	r25, r18
+    19b4:	49 f0       	breq	.+18     	; 0x19c8 <prepNextSprite+0x2a>
+	  #else
+		//return;
+     #endif
+	}
+	// SolidBump -> "reward"
+	else if( (p_nowSprite == &spriteSOLIDBUMP)
+    19b6:	29 e0       	ldi	r18, 0x09	; 9
+    19b8:	81 3c       	cpi	r24, 0xC1	; 193
+    19ba:	92 07       	cpc	r25, r18
+    19bc:	21 f0       	breq	.+8      	; 0x19c6 <prepNextSprite+0x28>
+#ifdef __QUESTION3_H__
+			|| (p_nowSprite == &spriteSOLIDBUMP3)
+    19be:	24 e0       	ldi	r18, 0x04	; 4
+    19c0:	82 31       	cpi	r24, 0x12	; 18
+    19c2:	92 07       	cpc	r25, r18
+    19c4:	31 f4       	brne	.+12     	; 0x19d2 <prepNextSprite+0x34>
+#endif
+			)
+	{
+		prepReward();
+    19c6:	82 df       	rcall	.-252    	; 0x18cc <prepReward>
+
+		nowIsReward = FALSE;
+//		p_nowSprite = &spriteSOLID;
+	}	
+
+	initSpriteStates(p_nowSprite);
+    19c8:	80 91 67 00 	lds	r24, 0x0067
+    19cc:	90 91 68 00 	lds	r25, 0x0068
+    19d0:	d4 ce       	rjmp	.-600    	; 0x177a <initSpriteStates>
+			)
+	{
+		prepReward();
+	}
+	// Mario -> MarioRuns
+	else if(p_nowSprite == &spriteMARIO)
+    19d2:	25 e0       	ldi	r18, 0x05	; 5
+    19d4:	86 39       	cpi	r24, 0x96	; 150
+    19d6:	92 07       	cpc	r25, r18
+    19d8:	19 f4       	brne	.+6      	; 0x19e0 <prepNextSprite+0x42>
+	{
+		//nowIsReward = TRUE;
+		p_nowSprite = &spriteMARIORUNS;
+    19da:	8a e9       	ldi	r24, 0x9A	; 154
+    19dc:	94 e0       	ldi	r25, 0x04	; 4
+    19de:	15 c0       	rjmp	.+42     	; 0x1a0a <prepNextSprite+0x6c>
+	}
+	// Luigi -> LuigiRuns
+	else if(p_nowSprite == &spriteLUIGI)
+    19e0:	25 e0       	ldi	r18, 0x05	; 5
+    19e2:	8f 37       	cpi	r24, 0x7F	; 127
+    19e4:	92 07       	cpc	r25, r18
+    19e6:	19 f4       	brne	.+6      	; 0x19ee <prepNextSprite+0x50>
+	{
+		//nowIsReward = TRUE;
+		p_nowSprite = &spriteLUIGIRUNS;
+    19e8:	88 e7       	ldi	r24, 0x78	; 120
+    19ea:	94 e0       	ldi	r25, 0x04	; 4
+    19ec:	0e c0       	rjmp	.+28     	; 0x1a0a <prepNextSprite+0x6c>
+	}
+	// Solid -> Q
+	else if((p_nowSprite == &spriteSOLID)
+    19ee:	29 e0       	ldi	r18, 0x09	; 9
+    19f0:	8b 3d       	cpi	r24, 0xDB	; 219
+    19f2:	92 07       	cpc	r25, r18
+    19f4:	19 f0       	breq	.+6      	; 0x19fc <prepNextSprite+0x5e>
+#ifdef __QUESTION3_H__
+		|| (p_nowSprite == &spriteSOLID3)
+    19f6:	85 52       	subi	r24, 0x25	; 37
+    19f8:	94 40       	sbci	r25, 0x04	; 4
+    19fa:	79 f4       	brne	.+30     	; 0x1a1a <prepNextSprite+0x7c>
+#endif
+		)
+	{
+		nowIsReward = FALSE;
+    19fc:	10 92 84 00 	sts	0x0084, r1
+#if(!defined(RANDOM_OVERRIDE))
+ #ifdef __QUESTION3_H__
+		if(pseudoRandom()&0x01)
+    1a00:	b4 de       	rcall	.-664    	; 0x176a <pseudoRandom>
+    1a02:	80 ff       	sbrs	r24, 0
+    1a04:	07 c0       	rjmp	.+14     	; 0x1a14 <prepNextSprite+0x76>
+			p_nowSprite = &spriteQUESTION3;
+    1a06:	8d e9       	ldi	r24, 0x9D	; 157
+    1a08:	9a e0       	ldi	r25, 0x0A	; 10
+    1a0a:	90 93 68 00 	sts	0x0068, r25
+    1a0e:	80 93 67 00 	sts	0x0067, r24
+    1a12:	da cf       	rjmp	.-76     	; 0x19c8 <prepNextSprite+0x2a>
+		else
+ #endif//__QUESTION3_H__
+			p_nowSprite = &spriteQ;
+    1a14:	82 e3       	ldi	r24, 0x32	; 50
+    1a16:	9a e0       	ldi	r25, 0x0A	; 10
+    1a18:	f8 cf       	rjmp	.-16     	; 0x1a0a <prepNextSprite+0x6c>
+	}
+	// "Reward" -> Solid
+	else
+	{
+#ifdef __QUESTION3_H__
+		if(nowIsReward == 3)
+    1a1a:	80 91 84 00 	lds	r24, 0x0084
+    1a1e:	83 30       	cpi	r24, 0x03	; 3
+    1a20:	19 f4       	brne	.+6      	; 0x1a28 <prepNextSprite+0x8a>
+			p_nowSprite = &spriteSOLID3;
+    1a22:	85 e2       	ldi	r24, 0x25	; 37
+    1a24:	94 e0       	ldi	r25, 0x04	; 4
+    1a26:	02 c0       	rjmp	.+4      	; 0x1a2c <prepNextSprite+0x8e>
+		else
+#endif
+			p_nowSprite = &spriteSOLID;
+    1a28:	8b ed       	ldi	r24, 0xDB	; 219
+    1a2a:	99 e0       	ldi	r25, 0x09	; 9
+    1a2c:	90 93 68 00 	sts	0x0068, r25
+    1a30:	80 93 67 00 	sts	0x0067, r24
+
+		nowIsReward = FALSE;
+    1a34:	10 92 84 00 	sts	0x0084, r1
+    1a38:	c7 cf       	rjmp	.-114    	; 0x19c8 <prepNextSprite+0x2a>
+
+00001a3a <fbQ_drawBackground>:
+#if(defined(FBQ_SKYCOLOR_OVERRIDE))
+	uint8_t skyColorData = FBQ_SKYCOLOR_OVERRIDE;
+#else
+	//uint8_t skyColorData = getRawPixelVal(, 0, 0);
+
+	uint8_t skyColorData = rawPixValToGimpColorVal(0, 
+    1a3a:	fc 01       	movw	r30, r24
+    1a3c:	63 85       	ldd	r22, Z+11	; 0x0b
+    1a3e:	74 85       	ldd	r23, Z+12	; 0x0c
+    1a40:	45 85       	ldd	r20, Z+13	; 0x0d
+    1a42:	80 e0       	ldi	r24, 0x00	; 0
+    1a44:	e5 dc       	rcall	.-1590   	; 0x1410 <rawPixValToGimpColorVal>
+														state->sprite,
+														paletteForColor);
+	skyColorData = gimpPixelValToLColor(skyColorData);
+    1a46:	28 2f       	mov	r18, r24
+    1a48:	20 73       	andi	r18, 0x30	; 48
+    1a4a:	30 e0       	ldi	r19, 0x00	; 0
+    1a4c:	20 32       	cpi	r18, 0x20	; 32
+    1a4e:	31 05       	cpc	r19, r1
+    1a50:	0c f0       	brlt	.+2      	; 0x1a54 <fbQ_drawBackground+0x1a>
+    1a52:	80 5f       	subi	r24, 0xF0	; 240
+    1a54:	4e ea       	ldi	r20, 0xAE	; 174
+    1a56:	50 e0       	ldi	r21, 0x00	; 0
+
+
+//This is sort-of Motion-Handling, as well...
+//Usually the sky...
+void fbQ_drawBackground(spriteState_t *state)
+{
+    1a58:	20 e0       	ldi	r18, 0x00	; 0
+    1a5a:	30 e0       	ldi	r19, 0x00	; 0
+    1a5c:	fa 01       	movw	r30, r20
+    1a5e:	e2 0f       	add	r30, r18
+    1a60:	f3 1f       	adc	r31, r19
+		for(camCol = 0; camCol<FB_WIDTH; camCol++)
+		{
+#if(defined(FBQ_RAINBOW_SKY) && FBQ_RAINBOW_SKY)
+			frameBuffer[camRow][camCol] = (camRow+camCol)&0x3f;//skyColorData;
+#else
+			frameBuffer[camRow][camCol] = skyColorData;
+    1a62:	80 83       	st	Z, r24
+    1a64:	2f 5f       	subi	r18, 0xFF	; 255
+    1a66:	3f 4f       	sbci	r19, 0xFF	; 255
+
+	int8_t camRow, camCol;
+
+	for(camRow = 0; camRow<FB_HEIGHT; camRow++)
+	{
+		for(camCol = 0; camCol<FB_WIDTH; camCol++)
+    1a68:	20 31       	cpi	r18, 0x10	; 16
+    1a6a:	31 05       	cpc	r19, r1
+    1a6c:	b9 f7       	brne	.-18     	; 0x1a5c <fbQ_drawBackground+0x22>
+    1a6e:	4f 5e       	subi	r20, 0xEF	; 239
+    1a70:	5f 4f       	sbci	r21, 0xFF	; 255
+#endif
+
+
+	int8_t camRow, camCol;
+
+	for(camRow = 0; camRow<FB_HEIGHT; camRow++)
+    1a72:	f1 e0       	ldi	r31, 0x01	; 1
+    1a74:	4e 3b       	cpi	r20, 0xBE	; 190
+    1a76:	5f 07       	cpc	r21, r31
+    1a78:	79 f7       	brne	.-34     	; 0x1a58 <fbQ_drawBackground+0x1e>
+    1a7a:	08 95       	ret
+
+00001a7c <fbQuestion_update>:
+
+//Returns the last image-row that has changed...
+// (for refresh-on-change and/or partial-refresh)
+// otherwise -1 if no change.
+int8_t fbQuestion_update(void) //uint8_t triggerDetected)
+{
+    1a7c:	1f 93       	push	r17
+    1a7e:	cf 93       	push	r28
+    1a80:	df 93       	push	r29
+
+
+
+	//This is just used for helping to throw in some randomness for the next
+	//sprite after a hit...
+	callCount++;
+    1a82:	80 91 85 00 	lds	r24, 0x0085
+    1a86:	8f 5f       	subi	r24, 0xFF	; 255
+    1a88:	80 93 85 00 	sts	0x0085, r24
+const __flash sprite_t *skyOverrideSprite = NULL;
+//uint8_t skyOverridePalette;
+
+void setSpriteSkyColorOverride(const __flash sprite_t *sprite) //, uint8_t palette)
+{
+	skyOverrideSprite = sprite;
+    1a8c:	80 91 67 00 	lds	r24, 0x0067
+    1a90:	90 91 68 00 	lds	r25, 0x0068
+    1a94:	90 93 87 00 	sts	0x0087, r25
+    1a98:	80 93 86 00 	sts	0x0086, r24
+
+
+			//Override for now...
+			//otherSpriteState.count=0;
+
+			fbQ_drawBackground(&nowSpriteState);
+    1a9c:	82 e9       	ldi	r24, 0x92	; 146
+    1a9e:	90 e0       	ldi	r25, 0x00	; 0
+    1aa0:	cc df       	rcall	.-104    	; 0x1a3a <fbQ_drawBackground>
+
+			if(fbQ_repositionSprite(&nowSpriteState))
+    1aa2:	82 e9       	ldi	r24, 0x92	; 146
+    1aa4:	90 e0       	ldi	r25, 0x00	; 0
+    1aa6:	c5 dc       	rcall	.-1654   	; 0x1432 <fbQ_repositionSprite>
+    1aa8:	81 11       	cpse	r24, r1
+    1aaa:	02 c0       	rjmp	.+4      	; 0x1ab0 <fbQuestion_update+0x34>
+// (for refresh-on-change and/or partial-refresh)
+// otherwise -1 if no change.
+int8_t fbQuestion_update(void) //uint8_t triggerDetected)
+{
+	//last row that was changed...
+	int8_t imageChangedTillRow = -1;
+    1aac:	1f ef       	ldi	r17, 0xFF	; 255
+    1aae:	01 c0       	rjmp	.+2      	; 0x1ab2 <fbQuestion_update+0x36>
+			//otherSpriteState.count=0;
+
+			fbQ_drawBackground(&nowSpriteState);
+
+			if(fbQ_repositionSprite(&nowSpriteState))
+				imageChangedTillRow = FB_HEIGHT;
+    1ab0:	10 e1       	ldi	r17, 0x10	; 16
+
+			if(fbQ_repositionSprite(&cameraState))
+    1ab2:	80 ea       	ldi	r24, 0xA0	; 160
+    1ab4:	90 e0       	ldi	r25, 0x00	; 0
+    1ab6:	bd dc       	rcall	.-1670   	; 0x1432 <fbQ_repositionSprite>
+    1ab8:	81 11       	cpse	r24, r1
+				imageChangedTillRow = FB_HEIGHT;
+    1aba:	10 e1       	ldi	r17, 0x10	; 16
+
+				fbQ_overlaySprite(&(spriteQUESTION3[1]), NULL);
+
+				imageChangedTillRow = FB_HEIGHT;
+			}
+*/			if(nowIsReward)
+    1abc:	80 91 84 00 	lds	r24, 0x0084
+    1ac0:	88 23       	and	r24, r24
+    1ac2:	29 f1       	breq	.+74     	; 0x1b0e <fbQuestion_update+0x92>
+			{
+				sprite_t * nextSolid;
+
+#ifdef __QUESTION3_H__
+				if(nowIsReward == 3)
+    1ac4:	83 30       	cpi	r24, 0x03	; 3
+    1ac6:	19 f4       	brne	.+6      	; 0x1ace <fbQuestion_update+0x52>
+					nextSolid = &spriteSOLID3;
+    1ac8:	c5 e2       	ldi	r28, 0x25	; 37
+    1aca:	d4 e0       	ldi	r29, 0x04	; 4
+    1acc:	02 c0       	rjmp	.+4      	; 0x1ad2 <fbQuestion_update+0x56>
+				else
+#endif
+					nextSolid = &spriteSOLID;
+    1ace:	cb ed       	ldi	r28, 0xDB	; 219
+    1ad0:	d9 e0       	ldi	r29, 0x09	; 9
+
+				//0 is foreground, so it should be drawn last
+				if(!GET_LAYER(nowSpriteState.layer, nowSpriteState.count))
+    1ad2:	e0 91 97 00 	lds	r30, 0x0097
+    1ad6:	f0 91 98 00 	lds	r31, 0x0098
+    1ada:	30 97       	sbiw	r30, 0x00	; 0
+    1adc:	91 f0       	breq	.+36     	; 0x1b02 <fbQuestion_update+0x86>
+    1ade:	80 91 96 00 	lds	r24, 0x0096
+    1ae2:	98 2f       	mov	r25, r24
+    1ae4:	96 95       	lsr	r25
+    1ae6:	96 95       	lsr	r25
+    1ae8:	96 95       	lsr	r25
+    1aea:	e9 0f       	add	r30, r25
+    1aec:	f1 1d       	adc	r31, r1
+    1aee:	e4 91       	lpm	r30, Z
+    1af0:	f0 e0       	ldi	r31, 0x00	; 0
+    1af2:	87 70       	andi	r24, 0x07	; 7
+    1af4:	02 c0       	rjmp	.+4      	; 0x1afa <fbQuestion_update+0x7e>
+    1af6:	f5 95       	asr	r31
+    1af8:	e7 95       	ror	r30
+    1afa:	8a 95       	dec	r24
+    1afc:	e2 f7       	brpl	.-8      	; 0x1af6 <fbQuestion_update+0x7a>
+    1afe:	e0 fd       	sbrc	r30, 0
+    1b00:	11 c0       	rjmp	.+34     	; 0x1b24 <fbQuestion_update+0xa8>
+				{
+					//imageChangedTillRow =
+					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
+					if(fbQ_overlaySprite(nextSolid, NULL))
+    1b02:	60 e0       	ldi	r22, 0x00	; 0
+    1b04:	70 e0       	ldi	r23, 0x00	; 0
+    1b06:	ce 01       	movw	r24, r28
+    1b08:	19 dd       	rcall	.-1486   	; 0x153c <fbQ_overlaySprite>
+    1b0a:	81 11       	cpse	r24, r1
+						imageChangedTillRow = FB_HEIGHT;
+    1b0c:	10 e1       	ldi	r17, 0x10	; 16
+
+					//imageChangedTillRow =
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+    1b0e:	62 e9       	ldi	r22, 0x92	; 146
+    1b10:	70 e0       	ldi	r23, 0x00	; 0
+    1b12:	80 91 67 00 	lds	r24, 0x0067
+    1b16:	90 91 68 00 	lds	r25, 0x0068
+    1b1a:	10 dd       	rcall	.-1504   	; 0x153c <fbQ_overlaySprite>
+    1b1c:	88 23       	and	r24, r24
+    1b1e:	79 f0       	breq	.+30     	; 0x1b3e <fbQuestion_update+0xc2>
+						imageChangedTillRow = FB_HEIGHT;
+    1b20:	10 e1       	ldi	r17, 0x10	; 16
+    1b22:	0d c0       	rjmp	.+26     	; 0x1b3e <fbQuestion_update+0xc2>
+				}
+				else
+				{
+					//imageChangedTillRow =
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+    1b24:	62 e9       	ldi	r22, 0x92	; 146
+    1b26:	70 e0       	ldi	r23, 0x00	; 0
+    1b28:	80 91 67 00 	lds	r24, 0x0067
+    1b2c:	90 91 68 00 	lds	r25, 0x0068
+    1b30:	05 dd       	rcall	.-1526   	; 0x153c <fbQ_overlaySprite>
+    1b32:	81 11       	cpse	r24, r1
+						imageChangedTillRow = FB_HEIGHT;
+    1b34:	10 e1       	ldi	r17, 0x10	; 16
+				
+					//imageChangedTillRow =
+					//fbQ_overlaySprite(p_selectedSprite, selectedSpritePosition);
+					if(fbQ_overlaySprite(nextSolid, NULL))
+    1b36:	60 e0       	ldi	r22, 0x00	; 0
+    1b38:	70 e0       	ldi	r23, 0x00	; 0
+    1b3a:	ce 01       	movw	r24, r28
+    1b3c:	ee cf       	rjmp	.-36     	; 0x1b1a <fbQuestion_update+0x9e>
+					if(fbQ_overlaySprite(p_nowSprite, &nowSpriteState))
+						imageChangedTillRow = FB_HEIGHT;
+			}
+
+			//qCount++;
+			nowSpriteState.count++;// = qCount;
+    1b3e:	80 91 96 00 	lds	r24, 0x0096
+    1b42:	8f 5f       	subi	r24, 0xFF	; 255
+    1b44:	80 93 96 00 	sts	0x0096, r24
+			cameraState.count = nowSpriteState.count;
+    1b48:	80 93 a4 00 	sts	0x00A4, r24
+			if(qCount >= (sizeof(DefaultY)*4))
+#else
+			if(qCount >= (sizeof(LeafX)*4))
+#endif
+*/
+			if(nowSpriteState.count >= p_nowSprite->totalCount)
+    1b4c:	e0 91 67 00 	lds	r30, 0x0067
+    1b50:	f0 91 68 00 	lds	r31, 0x0068
+    1b54:	37 96       	adiw	r30, 0x07	; 7
+    1b56:	94 91       	lpm	r25, Z
+    1b58:	89 17       	cp	r24, r25
+    1b5a:	08 f0       	brcs	.+2      	; 0x1b5e <fbQuestion_update+0xe2>
+			{
+				//qCount = 0;
+				prepNextSprite();
+    1b5c:	20 df       	rcall	.-448    	; 0x199e <prepNextSprite>
+		if(qCount >= ((255 / 12) * 12))
+			qCount = 0;
+	}
+*/
+	return imageChangedTillRow;
+}
+    1b5e:	81 2f       	mov	r24, r17
+    1b60:	df 91       	pop	r29
+    1b62:	cf 91       	pop	r28
+    1b64:	1f 91       	pop	r17
+    1b66:	08 95       	ret
+
+00001b68 <frameBufferUpdate>:
+//      static uint8_t lastUpdated = FALSE;
+      static fb_timer_t fbLastUpdateTime = 0;
+
+      //Because the dmsTimer is running somewhat arbitarily, this "200ms"
+      // isn't particularly accurate...
+      if(updateFrame)
+    1b68:	80 91 65 00 	lds	r24, 0x0065
+    1b6c:	88 23       	and	r24, r24
+    1b6e:	51 f0       	breq	.+20     	; 0x1b84 <frameBufferUpdate+0x1c>
+		{
+         fbLastUpdateTime = fb_getTime();
+    1b70:	fc da       	rcall	.-2568   	; 0x116a <tcnter_get>
+    1b72:	60 93 8a 00 	sts	0x008A, r22
+    1b76:	70 93 8b 00 	sts	0x008B, r23
+    1b7a:	80 93 8c 00 	sts	0x008C, r24
+    1b7e:	90 93 8d 00 	sts	0x008D, r25
+			return;
+    1b82:	08 95       	ret
+
+static __inline__
+uint8_t tcnter_isItTimeV2(tcnter_t *startTime, tcnter_t deltaTime,
+										uint8_t dontAllowCumulation)
+{
+   tcnter_t thisDelta = tcnter_myTcnter - *startTime;
+    1b84:	80 91 7b 00 	lds	r24, 0x007B
+    1b88:	90 91 7c 00 	lds	r25, 0x007C
+    1b8c:	a0 91 7d 00 	lds	r26, 0x007D
+    1b90:	b0 91 7e 00 	lds	r27, 0x007E
+    1b94:	40 91 8a 00 	lds	r20, 0x008A
+    1b98:	50 91 8b 00 	lds	r21, 0x008B
+    1b9c:	60 91 8c 00 	lds	r22, 0x008C
+    1ba0:	70 91 8d 00 	lds	r23, 0x008D
+    1ba4:	84 1b       	sub	r24, r20
+    1ba6:	95 0b       	sbc	r25, r21
+    1ba8:	a6 0b       	sbc	r26, r22
+    1baa:	b7 0b       	sbc	r27, r23
+
+   if(thisDelta >= deltaTime)
+    1bac:	80 34       	cpi	r24, 0x40	; 64
+    1bae:	9d 40       	sbci	r25, 0x0D	; 13
+    1bb0:	a3 40       	sbci	r26, 0x03	; 3
+    1bb2:	b1 05       	cpc	r27, r1
+    1bb4:	b0 f0       	brcs	.+44     	; 0x1be2 <frameBufferUpdate+0x7a>
+   {
+		if(dontAllowCumulation)
+      	*startTime = tcnter_myTcnter - (thisDelta - deltaTime);
+      else
+			*startTime = tcnter_myTcnter;
+    1bb6:	80 91 7b 00 	lds	r24, 0x007B
+    1bba:	90 91 7c 00 	lds	r25, 0x007C
+    1bbe:	a0 91 7d 00 	lds	r26, 0x007D
+    1bc2:	b0 91 7e 00 	lds	r27, 0x007E
+    1bc6:	80 93 8a 00 	sts	0x008A, r24
+    1bca:	90 93 8b 00 	sts	0x008B, r25
+    1bce:	a0 93 8c 00 	sts	0x008C, r26
+    1bd2:	b0 93 8d 00 	sts	0x008D, r27
+		// (a/o v71 this has changed, it was in an else, and this else-case
+		// handled multiple-refresh. That should now be handled in
+		// endOfFrameHandler())
+      if(fb_isItTime(&fbLastUpdateTime, FB_REFRESH_ON_CHANGE_DELAY))
+      {
+			int16_t fb_changedTillRow = fb_updater();
+    1bd6:	52 df       	rcall	.-348    	; 0x1a7c <fbQuestion_update>
+			//call fb_updater()
+			// and ONLY REFRESH if there's been a change to the frameBuffer
+      	if(fb_changedTillRow != -1)
+    1bd8:	8f 3f       	cpi	r24, 0xFF	; 255
+    1bda:	19 f0       	breq	.+6      	; 0x1be2 <frameBufferUpdate+0x7a>
+ volatile uint8_t frameCount = 0;
+
+
+ void restartFrameUpdate(void)
+ {
+	updateFrame = FB_REFRESH_ON_CHANGE_COUNT;
+    1bdc:	82 e0       	ldi	r24, 0x02	; 2
+    1bde:	80 93 65 00 	sts	0x0065, r24
+    1be2:	08 95       	ret
+
+00001be4 <getSpritePalette>:
+
+uint8_t getSpritePalette(const __flash sprite_t *p_thisSprite, uint8_t spritePhase,
+																	uint8_t spriteRow)
+{
+    1be4:	9c 01       	movw	r18, r24
+    1be6:	86 2f       	mov	r24, r22
+
+	uint8_t thePalette;
+	
+	
+	if(p_thisSprite == &spriteFLOWER)
+    1be8:	97 e0       	ldi	r25, 0x07	; 7
+    1bea:	26 3c       	cpi	r18, 0xC6	; 198
+    1bec:	39 07       	cpc	r19, r25
+    1bee:	31 f4       	brne	.+12     	; 0x1bfc <getSpritePalette+0x18>
+	{
+		if(spriteRow<FLOWER_PALETTE1_ROW)
+    1bf0:	48 30       	cpi	r20, 0x08	; 8
+    1bf2:	e8 f4       	brcc	.+58     	; 0x1c2e <getSpritePalette+0x4a>
+			//data = getGimpColorVal(&spriteFLOWER,
+			  thePalette = spritePhase%(spriteFLOWER.numPalettes-1) + 1; 
+    1bf4:	96 2f       	mov	r25, r22
+    1bf6:	91 70       	andi	r25, 0x01	; 1
+    1bf8:	9f 5f       	subi	r25, 0xFF	; 255
+    1bfa:	1c c0       	rjmp	.+56     	; 0x1c34 <getSpritePalette+0x50>
+					 //spriteRow, qCol);
+		else
+			thePalette = 0;
+			//data = getGimpColorVal(&spriteFLOWER, 0, spriteRow, qCol);
+	}
+	else if(p_thisSprite == &spriteGOOMBA)
+    1bfc:	99 e0       	ldi	r25, 0x09	; 9
+    1bfe:	24 30       	cpi	r18, 0x04	; 4
+    1c00:	39 07       	cpc	r19, r25
+    1c02:	81 f4       	brne	.+32     	; 0x1c24 <getSpritePalette+0x40>
+		//uint8_t palette; // = qCount * p_thisSprite->numPalettes / 16;
+		//if(palette >= p_thisSprite->numPalettes)
+		//	palette = p_thisSprite->numPalettes-1;
+
+			
+		switch(spritePhase)
+    1c04:	90 e0       	ldi	r25, 0x00	; 0
+    1c06:	80 31       	cpi	r24, 0x10	; 16
+    1c08:	91 05       	cpc	r25, r1
+    1c0a:	50 f4       	brcc	.+20     	; 0x1c20 <getSpritePalette+0x3c>
+    1c0c:	fc 01       	movw	r30, r24
+    1c0e:	eb 5d       	subi	r30, 0xDB	; 219
+    1c10:	ff 4f       	sbci	r31, 0xFF	; 255
+    1c12:	09 94       	ijmp
+					thePalette = 1;
+					break;
+				case 7:
+				case 8:
+				case 9:
+					thePalette = 2;
+    1c14:	92 e0       	ldi	r25, 0x02	; 2
+					break;
+    1c16:	0e c0       	rjmp	.+28     	; 0x1c34 <getSpritePalette+0x50>
+				case 10:
+				case 11:
+				case 12:
+					thePalette = 3;
+    1c18:	93 e0       	ldi	r25, 0x03	; 3
+					break;
+    1c1a:	0c c0       	rjmp	.+24     	; 0x1c34 <getSpritePalette+0x50>
+				case 13:
+				case 14:
+				case 15:
+					thePalette = 4;
+    1c1c:	94 e0       	ldi	r25, 0x04	; 4
+					break;
+    1c1e:	0a c0       	rjmp	.+20     	; 0x1c34 <getSpritePalette+0x50>
+				default:
+					thePalette = p_thisSprite->numPalettes-1;
+    1c20:	95 e0       	ldi	r25, 0x05	; 5
+    1c22:	08 c0       	rjmp	.+16     	; 0x1c34 <getSpritePalette+0x50>
+		//data = getGimpColorVal(&spriteGOOMBA, palette, spriteRow, gCol);
+	}
+	else
+	{
+		//data = getGimpColorVal(p_thisSprite, 
+		  thePalette = spritePhase%p_thisSprite->numPalettes;
+    1c24:	f9 01       	movw	r30, r18
+    1c26:	36 96       	adiw	r30, 0x06	; 6
+    1c28:	64 91       	lpm	r22, Z
+    1c2a:	2a d1       	rcall	.+596    	; 0x1e80 <__udivmodqi4>
+    1c2c:	03 c0       	rjmp	.+6      	; 0x1c34 <getSpritePalette+0x50>
+		if(spriteRow<FLOWER_PALETTE1_ROW)
+			//data = getGimpColorVal(&spriteFLOWER,
+			  thePalette = spritePhase%(spriteFLOWER.numPalettes-1) + 1; 
+					 //spriteRow, qCol);
+		else
+			thePalette = 0;
+    1c2e:	90 e0       	ldi	r25, 0x00	; 0
+    1c30:	01 c0       	rjmp	.+2      	; 0x1c34 <getSpritePalette+0x50>
+					thePalette = 0;
+					break;
+				case 4:
+				case 5:
+				case 6:
+					thePalette = 1;
+    1c32:	91 e0       	ldi	r25, 0x01	; 1
+		  thePalette = spritePhase%p_thisSprite->numPalettes;
+						//spriteRow, qCol);
+	}
+
+	return thePalette;
+}
+    1c34:	89 2f       	mov	r24, r25
+    1c36:	08 95       	ret
+
+00001c38 <getSpritePhase>:
+// vOffset is whether the sprite is above the frame-buffer or below...
+// centered = 0
+// so, e.g. vOffset = spriteRow - rowToDrawAt
+uint8_t getSpritePhase(const __flash sprite_t *p_thisSprite, uint8_t qCount, int8_t
+		vOffset)
+{
+    1c38:	9c 01       	movw	r18, r24
+    1c3a:	86 2f       	mov	r24, r22
+	uint8_t spritePhase = qCount;
+
+	if(p_thisSprite == &spriteQ)
+    1c3c:	9a e0       	ldi	r25, 0x0A	; 10
+    1c3e:	22 33       	cpi	r18, 0x32	; 50
+    1c40:	39 07       	cpc	r19, r25
+    1c42:	79 f4       	brne	.+30     	; 0x1c62 <getSpritePhase+0x2a>
+	{
+		switch(spritePhase%12)
+    1c44:	6c e0       	ldi	r22, 0x0C	; 12
+    1c46:	1c d1       	rcall	.+568    	; 0x1e80 <__udivmodqi4>
+    1c48:	89 2f       	mov	r24, r25
+    1c4a:	90 e0       	ldi	r25, 0x00	; 0
+    1c4c:	8c 30       	cpi	r24, 0x0C	; 12
+    1c4e:	91 05       	cpc	r25, r1
+    1c50:	30 f4       	brcc	.+12     	; 0x1c5e <getSpritePhase+0x26>
+    1c52:	fc 01       	movw	r30, r24
+    1c54:	eb 5c       	subi	r30, 0xCB	; 203
+    1c56:	ff 4f       	sbci	r31, 0xFF	; 255
+    1c58:	09 94       	ijmp
+			case 2:
+
+			case 9:
+			case 10:
+			case 11:
+				spritePhase = 0; //yellow background
+    1c5a:	80 e0       	ldi	r24, 0x00	; 0
+    1c5c:	08 95       	ret
+				break;
+			case 5:
+			case 6:
+
+			default:
+				spritePhase = 2; //brown background
+    1c5e:	82 e0       	ldi	r24, 0x02	; 2
+				break;
+    1c60:	08 95       	ret
+		}
+
+	}
+	//else if(p_thisSprite == &spriteCOIN) //handled in getRowPixelValCOIN()
+	else if(p_thisSprite == &spriteGOOMBA)
+    1c62:	24 50       	subi	r18, 0x04	; 4
+    1c64:	39 40       	sbci	r19, 0x09	; 9
+    1c66:	61 f4       	brne	.+24     	; 0x1c80 <getSpritePhase+0x48>
+	{
+		if (vOffset < 0) //(spriteRow < rowToDrawAt)
+    1c68:	47 fd       	sbrc	r20, 7
+    1c6a:	03 c0       	rjmp	.+6      	; 0x1c72 <getSpritePhase+0x3a>
+			spritePhase = 0;
+		if (vOffset > 0) //(spriteRow > rowToDrawAt)
+    1c6c:	41 11       	cpse	r20, r1
+    1c6e:	07 c0       	rjmp	.+14     	; 0x1c7e <getSpritePhase+0x46>
+    1c70:	01 c0       	rjmp	.+2      	; 0x1c74 <getSpritePhase+0x3c>
+	}
+	//else if(p_thisSprite == &spriteCOIN) //handled in getRowPixelValCOIN()
+	else if(p_thisSprite == &spriteGOOMBA)
+	{
+		if (vOffset < 0) //(spriteRow < rowToDrawAt)
+			spritePhase = 0;
+    1c72:	80 e0       	ldi	r24, 0x00	; 0
+		if (vOffset > 0) //(spriteRow > rowToDrawAt)
+			spritePhase = GOOMBA_QCOUNT;
+		else
+			spritePhase /=3;
+    1c74:	63 e0       	ldi	r22, 0x03	; 3
+    1c76:	04 d1       	rcall	.+520    	; 0x1e80 <__udivmodqi4>
+    1c78:	08 95       	ret
+			case 3:
+			case 4:
+
+			case 7:
+			case 8:
+				spritePhase = 1; //red background
+    1c7a:	81 e0       	ldi	r24, 0x01	; 1
+    1c7c:	08 95       	ret
+	else if(p_thisSprite == &spriteGOOMBA)
+	{
+		if (vOffset < 0) //(spriteRow < rowToDrawAt)
+			spritePhase = 0;
+		if (vOffset > 0) //(spriteRow > rowToDrawAt)
+			spritePhase = GOOMBA_QCOUNT;
+    1c7e:	80 e5       	ldi	r24, 0x50	; 80
+
+	}
+
+	return spritePhase;
+
+}
+    1c80:	08 95       	ret
+
+00001c82 <lcd_init>:
+#endif
+
+void lcd_init(void)
+{
+	//Not sure modifying vSync randomly is safe...
+	vSync = 0;
+    1c82:	10 92 82 00 	sts	0x0082, r1
+	//the rest should be...? assuming it occurs after lcd_update() completes
+	// (thus leaving it in NADA-state)
+	hsyncCount = 0;
+    1c86:	10 92 81 00 	sts	0x0081, r1
+    1c8a:	10 92 80 00 	sts	0x0080, r1
+	dataEnable = FALSE;
+    1c8e:	10 92 83 00 	sts	0x0083, r1
+ 	Nada_init();
+    1c92:	80 e3       	ldi	r24, 0x30	; 48
+    1c94:	84 bd       	out	0x24, r24	; 36
+    1c96:	84 e0       	ldi	r24, 0x04	; 4
+    1c98:	8d bd       	out	0x2d, r24	; 45
+    1c9a:	08 95       	ret
+
+00001c9c <lcd_update>:
+//           Not *entirely* accurate, as it may be negative during VBLANK
+//           OR returns LCD_FRAMECOMPLETE when that's the case.
+// DOES THIS RETURN THE ROW THAT WAS DRAWN OR THE NEXT...?
+#define LCD_FRAMECOMPLETE	INT16_MAX
+int16_t lcd_update(void)
+{
+    1c9c:	cf 93       	push	r28
+    1c9e:	df 93       	push	r29
+//	uint8_t frameComplete = FALSE;
+
+#warning "this might be off by one, which would explain the weird first row"
+	int16_t rowNum = hsyncCount - T_DV-T_VD-T_Vlow;
+    1ca0:	80 91 80 00 	lds	r24, 0x0080
+    1ca4:	90 91 81 00 	lds	r25, 0x0081
+    1ca8:	86 97       	sbiw	r24, 0x26	; 38
+    1caa:	d8 2f       	mov	r29, r24
+    1cac:	c9 2f       	mov	r28, r25
+	//  ... IN THIS INTERRUPT
+	//loadData(((hsyncCount-T_VD-T_Vlow)>>3)&31, dataEnable,colorOverride);
+//	loadData(hsyncCount-T_DV-T_VD-T_Vlow, dataEnable);
+
+
+	loadData(rowNum, dataEnable);
+    1cae:	20 91 83 00 	lds	r18, 0x0083
+#ifdef drawPixSetup
+	drawPixSetup(rowNum);
+#endif
+
+	//H Active pulse...
+   if(vSync)
+    1cb2:	30 91 82 00 	lds	r19, 0x0082
+    1cb6:	33 23       	and	r19, r19
+    1cb8:	39 f0       	breq	.+14     	; 0x1cc8 <lcd_update+0x2c>
+   {
+		//Vsync_fromNada() is called at the end of the last interupt
+      VplusH_fromVsync();
+    1cba:	1d bc       	out	0x2d, r1	; 45
+    1cbc:	ec e2       	ldi	r30, 0x2C	; 44
+    1cbe:	f0 e0       	ldi	r31, 0x00	; 0
+    1cc0:	31 97       	sbiw	r30, 0x01	; 1
+    1cc2:	f1 f7       	brne	.-4      	; 0x1cc0 <lcd_update+0x24>
+      Hlow_Delay();
+      Vsync_fromVplusH();
+    1cc4:	35 e0       	ldi	r19, 0x05	; 5
+    1cc6:	07 c0       	rjmp	.+14     	; 0x1cd6 <lcd_update+0x3a>
+      HD_Delay();
+   }
+   else
+   {
+      Hsync_fromNada();
+    1cc8:	33 e0       	ldi	r19, 0x03	; 3
+    1cca:	3d bd       	out	0x2d, r19	; 45
+    1ccc:	ec e2       	ldi	r30, 0x2C	; 44
+    1cce:	f0 e0       	ldi	r31, 0x00	; 0
+    1cd0:	31 97       	sbiw	r30, 0x01	; 1
+    1cd2:	f1 f7       	brne	.-4      	; 0x1cd0 <lcd_update+0x34>
+      Hlow_Delay();
+      Nada_fromHsync();
+    1cd4:	34 e0       	ldi	r19, 0x04	; 4
+    1cd6:	3d bd       	out	0x2d, r19	; 45
+    1cd8:	e2 e0       	ldi	r30, 0x02	; 2
+    1cda:	f0 e0       	ldi	r31, 0x00	; 0
+    1cdc:	31 97       	sbiw	r30, 0x01	; 1
+    1cde:	f1 f7       	brne	.-4      	; 0x1cdc <lcd_update+0x40>
+      HD_Delay();
+   }
+
+   if(dataEnable)
+    1ce0:	21 11       	cpse	r18, r1
+	//a/o v70, it's in use again for ROW_BUFFER.
+	//a/o v67, this is used by FRAMEBUFFER_TESTING...
+	//Old:
+	//This hasn't been used in quite some time... 
+	// it may not work at all anymore.
+	nonRSB_drawPix(rowNum);
+    1ce2:	09 db       	rcall	.-2542   	; 0x12f6 <nonRSB_drawPix>
+
+
+	loadData(rowNum, dataEnable);
+
+
+	hsyncCount++;
+    1ce4:	20 91 80 00 	lds	r18, 0x0080
+    1ce8:	30 91 81 00 	lds	r19, 0x0081
+    1cec:	2f 5f       	subi	r18, 0xFF	; 255
+    1cee:	3f 4f       	sbci	r19, 0xFF	; 255
+    1cf0:	30 93 81 00 	sts	0x0081, r19
+    1cf4:	20 93 80 00 	sts	0x0080, r18
+
+	switch(hsyncCount)
+    1cf8:	20 91 80 00 	lds	r18, 0x0080
+    1cfc:	30 91 81 00 	lds	r19, 0x0081
+    1d00:	23 32       	cpi	r18, 0x23	; 35
+    1d02:	31 05       	cpc	r19, r1
+    1d04:	e1 f0       	breq	.+56     	; 0x1d3e <lcd_update+0xa2>
+    1d06:	60 f4       	brcc	.+24     	; 0x1d20 <lcd_update+0x84>
+    1d08:	23 30       	cpi	r18, 0x03	; 3
+    1d0a:	31 05       	cpc	r19, r1
+    1d0c:	11 f5       	brne	.+68     	; 0x1d52 <lcd_update+0xb6>
+	{
+		//V Front Porch, begins with initLCD
+
+		//Vsync H->L (Begin V-Sync)
+		case T_DV:
+			dataEnable = FALSE;
+    1d0e:	10 92 83 00 	sts	0x0083, r1
+			//clrpinPORT(VSYNC_PIN, VSYNC_PORT);
+			vSync = TRUE;
+    1d12:	81 e0       	ldi	r24, 0x01	; 1
+    1d14:	80 93 82 00 	sts	0x0082, r24
+			Vsync_fromNada();
+    1d18:	80 e4       	ldi	r24, 0x40	; 64
+    1d1a:	84 bd       	out	0x24, r24	; 36
+    1d1c:	85 e0       	ldi	r24, 0x05	; 5
+    1d1e:	14 c0       	rjmp	.+40     	; 0x1d48 <lcd_update+0xac>
+	loadData(rowNum, dataEnable);
+
+
+	hsyncCount++;
+
+	switch(hsyncCount)
+    1d20:	26 32       	cpi	r18, 0x26	; 38
+    1d22:	31 05       	cpc	r19, r1
+    1d24:	99 f0       	breq	.+38     	; 0x1d4c <lcd_update+0xb0>
+    1d26:	26 32       	cpi	r18, 0x26	; 38
+    1d28:	33 40       	sbci	r19, 0x03	; 3
+    1d2a:	99 f4       	brne	.+38     	; 0x1d52 <lcd_update+0xb6>
+			dataEnable = TRUE;
+			break;
+		// All rows have been displayed
+		// Return to V Front Porch
+		case V_COUNT +(T_VD + T_Vlow + T_DV):
+			dataEnable = FALSE;
+    1d2c:	10 92 83 00 	sts	0x0083, r1
+		//	break;
+		//Frame complete
+		//case HSYNC_COUNT_FRAME_COMPLETE:
+			//T_DV +(V_COUNT+T_VD+T_Vlow) + FRAME_UPDATE_DELAY:
+			hsyncCount = 0;
+    1d30:	10 92 81 00 	sts	0x0081, r1
+    1d34:	10 92 80 00 	sts	0x0080, r1
+#endif
+			
+//#warning "NewNote: WTF, are we relying on loadData to have properly set the mode?"
+// Yeah, guess that makes sense... Must be Nada...
+			//frameComplete = TRUE;
+			rowNum = LCD_FRAMECOMPLETE;
+    1d38:	df ef       	ldi	r29, 0xFF	; 255
+    1d3a:	cf e7       	ldi	r28, 0x7F	; 127
+			break;
+    1d3c:	0a c0       	rjmp	.+20     	; 0x1d52 <lcd_update+0xb6>
+		//	if(hfm_nextOutput(&modulator))
+		//		colorOverride = 0xff;
+		//	else
+		//		colorOverride = 7;
+			//setpinPORT(VSYNC_PIN, VSYNC_PORT);
+			vSync = FALSE;
+    1d3e:	10 92 82 00 	sts	0x0082, r1
+			Nada_fromVsync();
+    1d42:	80 e3       	ldi	r24, 0x30	; 48
+    1d44:	84 bd       	out	0x24, r24	; 36
+    1d46:	84 e0       	ldi	r24, 0x04	; 4
+    1d48:	8d bd       	out	0x2d, r24	; 45
+			break;
+    1d4a:	03 c0       	rjmp	.+6      	; 0x1d52 <lcd_update+0xb6>
+		//Start of frame (DE active)
+		case T_VD +(T_Vlow + T_DV):
+			dataEnable = TRUE;
+    1d4c:	81 e0       	ldi	r24, 0x01	; 1
+    1d4e:	80 93 83 00 	sts	0x0083, r24
+	// calculations to determine the memory location to write from
+	// This effect has since been minimized
+	// BUT loadRow might be necessary for program-memory-based images...
+
+	return rowNum; //frameComplete;
+}
+    1d52:	8d 2f       	mov	r24, r29
+    1d54:	9c 2f       	mov	r25, r28
+    1d56:	df 91       	pop	r29
+    1d58:	cf 91       	pop	r28
+    1d5a:	08 95       	ret
+
+00001d5c <restartFrameUpdate>:
+ volatile uint8_t frameCount = 0;
+
+
+ void restartFrameUpdate(void)
+ {
+	updateFrame = FB_REFRESH_ON_CHANGE_COUNT;
+    1d5c:	82 e0       	ldi	r24, 0x02	; 2
+    1d5e:	80 93 65 00 	sts	0x0065, r24
+    1d62:	08 95       	ret
+
+00001d64 <__vector_14>:
+ //Nearly everything display-related happens in this interrupt
+ // It even calls the functions that load (and calculate!) the data for the
+ // next row.
+ // So basically, the entire project is running via timer-interrupt.
+ SIGNAL(HSYNC_TIMER_INTERRUPT_VECT) //TIMER0_COMPA_vect)
+ {
+    1d64:	1f 92       	push	r1
+    1d66:	0f 92       	push	r0
+    1d68:	0f b6       	in	r0, 0x3f	; 63
+    1d6a:	0f 92       	push	r0
+    1d6c:	11 24       	eor	r1, r1
+    1d6e:	2f 93       	push	r18
+    1d70:	3f 93       	push	r19
+    1d72:	4f 93       	push	r20
+    1d74:	5f 93       	push	r21
+    1d76:	6f 93       	push	r22
+    1d78:	7f 93       	push	r23
+    1d7a:	8f 93       	push	r24
+    1d7c:	9f 93       	push	r25
+    1d7e:	af 93       	push	r26
+    1d80:	bf 93       	push	r27
+    1d82:	ef 93       	push	r30
+    1d84:	ff 93       	push	r31
+		// we need to do it manually...
+		// (because the tcnter uses the hsyncTimer)
+#if(!defined(HEART_TCNTER_UPDATES_AND_INIT) || \
+		!HEART_TCNTER_UPDATES_AND_INIT)
+ #if(defined(_HEART_TCNTER_) && _HEART_TCNTER_)
+	 tcnter_overflowUpdate();
+    1d86:	23 d9       	rcall	.-3514   	; 0xfce <tcnter_overflowUpdate>
+ #endif
+#endif
+
+	 if(!updateFrame)
+    1d88:	80 91 65 00 	lds	r24, 0x0065
+    1d8c:	88 23       	and	r24, r24
+    1d8e:	91 f0       	breq	.+36     	; 0x1db4 <__vector_14+0x50>
+
+#endif // testing 91 vs 66.51-1
+	 //a/o v66.51-64: lcdUpdate() was surrounded by heart set/cleared
+	 // for 'scoping syncing... definitely revealed the problem. But easy
+	 // enough to do that the code's not reimplemented here (set/clrpinPORT)
+	int16_t rowNum = lcd_update();
+    1d90:	85 df       	rcall	.-246    	; 0x1c9c <lcd_update>
+
+	if(rowNum == LCD_FRAMECOMPLETE)
+    1d92:	8f 3f       	cpi	r24, 0xFF	; 255
+    1d94:	9f 47       	sbci	r25, 0x7F	; 127
+    1d96:	71 f4       	brne	.+28     	; 0x1db4 <__vector_14+0x50>
+	{
+		frameCount++;
+    1d98:	80 91 7f 00 	lds	r24, 0x007F
+    1d9c:	8f 5f       	subi	r24, 0xFF	; 255
+    1d9e:	80 93 7f 00 	sts	0x007F, r24
+// This is revisited from _unusedIdeas/frameCountToDelay.c
+void endOfFrameHandler(void)
+{
+	//The original plan was to stop the timer, but now that is used by
+	//dmsTimer... so instead:
+	if(updateFrame)
+    1da2:	80 91 65 00 	lds	r24, 0x0065
+    1da6:	88 23       	and	r24, r24
+    1da8:	29 f0       	breq	.+10     	; 0x1db4 <__vector_14+0x50>
+		updateFrame--; //= FALSE;
+    1daa:	80 91 65 00 	lds	r24, 0x0065
+    1dae:	81 50       	subi	r24, 0x01	; 1
+    1db0:	80 93 65 00 	sts	0x0065, r24
+
+
+	//THIS IS A HACK
+	//tcnter_update();
+
+ }
+    1db4:	ff 91       	pop	r31
+    1db6:	ef 91       	pop	r30
+    1db8:	bf 91       	pop	r27
+    1dba:	af 91       	pop	r26
+    1dbc:	9f 91       	pop	r25
+    1dbe:	8f 91       	pop	r24
+    1dc0:	7f 91       	pop	r23
+    1dc2:	6f 91       	pop	r22
+    1dc4:	5f 91       	pop	r21
+    1dc6:	4f 91       	pop	r20
+    1dc8:	3f 91       	pop	r19
+    1dca:	2f 91       	pop	r18
+    1dcc:	0f 90       	pop	r0
+    1dce:	0f be       	out	0x3f, r0	; 63
+    1dd0:	0f 90       	pop	r0
+    1dd2:	1f 90       	pop	r1
+    1dd4:	18 95       	reti
+
+00001dd6 <init_hsyncTimer>:
+//Testing with values returned by hsyncTimerCalculator
+//#define HSYNC_TIMER_OCRVAL	65
+
+void init_hsyncTimer(void)
+{
+   HSYNC_TIMER_OCR = HSYNC_TIMER_OCRVAL; 
+    1dd6:	8d ee       	ldi	r24, 0xED	; 237
+    1dd8:	83 bb       	out	0x13, r24	; 19
+							//T_Hlow_CYC + T_HD_CYC + T_DE_CYC + T_DH_CYC;
+   timer_setWGM(HSYNC_TIMER_NUM, WGM_CLR_ON_COMPARE);
+    1dda:	62 e0       	ldi	r22, 0x02	; 2
+    1ddc:	80 e0       	ldi	r24, 0x00	; 0
+    1dde:	3a d7       	rcall	.+3700   	; 0x2c54 <__data_load_end+0xd1c>
+   timer_selectDivisor(HSYNC_TIMER_NUM, HSYNC_TIMER_CLKDIV); //CLKDIV1);
+    1de0:	63 e0       	ldi	r22, 0x03	; 3
+    1de2:	80 e0       	ldi	r24, 0x00	; 0
+    1de4:	12 d7       	rcall	.+3620   	; 0x2c0a <__data_load_end+0xcd2>
+   timer_compareMatchIntEnable(HSYNC_TIMER_NUM, OUT_CHANNELA);
+    1de6:	41 e0       	ldi	r20, 0x01	; 1
+    1de8:	60 e0       	ldi	r22, 0x00	; 0
+    1dea:	80 e0       	ldi	r24, 0x00	; 0
+    1dec:	66 c7       	rjmp	.+3788   	; 0x2cba <__data_load_end+0xd82>
+
+00001dee <drawPix>:
+	//a/o v70, it's in use again for ROW_BUFFER.
+	//a/o v67, this is used by FRAMEBUFFER_TESTING...
+	//Old:
+	//This hasn't been used in quite some time... 
+	// it may not work at all anymore.
+	nonRSB_drawPix(rowNum);
+    1dee:	83 ca       	rjmp	.-2810   	; 0x12f6 <nonRSB_drawPix>
+
+00001df0 <isNewFrame>:
+{
+	uint8_t newFrame = FALSE;
+
+	static uint8_t lastFrameCount = 0;
+#define FRAME_COUNT_LIMIT 0x03
+	uint8_t thisFrameCount = frameCount&FRAME_COUNT_LIMIT;
+    1df0:	90 91 7f 00 	lds	r25, 0x007F
+    1df4:	93 70       	andi	r25, 0x03	; 3
+
+//		if(( (thisFrameCount==0) && (lastFrameCount==FRAME_COUNT_LIMIT) ))
+	if(thisFrameCount != lastFrameCount)
+    1df6:	81 e0       	ldi	r24, 0x01	; 1
+    1df8:	20 91 88 00 	lds	r18, 0x0088
+    1dfc:	92 13       	cpse	r25, r18
+    1dfe:	01 c0       	rjmp	.+2      	; 0x1e02 <isNewFrame+0x12>
+    1e00:	80 e0       	ldi	r24, 0x00	; 0
+		newFrame = TRUE;
+
+	lastFrameCount = thisFrameCount;
+    1e02:	90 93 88 00 	sts	0x0088, r25
+
+	return newFrame;
+}
+    1e06:	08 95       	ret
+
+00001e08 <main>:
+{
+// a/o FB_TETRIS, testing...
+	//WTF... this ain't showin' up when FB_WIDTH=24...?!
+
+#if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+	frameBufferInit();
+    1e08:	23 da       	rcall	.-3002   	; 0x1250 <frameBufferInit>
+    1e0a:	2e ea       	ldi	r18, 0xAE	; 174
+    1e0c:	30 e0       	ldi	r19, 0x00	; 0
+	uint8_t i, j;
+	for(i=0; i<FB_HEIGHT; i++)
+    1e0e:	40 e0       	ldi	r20, 0x00	; 0
+
+
+
+
+int main(void)
+{
+    1e10:	80 e0       	ldi	r24, 0x00	; 0
+    1e12:	90 e0       	ldi	r25, 0x00	; 0
+    1e14:	f9 01       	movw	r30, r18
+    1e16:	e8 0f       	add	r30, r24
+    1e18:	f9 1f       	adc	r31, r25
+    1e1a:	54 2f       	mov	r21, r20
+    1e1c:	58 0f       	add	r21, r24
+#if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+	frameBufferInit();
+	uint8_t i, j;
+	for(i=0; i<FB_HEIGHT; i++)
+		for(j=0; j<FB_WIDTH; j++)
+			frameBuffer[i][j] = i+j;
+    1e1e:	50 83       	st	Z, r21
+    1e20:	01 96       	adiw	r24, 0x01	; 1
+
+#if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+	frameBufferInit();
+	uint8_t i, j;
+	for(i=0; i<FB_HEIGHT; i++)
+		for(j=0; j<FB_WIDTH; j++)
+    1e22:	80 31       	cpi	r24, 0x10	; 16
+    1e24:	91 05       	cpc	r25, r1
+    1e26:	b1 f7       	brne	.-20     	; 0x1e14 <main+0xc>
+	//WTF... this ain't showin' up when FB_WIDTH=24...?!
+
+#if(defined(FRAMEBUFFER_TESTING) && FRAMEBUFFER_TESTING)
+	frameBufferInit();
+	uint8_t i, j;
+	for(i=0; i<FB_HEIGHT; i++)
+    1e28:	4f 5f       	subi	r20, 0xFF	; 255
+    1e2a:	2f 5e       	subi	r18, 0xEF	; 239
+    1e2c:	3f 4f       	sbci	r19, 0xFF	; 255
+    1e2e:	40 31       	cpi	r20, 0x10	; 16
+    1e30:	79 f7       	brne	.-34     	; 0x1e10 <main+0x8>
+#endif
+
+
+
+#if(!defined(PWM_TESTING) || !PWM_TESTING)
+	init_hsyncTimer();
+    1e32:	d1 df       	rcall	.-94     	; 0x1dd6 <init_hsyncTimer>
+#endif
+
+	//This starts pretty late... watch out for WDT
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
+	init_heartBeat();
+    1e34:	b6 d7       	rcall	.+3948   	; 0x2da2 <__data_load_end+0xe6a>
+
+	setHeartRate(0);
+    1e36:	80 e0       	ldi	r24, 0x00	; 0
+    1e38:	8c d7       	rcall	.+3864   	; 0x2d52 <__data_load_end+0xe1a>
+
+
+
+
+
+	lvds_timerInit();
+    1e3a:	be d9       	rcall	.-3204   	; 0x11b8 <lvds_timerInit>
+
+
+#if (defined(FB_QUESTION) && FB_QUESTION)
+ #if (defined(BUMP_SWITCH) && BUMP_SWITCH)
+	hitSensor_init();
+    1e3c:	9f d9       	rcall	.-3266   	; 0x117c <hitSensor_init>
+#if (defined(BUMP_SWITCH) && BUMP_SWITCH)
+#error "BUMP_SWITCH and PIEZO_HIT_DETECTION can't *both* be enabled, currently"
+#endif
+		if(phd_update())				
+#else
+		if(!heartPinInputPoll())
+    1e3e:	b0 d8       	rcall	.-3744   	; 0xfa0 <heartPinInputPoll>
+    1e40:	81 11       	cpse	r24, r1
+    1e42:	01 c0       	rjmp	.+2      	; 0x1e46 <main+0x3e>
+#endif
+			fbQuestion_hitDetected();
+    1e44:	f2 dc       	rcall	.-1564   	; 0x182a <fbQuestion_hitDetected>
+//#endif
+
+//#if( (defined(FB_QUESTION) && FB_QUESTION) 
+//	  ||	(defined(FB_SMILEY) && FB_SMILEY) )
+#if( defined(FRAMEBUFFER_TESTING) && (FRAMEBUFFER_TESTING))
+		frameBufferUpdate();
+    1e46:	90 de       	rcall	.-736    	; 0x1b68 <frameBufferUpdate>
+#endif
+
+#if(!defined(V6651COMPARE) || !V6651COMPARE)
+		heartUpdate();
+    1e48:	c3 d7       	rcall	.+3974   	; 0x2dd0 <__data_load_end+0xe98>
+#endif		
+		//THIS IS A HACK
+		//tcnter_update();
+	}
+    1e4a:	f9 cf       	rjmp	.-14     	; 0x1e3e <main+0x36>
+
+00001e4c <__mulqi3>:
+    1e4c:	00 24       	eor	r0, r0
+
+00001e4e <__mulqi3_loop>:
+    1e4e:	80 fd       	sbrc	r24, 0
+    1e50:	06 0e       	add	r0, r22
+    1e52:	66 0f       	add	r22, r22
+    1e54:	11 f0       	breq	.+4      	; 0x1e5a <__mulqi3_exit>
+    1e56:	86 95       	lsr	r24
+    1e58:	d1 f7       	brne	.-12     	; 0x1e4e <__mulqi3_loop>
+
+00001e5a <__mulqi3_exit>:
+    1e5a:	80 2d       	mov	r24, r0
+    1e5c:	08 95       	ret
+
+00001e5e <__mulhi3>:
+    1e5e:	00 24       	eor	r0, r0
+    1e60:	55 27       	eor	r21, r21
+    1e62:	04 c0       	rjmp	.+8      	; 0x1e6c <__mulhi3+0xe>
+    1e64:	08 0e       	add	r0, r24
+    1e66:	59 1f       	adc	r21, r25
+    1e68:	88 0f       	add	r24, r24
+    1e6a:	99 1f       	adc	r25, r25
+    1e6c:	00 97       	sbiw	r24, 0x00	; 0
+    1e6e:	29 f0       	breq	.+10     	; 0x1e7a <__mulhi3+0x1c>
+    1e70:	76 95       	lsr	r23
+    1e72:	67 95       	ror	r22
+    1e74:	b8 f3       	brcs	.-18     	; 0x1e64 <__mulhi3+0x6>
+    1e76:	71 05       	cpc	r23, r1
+    1e78:	b9 f7       	brne	.-18     	; 0x1e68 <__mulhi3+0xa>
+    1e7a:	80 2d       	mov	r24, r0
+    1e7c:	95 2f       	mov	r25, r21
+    1e7e:	08 95       	ret
+
+00001e80 <__udivmodqi4>:
+    1e80:	99 1b       	sub	r25, r25
+    1e82:	79 e0       	ldi	r23, 0x09	; 9
+    1e84:	04 c0       	rjmp	.+8      	; 0x1e8e <__udivmodqi4_ep>
+
+00001e86 <__udivmodqi4_loop>:
+    1e86:	99 1f       	adc	r25, r25
+    1e88:	96 17       	cp	r25, r22
+    1e8a:	08 f0       	brcs	.+2      	; 0x1e8e <__udivmodqi4_ep>
+    1e8c:	96 1b       	sub	r25, r22
+
+00001e8e <__udivmodqi4_ep>:
+    1e8e:	88 1f       	adc	r24, r24
+    1e90:	7a 95       	dec	r23
+    1e92:	c9 f7       	brne	.-14     	; 0x1e86 <__udivmodqi4_loop>
+    1e94:	80 95       	com	r24
+    1e96:	08 95       	ret
+
+00001e98 <__udivmodhi4>:
+    1e98:	aa 1b       	sub	r26, r26
+    1e9a:	bb 1b       	sub	r27, r27
+    1e9c:	51 e1       	ldi	r21, 0x11	; 17
+    1e9e:	07 c0       	rjmp	.+14     	; 0x1eae <__udivmodhi4_ep>
+
+00001ea0 <__udivmodhi4_loop>:
+    1ea0:	aa 1f       	adc	r26, r26
+    1ea2:	bb 1f       	adc	r27, r27
+    1ea4:	a6 17       	cp	r26, r22
+    1ea6:	b7 07       	cpc	r27, r23
+    1ea8:	10 f0       	brcs	.+4      	; 0x1eae <__udivmodhi4_ep>
+    1eaa:	a6 1b       	sub	r26, r22
+    1eac:	b7 0b       	sbc	r27, r23
+
+00001eae <__udivmodhi4_ep>:
+    1eae:	88 1f       	adc	r24, r24
+    1eb0:	99 1f       	adc	r25, r25
+    1eb2:	5a 95       	dec	r21
+    1eb4:	a9 f7       	brne	.-22     	; 0x1ea0 <__udivmodhi4_loop>
+    1eb6:	80 95       	com	r24
+    1eb8:	90 95       	com	r25
+    1eba:	bc 01       	movw	r22, r24
+    1ebc:	cd 01       	movw	r24, r26
+    1ebe:	08 95       	ret
+
+00001ec0 <__divmodhi4>:
+    1ec0:	97 fb       	bst	r25, 7
+    1ec2:	07 2e       	mov	r0, r23
+    1ec4:	16 f4       	brtc	.+4      	; 0x1eca <__divmodhi4+0xa>
+    1ec6:	00 94       	com	r0
+    1ec8:	06 d0       	rcall	.+12     	; 0x1ed6 <__divmodhi4_neg1>
+    1eca:	77 fd       	sbrc	r23, 7
+    1ecc:	08 d0       	rcall	.+16     	; 0x1ede <__divmodhi4_neg2>
+    1ece:	e4 df       	rcall	.-56     	; 0x1e98 <__udivmodhi4>
+    1ed0:	07 fc       	sbrc	r0, 7
+    1ed2:	05 d0       	rcall	.+10     	; 0x1ede <__divmodhi4_neg2>
+    1ed4:	3e f4       	brtc	.+14     	; 0x1ee4 <__divmodhi4_exit>
+
+00001ed6 <__divmodhi4_neg1>:
+    1ed6:	90 95       	com	r25
+    1ed8:	81 95       	neg	r24
+    1eda:	9f 4f       	sbci	r25, 0xFF	; 255
+    1edc:	08 95       	ret
+
+00001ede <__divmodhi4_neg2>:
+    1ede:	70 95       	com	r23
+    1ee0:	61 95       	neg	r22
+    1ee2:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00001ee4 <__divmodhi4_exit>:
+    1ee4:	08 95       	ret
+
+00001ee6 <__udivmodsi4>:
+    1ee6:	a1 e2       	ldi	r26, 0x21	; 33
+    1ee8:	1a 2e       	mov	r1, r26
+    1eea:	aa 1b       	sub	r26, r26
+    1eec:	bb 1b       	sub	r27, r27
+    1eee:	fd 01       	movw	r30, r26
+    1ef0:	0d c0       	rjmp	.+26     	; 0x1f0c <__udivmodsi4_ep>
+
+00001ef2 <__udivmodsi4_loop>:
+    1ef2:	aa 1f       	adc	r26, r26
+    1ef4:	bb 1f       	adc	r27, r27
+    1ef6:	ee 1f       	adc	r30, r30
+    1ef8:	ff 1f       	adc	r31, r31
+    1efa:	a2 17       	cp	r26, r18
+    1efc:	b3 07       	cpc	r27, r19
+    1efe:	e4 07       	cpc	r30, r20
+    1f00:	f5 07       	cpc	r31, r21
+    1f02:	20 f0       	brcs	.+8      	; 0x1f0c <__udivmodsi4_ep>
+    1f04:	a2 1b       	sub	r26, r18
+    1f06:	b3 0b       	sbc	r27, r19
+    1f08:	e4 0b       	sbc	r30, r20
+    1f0a:	f5 0b       	sbc	r31, r21
+
+00001f0c <__udivmodsi4_ep>:
+    1f0c:	66 1f       	adc	r22, r22
+    1f0e:	77 1f       	adc	r23, r23
+    1f10:	88 1f       	adc	r24, r24
+    1f12:	99 1f       	adc	r25, r25
+    1f14:	1a 94       	dec	r1
+    1f16:	69 f7       	brne	.-38     	; 0x1ef2 <__udivmodsi4_loop>
+    1f18:	60 95       	com	r22
+    1f1a:	70 95       	com	r23
+    1f1c:	80 95       	com	r24
+    1f1e:	90 95       	com	r25
+    1f20:	9b 01       	movw	r18, r22
+    1f22:	ac 01       	movw	r20, r24
+    1f24:	bd 01       	movw	r22, r26
+    1f26:	cf 01       	movw	r24, r30
+    1f28:	08 95       	ret
+
+00001f2a <_exit>:
+    1f2a:	f8 94       	cli
+
+00001f2c <__stop_program>:
+    1f2c:	ff cf       	rjmp	.-2      	; 0x1f2c <__stop_program>
