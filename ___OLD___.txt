@@ -1,0 +1,18 @@
+THIS COMMIT IS OLD!
+Currently, the version I last-developed (on my desktop) is v135
+The version, here, is v98.
+This version, v98, is the latest-version uploaded to the interwebs.
+
+There've been some big-ol' changes inbetween. A list-of-which I haven't compiled...
+
+The big one is that the configuration/file-layout has changed, somewhat dramatically...
+  Allowing for easier configuration-switching
+  Allowing for LVDS displays to run on the ATtiny85
+  (Also addition of the 6-bit--2bits/color--parallel-LCD interface?)
+
+Also, the option to use the display as a binary-clock.
+
+
+For Now:
+You'll have to contact me if you're interested in the newer features...
+Eric Waz Hung at gmail dot com 
