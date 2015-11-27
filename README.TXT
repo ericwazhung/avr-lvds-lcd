@@ -20,6 +20,8 @@ smoother-looking images (using the TFTs' inherent memory to hold the image
 until the next refresh).
 
 
+AS OF 11-27-15: This has been exported from google-code.
+The OFFICIAL source for avr-lvds-lcd is now https://github.com/ericwazhung/avr-lvds-lcd/
 
 As-of 7-8-14: This and many other such files have not been updated for
 quite some time. Today I'm uploading v90 of the code. You'll see notes in
